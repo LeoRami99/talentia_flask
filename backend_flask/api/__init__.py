@@ -1,9 +1,12 @@
 from flask import Flask
-
+# cors
+from flask_cors import CORS
 # instancia de los blueprints de la api
 from api.usuarios.api_usuario import api_usuario
 def createApi():
     app = Flask(__name__)
+    # cors
+    CORS(app)
     # registro de los blueprints
     app.register_blueprint(api_usuario)
     # hacer el manejo de errores 

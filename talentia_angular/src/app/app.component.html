@@ -1,0 +1,90 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="mdk-drawer-layout js-mdk-drawer-layout"
+     data-push
+     data-responsive-width="992px">
+    <div class="mdk-drawer-layout__content page-content" >
+    <app-nabvar></app-nabvar>
+    <div class="container vh-100">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+
+  <!-- // END drawer-layout__content -->
+
+  <!-- Drawer -->
+
+  <!-- <app-sidebar></app-sidebar> -->
+  <div class="mdk-drawer js-mdk-drawer" id="default-drawer" id="default-drawer" [attr.data-opened]="sidebarOpened ? '' : null">
+    <div class="mdk-drawer__content" data-opened="">
+      <div class="sidebar sidebar-dark-pickled-bluewood sidebar-left" data-perfect-scrollbar data-openeded>
+
+        <!-- Sidebar Content -->
+
+        <!-- <div class="d-flex align-items-center navbar-height">
+          <form action="index.html" class="search-form search-form--black mx-16pt pr-0 pl-16pt">
+            <input type="text" class="form-control pl-0" placeholder="Search">
+            <button class="btn" type="submit"><i class="material-icons">search</i></button>
+          </form>
+        </div> -->
+
+        <a href="/" class="sidebar-brand ">
+          <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/student/128/white.svg" alt="Talentia"> -->
+          <span class="avatar avatar-xl sidebar-brand-icon h-auto">
+            <span class="avatar-title rounded bg-primary"><img
+                src="assets/images/illustration/student/128/white.svg" class="img-fluid" alt="logo" /></span>
+          </span>
+          <span>Talentia</span>
+        </a>
+
+        <div class="">
+          <div class="sidebar-heading">Home</div>
+          <ul class="sidebar-menu">
+              <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                     href="/login">
+                     <i class="fa-solid fa-right-to-bracket mr-2 sidebar-menu-icon--left"></i>
+                      <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                      <span class="sidebar-menu-text">Login</span>
+                  </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button"
+                   href="/signup">
+                   <i class="fa-solid fa-user-plus mr-2 sidebar-menu-icon--left"></i>
+                    <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                    <span class="sidebar-menu-text">Sign Up</span>
+                </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- // END Sidebar Content -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- // END Drawer -->
+
+</div>
+
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+

@@ -1,0 +1,46 @@
+<div class="page-section container">
+  <div class="col-lg-10 p-0 mx-auto">
+    <div class="row">
+      <div class="col-md-6 mb-24pt mb-md-0">
+        <form (ngSubmit)="signup()" #signupForm="ngForm">
+          <div class="form-group">
+            <label class="form-label" for="name">Your first name:</label>
+            <input id="name" type="text" class="form-control" placeholder="Your first and last name ..." name="firstName">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">Your first last name:</label>
+            <input id="lastname" type="text" class="form-control" placeholder="Your first and last name ..." name="firstLastName">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Your email:</label>
+            <input id="email" type="email" class="form-control" placeholder="Your email address ..." name="email">
+          </div>
+          <div class="form-group mb-24pt">
+            <label class="form-label" for="password">Password:</label>
+            <input id="password" type="password" class="form-control" placeholder="Your password ..." name="password">
+          </div>
+          <button class="btn btn-primary" type="submit">Create account</button>
+        </form>
+      </div>
+      <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <h1>Talentia</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-separator justify-content-center m-0">
+  <div class="page-separator__text">or sign-in with</div>
+</div>
+<div class="page-section text-center">
+  <div class="container d-flex justify-content-center" style="gap:10px">
+    <a href="signup-payment.html" class="btn btn-secondary btn-block-xs">
+      <i class="fa-brands fa-facebook mr-2"></i>
+      Facebook
+    </a>
+    <a href="signup-payment.html" class="btn btn-secondary btn-block-xs">
+      <i class="fa-brands fa-twitter mr-2"></i>
+      Twitter
+    </a>
+    <!-- <a href="signup-payment.html" class="btn btn-secondary btn-block-xs">Google+</a> -->
+  </div>
+</div>
