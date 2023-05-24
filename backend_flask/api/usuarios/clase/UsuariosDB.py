@@ -17,6 +17,21 @@ class Usuarios:
         except Exception as e:
             print(e)
             return False
+    """ Metodo para verficiar que el usuario no este registrado en la base de datos """
+    def verify_user(self):
+        try:
+            conection = conectionDatabase()
+            cursor = conection.cursor()
+            sql = "SELECT * FROM usuarios WHERE correo = '{0}'".format(self.correo)
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            if result:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            return False
     
 
         

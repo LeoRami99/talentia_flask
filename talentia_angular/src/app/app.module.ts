@@ -12,6 +12,15 @@ import { SignupComponent } from './pages/signup/signup.component';
 // Formularios
 import { FormsModule } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,15 +29,21 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     BotonSidebarComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    provideAnimations(), // required animations providers
+    provideToastr(), // T
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
