@@ -11,4 +11,9 @@ export class ApiService {
     const uri = 'http://localhost:5000/user/signup';
     return this.http.post(uri, userData);
   }
+  // login del usuario
+  login(userData:any){
+    const uri = 'http://localhost:5000/user/login';
+    return this.http.post(uri, userData);
+  }
 }

@@ -10,7 +10,7 @@ import { BotonSidebarComponent } from './components/boton-sidebar/boton-sidebar.
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 // Formularios
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -36,6 +36,7 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added

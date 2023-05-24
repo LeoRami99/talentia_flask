@@ -10,8 +10,9 @@ class Usuarios:
         try:
             conection = conectionDatabase()
             cursor = conection.cursor()
-            sql = "INSERT INTO usuarios(nombre, apellido, correo, password) VALUES ('{0}', '{1}', '{2}', '{3}')".format(self.nombre, self.apellidos, self.correo, password)
-            cursor.execute(sql)
+            sql = "INSERT INTO usuarios(nombre, apellido, correo, password) VALUES (%s, %s, %s, %s)"
+            values=(self.nombre, self.apellidos, self.correo, password)
+            cursor.execute(sql, values)
             conection.commit()
             return True
         except Exception as e:
@@ -22,8 +23,9 @@ class Usuarios:
         try:
             conection = conectionDatabase()
             cursor = conection.cursor()
-            sql = "SELECT * FROM usuarios WHERE correo = '{0}'".format(self.correo)
-            cursor.execute(sql)
+            sql = "SELECT * FROM usuarios WHERE correo = %s"
+            values=(self.correo,)
+            cursor.execute(sql, values)
             result = cursor.fetchone()
             if result:
                 return True
@@ -32,6 +34,47 @@ class Usuarios:
         except Exception as e:
             print(e)
             return False
+    
+    """Metodo para obtener la información del usuario"""
+    def get_user(self):
+        try:
+            conection = conectionDatabase()
+            cursor = conection.cursor()
+            sql = "SELECT id, nombre, apellido, correo, password FROM usuarios WHERE correo = %s"
+            values=(self.correo,)
+            cursor.execute(sql, values)
+            result = cursor.fetchone()
+            if result:
+                resultado={
+                    'id': result[0],
+                    'nombre': result[1],
+                    'apellido': result[2],
+                    'correo': result[3],
+                    'password': result[4]
+                }
+                return resultado
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            return False
+    """Metodo para obtener la información del usuario basado en el correo y contraseña"""
+    # def get_user_by_email_password(self, password):
+    #     try:
+    #         conection = conectionDatabase()
+    #         cursor = conection.cursor()
+    #         sql = "SELECT * FROM usuarios WHERE correo = '{0}' AND password = '{1}'".format(self.correo, password)
+    #         cursor.execute(sql)
+    #         result = cursor.fetchone()
+    #         if result:
+    #             return result
+    #         else:
+    #             return False
+    #     except Exception as e:
+    #         print(e)
+    #         return False
+
+    
     
 
         

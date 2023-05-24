@@ -1,6 +1,6 @@
 <div class="pt-32pt pt-sm-64pt pb-32pt">
   <div class="container">
-    <form action="index.html" class="col-md-5 p-0 mx-auto">
+    <form class="col-md-5 p-0 mx-auto" (ngSubmit)="login()" #signupForm="ngForm">
       <div class="form-group">
         <label class="form-label" for="email">Email:</label>
         <input id="email" type="text" class="form-control" placeholder="Your email address ...">
@@ -11,7 +11,7 @@
         <p class="text-right"><a href="reset-password.html" class="small">Forgot your password?</a></p>
       </div>
       <div class="text-center">
-        <button class="btn btn-primary">Login</button>
+        <button class="btn btn-primary" type="submit">Login</button>
       </div>
     </form>
   </div>

@@ -69,6 +69,50 @@ def signup():
         # Respuesta del servidor con el mensaje de que el metodo no es permitido
         response_data = {"message": "Método no permitido", "status": 405}
         return make_response(jsonify(response_data), 405)
+    
+
+"""Esta ruta es para el login de los usuarios normales a talentia"""
+@api_usuario.route('/login', methods=['POST', 'GET'])
+def login():
+    #Validación de los del metodo que sea de tipo POST
+    if request.method == "POST":
+        # captura de excepciones
+        try:
+            #Recolección de los campos de correo y password
+            email = request.json.get('correo', '')
+            password = request.json.get('password', '')
+            # Verificación de que los campos no esten vacios
+            if not email or not password:
+                # Arroja un mensaje de error en caso de que los campos esten vacios
+                response_data = {'message': 'Campos vacíos', 'status': 400}
+                return make_response(jsonify(response_data), 400)
+            else:
+                # Instancia de la clase Usuarios con el parametro de correo
+                usuario = Usuarios('', '', email)
+                # Se trae las credenciales del usuario con el metodo get_user de la clase Usuarios
+                credenciales = usuario.get_user()
+                # Se verifica de que este registrado el correo y la contraseña sea correcta
+                if credenciales and check_password_hash(credenciales['password'], password):
+                    # Se crea el token de acceso con el metodo create_access_token de la libreria flask_jwt_extended
+                    access_token = create_access_token(identity=email)
+                    # se genera la respuesta del servidor con el mensaje de que el inicio de sesión fue exitoso y el token de acceso
+                    response_data = {'message': 'Inicio de sesión exitoso', 'status': 200, 'access_token': access_token}
+                    return make_response(jsonify(response_data), 200)
+                else:
+                    # Se genera la respuesta del servidor con el mensaje de que las credenciales son incorrectas
+                    response_data = {'message': 'Credenciales incorrectas', 'status': 401}
+                    return make_response(jsonify(response_data), 401)
+        except Exception as e:
+            # Se genera la respuesta del servidor con el mensaje de que ocurrio un error en la API
+            response_data = {'message': 'Ocurrio un error en la API', 'status': 400}
+            return make_response(jsonify(response_data), 400)
+    else:
+        # Se genera la respuesta del servidor con el mensaje de que el metodo no es permitido
+        response_data = {'message': 'Método no permitido', 'status': 405}
+        return make_response(jsonify(response_data), 405)
+    
+
+
 
 
 

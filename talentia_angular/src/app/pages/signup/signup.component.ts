@@ -1,22 +1,31 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, catchError } from 'rxjs';
+import { FormGroup, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
+
+  formulario = new FormGroup({
+    nombre: new FormControl(''),
+    apellidos: new FormControl(''),
+    correo: new FormControl(''),
+    password: new FormControl(''),
+  });
+
   constructor(private apiService: ApiService, private toast: ToastrService) {}
 
   signup(): void{
-    // extraer de los name del html
     const userData = {
-      nombre: (<HTMLInputElement>document.getElementById('name')).value,
-      apellidos: (<HTMLInputElement>document.getElementById('lastname')).value,
-      correo: (<HTMLInputElement>document.getElementById('email')).value,
-      password: (<HTMLInputElement>document.getElementById('password')).value,
+      nombre: this.formulario.value.nombre,
+      apellidos: this.formulario.value.apellidos,
+      correo: this.formulario.value.correo,
+      password: this.formulario.value.password,
     };
     if (
       userData.nombre === '' ||
