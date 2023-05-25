@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { CreateCourseComponent } from './pages/create-course/create-course.component';
 
 
 
@@ -30,6 +31,7 @@ import { CommonModule } from '@angular/common';
     BotonSidebarComponent,
     LoginComponent,
     SignupComponent,
+    CreateCourseComponent,
   ],
   imports: [
     BrowserModule,
