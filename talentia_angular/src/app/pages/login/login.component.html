@@ -1,13 +1,31 @@
 <div class="pt-32pt pt-sm-64pt pb-32pt">
   <div class="container">
-    <form class="col-md-5 p-0 mx-auto" (ngSubmit)="login()" #signupForm="ngForm">
+    <form class="col-md-5 p-0 mx-auto" (ngSubmit)="login()" [formGroup]="formulario">
       <div class="form-group">
         <label class="form-label" for="email">Email:</label>
-        <input id="email" type="text" class="form-control" placeholder="Your email address ...">
+        <input id="email" type="text" class="form-control" placeholder="Your email address ..." formControlName="correo">
+        <!-- Validación de email -->
+        <div *ngIf="formulario.controls['correo'].invalid && formulario.controls['correo'].touched" class="alert alert-danger">
+          <div *ngIf="formulario.controls['correo'].errors">
+            Digite un correo válido
+          </div>
+          <div *ngIf="formulario.controls['correo'].hasError('pattern')">
+            El correo debe de ser alfabético
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="password">Password:</label>
-        <input id="password" type="password" class="form-control" placeholder="Your first and last name ...">
+        <input id="password" type="password" class="form-control" placeholder="Your first and last name ..." formControlName="password">
+        <!-- Validación de password -->
+        <div *ngIf="formulario.controls['password'].invalid && formulario.controls['password'].touched" class="alert alert-danger">
+          <div *ngIf="formulario.controls['password'].errors">
+            Digite un password válido y con al menos 8 caracteres
+          </div>
+          <div *ngIf="formulario.controls['password'].hasError('pattern')">
+            El password debe de ser alfabético
+          </div>
+        </div>
         <p class="text-right"><a href="reset-password.html" class="small">Forgot your password?</a></p>
       </div>
       <div class="text-center">
