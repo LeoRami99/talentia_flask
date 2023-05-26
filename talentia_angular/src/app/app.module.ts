@@ -18,6 +18,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
+import { EditCoursesComponent } from './pages/edit-courses/edit-courses.component';
 
 
 
@@ -32,6 +33,8 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
     LoginComponent,
     SignupComponent,
     CreateCourseComponent,
+
+    EditCoursesComponent,
   ],
   imports: [
     BrowserModule,
