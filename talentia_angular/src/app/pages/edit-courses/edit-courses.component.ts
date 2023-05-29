@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-courses.component.css']
 })
 export class EditCoursesComponent {
+  iterador=Array(5);
 
 }

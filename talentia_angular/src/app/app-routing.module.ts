@@ -4,13 +4,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
 import { EditCoursesComponent } from './pages/edit-courses/edit-courses.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'create-course', component: CreateCourseComponent },
-  {path: 'edit-courses', component: EditCoursesComponent}
-  // { path: '', redirectTo: '/login', pathMatch: 'full'}
+  {path: 'edit-courses', component: EditCoursesComponent},
+  { path: '', component: HomeComponent}
 ];
 
 @NgModule({

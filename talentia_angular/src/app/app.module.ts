@@ -19,6 +19,8 @@ import { provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
 import { EditCoursesComponent } from './pages/edit-courses/edit-courses.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CardEditComponent } from './components/card-edit/card-edit.component';
 
 
 
@@ -33,8 +35,9 @@ import { EditCoursesComponent } from './pages/edit-courses/edit-courses.componen
     LoginComponent,
     SignupComponent,
     CreateCourseComponent,
-
     EditCoursesComponent,
+    HomeComponent,
+    CardEditComponent,
   ],
   imports: [
     BrowserModule,
