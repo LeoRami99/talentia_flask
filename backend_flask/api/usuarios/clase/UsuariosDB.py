@@ -8,12 +8,12 @@ class Usuarios:
     """ Metodo para registrar usuarios en la base de datos """
     def register_user(self, password):
         try:
-            conection = conectionDatabase()
-            cursor = conection.cursor()
-            sql = "INSERT INTO usuarios(nombre, apellido, correo, password) VALUES (%s, %s, %s, %s)"
-            values=(self.nombre, self.apellidos, self.correo, password)
-            cursor.execute(sql, values)
-            conection.commit()
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql = "INSERT INTO usuarios(nombre, apellido, correo, password) VALUES (%s, %s, %s, %s)"
+                values=(self.nombre, self.apellidos, self.correo, password)
+                cursor.execute(sql, values)
+                conection.commit()
             return True
         except Exception as e:
             print(e)
@@ -21,16 +21,16 @@ class Usuarios:
     """ Metodo para verficiar que el usuario no este registrado en la base de datos """
     def verify_user(self):
         try:
-            conection = conectionDatabase()
-            cursor = conection.cursor()
-            sql = "SELECT * FROM usuarios WHERE correo = %s"
-            values=(self.correo,)
-            cursor.execute(sql, values)
-            result = cursor.fetchone()
-            if result:
-                return True
-            else:
-                return False
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql = "SELECT * FROM usuarios WHERE correo = %s"
+                values=(self.correo,)
+                cursor.execute(sql, values)
+                result = cursor.fetchone()
+                if result:
+                    return True
+                else:
+                    return False
         except Exception as e:
             print(e)
             return False
@@ -38,23 +38,23 @@ class Usuarios:
     """Metodo para obtener la información del usuario"""
     def get_user(self):
         try:
-            conection = conectionDatabase()
-            cursor = conection.cursor()
-            sql = "SELECT id, nombre, apellido, correo, password FROM usuarios WHERE correo = %s"
-            values=(self.correo,)
-            cursor.execute(sql, values)
-            result = cursor.fetchone()
-            if result:
-                resultado={
-                    'id': result[0],
-                    'nombre': result[1],
-                    'apellido': result[2],
-                    'correo': result[3],
-                    'password': result[4]
-                }
-                return resultado
-            else:
-                return False
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql = "SELECT id, nombre, apellido, correo, password FROM usuarios WHERE correo = %s"
+                values=(self.correo,)
+                cursor.execute(sql, values)
+                result = cursor.fetchone()
+                if result:
+                    resultado={
+                        'id': result[0],
+                        'nombre': result[1],
+                        'apellido': result[2],
+                        'correo': result[3],
+                        'password': result[4]
+                    }
+                    return resultado
+                else:
+                    return False
         except Exception as e:
             print(e)
             return False

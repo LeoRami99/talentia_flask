@@ -15,10 +15,10 @@
                 </div>
 
 
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="Course description"></textarea>
                 <!-- Esta sección se comenta debido a que se debe usar una libreria de quill aparte pero no deberia de afectar -->
                 <!-- <div class="form-group mb-32pt">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" rows="3" placeholder="Course description"></textarea>
                   <div style="height: 150px;"
                        class="mb-0"
                        data-toggle="quill"
@@ -30,7 +30,7 @@
                   <small class="form-text text-muted">Shortly describe this course.</small>
               </div> -->
 
-                <div class="page-separator">
+                <div class="page-separator p-2">
                     <div class="page-separator__text">Sections</div>
                 </div>
 
@@ -54,18 +54,16 @@
 
                 </div>
                 <!-- ! Form para agregar seccion  -->
-
                 <div class="collapse" id="addSectionDiv">
 
                     <div class="card card-body">
 
-                        <h2>Nueva seccion</h2>
+                        <h2>Nueva Sección</h2>
 
                         <div class="mb-3">
+                            <label class="form-label">Titulo de Sección</label>
 
-                            <label class="form-label">Titulo de seccion</label>
-
-                            <input [formControl]="titleSectionInput" type="text" class="form-control " [ngClass]="{'is-invalid': titleSectionInput.dirty && (titleSectionInput.hasError('minlength') || titleSectionInput.hasError('required') ) }" placeholder="titulo de seccion">
+                            <input [formControl]="titleSectionInput" type="text" class="form-control " [ngClass]="{'is-invalid': titleSectionInput.dirty && (titleSectionInput.hasError('minlength') || titleSectionInput.hasError('required') ) }" placeholder="Titulo de la Sección">
 
                             <div class="invalid-feedback" *ngIf="titleSectionInput.dirty && titleSectionInput.hasError('minlength')">{{hintErrorLength}}</div>
 
@@ -79,11 +77,11 @@
                             <span role="button" (click)="onEditSubSection(i)"><i class="fa-solid fa-pen mr-2 text-warning"></i></span>
                             <span role="button" (click)="onDeleteSubSection(i)"><i class="fa-solid fa-trash ml-2 text-danger"></i></span>
                         </div>
-                        <h3>Agrega subsecciones</h3>
+                        <h3>Agrega Subsección</h3>
                         <form [formGroup]="newSubsectionForm">
                             <div class="mb-3">
 
-                                <label class="form-label">Titulo de subseccion</label>
+                                <label class="form-label">Titulo de Subsección</label>
 
                                 <input formControlName="title" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.title.dirty && (newSubsectionForm.controls.title.hasError('minlength') || newSubsectionForm.controls.title.hasError('required') ) }"
                                     value="" placeholder="titulo de seccion">
@@ -116,7 +114,7 @@
 
                     <a *ngIf="isAddSection" id="cancelAddNewSectionButton" data-toggle="collapse" href="#addSectionDiv" role="button" aria-expanded="false" aria-controls="addSectionDiv" class="btn btn-outline-danger mb-24pt mb-sm-0" (click)="isAddSection = !isAddSection">Cancelar</a>
 
-                    <button *ngIf="isAddSection" class="btn btn-success" (click)="onAddSection()" [disabled]="titleSectionInput.invalid || newSection.items.length == 0">Guardar Seccion</button>
+                    <button *ngIf="isAddSection" class="btn btn-success" (click)="onAddSection()" [disabled]="titleSectionInput.invalid || newSection.items.length == 0">Guardar Sección</button>
                 </div>
 
             </div>
@@ -139,15 +137,33 @@
                 </div>
 
                 <div class="card">
+                  <div class="card-body">
+                    <label class="form-label">URL</label>
+                    <input type="text" class="form-control" [(ngModel)]="url_video" placeholder="Enter Video URL">
+                    <small class="form-text text-muted">Enter a valid video URL.</small>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" allowfullscreen=""></iframe>
+                        <iframe class="embed-responsive-item" [src]=url_video allowfullscreen=""></iframe>
                     </div>
-                    <div class="card-body">
-                        <label class="form-label">URL</label>
-                        <input type="text" class="form-control" value="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0" placeholder="Enter Video URL">
-                        <small class="form-text text-muted">Enter a valid video URL.</small>
                     </div>
                 </div>
+                <div class="page-separator">
+                  <div class="page-separator__text">Imagenes</div>
+              </div>
+              <div class="card">
+
+                  <div class="card-body">
+                      <!-- imagen de portada -->
+                      <div class="mb-3 custom-file">
+                        <label for="imagenPortada" class="custom-file-label">Imagen de portada</label>
+                        <input class="custom-file-input" type="file" name="imagenPortada" id="imagenPortada">
+                      </div>
+                      <div class="mb-3 custom-file">
+                        <label for="imagenCard" class="custom-file-label">Imagen de Card</label>
+                        <input class="custom-file-input" type="file" name="imagenCard" id="imagenCard">
+                      </div>
+                      <!-- imagen card -->
+                  </div>
+              </div>
 
                 <div class="page-separator">
                     <div class="page-separator__text">Options</div>
@@ -170,7 +186,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group form-inline">
                                         <span class="input-group-prepend"><span class="input-group-text">$</span></span>
-                                        <input type="text" class="form-control" value="24">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>

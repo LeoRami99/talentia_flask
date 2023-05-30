@@ -1,61 +1,22 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ISection } from "src/app/models/section.model";
+
 @Component({
 	selector: "app-create-course",
 	templateUrl: "./create-course.component.html",
 	styleUrls: ["./create-course.component.css"],
 })
 export class CreateCourseComponent {
+  constructor() {}
+
+  @Input() url_video: string="";
+
+
 	isAddSection = false;
   hintError = "Este campo es requerido";
   hintErrorLength = "Este campo debe tener al menos 3 caracteres";
-	sections: ISection[] = [
-		{
-			headerTitle: "Course Overview",
-			items: [],
-		},
-		{
-			headerTitle: "Getting Started with Angular",
-			items: [
-				{
-					title: "Introduction to TypeScript",
-					url: "#",
-					videoTiming: "50m 13s",
-				},
-				{
-					title: "Comparing Angular to AngularJS",
-					url: "#",
-					videoTiming: "12m 10s",
-				},
-				{
-					title: "Quiz: Getting Started With Angular",
-					url: "#",
-					videoTiming: "",
-				},
-			],
-		},
-		{
-			headerTitle: "Creating and Communicating Between Angular Components",
-			items: [
-				{
-					title: "Angular Components",
-					url: "#",
-					videoTiming: "04:23",
-				},
-			],
-		},
-		{
-			headerTitle: "Exploring the Angular Template Syntax",
-			items: [
-				{
-					title: "Template Syntax",
-					url: "#",
-					videoTiming: "04:23",
-				},
-			],
-		},
-	];
+	sections: ISection[] = [];
 
 	newSection: ISection = {
 		headerTitle: "",
@@ -71,11 +32,6 @@ export class CreateCourseComponent {
 	});
 
 	currentSubsectionIndex = -1;
-
-	constructor() {
-
-  }
-
 	onAddSection() {
 		console.log(this.newSection);
 		if (this.titleSectionInput.valid) {
