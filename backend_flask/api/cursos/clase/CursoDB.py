@@ -45,9 +45,8 @@ class CursoDB:
                 sql="INSERT INTO subsecciones(seccion_id, titulo, orden) VALUES (%s, %s, %s)"
                 values=(seccion_id, titulo, orden)
                 cursor.execute(sql, values)
-                subseccion_id = cursor.lastrowid
                 conection.commit()
-                return subseccion_id
+                return True
         except Exception as e:
             print(e)
             return False

@@ -24,11 +24,13 @@ def create_subseccion():
 #Subida de imagenes en el curso
 @api_curso.route('/upload_imagenes_curso', methods=['POST'])
 def  upload_imagenes_curso():
+    print("hola")
     if request.method=="POST":
+        print(request.data)
         try:
-            # se optiene por formularo las imagenes de portada y card
             imagen_portada = request.files['imagen_portada']
             imagen_card = request.files['imagen_card']
+            # se optiene por formularo las imagenes de portada y card
             if imagen_portada.filename != " " or imagen_card.filename != " ":
                 # se cambia el nombre de la imagen para evitar que se repitan en el servidor
                 imagen_portada.filename = "portada_"+imagen_portada.filename

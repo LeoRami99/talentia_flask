@@ -10,13 +10,14 @@
 
                 <label class="form-label">Course title</label>
                 <div class="form-group mb-24pt">
-                    <input type="text" class="form-control form-control-lg" placeholder="Course title">
+                    <input type="text" class="form-control form-control-lg" placeholder="Course title" [(ngModel)]=title>
                     <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small>
                 </div>
 
 
                 <label class="form-label">Description</label>
-                <textarea class="form-control" rows="3" placeholder="Course description"></textarea>
+                <textarea class="form-control" rows="3" placeholder="Course description" [(ngModel)]=description></textarea>
+
                 <!-- Esta sección se comenta debido a que se debe usar una libreria de quill aparte pero no deberia de afectar -->
                 <!-- <div class="form-group mb-32pt">
                   <div style="height: 150px;"
@@ -122,14 +123,15 @@
 
                 <div class="card">
                     <div class="card-header text-center">
-                        <a href="#" class="btn btn-accent">Save changes</a>
+                        <button href="#" class="btn btn-accent" (click)="createCourse()">Save changes</button>
                     </div>
-                    <div class="list-group list-group-flush">
+                    <!-- <div class="list-group list-group-flush">
                         <div class="list-group-item d-flex">
                             <a class="flex" href="#"><strong>Save Draft</strong></a>
                             <i class="material-icons text-muted">check</i>
                         </div>
                     </div>
+                  -->
                 </div>
 
                 <div class="page-separator">
@@ -153,13 +155,13 @@
 
                   <div class="card-body">
                       <!-- imagen de portada -->
-                      <div class="mb-3 custom-file">
-                        <label for="imagenPortada" class="custom-file-label">Imagen de portada</label>
-                        <input class="custom-file-input" type="file" name="imagenPortada" id="imagenPortada">
+                      <div class="mb-3 ">
+                        <label for="imagenPortada" class="">Imagen de portada</label>
+                        <input class="form-control" type="file" name="imagenPortada" id="imagenPortada" (change)="onPortadaSelected($event)">
                       </div>
                       <div class="mb-3 custom-file">
-                        <label for="imagenCard" class="custom-file-label">Imagen de Card</label>
-                        <input class="custom-file-input" type="file" name="imagenCard" id="imagenCard">
+                        <label for="imagenCard" class="">Imagen de Card</label>
+                        <input class="form-control" type="file" name="imagenCard" id="imagenCard" (change)="onCardSelected($event)">
                       </div>
                       <!-- imagen card -->
                   </div>
