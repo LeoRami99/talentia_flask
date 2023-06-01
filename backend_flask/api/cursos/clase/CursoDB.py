@@ -38,12 +38,12 @@ class CursoDB:
             print(e)
             return False
     @staticmethod
-    def create_subsection(seccion_id, titulo, orden):
+    def create_subsection(seccion_id, titulo, contenido):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="INSERT INTO subsecciones(seccion_id, titulo, orden) VALUES (%s, %s, %s)"
-                values=(seccion_id, titulo, orden)
+                sql="INSERT INTO subsecciones(id_seccion, titulo, contenido) VALUES (%s, %s, %s)"
+                values=(seccion_id, titulo, contenido)
                 cursor.execute(sql, values)
                 conection.commit()
                 return True
