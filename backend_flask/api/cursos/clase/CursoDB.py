@@ -50,6 +50,58 @@ class CursoDB:
         except Exception as e:
             print(e)
             return False
-
+    @staticmethod
+    def get_all_cursos():
+    #traer todos los cursos y adempas con su respectivas secciones y subsecciones
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="SELECT * FROM cursos"
+                cursor.execute(sql)
+                cursos = cursor.fetchall()
+                cursos_list = []
+                for curso in cursos:
+                    curso_dict = {
+                        "id": curso[0],
+                        "imagen_portada": curso[1],
+                        "imagen_card": curso[2],
+                        "titulo": curso[3],
+                        "descripcion": curso[4],
+                        "trailer": curso[5],
+                        "precio": curso[6],
+                        "id_instructor": curso[7],
+                        "secciones": []
+                    }
+                    sql="SELECT * FROM secciones WHERE curso_id=%s"
+                    values=(curso[0],)
+                    cursor.execute(sql, values)
+                    secciones = cursor.fetchall()
+                    for seccion in secciones:
+                        seccion_dict = {
+                            "id": seccion[0],
+                            "curso_id": seccion[1],
+                            "titulo": seccion[2],
+                            "orden": seccion[3],
+                            "subsecciones": []
+                        }
+                        sql="SELECT * FROM subsecciones WHERE id_seccion=%s"
+                        values=(seccion[0],)
+                        cursor.execute(sql, values)
+                        subsecciones = cursor.fetchall()
+                        for subseccion in subsecciones:
+                            subseccion_dict = {
+                                "id": subseccion[0],
+                                "id_seccion": subseccion[1],
+                                "titulo": subseccion[2],
+                                "contenido": subseccion[3]
+                            }
+                            seccion_dict['subsecciones'].append(subseccion_dict)
+                        curso_dict['secciones'].append(seccion_dict)
+                    cursos_list.append(curso_dict)
+                return cursos_list
+        except Exception as e:
+            print(e)
+            return False
+            
     
 

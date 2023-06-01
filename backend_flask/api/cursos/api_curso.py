@@ -87,4 +87,18 @@ def  upload_imagenes_curso():
     else:
         response_data = {"message": "Metodo no permitido", "status": 405}
         return jsonify (response_data, 405)
+@api_curso.route('/get-all-cursos', methods=['GET'])
+def get_all_cursos():
+    if request.method == 'GET':
+        try:
+            cursos = CursoDB.get_all_cursos()
+            response_data = {"message": "Cursos obtenidos", "status": 200, "cursos": cursos}
+            return make_response(jsonify(response_data), 200)
+        except Exception as e:
+            print(e)
+            response_data = {"message": "Error en el servidor", "status": 500}
+            return make_response(jsonify(response_data), 500) 
+    else:
+        response_data = {"message": "Metodo no permitido", "status": 405}
+        return jsonify (response_data, 405)
 
