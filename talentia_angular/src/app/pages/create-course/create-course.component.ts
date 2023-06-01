@@ -3,18 +3,29 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISection } from 'src/app/models/section.model';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { UploadImgsService } from '../../services/upload_images/upload-imgs.service';
+import { CreateCursoService } from '../../services/create_curso/create-curso.service';
+import { EMPTY, catchError, tap } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.css'],
 })
 export class CreateCourseComponent {
+
   // Este selected files es para los dos imagenes portada y card
   // selectedFiles: Map<string, File> = new Map<string, File>();
-  constructor(private http: HttpClient, private toast: ToastrService) {}
+  constructor(
+    private http: HttpClient,
+    private toast: ToastrService,
+    private upload_imgs: UploadImgsService,
+    private crear_curso: CreateCursoService,
+    private router: Router
+  ) {}
   // declarar una variable de tipo file
   portada!: File;
-  card!: File ;
+  card!: File;
 
   // Datos para crear el curso
   @Input() title: string = '';
@@ -103,52 +114,12 @@ export class CreateCourseComponent {
     // console.log(file_card);
   }
 
-
   createCourse() {
-    const formData = new FormData();
-    formData.append('imagen_portada', this.portada);
-    formData.append('imagen_card', this.card);
-
-    // console.log(formData);
-    this.http.post('http://localhost:5000/curso/upload_imagenes_curso', formData).subscribe(
-      (res: any) => {
-        console.log(res[0]);
-
-        // if(res === 200){
-        //   console.log(res.imagen_portada)
-        //   this.imagen_portada=res.imagen_portada;
-        //   this.imagen_card=res.imagen_card;
-        //   this.toast.success(res.message, 'Talentia', {
-        //     timeOut: 2000,
-        //     progressBar: true,
-        //     progressAnimation: 'increasing',
-        //   });
-
-        // }else{
-        //   this.toast.error(res[0].message, 'Talentia', {
-        //     timeOut: 2000,
-        //     progressBar: true,
-        //     progressAnimation: 'increasing',
-        //   });
-        // }
-      },
-      (err:any) => {
-        if(err[0].status == 500){
-          this.toast.error(err.message, 'Talentia', {
-            timeOut: 2000,
-            progressBar: true,
-            progressAnimation: 'increasing',
-          });
-        }
-      }
-    );
-
-    //crear un json con los datos del curso y enviarlo al backend
     let json = {
       title: this.title,
       description: this.description,
-      imagen_portada: this.imagen_portada,
-      imagen_card: this.imagen_card,
+      imagen_portada: '',
+      imagen_card: '',
       price: this.price,
       categoria: this.categoria,
       tags: this.tags,
@@ -156,6 +127,63 @@ export class CreateCourseComponent {
       // las secciones y las subsecciones
       sections: this.sections,
     };
-    console.log(json);
+    // las categorias y los tags se omiten por el momento
+    if (
+      this.title !== '' &&
+      this.description !== '' &&
+      // this.price !== 0 &&
+
+      this.url_video !== '' &&
+      this.portada !== undefined &&
+      this.card !== undefined
+    ) {
+      const formData = new FormData();
+      formData.append('imagen_portada', this.portada);
+      formData.append('imagen_card', this.card);
+      this.upload_imgs
+        .uploadImgs(formData)
+        .pipe(
+          catchError((err) => {
+            this.toast.error('Error al subir las imagenes', 'Error');
+            return EMPTY;
+          }),
+          tap((res: any) => {
+            json.imagen_portada = res.imagen_portada;
+            json.imagen_card = res.imagen_card;
+            this.toast.success(
+              'Imagenes subidas correctamente',
+              'Imagenes subidas'
+            );
+
+            console.log(json);
+            // enviar el json al backend
+            this.crear_curso
+              .createCurso(json)
+              .pipe(
+                catchError((err) => {
+                  this.toast.error('Error al crear el curso', 'Error');
+                  return EMPTY;
+                }),
+                tap((res: any) => {
+                  this.toast.success(
+                    'Curso creado correctamente',
+                    'Curso creado'
+                  );
+                  console.log(res);
+                  // redireccionar al home
+                  this.router.navigate(['/home']);
+                })
+
+              )
+              .subscribe();
+          })
+        )
+        .subscribe();
+      //  me dice empty porque no estoy retornando nada
+
+      // console.log(json);
+    }else{
+      this.toast.error('Error al crear el curso. Complete todos los campos.', 'Error');
+    }
   }
 }
