@@ -2,21 +2,24 @@ from flask import Flask, Blueprint, make_response, request
 from flask.json import jsonify
 from api.cursos.clase.CursoDB import CursoDB
 
+# sockets 
+from flask_socketio import emit
+
+
 
 api_curso = Blueprint('api_curso', __name__, url_prefix='/curso')
-
+# socketio = SocketIO(api_curso)
 """ 
     Endpoint para la creación de cursos y la visualización de estos mismos
 """
 
 @api_curso.route('/create', methods=['POST', 'GET'])
 def create():
-    
     # jsonn request
     if request.method == 'POST':
         try:
             datos=request.get_json()
-            if len(datos) > 0 or datos is "{}":
+            if True:
                 titulo_curso = datos.get('title')
                 descripcion_curso = datos.get('description')
                 imagen_portada = datos.get('imagen_portada')
@@ -25,14 +28,14 @@ def create():
                 precio = datos.get('price')
                 id_instructor = 1
                 estado = 1
-                
+                print(titulo_curso, descripcion_curso, imagen_portada, imagen_card, trailer, precio, id_instructor)
                 if titulo_curso is not None and descripcion_curso is not None and imagen_portada is not None and imagen_card is not None and trailer is not None and precio is not None and id_instructor is not None:
                     curso = CursoDB(imagen_portada, imagen_card, titulo_curso, descripcion_curso, trailer, precio, id_instructor)
                     curso_id = curso.create_curso()
-                    if datos.get('sections')!=None:
+                    if datos.get('sections') is not None:
                         for seccion in datos.get('sections'):
                             seccion_id = CursoDB.create_section(curso_id, seccion['headerTitle'], 1)
-                            if seccion.get('items')!=None:
+                            if seccion.get('items') is not None:
                                 for subsection in seccion.get('items'):
                                     CursoDB.create_subsection(seccion_id, subsection['title'], subsection['url'])
                     response_data = {"message": "Curso creado", "status": 200}
@@ -51,12 +54,10 @@ def create():
 
 @api_curso.route('/upload_imagenes_curso', methods=['POST'])
 def  upload_imagenes_curso():
-    print("hola")
     if request.method=="POST":
         print(request.data)
         try:
-            
-            # se optiene por formularo las imagenes de portada y card
+            #se optiene por formularo las imagenes de portada y card
             imagen_portada = request.files['imagen_portada']
             imagen_card = request.files['imagen_card']
             # se hace una condición en el caso de que las imagenes no esten vacias 
@@ -101,4 +102,16 @@ def get_all_cursos():
     else:
         response_data = {"message": "Metodo no permitido", "status": 405}
         return jsonify (response_data, 405)
+    
+@api_curso.route('/get-cursos', methods=['GET'])
+def get_cursos():
+    try:
+        cursos = CursoDB.get_cursos()
+        response_data = {"message": "Cursos obtenidos", "status": 200, "cursos": cursos}
+        emit('cursosObtenidos', response_data, namespace='/curso')  # Enviar la respuesta a través del WebSocket
+        return jsonify(response_data), 200
+    except Exception as e:
+        print(e)
+        response_data = {"message": "Error en el servidor", "status": 500}
+        return jsonify(response_data), 500
 

@@ -21,6 +21,8 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
 import { EditCoursesComponent } from './pages/edit-courses/edit-courses.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CardEditComponent } from './components/card-edit/card-edit.component';
+import { CoursesComponent } from './pages/courses/courses.component';
+import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 
 
 
@@ -38,6 +40,8 @@ import { CardEditComponent } from './components/card-edit/card-edit.component';
     EditCoursesComponent,
     HomeComponent,
     CardEditComponent,
+    CoursesComponent,
+    CardPreviewComponent,
   ],
   imports: [
     BrowserModule,

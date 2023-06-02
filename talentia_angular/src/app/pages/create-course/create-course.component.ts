@@ -154,7 +154,6 @@ export class CreateCourseComponent {
               'Imagenes subidas correctamente',
               'Imagenes subidas'
             );
-
             console.log(json);
             // enviar el json al backend
             this.crear_curso

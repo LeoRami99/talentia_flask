@@ -1,5 +1,7 @@
 from flask import Flask
-from api import createApi
+from api import createApi, socketio
 app = createApi()
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    socketio.run(app, debug=True, host='0.0.0.0')
+    # app.run(debug=True, host='0.0.0.0')
