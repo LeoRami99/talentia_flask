@@ -11,6 +11,7 @@ export class CoursesComponent implements OnInit{
   lista_curso: any[] = []
   ngOnInit(){
     this.cursos.getCursos().subscribe((data:any)=>{
+      console.log(data)
       this.lista_curso = data.cursos
     })
   }

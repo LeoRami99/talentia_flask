@@ -31,11 +31,14 @@
       <div class="row card-group-row" >
 
           <div class="col-sm-6 col-md-4 col-xl-3"  *ngFor="let curso of lista_curso">
-            <app-card-preview
-            [title]="curso.titulo"
-            [imagen_card]="curso.imagen_card"
-            >
-          </app-card-preview>
+            <div *ngIf="curso.estado === 1">
+              <app-card-preview
+                [title]="curso.titulo"
+                [imagen_card]="curso.imagen_card"
+              [dificultad]="curso.dificultad"
+              >
+              </app-card-preview>
+            </div>
           </div>
       </div>
 

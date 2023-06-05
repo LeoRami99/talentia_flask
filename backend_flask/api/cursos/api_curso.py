@@ -27,9 +27,10 @@ def create():
                 precio = datos.get('price')
                 id_instructor = 1
                 estado = 1
+                dificultad = datos.get("dificultad")
                 print(titulo_curso, descripcion_curso, imagen_portada, imagen_card, trailer, precio, id_instructor)
                 if titulo_curso is not None and descripcion_curso is not None and imagen_portada is not None and imagen_card is not None and trailer is not None and precio is not None and id_instructor is not None:
-                    curso = CursoDB(imagen_portada, imagen_card, titulo_curso, descripcion_curso, trailer, precio, id_instructor)
+                    curso = CursoDB(imagen_portada, imagen_card, titulo_curso, descripcion_curso, trailer, precio, id_instructor, estado, dificultad)
                     curso_id = curso.create_curso()
                     if datos.get('sections') is not None:
                         for seccion in datos.get('sections'):

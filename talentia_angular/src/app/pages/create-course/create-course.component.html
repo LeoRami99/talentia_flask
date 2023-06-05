@@ -174,6 +174,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
+                            <label class="form-label">Difficulty</label>
+                            <select name="difficulty" class="form-control custom-select" [(ngModel)]="dificultad">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                            <small class="form-text text-muted">Select a category.</small>
+                        </div>
+                        <div class="form-group">
                             <label class="form-label">Category</label>
                             <select name="category" class="form-control custom-select">
                                 <option value="vuejs">VueJs</option>

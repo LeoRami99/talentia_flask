@@ -1,7 +1,7 @@
 from conectionDB import conectionDatabase
 
 class CursoDB:
-    def __init__(self, imagen_portada, imagen_card, titulo, descripcion, trailer, precio, id_instructor):
+    def __init__(self, imagen_portada, imagen_card, titulo, descripcion, trailer, precio, id_instructor, estado, dificultad):
         self.imagen_portada = imagen_portada
         self.imagen_card = imagen_card
         self.titulo = titulo
@@ -9,12 +9,14 @@ class CursoDB:
         self.trailer = trailer
         self.precio = precio
         self.id_instructor = id_instructor
+        self.estado = estado
+        self.dificultad = dificultad
     def create_curso(self):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="INSERT INTO cursos(imagen_portada, imagen_card, titulo, descripcion, trailer, precio, id_instructor) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                values=(self.imagen_portada, self.imagen_card, self.titulo, self.descripcion, self.trailer, self.precio, self.id_instructor)
+                sql="INSERT INTO cursos(imagen_portada, imagen_card, titulo, descripcion, trailer, precio, id_instructor, estado, dificultad) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                values=(self.imagen_portada, self.imagen_card, self.titulo, self.descripcion, self.trailer, self.precio, self.id_instructor, self.estado, self.dificultad)
                 cursor.execute(sql, values)
                 curso_id = cursor.lastrowid
                 # retornar el id del curso creado
@@ -123,7 +125,9 @@ class CursoDB:
                         "descripcion": curso[4],
                         "trailer": curso[5],
                         "precio": curso[6],
-                        "id_instructor": curso[7]
+                        "id_instructor": curso[9],
+                        "dificultad": curso[8],
+                        "estado": curso[7]
                     }
                     cursos_list.append(curso_dict)
                 return cursos_list

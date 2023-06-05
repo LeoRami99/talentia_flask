@@ -37,6 +37,7 @@ export class CreateCourseComponent {
   @Input() tags: string = '';
   // @Input() url_video_intro: string="";
   @Input() url_video: string = '';
+  @Input() dificultad: string = '';
 
   isAddSection = false;
   hintError = 'Este campo es requerido';
@@ -123,6 +124,7 @@ export class CreateCourseComponent {
       price: this.price,
       categoria: this.categoria,
       tags: this.tags,
+      dificultad: this.dificultad,
       url_video_intro: this.url_video,
       // las secciones y las subsecciones
       sections: this.sections,
@@ -150,10 +152,6 @@ export class CreateCourseComponent {
           tap((res: any) => {
             json.imagen_portada = res.imagen_portada;
             json.imagen_card = res.imagen_card;
-            this.toast.success(
-              'Imagenes subidas correctamente',
-              'Imagenes subidas'
-            );
             console.log(json);
             // enviar el json al backend
             this.crear_curso
@@ -170,7 +168,7 @@ export class CreateCourseComponent {
                   );
                   console.log(res);
                   // redireccionar al home
-                  this.router.navigate(['/home']);
+                  this.router.navigate(['/courses']);
                 })
 
               )
@@ -178,7 +176,6 @@ export class CreateCourseComponent {
           })
         )
         .subscribe();
-      //  me dice empty porque no estoy retornando nada
 
       // console.log(json);
     }else{
