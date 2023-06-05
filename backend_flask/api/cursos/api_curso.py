@@ -2,13 +2,12 @@ from flask import Flask, Blueprint, make_response, request
 from flask.json import jsonify
 from api.cursos.clase.CursoDB import CursoDB
 
-# sockets 
-from flask_socketio import emit
+
 
 
 
 api_curso = Blueprint('api_curso', __name__, url_prefix='/curso')
-# socketio = SocketIO(api_curso)
+
 """ 
     Endpoint para la creación de cursos y la visualización de estos mismos
 """
@@ -108,10 +107,10 @@ def get_cursos():
     try:
         cursos = CursoDB.get_cursos()
         response_data = {"message": "Cursos obtenidos", "status": 200, "cursos": cursos}
-        emit('cursosObtenidos', response_data, namespace='/curso')  # Enviar la respuesta a través del WebSocket
         return jsonify(response_data), 200
     except Exception as e:
         print(e)
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
+    
 

@@ -10,7 +10,6 @@ from flask_cors import CORS
 
 # uso de sockets 
 from flask_socketio import SocketIO
-socketio = SocketIO()
 # Api de usuario
 from api.usuarios.api_usuario import api_usuario
 # Api de cursos
@@ -20,7 +19,6 @@ load_dotenv()
 def createApi():
     app = Flask(__name__, static_folder='../imagenes', static_url_path='/curso-imagenes')
     dashboard.bind(app)
-    socketio.init_app(app)
     CORS(app)
     app.config['SECRET_KEY'] = os.environ.get('MY_SECRET_KEY')
     # configuraciones de la llave secreta para JWT
