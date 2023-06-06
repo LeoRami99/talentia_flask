@@ -6,6 +6,7 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
 import { EditCoursesComponent } from './pages/edit-courses/edit-courses.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CoursesComponent } from './pages/courses/courses.component';
+import { ViewCourseComponent } from './pages/view-course/view-course.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'create-course', component: CreateCourseComponent },
   { path: 'edit-courses', component: EditCoursesComponent},
   { path: 'courses', component: CoursesComponent},
+  { path: 'view-course/:id', component: ViewCourseComponent},
   { path: '', component: HomeComponent}
 ];
 

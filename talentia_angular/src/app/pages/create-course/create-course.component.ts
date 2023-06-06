@@ -168,9 +168,8 @@ export class CreateCourseComponent {
                   );
                   console.log(res);
                   // redireccionar al home
-                  this.router.navigate(['/courses']);
+                  this.router.navigate(['/home']);
                 })
-
               )
               .subscribe();
           })

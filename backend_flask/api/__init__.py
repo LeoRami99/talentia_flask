@@ -10,14 +10,15 @@ from flask_cors import CORS
 
 # uso de sockets 
 from flask_socketio import SocketIO
-# Api de usuario
-from api.usuarios.api_usuario import api_usuario
-# Api de cursos
-from api.cursos.api_curso import api_curso
+
 
 load_dotenv()
+app = Flask(__name__, static_folder='../imagenes', static_url_path='/curso-imagenes')
+socketio = SocketIO(app, cors_allowed_origins="*")
 def createApi():
-    app = Flask(__name__, static_folder='../imagenes', static_url_path='/curso-imagenes')
+
+    # sockets 
+
     dashboard.bind(app)
     CORS(app)
     app.config['SECRET_KEY'] = os.environ.get('MY_SECRET_KEY')
@@ -26,11 +27,15 @@ def createApi():
     #configuración de JWT
     jwt=JWTManager(app)
     # cors
-
+    # Api de usuario
+    from api.usuarios.api_usuario import api_usuario
+    # Api de cursos
+    from api.cursos.api_curso import api_curso
     # registro de los blueprints
     app.register_blueprint(api_usuario)
     app.register_blueprint(api_curso)
     # hacer el manejo de errores 
+    
     @app.errorhandler(404)
     def page_not_found(e):
         return {
@@ -39,5 +44,5 @@ def createApi():
 
 
 
-    return app
+    return app, socketio
     

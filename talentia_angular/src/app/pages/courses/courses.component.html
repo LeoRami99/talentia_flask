@@ -29,18 +29,19 @@
       </div>
 
       <div class="row card-group-row" >
-
-          <div class="col-sm-6 col-md-4 col-xl-3"  *ngFor="let curso of lista_curso">
-            <div *ngIf="curso.estado === 1">
-              <app-card-preview
-                [title]="curso.titulo"
-                [imagen_card]="curso.imagen_card"
+        <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of lista_curso">
+          <!-- <div *ngIf="curso.estado === 1"> -->
+            <app-card-preview
+              [id]="curso.id"
+              [title]="curso.titulo"
+              [imagen_card]="curso.imagen_card"
               [dificultad]="curso.dificultad"
               >
-              </app-card-preview>
-            </div>
+            </app-card-preview>
           </div>
       </div>
+
+
 
       <div class="mb-32pt">
 

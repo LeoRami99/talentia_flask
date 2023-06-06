@@ -11,6 +11,7 @@ class CursoDB:
         self.id_instructor = id_instructor
         self.estado = estado
         self.dificultad = dificultad
+    """ Función para crear un curso basados en los paramatros que se le pasan a la clase """
     def create_curso(self):
         try:
             with conectionDatabase() as conection:
@@ -25,6 +26,7 @@ class CursoDB:
         except Exception as e:
             # print(e)
             return False
+    """ Creación de las secciones de cada curso basado en el id del curso arrojado por la función create_curso() """
     @staticmethod
     def create_section(curso_id, titulo, orden):
         try:
@@ -52,61 +54,6 @@ class CursoDB:
         except Exception as e:
             # print(e)
             return False
-    """Este metodo es para la obtención de curso con sus respectivas secciones y subsecciones"""
-    # @staticmethod
-    # def get_all_cursos():
-    # #traer todos los cursos y adempas con su respectivas secciones y subsecciones
-    #     try:
-    #         with conectionDatabase() as conection:
-    #             cursor = conection.cursor()
-    #             sql="SELECT * FROM cursos"
-    #             cursor.execute(sql)
-    #             cursos = cursor.fetchall()
-    #             cursos_list = []
-    #             for curso in cursos:
-    #                 curso_dict = {
-    #                     "id": curso[0],
-    #                     "imagen_portada": curso[1],
-    #                     "imagen_card": curso[2],
-    #                     "titulo": curso[3],
-    #                     "descripcion": curso[4],
-    #                     "trailer": curso[5],
-    #                     "precio": curso[6],
-    #                     "id_instructor": curso[7],
-    #                     "secciones": []
-    #                 }
-    #                 sql="SELECT * FROM secciones WHERE curso_id=%s"
-    #                 values=(curso[0],)
-    #                 cursor.execute(sql, values)
-    #                 secciones = cursor.fetchall()
-    #                 for seccion in secciones:
-    #                     seccion_dict = {
-    #                         "id": seccion[0],
-    #                         "curso_id": seccion[1],
-    #                         "titulo": seccion[2],
-    #                         "orden": seccion[3],
-    #                         "subsecciones": []
-    #                     }
-    #                     sql="SELECT * FROM subsecciones WHERE id_seccion=%s"
-    #                     values=(seccion[0],)
-    #                     cursor.execute(sql, values)
-    #                     subsecciones = cursor.fetchall()
-    #                     for subseccion in subsecciones:
-    #                         subseccion_dict = {
-    #                             "id": subseccion[0],
-    #                             "id_seccion": subseccion[1],
-    #                             "titulo": subseccion[2],
-    #                             "contenido": subseccion[3]
-    #                         }
-    #                         seccion_dict['subsecciones'].append(subseccion_dict)
-    #                     curso_dict['secciones'].append(seccion_dict)
-    #                 cursos_list.append(curso_dict)
-    #             return cursos_list
-    #     except Exception as e:
-    #         print(e)
-    #         return False
-
-    # se obtiene todos los cursos pero sin la definicion de instructor 
     @staticmethod
     def get_cursos():
         try:
@@ -133,6 +80,59 @@ class CursoDB:
                 return cursos_list
         except Exception as e:
             # print(e)
+            return False
+    @staticmethod
+    def get_curso(id_curso):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="SELECT * FROM cursos WHERE id=%s"
+                values=(id_curso,)
+                cursor.execute(sql, values)
+                curso = cursor.fetchone()
+                curso_dict = {
+                    "id": curso[0],
+                    "imagen_portada": curso[1],
+                    "imagen_card": curso[2],
+                    "titulo": curso[3],
+                    "descripcion": curso[4],
+                    "trailer": curso[5],
+                    "precio": curso[6],
+                    "id_instructor": curso[9],
+                    "dificultad": curso[8],
+                    "estado": curso[7]
+                }
+                # Obtención de secciones por id de curso
+                sql="SELECT * FROM secciones WHERE curso_id=%s"
+                values=(id_curso,)
+                cursor.execute(sql, values)
+                secciones = cursor.fetchall()
+                secciones_list = []
+                for seccion in secciones:
+                    seccion_dict = {
+                        "id": seccion[0],
+                        "curso_id": seccion[1],
+                        "titulo": seccion[2],
+                        "orden": seccion[3],
+                        "subsecciones": []
+                    }
+                    # Obtención de subsecciones por id de seccion
+                    sql="SELECT * FROM subsecciones WHERE id_seccion=%s"
+                    values=(seccion[0],)
+                    cursor.execute(sql, values)
+                    subsecciones = cursor.fetchall()
+                    for subseccion in subsecciones:
+                        subseccion_dict = {
+                            "id_seccion": subseccion[0],
+                            "titulo": subseccion[1],
+                            "contenido": subseccion[3]
+                        }
+                        seccion_dict['subsecciones'].append(subseccion_dict)
+                    secciones_list.append(seccion_dict)
+                curso_dict['secciones'] = secciones_list
+                return curso_dict
+        except Exception as e:
+            print(e)
             return False
             
     

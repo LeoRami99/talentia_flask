@@ -7,8 +7,10 @@ import { Input } from '@angular/core';
   styleUrls: ['./card-preview.component.css']
 })
 export class CardPreviewComponent {
+
   constructor() { }
   // titulo de la tarjeta
+  @Input() id: number = 0;
   @Input() title: string = '';
   // descripcion de la tarjeta
   url_images : string = 'http://localhost:5000/curso-imagenes/curso/';
