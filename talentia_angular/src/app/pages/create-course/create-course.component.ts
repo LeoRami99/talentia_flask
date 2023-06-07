@@ -38,6 +38,7 @@ export class CreateCourseComponent {
   // @Input() url_video_intro: string="";
   @Input() url_video: string = '';
   @Input() dificultad: string = '';
+  @Input() SelectTags: string[] = [];
 
   isAddSection = false;
   hintError = 'Este campo es requerido';
@@ -46,9 +47,14 @@ export class CreateCourseComponent {
 
   newSection: ISection = {
     headerTitle: '',
+    descriptionSection: '',
     items: [],
   };
   titleSectionInput = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+  ]);
+  descriptionSectionTextArea = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
   ]);
@@ -65,6 +71,7 @@ export class CreateCourseComponent {
       this.sections.push(this.newSection);
       this.newSection = {
         headerTitle: '',
+        descriptionSection: '',
         items: [],
       };
       this.titleSectionInput.reset();
@@ -116,6 +123,7 @@ export class CreateCourseComponent {
   }
 
   createCourse() {
+    console.log(this.SelectTags)
     let json = {
       title: this.title,
       description: this.description,
@@ -128,6 +136,7 @@ export class CreateCourseComponent {
       url_video_intro: this.url_video,
       // las secciones y las subsecciones
       sections: this.sections,
+
     };
     // las categorias y los tags se omiten por el momento
     if (

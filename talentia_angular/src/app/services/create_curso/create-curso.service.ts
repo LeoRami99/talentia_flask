@@ -7,7 +7,7 @@ export class CreateCursoService {
 
   constructor(private http:HttpClient ) { }
   createCurso(cursoData:any){
-    const uri = 'http://localhost:5000/curso/create';
+    const uri = 'https://api.pruebawp.cymetria.com/curso/create';
     return this.http.post(uri, cursoData);
   }
 }

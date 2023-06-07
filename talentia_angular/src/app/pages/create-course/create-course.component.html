@@ -71,6 +71,17 @@
                             <div class="invalid-feedback" *ngIf="titleSectionInput.dirty && titleSectionInput.hasError('required')">{{hintError}}</div>
 
                         </div>
+                        <div class="mb-3">
+                          <label class="form-label">Descripción</label>
+
+                          <textarea [formControl]="descriptionSectionTextArea" type="text" class="form-control " [ngClass]="{'is-invalid': descriptionSectionTextArea.dirty && (descriptionSectionTextArea.hasError('minlength') || descriptionSectionTextArea.hasError('required') ) }" placeholder="Descripción">
+                          </textarea>
+
+                          <div class="invalid-feedback" *ngIf="descriptionSectionTextArea.dirty && descriptionSectionTextArea.hasError('minlength')">{{hintErrorLength}}</div>
+
+                          <div class="invalid-feedback" *ngIf="descriptionSectionTextArea.dirty && descriptionSectionTextArea.hasError('required')">{{hintError}}</div>
+
+                      </div>
                         <div *ngFor="let item of newSection.items let i=index" class="accordion__menu-link">
                             <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                             <a class="flex" [href]="item.url">{{item.title}}</a>
@@ -205,9 +216,9 @@
                         </div>
                         <div class="form-group mb-0">
                             <label class="form-label" for="select03">Tags</label>
-                            <select id="select03" data-toggle="select" multiple class="form-control">
-                                <option selected="">JavaScript</option>
-                                <option selected="">Angular</option>
+                            <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
+                                <option>JavaScript</option>
+                                <option>Angular</option>
                                 <option>Bootstrap</option>
                                 <option>CSS</option>
                                 <option>HTML</option>

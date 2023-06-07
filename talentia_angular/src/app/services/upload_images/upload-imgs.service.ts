@@ -8,6 +8,6 @@ export class UploadImgsService {
 
   constructor(private http: HttpClient) { }
   uploadImgs(imgs: any) {
-    return this.http.post('http://localhost:5000/curso/upload_imagenes_curso', imgs);
+    return this.http.post('https://api.pruebawp.cymetria.com/curso/upload_imagenes_curso', imgs);
   }
 }

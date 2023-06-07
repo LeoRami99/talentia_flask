@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
   constructor(private sidebarService: SidebarService) {}
 
+
   ngOnInit(): void {
     this.sidebarService.sidebarState$.subscribe((isOpened) => {
       this.sidebarOpened = isOpened;

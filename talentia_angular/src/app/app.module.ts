@@ -30,7 +30,10 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 
 // Configuracion de socket.io
-const config : SocketIoConfig = {url: 'http://localhost:5000', options: {}};
+const config : SocketIoConfig = {url: 'http://localhost:5000/', options: {
+  path: '/socket.io',
+}};
+
 
 @NgModule({
   declarations: [
