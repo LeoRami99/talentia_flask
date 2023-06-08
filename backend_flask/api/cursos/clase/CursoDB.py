@@ -54,6 +54,20 @@ class CursoDB:
         except Exception as e:
             # print(e)
             return False
+    # creación de la categoria del curso
+    @staticmethod
+    def create_categoria(curso_id, categoria_id):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="INSERT INTO categorias_curso(id_curso, id_categoria) VALUES (%s, %s)"
+                values=(curso_id, categoria_id)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            # print(e)
+            return False
     @staticmethod
     def get_cursos():
         try:
@@ -134,6 +148,24 @@ class CursoDB:
         except Exception as e:
             print(e)
             return False
-            
+    @staticmethod
+    def get_categorias():
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="SELECT * FROM categorias"
+                cursor.execute(sql)
+                categorias = cursor.fetchall()
+                categorias_list = []
+                for categoria in categorias:
+                    categoria_dict = {
+                        "id": categoria[0],
+                        "nombre": categoria[1]
+                    }
+                    categorias_list.append(categoria_dict)
+                return categorias_list
+        except Exception as e:
+            # print(e)
+            return False
     
 

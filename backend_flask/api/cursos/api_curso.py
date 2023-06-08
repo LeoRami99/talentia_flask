@@ -31,10 +31,13 @@ def create():
                 id_instructor = 1
                 estado = 1
                 dificultad = datos.get("dificultad")
+                categoria = datos.get("categoria")
                 print(titulo_curso, descripcion_curso, imagen_portada, imagen_card, trailer, precio, id_instructor)
-                if titulo_curso is not None and descripcion_curso is not None and imagen_portada is not None and imagen_card is not None and trailer is not None and precio is not None and id_instructor is not None:
+                if titulo_curso is not None and descripcion_curso is not None and imagen_portada is not None and imagen_card is not None and trailer is not None and precio is not None and id_instructor is not None and estado is not None and dificultad is not None and categoria is not None:
                     curso = CursoDB(imagen_portada, imagen_card, titulo_curso, descripcion_curso, trailer, precio, id_instructor, estado, dificultad)
                     curso_id = curso.create_curso()
+                    # se crea la categoria para el curso
+                    CursoDB.create_categoria(curso_id, categoria)
                     if datos.get('sections') is not None:
                         for seccion in datos.get('sections'):
                             seccion_id = CursoDB.create_section(curso_id, seccion['headerTitle'], 1)
@@ -152,5 +155,20 @@ def get_curso(id_curso):
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
     
+@api_curso.route('/get-categorias', methods=['GET'])
+def get_categorias():
+    try:
+        if request.method == 'GET':
+            categorias = CursoDB.get_categorias()
+            response_data = {"message": "Categorias obtenidas", "status": 200, "categorias": categorias}
+            return make_response(jsonify(response_data), 200)
+        else:
+            response_data = {"message": "Metodo no permitido", "status": 405}
+            return jsonify (response_data, 405)
+    except Exception as e:
+        print(e)
+        response_data = {"message": "Error en el servidor", "status": 500}
+        return jsonify(response_data), 500
+
     
 
