@@ -78,6 +78,14 @@ class CursoDB:
                 cursos = cursor.fetchall()
                 cursos_list = []
                 for curso in cursos:
+                    sql="SELECT * FROM categorias_curso WHERE id_curso=%s"
+                    values=(curso[0],)
+                    cursor.execute(sql, values)
+                    categoria = cursor.fetchone()
+                    sql="SELECT nombre FROM categorias WHERE id=%s"
+                    values=(categoria[1],)
+                    cursor.execute(sql, values)
+                    categoria = cursor.fetchone()
                     curso_dict = {
                         "id": curso[0],
                         "imagen_portada": curso[1],
@@ -88,13 +96,28 @@ class CursoDB:
                         "precio": curso[6],
                         "id_instructor": curso[9],
                         "dificultad": curso[8],
-                        "estado": curso[7]
+                        "estado": curso[7],
+                        "categoria": categoria[0]
                     }
                     cursos_list.append(curso_dict)
+                # categoria del curso
                 return cursos_list
         except Exception as e:
             # print(e)
             return False
+    def categoria(id_categoria):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="SELECT nombre FROM categorias WHERE id=%s"
+                values=(id_categoria,)
+                cursor.execute(sql, values)
+                categoria = cursor.fetchone()
+                return categoria
+        except Exception as e:
+            # print(e)
+            return False
+
     @staticmethod
     def get_curso(id_curso):
         try:
