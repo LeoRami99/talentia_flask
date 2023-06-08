@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISection } from 'src/app/models/section.model';
 import { HttpClient } from '@angular/common/http';
@@ -7,25 +7,30 @@ import { UploadImgsService } from '../../services/upload_images/upload-imgs.serv
 import { CreateCursoService } from '../../services/create_curso/create-curso.service';
 import { EMPTY, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { CategoriasService } from 'src/app/services/categorias/categorias.service';
+
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.css'],
 })
-export class CreateCourseComponent {
-
+export class CreateCourseComponent implements OnInit {
   // Este selected files es para los dos imagenes portada y card
   // selectedFiles: Map<string, File> = new Map<string, File>();
   constructor(
-    private http: HttpClient,
     private toast: ToastrService,
     private upload_imgs: UploadImgsService,
     private crear_curso: CreateCursoService,
-    private router: Router
+    private router: Router,
+    private categoriasService: CategoriasService
   ) {}
+
   // declarar una variable de tipo file
   portada!: File;
   card!: File;
+
+  // array para guardar las categorias
+  categorias: any[] = [];
 
   // Datos para crear el curso
   @Input() title: string = '';
@@ -39,6 +44,14 @@ export class CreateCourseComponent {
   @Input() url_video: string = '';
   @Input() dificultad: string = '';
   @Input() SelectTags: string[] = [];
+
+  ngOnInit() {
+    this.categoriasService.getCategorias().subscribe((data: any) => {
+      console.log(data.categorias);
+      // console.log(data.categorias);
+      this.categorias = data.categorias;
+    });
+  }
 
   isAddSection = false;
   hintError = 'Este campo es requerido';
@@ -123,7 +136,7 @@ export class CreateCourseComponent {
   }
 
   createCourse() {
-    console.log(this.SelectTags)
+    console.log(this.SelectTags);
     let json = {
       title: this.title,
       description: this.description,
@@ -136,7 +149,6 @@ export class CreateCourseComponent {
       url_video_intro: this.url_video,
       // las secciones y las subsecciones
       sections: this.sections,
-
     };
     // las categorias y los tags se omiten por el momento
     if (
@@ -186,8 +198,11 @@ export class CreateCourseComponent {
         .subscribe();
 
       // console.log(json);
-    }else{
-      this.toast.error('Error al crear el curso. Complete todos los campos.', 'Error');
+    } else {
+      this.toast.error(
+        'Error al crear el curso. Complete todos los campos.',
+        'Error'
+      );
     }
   }
 }

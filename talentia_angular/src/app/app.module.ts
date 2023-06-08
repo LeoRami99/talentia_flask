@@ -11,7 +11,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -25,14 +24,17 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
 
+// paginación
+import { NgxPaginationModule } from 'ngx-pagination';
+
 // Configuración de socket.io
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 
-// Configuracion de socket.io
-const config : SocketIoConfig = {url: 'http://localhost:5000/', options: {
-  path: '/socket.io',
-}};
+// // Configuracion de socket.io
+// const config : SocketIoConfig = {url: 'http://localhost:5000/', options: {
+//   path: '/socket.io',
+// }};
 
 
 @NgModule({
@@ -61,7 +63,8 @@ const config : SocketIoConfig = {url: 'http://localhost:5000/', options: {
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added,
-    SocketIoModule.forRoot(config),
+    // SocketIoModule.forRoot(config),
+    NgxPaginationModule,
   ],
   providers: [
     provideAnimations(), // required animations providers

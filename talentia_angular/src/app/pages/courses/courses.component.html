@@ -1,5 +1,14 @@
 <div class="page-section">
   <div class="container">
+    <input type="text" [(ngModel)]="filterText" placeholder="Filter" class="form-control">
+    <select [(ngModel)]="selectedCategory">
+      <option value="">All Categories</option>
+      <option value="javascript">JavaScript</option>
+      <option value="Angular curso">Angular</option>
+      <option value="bootstrap">Bootstrap</option>
+      <option value="React">React</option>
+      <option value="html">HTML</option>
+    </select>
 
       <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt"
            style="white-space: nowrap;">
@@ -28,8 +37,9 @@
           <div class="page-separator__text">Popular Courses</div>
       </div>
 
+
       <div class="row card-group-row" >
-        <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of lista_curso">
+        <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of filteredCursos">
           <!-- <div *ngIf="curso.estado === 1"> -->
             <app-card-preview
               [id]="curso.id"
@@ -39,48 +49,49 @@
               >
             </app-card-preview>
           </div>
-      </div>
+
+        </div>
+        <div class="mb-32pt">
+
+            <!-- <ul class="pagination justify-content-start pagination-xsm m-0">
+                <li class="page-item disabled">
+                    <a class="page-link"
+                       href="#"
+                       aria-label="Previous">
+                        <span aria-hidden="true"
+                              class="material-icons">chevron_left</span>
+                        <span>Prev</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="#"
+                       aria-label="Page 1">
+                        <span>1</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="#"
+                       aria-label="Page 2">
+                        <span>2</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="#"
+                       aria-label="Next">
+                        <span>Next</span>
+                        <span aria-hidden="true"
+                              class="material-icons">chevron_right</span>
+                    </a>
+                </li>
+            </ul> -->
+            <pagination-controls id="DEFAULT_PAGINATION_ID"></pagination-controls>
+        </div>
 
 
 
-      <div class="mb-32pt">
-
-          <ul class="pagination justify-content-start pagination-xsm m-0">
-              <li class="page-item disabled">
-                  <a class="page-link"
-                     href="#"
-                     aria-label="Previous">
-                      <span aria-hidden="true"
-                            class="material-icons">chevron_left</span>
-                      <span>Prev</span>
-                  </a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link"
-                     href="#"
-                     aria-label="Page 1">
-                      <span>1</span>
-                  </a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link"
-                     href="#"
-                     aria-label="Page 2">
-                      <span>2</span>
-                  </a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link"
-                     href="#"
-                     aria-label="Next">
-                      <span>Next</span>
-                      <span aria-hidden="true"
-                            class="material-icons">chevron_right</span>
-                  </a>
-              </li>
-          </ul>
-
-      </div>
 
       <div class="page-separator">
           <div class="page-separator__text">Development Courses</div>
