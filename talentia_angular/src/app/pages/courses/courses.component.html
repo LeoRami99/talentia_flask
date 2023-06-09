@@ -10,60 +10,38 @@
       <option value="html">HTML</option>
     </select>
 
-      <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt"
-           style="white-space: nowrap;">
-          <small class="flex text-muted text-headings text-uppercase mr-3 mb-2 mb-sm-0">Displaying 4 out of 10 courses</small>
-          <div class="w-auto ml-sm-auto table d-flex align-items-center mb-2 mb-sm-0">
-              <small class="text-muted text-headings text-uppercase mr-3 d-none d-sm-block">Sort by</small>
-
-              <a href="#"
-                 class="sort desc small text-headings text-uppercase">Newest</a>
-
-              <a href="#"
-                 class="sort small text-headings text-uppercase ml-2">Popularity</a>
-
-          </div>
-
-          <a href="#"
-             data-target="#library-drawer"
-             data-toggle="sidebar"
-             class="btn btn-sm btn-white ml-sm-16pt">
-              <i class="material-icons icon--left">tune</i> Filters
-          </a>
-
+    <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt" style="white-space: nowrap;">
+      <small class="flex text-muted text-headings text-uppercase mr-3 mb-2 mb-sm-0">Displaying 4 out of 10 courses</small>
+      <div class="w-auto ml-sm-auto table d-flex align-items-center mb-2 mb-sm-0">
+        <small class="text-muted text-headings text-uppercase mr-3 d-none d-sm-block">Sort by</small>
+        <a href="#" class="sort desc small text-headings text-uppercase">Newest</a>
+        <a href="#" class="sort small text-headings text-uppercase ml-2">Popularity</a>
       </div>
-      <!-- este div contiene las categorias  -->
-      <div *ngFor="let categoria of categorias">
-        <div class="page-separator">
-          <div class="page-separator__text">{{ categoria.nombre }}</div>
-        </div>
-        <div class="row card-group-row">
-          <ng-container *ngFor="let curso of filteredCursosByCategoria(categoria.nombre)">
-            <div class="col-sm-6 col-md-4 col-xl-3">
-              <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card" [dificultad]="curso.dificultad"></app-card-preview>
-            </div>
-          </ng-container>
-        </div>
-      </div>
+      <a href="#" data-target="#library-drawer" data-toggle="sidebar" class="btn btn-sm btn-white ml-sm-16pt">
+        <i class="material-icons icon--left">tune</i> Filters
+      </a>
+    </div>
 
-      <!-- <div *ngFor="let categoria of categorias">
-        <div class="page-separator">
-          <div class="page-separator__text">{{ categoria.nombre }}</div>
-        </div>
-        <div class="row card-group-row">
-          <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of filteredCursosByCategoria(categoria.id)">
+    <div *ngFor="let categoria of categorias">
+      <div class="page-separator">
+        <div class="page-separator__text">{{ categoria.nombre }}</div>
+      </div>
+      <div class="row card-group-row">
+        <ng-container *ngIf="filteredCursosByCategoria(categoria.nombre).length > 0; else noCursos">
+          <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of filteredCursosByCategoria(categoria.nombre)">
             <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card" [dificultad]="curso.dificultad"></app-card-preview>
           </div>
+        </ng-container>
+      </div>
+      <ng-template #noCursos>
+        <div class="container">
+          <h2 class="text-center">No hay cursos para esta categoría</h2>
         </div>
-      </div> -->
+      </ng-template>
+    </div>
 
-
-
-
-        <div class="mb-32pt">
-
-
-            <pagination-controls id="DEFAULT_PAGINATION_ID"></pagination-controls>
-        </div>
+    <div class="mb-32pt">
+      <pagination-controls id="DEFAULT_PAGINATION_ID"></pagination-controls>
+    </div>
   </div>
 </div>

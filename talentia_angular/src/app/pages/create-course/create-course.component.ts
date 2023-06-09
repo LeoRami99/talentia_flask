@@ -189,7 +189,7 @@ export class CreateCourseComponent implements OnInit {
                   );
                   console.log(res);
                   // redireccionar al home
-                  this.router.navigate(['/home']);
+                  this.router.navigate(['/']);
                 })
               )
               .subscribe();

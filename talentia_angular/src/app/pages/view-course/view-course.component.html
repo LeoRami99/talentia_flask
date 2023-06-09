@@ -1,23 +1,22 @@
-<div class="mdk-box bg-primary js-mdk-box mb-0" data-effects="blend-background">
-  <div class="mdk-box__content">
-    <div class="hero py-64pt text-center text-sm-left">
-      <div class="p-5">
-        <h1 class="text-white">{{curso?.title}}</h1>
-        <p class="lead text-white-50 measure-hero-lead">{{curso?.description}}</p>
-        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-          <a href="" class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">Watch trailer <i
-              class="material-icons icon--right">play_circle_outline</i></a>
-          <a href="" class="btn btn-white">Start your free trial</a>
-        </div>
+<div class="mdk-box__content"
+  [style.background-image]="'url(http://localhost:5000/curso-imagenes/curso/' + (curso?.imagen_portada || '') + ')'"
+  style="background-position: center; background-size: cover;">
+  <div class="hero py-64pt text-center text-sm-left">
+    <div class="p-5">
+      <h1 class="text-white">{{curso?.title}}</h1>
+      <p class="lead text-white-50 measure-hero-lead">{{curso?.description}}</p>
+      <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
+        <a href="" class="btn btn-white">Take a course</a>
       </div>
     </div>
   </div>
 </div>
 
+
 <div class="navbar navbar-expand-sm  navbar-list p-0 m-0 align-items-center">
   <div class="container">
     <ul class="nav navbar-nav flex align-items-sm-center">
-      <li class="nav-item navbar-list__item">
+      <!-- <li class="nav-item navbar-list__item">
         <div class="media align-items-center">
           <span class="media-left mr-16pt">
             <img src="assets/images/people/50/guy-6.jpg" width="40" alt="avatar" class="rounded-circle">
@@ -27,7 +26,7 @@
             <p class="text-50 lh-1 mb-0">Instructor</p>
           </div>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item navbar-list__item">
         <i class="material-icons text-muted icon--left">schedule</i>
         2h 46m
@@ -52,7 +51,6 @@
 
 <div class="page-section border-bottom-2">
   <div class="container">
-
     <div class="page-separator">
       <div class="page-separator__text">Table of Contents</div>
     </div>
@@ -71,8 +69,8 @@
             <div [attr.id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordionExample">
               <div class="card-body">
                 <div class="accordion__menu-link" *ngFor="let lesson of sections.subsecciones">
-                  <span class="icon-holder icon-holder--small icon-holder--dark rounded-circle d-inline-flex icon--left">
-                    <i class="material-icons icon-16pt">play_circle_outline</i>
+                  <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
+                    <i class="material-icons icon-16pt">lock</i>
                   </span>
                   <a class="flex" (click)="false">{{lesson.titulo}}</a>
                   <span class="text-muted">1m 10s</span>
@@ -110,13 +108,12 @@
 
       </div>
       <div class="col-lg-5 justify-content-center">
-
         <div class="card">
           <div class="card-body py-16pt text-center">
-            <i class="material-icons icon-muted icon-64pt mb-4">lock_outline</i>
-            <h4 class="card-title">Watch all you want</h4>
-            <p class="card-subtitle text-70 mb-24pt">Watch thousands of movies &amp; TV shows.</p>
-            <a href="pricing.html" class="btn btn-accent">Start Your Free Trial</a>
+            <h4 class="card-title">Watch trailer</h4>
+            <div class="video-container">
+              <iframe width="300" height="200" [src]="getVideoUrl(curso?.trailer || '')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
 
@@ -125,7 +122,7 @@
   </div>
 </div>
 
-<div class="page-section  border-bottom-2">
+<!-- <div class="page-section  border-bottom-2">
 
   <div class="container">
     <div class="row ">
@@ -171,7 +168,7 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
 <div class="page-section  border-bottom-2">
   <div class="container">
@@ -408,7 +405,7 @@
       <div class="page-separator__text">Student Feedback</div>
     </div>
     <div class="row mb-32pt">
-      <div class="col-md-3 mb-32pt mb-md-0">
+      <!-- <div class="col-md-3 mb-32pt mb-md-0">
         <div class="display-1">4.7</div>
         <div class="rating rating-24">
           <span class="rating__item"><span class="material-icons">star</span></span>
@@ -418,7 +415,7 @@
           <span class="rating__item"><span class="material-icons">star_border</span></span>
         </div>
         <p class="text-muted mb-0">20 ratings</p>
-      </div>
+      </div> -->
       <div class="col-md-9">
 
         <div class="row align-items-center mb-8pt" data-toggle="tooltip" data-title="75% rated 5/5"

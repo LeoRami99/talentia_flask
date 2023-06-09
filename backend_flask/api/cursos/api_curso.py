@@ -2,8 +2,8 @@ from flask import Flask, Blueprint, make_response, request
 from flask.json import jsonify
 from api.cursos.clase.CursoDB import CursoDB
 from werkzeug.exceptions import HTTPException
-from flask_socketio import emit
-from api import socketio
+# from flask_socketio import emit
+# from api import socketio
 
 
 
@@ -45,8 +45,6 @@ def create():
                                 for subsection in seccion.get('items'):
                                     CursoDB.create_subsection(seccion_id, subsection['title'], subsection['url'])
                     # emitir el evento para que se actualice la lista de cursos en el front end
-                    socketio.emit('update_courses', {'data': 'update'})
-
                     response_data = {"message": "Curso creado", "status": 200}
                     return make_response(jsonify(response_data), 200)
                 else:
@@ -112,16 +110,7 @@ def  upload_imagenes_curso():
 #         response_data = {"message": "Metodo no permitido", "status": 405}
 #         return jsonify (response_data, 405)
     
-""" Socket para mostrar todos los cursos en tiempo real """
-@socketio.on('get_all_cursos')
-def socket_get_all_cursos():
-    try:
-        cursos = CursoDB.get_cursos()
-        # enviar los cursos a todos los clientes conectados
-        emit('cursos', cursos)
-    except Exception as e:
-        print(e)
-        emit('error', {'message': "Error en el servidor", 'status': 500})
+
 
 
     

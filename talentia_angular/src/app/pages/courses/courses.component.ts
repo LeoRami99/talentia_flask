@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CursosPreviewService } from '../../services/cursos-preview/cursos-preview.service';
 import { CategoriasService } from '../../services/categorias/categorias.service';
-// import { Socket } from 'ngx-socket-io';
 
 interface Curso {
   id: number;
@@ -28,29 +27,26 @@ export class CoursesComponent implements OnInit {
   constructor(
     private cursos: CursosPreviewService,
     private categoria: CategoriasService
-    // private socket: Socket
   ) {}
-  filteredCursosByCategoria(categoria: string) {
-    return this.filteredCursos.filter(curso => curso.categoria === categoria);
-  }
+
   ngOnInit() {
     this.categoria.getCategorias().subscribe((data: any) => {
-      ;
       this.categorias = data.categorias;
     });
     this.cursos.getCursos().subscribe((data: any) => {
-      console.log(data);
       this.lista_curso = data.cursos;
     });
-
   }
+
   get filteredCursos() {
     if (this.selectedCategory === '') {
-      return this.lista_curso;
+      return this.lista_curso.filter(curso => curso.titulo.toLowerCase().includes(this.filterText.toLowerCase()));
     } else {
-      return this.lista_curso.filter(curso => curso.titulo === this.selectedCategory);
+      return this.lista_curso.filter(curso => curso.categoria === this.selectedCategory && curso.titulo.toLowerCase().includes(this.filterText.toLowerCase()));
     }
   }
 
-
+  filteredCursosByCategoria(categoria: string) {
+    return this.filteredCursos.filter(curso => curso.categoria === categoria);
+  }
 }

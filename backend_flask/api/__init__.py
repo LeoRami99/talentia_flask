@@ -9,12 +9,12 @@ from flask_cors import CORS
 # instancia de los blueprints de la api
 
 # uso de sockets 
-from flask_socketio import SocketIO
+# from flask_socketio import SocketIO
 
 
 load_dotenv()
 app = Flask(__name__, static_folder='../imagenes', static_url_path='/curso-imagenes')
-socketio = SocketIO(app, cors_allowed_origins="*")
+# socketio = SocketIO(app, cors_allowed_origins="*")
 def createApi():
 
     # sockets 
@@ -44,5 +44,5 @@ def createApi():
 
 
 
-    return app, socketio
+    return app
     
