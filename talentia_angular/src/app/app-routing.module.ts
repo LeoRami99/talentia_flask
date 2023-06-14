@@ -7,14 +7,20 @@ import { EditCoursesComponent } from './pages/edit-courses/edit-courses.componen
 import { HomeComponent } from './pages/home/home.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
+import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'create-course', component: CreateCourseComponent },
   { path: 'edit-courses', component: EditCoursesComponent},
-  { path: 'courses', component: CoursesComponent},
+  { path: 'courses',
+    children: [
+      { path: '', component: CoursesComponent},
+    ]
+  },
   { path: 'view-course/:id', component: ViewCourseComponent},
+  { path: 'edit-course/:id', component: EditCourseComponent},
   { path: '', component: HomeComponent}
 ];
 

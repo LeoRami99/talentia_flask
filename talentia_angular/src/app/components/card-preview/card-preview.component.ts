@@ -16,7 +16,4 @@ export class CardPreviewComponent {
   url_images : string = 'http://localhost:5000/curso-imagenes/curso/';
   @Input() imagen_card: string = '';
   @Input() dificultad: string = '';
-
-
-
 }

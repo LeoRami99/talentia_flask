@@ -10,7 +10,7 @@ class Usuarios:
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql = "INSERT INTO usuarios(nombre, apellido, correo, password) VALUES (%s, %s, %s, %s)"
+                sql = "INSERT INTO usuario(nombre, apellidos, correo, password) VALUES (%s, %s, %s, %s)"
                 values=(self.nombre, self.apellidos, self.correo, password)
                 cursor.execute(sql, values)
                 conection.commit()
@@ -23,7 +23,7 @@ class Usuarios:
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql = "SELECT * FROM usuarios WHERE correo = %s"
+                sql = "SELECT * FROM usuario WHERE correo = %s"
                 values=(self.correo,)
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
@@ -40,7 +40,7 @@ class Usuarios:
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql = "SELECT id, nombre, apellido, correo, password FROM usuarios WHERE correo = %s"
+                sql = "SELECT id, nombre, apellidos, correo, password FROM usuario WHERE correo = %s"
                 values=(self.correo,)
                 cursor.execute(sql, values)
                 result = cursor.fetchone()

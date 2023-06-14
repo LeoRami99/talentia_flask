@@ -6,8 +6,12 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card-edit.component.css']
 })
 export class CardEditComponent {
+  // titulo de la tarjeta
+  @Input() id: number = 0;
   @Input() title: string = '';
-  @Input() imageSource: string = ''; //La imagen debe tener un tamaño de 430x168
-  @Input() id: string = ''; //el id es para generar la url del link
+  // descripcion de la tarjeta
+  url_images : string = 'http://localhost:5000/curso-imagenes/curso/';
+  @Input() imagen_card: string = '';
+  @Input() dificultad: string = '';
 
 }

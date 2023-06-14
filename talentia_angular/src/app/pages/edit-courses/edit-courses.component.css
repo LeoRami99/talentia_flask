@@ -1,0 +1,31 @@
+.card.loading-skeleton {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.card.loading-skeleton .skeleton-item {
+  background-color: #e0e0e0;
+  height: 16px;
+  margin-bottom: 8px;
+}
+
+.card.loading-skeleton .skeleton-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Estilos para simular la animación de carga */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.card.loading-skeleton .skeleton-item {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 37%, #e0e0e0 63%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}

@@ -2,10 +2,11 @@
        data-partial-height="44"
        data-toggle="popover"
        data-trigger="hover">
-      <a href=""
+      <a [attr.href]="['/edit-course/'+id]"
          class="js-image"
          data-position="">
-          <img src="assets/images/paths/invision_430x168.png"
+          <img
+              [src]="url_images+imagen_card"
                alt="course">
           <span class="overlay__content align-items-start justify-content-start">
               <span class="overlay__action card-body d-flex align-items-center">

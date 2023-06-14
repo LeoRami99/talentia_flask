@@ -26,6 +26,8 @@ import { ViewCourseComponent } from './pages/view-course/view-course.component';
 
 // paginación
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EditCourseComponent } from './pages/edit-course/edit-course.component';
+
 
 // Configuración de socket.io
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -53,6 +55,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CoursesComponent,
     CardPreviewComponent,
     ViewCourseComponent,
+    EditCourseComponent,
   ],
   imports: [
     BrowserModule,

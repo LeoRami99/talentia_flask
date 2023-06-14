@@ -1,3 +1,4 @@
+
 <div class="page-section border-bottom-2">
     <div class="container page__container">
 
@@ -32,7 +33,7 @@
               </div> -->
 
                 <div class="page-separator p-2">
-                    <div class="page-separator__text">Sections</div>
+                    <div class="page-separator__text">Módulos</div>
                 </div>
 
                 <!-- ! Secciones agregadas -->
@@ -122,11 +123,11 @@
 
                 <div class="d-flex justify-content-between">
 
-                    <a *ngIf="!isAddSection" data-toggle="collapse" href="#addSectionDiv" role="button" aria-expanded="false" aria-controls="addSectionDiv" class="btn btn-outline-secondary mb-24pt mb-sm-0" (click)="isAddSection = !isAddSection">Agregar Seccion</a>
+                    <a *ngIf="!isAddSection" data-toggle="collapse" href="#addSectionDiv" role="button" aria-expanded="false" aria-controls="addSectionDiv" class="btn btn-outline-secondary mb-24pt mb-sm-0" (click)="isAddSection = !isAddSection">Agregar Módulo</a>
 
                     <a *ngIf="isAddSection" id="cancelAddNewSectionButton" data-toggle="collapse" href="#addSectionDiv" role="button" aria-expanded="false" aria-controls="addSectionDiv" class="btn btn-outline-danger mb-24pt mb-sm-0" (click)="isAddSection = !isAddSection">Cancelar</a>
 
-                    <button *ngIf="isAddSection" class="btn btn-success" (click)="onAddSection()" [disabled]="titleSectionInput.invalid || newSection.items.length == 0">Guardar Sección</button>
+                    <button *ngIf="isAddSection" class="btn btn-success" (click)="onAddSection()" [disabled]="titleSectionInput.invalid || newSection.items.length == 0">Guardar Módulo</button>
                 </div>
 
             </div>
