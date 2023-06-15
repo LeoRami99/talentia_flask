@@ -94,7 +94,7 @@ def login():
                 # Se verifica de que este registrado el correo y la contraseña sea correcta
                 if credenciales and check_password_hash(credenciales['password'], password):
                     # Se crea el token de acceso con el metodo create_access_token de la libreria flask_jwt_extended
-                    access_token = create_access_token(identity=email)
+                    access_token = create_access_token(identity=[email, credenciales['id'], credenciales['nombre'], credenciales['apellido']])
                     # se genera la respuesta del servidor con el mensaje de que el inicio de sesión fue exitoso y el token de acceso
                     response_data = {'message': 'Inicio de sesión exitoso', 'status': 200, 'access_token': access_token}
                     return make_response(jsonify(response_data), 200)
