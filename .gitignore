@@ -288,7 +288,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-#hacer que no se suban las imagenes de la carpeta imagenes
-imagenes/*
-imagenes/curso/*
-backend_flask/imagenes/curso/*
+# Ignorar imágenes en la carpeta "imagenes" y sus subcarpetas
+imagenes/**/*
+
+# Ignorar imágenes en la carpeta "backend_flask/imagenes/curso"
+backend_flask/imagenes/curso/**/*
