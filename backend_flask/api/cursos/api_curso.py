@@ -21,6 +21,7 @@ def create():
     if request.method == 'POST':
         try:
             datos=request.get_json()
+            print(datos)
             if True:
                 titulo_curso = datos.get('title')
                 descripcion_curso = datos.get('description')
@@ -40,7 +41,7 @@ def create():
                     CursoDB.create_categoria(curso_id, categoria)
                     if datos.get('sections') is not None:
                         for seccion in datos.get('sections'):
-                            seccion_id = CursoDB.create_section(curso_id, seccion['headerTitle'], 1)
+                            seccion_id = CursoDB.create_section(curso_id, seccion['headerTitle'], seccion['descriptionSection'], 1)
                             if seccion.get('items') is not None:
                                 for subsection in seccion.get('items'):
                                     CursoDB.create_subsection(seccion_id, subsection['title'], subsection['url'])
@@ -58,7 +59,6 @@ def create():
             response_data = {"message": "Error en el servidor", "status": 500}
             return make_response(jsonify(response_data), 500) 
 """ Este endpoint es para subir las imagenes de portada y carda de cada curso , se debe enviar por form-data """
-
 @api_curso.route('/upload_imagenes_curso', methods=['POST'])
 def  upload_imagenes_curso():
     if request.method=="POST":
@@ -158,6 +158,58 @@ def get_categorias():
         print(e)
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
+    
+""" Endpoints para actualizar la información de los cursos, secciones y subsecciones """
+@api_curso.route('/update-curso', methods=['PUT'])
+def update_curso():
+    if request.method == "PUT":
+        try:
+            data = request.get_json()
+            #Se declara varibles para guardar cada uno de los datos que se van a actualizar
+            id_curso = data['id']
+            imagen_portada = data['imagen_portada']
+            imagen_card = data['imagen_card']
+            titulo = data['titulo']
+            descripcion = data['descripcion']
+            trailer = data['trailer']
+            precio = data['precio']
+            estado = data['estado']
+            dificultad = data['dificultad']
+            secciones = data['secciones']
+            categoria_id =  data['categoria_id']
+            if all([id_curso, imagen_portada, imagen_card, titulo, descripcion, trailer, precio, estado, dificultad, secciones, categoria_id]):
+                #Se actualiza la información del curso
+                if CursoDB.actualizar_curso(imagen_portada, imagen_card, titulo, descripcion, trailer, precio, estado, dificultad, id_curso):
+                #Se recorre la lista de secciones y se actualiza la información de cada una
+                    CursoDB.actualizar_categoria(id_curso, categoria_id)
+                    for seccion in secciones:
+                        id_seccion = seccion['id']
+                        id_curso = seccion['curso_id']
+                        titulo_seccion = seccion['titulo']
+                        descripcion_seccion = seccion['descripcion']
+                        CursoDB.actualizar_seccion(titulo_seccion, descripcion_seccion, id_seccion, id_curso)
+                        #Se recorre la lista de subsecciones y se actualiza la información de cada una
+                        for subseccion in seccion['subsecciones']:
+                            id_seccion = subseccion['id_seccion']
+                            titulo_subseccion = subseccion['titulo']
+                            contenido_subseccion = subseccion['contenido']
+                            CursoDB.actualizar_subseccion(titulo_subseccion,contenido_subseccion, id_seccion)
+                    response_data = {"message": "Curso actualizado", "status": 200}
+                    return jsonify(response_data), 200
+                else:
+                    response_data = {"message": "Error al actualizar el curso", "status": 500}
+                    return jsonify(response_data), 500
+            else:
+                print("No entro")
+                return jsonify(data)        
+            # return jsonify(data) 
+        except Exception as e:
+            print(e)
+            return jsonify ({"message": "Error en el servidor", "status": 500}, 500)
+
+    else:
+        response_data = {"message": "Metodo no permitido", "status": 405}
+        return jsonify (response_data, 405)
 
     
 

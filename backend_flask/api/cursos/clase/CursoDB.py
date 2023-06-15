@@ -28,12 +28,12 @@ class CursoDB:
             return False
     """ Creación de las secciones de cada curso basado en el id del curso arrojado por la función create_curso() """
     @staticmethod
-    def create_section(curso_id, titulo, orden):
+    def create_section(curso_id, titulo, description, orden):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="INSERT INTO secciones(curso_id, titulo, orden) VALUES (%s, %s, %s)"
-                values=(curso_id, titulo, orden)
+                sql="INSERT INTO secciones(curso_id, titulo, descripcion,  orden) VALUES (%s, %s, %s, %s)"
+                values=(curso_id, titulo, description, orden)
                 cursor.execute(sql, values)
                 seccion_id = cursor.lastrowid
                 conection.commit()
@@ -135,7 +135,7 @@ class CursoDB:
                     "descripcion": curso[4],
                     "trailer": curso[5],
                     "precio": curso[6],
-                    "id_instructor": curso[9],
+                    "id_instructor": curso[10],
                     "dificultad": curso[8],
                     "estado": curso[7]
                 }
@@ -150,7 +150,8 @@ class CursoDB:
                         "id": seccion[0],
                         "curso_id": seccion[1],
                         "titulo": seccion[2],
-                        "orden": seccion[3],
+                        "descripcion": seccion[3],
+                        "orden": seccion[4],
                         "subsecciones": []
                     }
                     # Obtención de subsecciones por id de seccion
@@ -190,5 +191,66 @@ class CursoDB:
         except Exception as e:
             # print(e)
             return False
+        
+    # Estas funciones son para actulizar la información del curso, secciones y subsecciones
+    """ Primero se crea el cambio de la actualización del curso
+        Después la actualización de la sección y la subsección
+        Por ultimo se actualiza la categoria
+    """
+    @staticmethod
+    def actualizar_curso(imagen_portada, imagen_card, titulo, descripcion, trailer, precio, estado, dificultad, id_curso):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="UPDATE cursos SET imagen_portada=%s, imagen_card=%s, titulo=%s, descripcion=%s, trailer=%s, precio=%s, estado=%s, dificultad=%s WHERE id=%s"
+                values=(imagen_portada, imagen_card, titulo, descripcion, trailer, precio, estado, dificultad, id_curso)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def actualizar_seccion(titulo, descripcion, id_seccion, id_curso):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="UPDATE secciones SET titulo=%s, descripcion=%s WHERE id=%s and curso_id=%s"
+                values  = (titulo, descripcion, id_seccion, id_curso)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def actualizar_subseccion(titulo, contenido, id_seccion):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="UPDATE subsecciones SET titulo=%s, contenido=%s WHERE id_seccion=%s"
+                values  = (titulo, contenido, id_seccion)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def actualizar_categoria(id_curso, id_categoria):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="UPDATE categorias_curso SET id_categoria=%s WHERE id_curso=%s"
+                values  = (id_categoria, id_curso)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+        
+
+
     
 

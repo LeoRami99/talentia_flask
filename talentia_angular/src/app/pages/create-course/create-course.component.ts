@@ -47,7 +47,7 @@ export class CreateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.categoriasService.getCategorias().subscribe((data: any) => {
-      console.log(data.categorias);
+      // console.log(data.categorias);
       // console.log(data.categorias);
       this.categorias = data.categorias;
     });
@@ -78,9 +78,10 @@ export class CreateCourseComponent implements OnInit {
 
   currentSubsectionIndex = -1;
   onAddSection() {
-    console.log(this.newSection);
+    // console.log(this.newSection);
     if (this.titleSectionInput.valid) {
       this.newSection.headerTitle = this.titleSectionInput.value!;
+      this.newSection.descriptionSection = this.descriptionSectionTextArea.value!;
       this.sections.push(this.newSection);
       this.newSection = {
         headerTitle: '',
@@ -136,7 +137,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   createCourse() {
-    console.log(this.SelectTags);
+    // console.log(this.SelectTags);
     let json = {
       title: this.title,
       description: this.description,
@@ -173,7 +174,7 @@ export class CreateCourseComponent implements OnInit {
           tap((res: any) => {
             json.imagen_portada = res.imagen_portada;
             json.imagen_card = res.imagen_card;
-            console.log(json);
+            // console.log(json);
             // enviar el json al backend
             this.crear_curso
               .createCurso(json)
@@ -187,7 +188,7 @@ export class CreateCourseComponent implements OnInit {
                     'Curso creado correctamente',
                     'Curso creado'
                   );
-                  console.log(res);
+                  // console.log(res);
                   // redireccionar al home
                   this.router.navigate(['/']);
                 })
