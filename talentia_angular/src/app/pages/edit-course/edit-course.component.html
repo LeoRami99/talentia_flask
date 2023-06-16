@@ -1,31 +1,27 @@
 <div class="page-section border-bottom-2">
-  <div class="container">
+    <div class="container">
 
-    <div *ngIf="!isLoading">
-      <div class="row">
-          <!-- Contenido del template -->
-          <div class="col-md-8">
+        <div *ngIf="!isLoading">
+            <div class="row">
+                <!-- Contenido del template -->
+                <div class="col-md-8">
 
-              <div class="page-separator">
-                  <div class="page-separator__text">Basic information</div>
-              </div>
+                    <div class="page-separator">
+                        <div class="page-separator__text">Basic information</div>
+                    </div>
 
-              <label class="form-label">Course title</label>
-              <div class="form-group mb-24pt">
-                  <input type="text"
-                         class="form-control form-control-lg"
-                         placeholder="Course title"
-                         [(ngModel)]="curso.titulo">
-                  <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small>
-              </div>
+                    <label class="form-label">Course title</label>
+                    <div class="form-group mb-24pt">
+                        <input type="text" class="form-control form-control-lg" placeholder="Course title"
+                            [(ngModel)]="curso.titulo">
+                        <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small>
+                    </div>
 
-              <div class="form-group mb-32pt">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" rows="3" placeholder="Course description"
-                  [(ngModel)]="curso.descripcion"
-
-                  ></textarea>
-                  <!-- <div style="height: 150px;"
+                    <div class="form-group mb-32pt">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Course description"
+                            [(ngModel)]="curso.descripcion"></textarea>
+                        <!-- <div style="height: 150px;"
                        class="mb-0"
                        data-toggle="quill"
                        data-quill-placeholder="Course description">
@@ -33,128 +29,142 @@
                       <p>Some initial <strong>bold</strong> text</p>
                       <p><br></p>
                   </div> -->
-                  <small class="form-text text-muted">Shortly describe this course.</small>
-              </div>
+                        <small class="form-text text-muted">Shortly describe this course.</small>
+                    </div>
 
-              <div class="page-separator">
-                  <div class="page-separator__text">Módulos</div>
-              </div>
+                    <div class="page-separator">
+                        <div class="page-separator__text">Módulos</div>
+                    </div>
 
-              <div class="accordion js-accordion accordion--boxed mb-24pt"
-                   id="parent" *ngFor="let secciones of curso.secciones">
-                  <div class="accordion__item">
-                      <a (click)="false"
-                         class="accordion__toggle collapsed"
-                         data-toggle="collapse"
-                         data-target="#course-toc-1"
-                         data-parent="#parent">
-                         <div class="w-100">
-                          <div class="mb-3">
-                            <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
-                            <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control" [(ngModel)]="secciones.titulo">
-                          </div>
-                          <div class="mb-3">
-                            <label [attr.for]="'descripcion'+secciones.titulo">Descripción del módulo</label>
-                            <textarea [attr.id]="'descripcion'+secciones.titulo" type="text" class="form-control" [(ngModel)]="secciones.descripcion">
+                    <div class="accordion js-accordion accordion--boxed mb-24pt" id="parent"
+                        *ngFor="let secciones of curso.secciones">
+                        <div class="accordion__item">
+                            <a (click)="false" class="accordion__toggle collapsed" data-toggle="collapse"
+                                data-target="#course-toc-1" data-parent="#parent">
+                                <div class="w-100">
+                                    <div class="mb-3">
+                                        <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
+                                        <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control"
+                                            [(ngModel)]="secciones.titulo">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label [attr.for]="'descripcion'+secciones.titulo">Descripción del
+                                            módulo</label>
+                                        <textarea [attr.id]="'descripcion'+secciones.titulo" type="text"
+                                            class="form-control" [(ngModel)]="secciones.descripcion">
                             </textarea>
-                          </div>
-                       </div>
-                         <!-- <span class="flex">{{secciones.titulo}}</span> -->
-
-                          <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                      </a>
-                      <div class="accordion__menu opened"
-                           id="course-toc-1"  *ngFor="let subsecciones of secciones.subsecciones">
-                          <div class="accordion__menu-link">
-                              <!-- <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i> -->
-                              <div class="w-100">
-                                <div class="mb-3">
-                                  <label [attr.for]="'sub'+subsecciones.titulo">Titulo subsección</label>
-                                  <input type="text" class="form-control" [attr.id]="'sub'+subsecciones.titulo" [(ngModel)]="subsecciones.titulo">
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                  <label [attr.for]="'desc'+subsecciones.titulo">Descripción subsección</label>
-                                  <input type="text" class="form-control" [attr.id]="'desc'+subsecciones.titulo" [(ngModel)]="subsecciones.contenido">
-                                </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                                <!-- <span class="flex">{{secciones.titulo}}</span> -->
 
-              <!-- <a href="#"
+                                <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                            </a>
+                            <div class="accordion__menu opened" id="course-toc-1"
+                                *ngFor="let subsecciones of secciones.subsecciones">
+                                <div class="accordion__menu-link">
+                                    <!-- <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i> -->
+                                    <div class="w-100">
+                                        <div class="mb-3">
+                                            <label [attr.for]="'sub'+subsecciones.titulo">Titulo subsección</label>
+                                            <input type="text" class="form-control"
+                                                [attr.id]="'sub'+subsecciones.titulo" [(ngModel)]="subsecciones.titulo">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label [attr.for]="'desc'+subsecciones.titulo">Descripción
+                                                subsección</label>
+                                            <input type="text" class="form-control"
+                                                [attr.id]="'desc'+subsecciones.titulo"
+                                                [(ngModel)]="subsecciones.contenido">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <a href="#"
                  class="btn btn-outline-secondary mb-24pt mb-sm-0">Add Section</a> -->
 
-          </div>
-          <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
 
-              <div class="card">
-                  <div class="card-header text-center">
-                      <a
-                         (click)="saveChanges()"
-                         class="btn btn-accent">Save changes</a>
-                  </div>
-                  <div class="list-group list-group-flush">
-                      <!-- <div class="list-group-item d-flex">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <a (click)="saveChanges()" class="btn btn-accent">Save changes</a>
+                        </div>
+
+                        <div class="list-group list-group-flush text-center">
+                            <!-- <div class="list-group-item d-flex">
                           <a class="flex"
                              href="#"><strong>Save Draft</strong></a>
                           <i class="material-icons text-muted">check</i>
                       </div> -->
-                      <div class="list-group-item">
-                          <a href="#"
-                             class="text-danger"><strong>Eliminar Curso</strong></a>
-                      </div>
-                      <div class="list-group-item">
-                        <a href="#"
-                           class="text-danger"><strong>Desactivar curso</strong></a>
-                    </div>
-                  </div>
-              </div>
-
-              <div class="page-separator">
-                  <div class="page-separator__text">Video</div>
-              </div>
-
-              <div class="card">
-                  <div class="card-body">
-                      <label class="form-label">URL</label>
-                      <input type="text"
-                             class="form-control"
-                             placeholder="Enter Video URL"
-                             [(ngModel)]="curso.trailer"
-                             >
-                      <small class="form-text text-muted">Enter a valid video URL.</small>
-                  </div>
-              </div>
-
-              <div class="page-separator">
-                  <div class="page-separator__text">Options</div>
-              </div>
-
-              <div class="card">
-                  <div class="card-body">
-                      <div class="form-group">
-                          <label class="form-label">Category</label>
-                          <select name="category" class="form-control custom-select" [(ngModel)]="categoria_id">
-                            <option *ngFor="let category of categorias" [value]="category.id">{{category.nombre}}</option>
-                          </select>
-                          <small class="form-text text-muted">Select a category.</small>
-                      </div>
-                      <div class="form-group">
-                          <label class="form-label">Price</label>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="input-group form-inline">
-                                      <span class="input-group-prepend"><span class="input-group-text">$</span></span>
-                                      <input type="text"
-                                             class="form-control"
-                                             value="24">
-                                  </div>
+                            <div class="list-group-item">
+                                <label class="form-label">Estado del curso</label>
+                                <span *ngIf="curso.estado==1">
+                                    <div class="alert alert-success shadow">Activo</div>
+                                </span>
+                                <span *ngIf="curso.estado==0">
+                                    <div class="alert alert-danger shadow">No Activo</div>
+                                </span>
+                            </div>
+                            <div class="list-group-item">
+                                <button class="btn btn-danger w-100" (click)="deleteCurso()"><strong>Eliminar Curso</strong></button>
+                            </div>
+                            <div class="list-group-item">
+                              <div *ngIf="curso.estado==1">
+                                <button class="btn btn-danger w-100" (click)="updateEstadoCurso()"><strong>Desactivar curso</strong></button>
                               </div>
-                          </div>
-                          <small class="form-text text-muted">The recommended price is between &dollar;17 and &dollar;24</small>
-                      </div>
-                      <!-- <div class="form-group mb-0">
+                              <div *ngIf="curso.estado==0">
+                                <button class="btn btn-success w-100" (click)="updateEstadoCurso()"><strong>Activar curso</strong></button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Video</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <label class="form-label">URL</label>
+                            <input type="text" class="form-control" placeholder="Enter Video URL"
+                                [(ngModel)]="curso.trailer">
+                            <small class="form-text text-muted">Enter a valid video URL.</small>
+                        </div>
+                    </div>
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Options</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-label">Categoria</label>
+                                <select name="category" class="form-control custom-select" [(ngModel)]="categoria_id">
+                                    <option *ngFor="let category of categorias" [value]="category.id">
+                                        {{category.nombre}}</option>
+                                </select>
+                                <small class="form-text text-muted">Select a category.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Price</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group form-inline">
+                                            <span class="input-group-prepend"><span
+                                                    class="input-group-text">$</span></span>
+                                            <input type="text" class="form-control" value="24">
+                                        </div>
+                                    </div>
+                                </div>
+                                <small class="form-text text-muted">The recommended price is between &dollar;17 and
+                                    &dollar;24</small>
+                            </div>
+                            <!-- <div class="form-group mb-0">
                           <label class="form-label"
                                  for="select03">Tags</label>
                           <select id="select03"
@@ -169,12 +179,12 @@
                           </select>
                           <small class="form-text text-muted">Select one or more tags.</small>
                       </div> -->
-                  </div>
-              </div>
+                        </div>
+                    </div>
 
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
 
-  </div>
+    </div>
 </div>

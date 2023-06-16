@@ -206,10 +206,69 @@ def update_curso():
         except Exception as e:
             print(e)
             return jsonify ({"message": "Error en el servidor", "status": 500}, 500)
-
     else:
         response_data = {"message": "Metodo no permitido", "status": 405}
         return jsonify (response_data, 405)
-
     
+
+
+# metodo para desactivar curso
+@api_curso.route('/estado-curso/', methods=['PUT'])
+def desactivar_curso():
+    if request.method == "PUT":
+        try:
+            data = request.get_json()
+            id_curso = data['id']
+            estado_curso = data['estado']
+            if all([id_curso]):
+                if CursoDB.actualizar_estado(id_curso, estado_curso):
+                    response_data = {"message": "Curso desactivado", "status": 200}
+                    return jsonify(response_data), 200
+                else:
+                    response_data = {"message": "Error al desactivar el curso", "status": 500}
+                    return jsonify(response_data), 500
+            else:
+                response_data = {"message": "Error al desactivar el curso", "status": 500}
+                return jsonify(response_data), 500
+            
+        except Exception as e:
+            print(e)
+            return jsonify ({"message": "Error en el servidor", "status": 500}, 500)
+    else:
+        response_data = {"message": "Metodo no permitido", "status": 405}
+        return jsonify (response_data, 405)
+    
+# metodo para eliminar curso
+""" Al eliminar el curso se elimina también la se secciones, subsecciones y categorias relacionadas"""
+@api_curso.route('/delete-curso/', methods=['DELETE'])
+def delete_curso():
+    if request.method == "DELETE":
+        print("entro al metodo delete")
+        try:
+            data =  request.get_json()
+            print("Esta es la data para eliminar:", data)
+            id_curso = data['id']
+            if all([id_curso]):
+                secciones = data['secciones']
+                for seccion in secciones:
+                    for subseccion in seccion['subsecciones']:
+                        CursoDB.eliminar_subsecciones(subseccion['id_seccion'])
+                    CursoDB.eliminar_secciones(id_curso, seccion['id'])
+                # categorias 
+                CursoDB.eliminar_categoria(id_curso)
+                if CursoDB.eliminar_curso(id_curso):
+                    response_data = {"message": "Curso eliminado", "status": 200}
+                    return jsonify(response_data), 200
+        except Exception as e:
+            print(e)
+            return jsonify({'message': "Error en el servidor", "status": 500}, 500)
+    else:
+        response_data = {"message": "Método no permitido", "status": 405}
+        return jsonify(response_data), 405
+
+        
+    
+
+        
+
 

@@ -249,6 +249,71 @@ class CursoDB:
         except Exception as e:
             print(e)
             return False
+    @staticmethod
+    def actualizar_estado(id_curso, estado):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="UPDATE cursos SET estado=%s WHERE id=%s"
+                values  = (estado, id_curso)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def eliminar_subsecciones(id_seccion):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="DELETE FROM subsecciones WHERE id_seccion=%s"
+                values  = (id_seccion,)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    def eliminar_secciones(id_curso, id_secciones):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="DELETE FROM secciones WHERE id=%s and curso_id=%s"
+                values  = (id_secciones, id_curso)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def eliminar_curso(id_curso):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="DELETE FROM cursos WHERE id=%s"
+                values  = (id_curso,)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+    @staticmethod
+    def eliminar_categoria(id_curso):
+        try:
+            with conectionDatabase() as conection:
+                cursor = conection.cursor()
+                sql="DELETE FROM categorias_curso WHERE id_curso=%s"
+                values  = (id_curso,)
+                cursor.execute(sql, values)
+                conection.commit()
+                return True
+        except Exception as e:
+            print(e)
+            return False
+
         
 
 

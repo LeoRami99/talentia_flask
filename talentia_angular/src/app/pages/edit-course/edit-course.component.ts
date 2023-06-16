@@ -4,6 +4,8 @@ import { GetCourseService } from '../../services/get-course/get-course.service';
 import { UpdateCursoService } from 'src/app/services/update_curso/update-curso.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriasService } from 'src/app/services/categorias/categorias.service';
+import { UpdateStateCursoService } from 'src/app/services/update-state-curso/update-state-curso.service';
+import { DeleteCursoService } from 'src/app/services/delete-curso/delete-curso.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -20,11 +22,16 @@ export class EditCourseComponent implements OnInit {
     private router: Router,
     private updateCurso: UpdateCursoService,
     private toastr: ToastrService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private updateStateCurso: UpdateStateCursoService,
+    // se agrega el nombre all ya que elimina todo lo relacionado a dicho curso
+    private deleteCursoAll: DeleteCursoService
   ) {}
   // // se agrega los inputs model para despues poder editarlos
   // @Input() titulo: string='';
-  @Input() categoria_id: string='';
+  @Input() categoria_id: string = '';
+  // estado_curso
+  @Input() estado_curso: string = '';
   categorias: any[] = [];
   ngOnInit(): void {
     this.routeActive.params.subscribe((params) => {
@@ -32,7 +39,7 @@ export class EditCourseComponent implements OnInit {
         (res: any) => {
           if (res.status === 200) {
             this.curso = res.curso;
-            // console.log(this.curso);
+            console.log(this.curso);
             this.isLoading = false;
           } else {
             this.toastr.error('Ocurrió un error al obtener el curso', 'Error');
@@ -69,5 +76,69 @@ export class EditCourseComponent implements OnInit {
     );
 
     console.log(this.curso);
+  }
+  // Actualización de estado del curso
+  updateEstadoCurso() {
+    if (this.curso.estado == 1) {
+      this.curso.estado = 0;
+      this.updateStateCurso.updateStateCurso(this.curso).subscribe(
+        (res: any) => {
+          if (res.status === 200) {
+            window.location.reload();
+            this.toastr.success(
+              'Estado del curso actualizado correctamente',
+              'Éxito',
+            );
+            // recargar la página
+            // esperar 3 segundos para recargar la página
+          } else {
+            this.toastr.error(
+              'Ocurrió un error al actualizar el estado del curso',
+              'Error'
+            );
+          }
+        },
+        (error: any) => {
+          this.toastr.error(
+            'Ocurrió un error al actualizar el estado del curso',
+            'Error'
+          );
+        }
+      );
+    } else if (this.curso.estado == 0) {
+      this.curso.estado = 1;
+      this.updateStateCurso
+        .updateStateCurso(this.curso)
+        .subscribe((res: any) => {
+          if (res.status === 200) {
+            window.location.reload();
+            this.toastr.success(
+              'Estado del curso actualizado correctamente',
+              'Éxito'
+            );
+            // recargar la página
+          } else {
+            this.toastr.error(
+              'Ocurrió un error al actualizar el estado del curso',
+              'Error'
+            );
+          }
+        });
+    }
+  }
+  deleteCurso(){
+    this.deleteCursoAll.deleteCurso(this.curso).subscribe(
+      (res: any) => {
+        if (res.status === 200) {
+          this.toastr.success('Curso eliminado correctamente', 'Éxito');
+          // recargar la página
+          this.router.navigate(['/edit-courses']);
+        } else {
+          this.toastr.error('Ocurrió un error al eliminar el curso', 'Error');
+        }
+      },(error: any) =>{
+        this.toastr.error('Ocurrió un error al eliminar el curso', 'Error');
+      }
+    );
   }
 }
