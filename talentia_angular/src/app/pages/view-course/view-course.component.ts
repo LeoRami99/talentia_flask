@@ -31,9 +31,11 @@ interface Subseccion {
 
 export class ViewCourseComponent implements OnInit {
   curso: Curso | undefined;
+  id_curso: string='';
   constructor(private routeActive: ActivatedRoute, private router: Router, private getcourse: GetCourseService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    this.id_curso = this.routeActive.snapshot.params['id'];
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe((res: any) => {
         console.log(res);

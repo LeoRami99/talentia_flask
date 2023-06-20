@@ -243,7 +243,7 @@ def desactivar_curso():
 @api_curso.route('/delete-curso/', methods=['DELETE'])
 def delete_curso():
     if request.method == "DELETE":
-        print("entro al metodo delete")
+        # print("entro al metodo delete")
         try:
             data =  request.get_json()
             print("Esta es la data para eliminar:", data)

@@ -9,6 +9,7 @@ import { EMPTY, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { CategoriasService } from 'src/app/services/categorias/categorias.service';
 
+
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
@@ -43,9 +44,19 @@ export class CreateCourseComponent implements OnInit {
   // @Input() url_video_intro: string="";
   @Input() url_video: string = '';
   @Input() dificultad: string = '';
-  @Input() SelectTags: string[] = [];
+  SelectTags: string[] = [];
+  // array con opciones
+  tagsOptions = [
+    { name: 'Angular', value: 'Angular' },
+    { name: 'JavaScript', value: 'JavaScript' },
+    { name: 'TypeScript', value: 'TypeScript' },
+  ];
+
+  // SelectTags = []; // Definimos el array para guardar las selecciones
 
   ngOnInit() {
+
+
     this.categoriasService.getCategorias().subscribe((data: any) => {
       // console.log(data.categorias);
       // console.log(data.categorias);
@@ -137,7 +148,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   createCourse() {
-    // console.log(this.SelectTags);
+    console.log("Esto es los tags: ", this.SelectTags);
     let json = {
       title: this.title,
       description: this.description,

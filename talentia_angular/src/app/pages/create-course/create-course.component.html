@@ -217,6 +217,9 @@
                         <!-- <div class="form-group mb-0">
                             <label class="form-label" for="select03">Tags</label>
                             <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
+                              <option *ngFor="let tag of tagsOptions" [value]="tag.name">{{tag.name}}</option>
+                            </select>
+                            <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
                                 <option>JavaScript</option>
                                 <option>Angular</option>
                                 <option>Bootstrap</option>

@@ -159,11 +159,14 @@ class CursoDB:
                     values=(seccion[0],)
                     cursor.execute(sql, values)
                     subsecciones = cursor.fetchall()
+                    print(subsecciones)
                     for subseccion in subsecciones:
                         subseccion_dict = {
-                            "id_seccion": subseccion[0],
-                            "titulo": subseccion[1],
-                            "contenido": subseccion[3]
+                            "id_subseccion": subseccion[0],
+                            "id_seccion": subseccion[1],
+                            "titulo": subseccion[2],
+                            # "descripcion": subseccion[3],
+                            "contenido": subseccion[4]
                         }
                         seccion_dict['subsecciones'].append(subseccion_dict)
                     secciones_list.append(seccion_dict)

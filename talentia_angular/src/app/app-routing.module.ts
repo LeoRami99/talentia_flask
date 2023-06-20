@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
+import { TakeCourseComponent } from './pages/take-course/take-course.component';
+import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview/lesson-preview.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +23,8 @@ const routes: Routes = [
   },
   { path: 'view-course/:id', component: ViewCourseComponent},
   { path: 'edit-course/:id', component: EditCourseComponent},
+  { path: 'take-lesson/:id', component: TakeCourseComponent},
+  { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', component: LessonPreviewComponent},
   { path: '', component: HomeComponent}
 ];
 
