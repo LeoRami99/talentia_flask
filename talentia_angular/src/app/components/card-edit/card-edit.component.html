@@ -20,25 +20,25 @@
               <div class="d-flex">
                   <div class="flex">
                       <a class="card-title mb-4pt"
-                         href="">{{title}}</a>
+                      [attr.href]="['/edit-course/'+id]">{{title}}</a>
                   </div>
-                  <a href="instructor-edit-course.html"
+                  <a [attr.href]="['/edit-course/'+id]"
                      class="ml-4pt material-icons text-20 card-course__icon-favorite">edit</a>
               </div>
               <div class="d-flex">
-                  <div class="rating flex">
+                  <!-- <div class="rating flex">
                       <span class="rating__item"><span class="material-icons">star</span></span>
                       <span class="rating__item"><span class="material-icons">star</span></span>
                       <span class="rating__item"><span class="material-icons">star</span></span>
                       <span class="rating__item"><span class="material-icons">star</span></span>
                       <span class="rating__item"><span class="material-icons">star_border</span></span>
-                  </div>
-                  <small class="text-50">6 hours</small>
+                  </div> -->
+                  <small class="text-50">Editar</small>
               </div>
           </div>
       </div>
   </div>
-  <div class="popoverContainer d-none">
+  <!-- <div class="popoverContainer d-none">
       <div class="media">
           <div class="media-left mr-12pt">
               <img src="assets/images/paths/angular_40x40@2x.png"
@@ -97,8 +97,8 @@
               </div>
           </div>
           <div class="col text-right">
-              <a href="instructor-edit-course.html"
+              <a [attr.href]="['/edit-course/'+id]"
                  class="btn btn-primary">Edit course</a>
           </div>
       </div>
-</div>
+</div> -->

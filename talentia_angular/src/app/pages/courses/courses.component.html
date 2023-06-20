@@ -17,10 +17,12 @@
       <div class="row card-group-row">
         <ng-container *ngIf="filteredCursosByCategoria(categoria.nombre).length > 0 ; else noCursos ">
           <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of filteredCursosByCategoria(categoria.nombre) | paginate: { itemsPerPage: pageSize, currentPage: pageData[categoria.nombre], id: 'categoria-' + categoria.nombre }">
-            <div>
+            <div *ngIf="curso.estado==1; else noActivos">
                 <!-- Contenido de la tarjeta de curso -->
                 <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card" [dificultad]="curso.dificultad"></app-card-preview>
             </div>
+
+
             <div class="card loading-skeleton" *ngIf="loadingCursos">
               <!-- Carga de skeleton -->
               <div class="skeleton-item"></div>
@@ -29,13 +31,13 @@
             </div>
           </div>
         </ng-container>
+        <ng-template #noCursos #noActivos>
+          <div class="container d-flex justify-content-center align-items-center flex-column">
+            <img src="../../../assets/images/metaverso-amico.png" alt="" style="max-width: 200px;">
+            <h2 class="text-center">Próximamente más cursos...</h2>
+          </div>
+        </ng-template>
       </div>
-      <ng-template #noCursos>
-        <div class="container d-flex justify-content-center align-items-center flex-column">
-          <img src="../../../assets/images/metaverso-amico.png" alt="" style="max-width: 200px;">
-          <h2 class="text-center">Próximamente más cursos...</h2>
-        </div>
-      </ng-template>
       <pagination-controls [id]="'categoria-' + categoria.nombre" (pageChange)="onPageChange($event, categoria.nombre)" [maxSize]="5"></pagination-controls>
     </div>
   </div>

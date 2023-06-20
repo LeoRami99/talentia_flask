@@ -60,12 +60,12 @@
 
                     <div class="card card-body">
 
-                        <h2>Nueva Sección</h2>
+                        <h2>Nueva Módulo</h2>
 
                         <div class="mb-3">
-                            <label class="form-label">Titulo de Sección</label>
+                            <label class="form-label">Titulo de Módulo</label>
 
-                            <input [formControl]="titleSectionInput" type="text" class="form-control " [ngClass]="{'is-invalid': titleSectionInput.dirty && (titleSectionInput.hasError('minlength') || titleSectionInput.hasError('required') ) }" placeholder="Titulo de la Sección">
+                            <input [formControl]="titleSectionInput" type="text" class="form-control " [ngClass]="{'is-invalid': titleSectionInput.dirty && (titleSectionInput.hasError('minlength') || titleSectionInput.hasError('required') ) }" placeholder="Titulo del módulo">
 
                             <div class="invalid-feedback" *ngIf="titleSectionInput.dirty && titleSectionInput.hasError('minlength')">{{hintErrorLength}}</div>
 
@@ -90,11 +90,11 @@
                             <span role="button" (click)="onEditSubSection(i)"><i class="fa-solid fa-pen mr-2 text-warning"></i></span>
                             <span role="button" (click)="onDeleteSubSection(i)"><i class="fa-solid fa-trash ml-2 text-danger"></i></span>
                         </div>
-                        <h3>Agrega Subsección</h3>
+                        <h3>Agrega Contenido</h3>
                         <form [formGroup]="newSubsectionForm">
                             <div class="mb-3">
 
-                                <label class="form-label">Titulo de Subsección</label>
+                                <label class="form-label">Titulo de contenido</label>
 
                                 <input formControlName="title" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.title.dirty && (newSubsectionForm.controls.title.hasError('minlength') || newSubsectionForm.controls.title.hasError('required') ) }"
                                     value="" placeholder="titulo de seccion">
@@ -135,7 +135,7 @@
 
                 <div class="card">
                     <div class="card-header text-center">
-                        <button href="#" class="btn btn-accent" (click)="createCourse()">Save changes</button>
+                        <button href="#" class="btn btn-accent" (click)="createCourse()">Guardar cambios</button>
                     </div>
                     <!-- <div class="list-group list-group-flush">
                         <div class="list-group-item d-flex">
@@ -201,7 +201,8 @@
                             </select>
                             <small class="form-text text-muted">Select a category.</small>
                         </div>
-                        <div class="form-group">
+                        <!-- Seccón para el precio y los tags del curso -->
+                        <!-- <div class="form-group">
                             <label class="form-label">Price</label>
                             <div class="row">
                                 <div class="col-md-6">
@@ -212,8 +213,8 @@
                                 </div>
                             </div>
                             <small class="form-text text-muted">The recommended price is between &dollar;17 and &dollar;24</small>
-                        </div>
-                        <div class="form-group mb-0">
+                        </div> -->
+                        <!-- <div class="form-group mb-0">
                             <label class="form-label" for="select03">Tags</label>
                             <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
                                 <option>JavaScript</option>
@@ -223,7 +224,7 @@
                                 <option>HTML</option>
                             </select>
                             <small class="form-text text-muted">Select one or more tags.</small>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
