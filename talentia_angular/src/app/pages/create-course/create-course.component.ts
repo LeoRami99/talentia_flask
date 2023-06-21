@@ -85,6 +85,7 @@ export class CreateCourseComponent implements OnInit {
   newSubsectionForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3)]),
     url: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    descripcion : new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
   currentSubsectionIndex = -1;
@@ -110,12 +111,14 @@ export class CreateCourseComponent implements OnInit {
         this.newSection.items[this.currentSubsectionIndex] = {
           title: this.newSubsectionForm.value.title!,
           url: this.newSubsectionForm.value.url!,
+          descripcion: this.newSubsectionForm.value.descripcion!,
           videoTiming: '00:00',
         };
       } else {
         this.newSection.items.push({
           title: this.newSubsectionForm.value.title!,
           url: this.newSubsectionForm.value.url!,
+          descripcion: this.newSubsectionForm.value.descripcion!,
           videoTiming: '00:00',
         });
       }
@@ -128,6 +131,7 @@ export class CreateCourseComponent implements OnInit {
     this.newSubsectionForm.setValue({
       title: this.newSection.items[index].title,
       url: this.newSection.items[index].url,
+      descripcion: this.newSection.items[index].descripcion
     });
     // this.newSection.items.splice(index, 1);
     this.currentSubsectionIndex = index;
@@ -195,13 +199,13 @@ export class CreateCourseComponent implements OnInit {
                   return EMPTY;
                 }),
                 tap((res: any) => {
+                  this.router.navigate(['/']);
                   this.toast.success(
                     'Curso creado correctamente',
                     'Curso creado'
                   );
                   // console.log(res);
                   // redireccionar al home
-                  this.router.navigate(['/']);
                 })
               )
               .subscribe();

@@ -8,5 +8,6 @@ export interface ISection {
 export interface ISubsection {
     title: string;
     url: string;
+    descripcion: string;
     videoTiming?: string;
 }

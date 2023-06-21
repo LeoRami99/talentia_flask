@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GetCourseService } from 'src/app/services/get-course/get-course.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {API_URL} from '../../../app/api.constants';
 
 
 // Interfaz para guardar las lessons
@@ -19,6 +20,7 @@ interface Lesson {
 })
 
 export class LessonPreviewComponent implements OnInit {
+  api_url = API_URL;
   isLoading: boolean = true;
   id_curso: any;
   id_seccion: any;
@@ -32,7 +34,8 @@ export class LessonPreviewComponent implements OnInit {
     private routeActive: ActivatedRoute,
     private getCurso: GetCourseService,
     private toastr: ToastrService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+
   ) {
 
   }

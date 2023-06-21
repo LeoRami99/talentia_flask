@@ -115,6 +115,18 @@
                                 <div class="invalid-feedback" *ngIf="newSubsectionForm.controls.url.dirty && newSubsectionForm.controls.url.hasError('required')">{{hintError}}</div>
 
                             </div>
+                            <div class="mb-3">
+
+                              <label class="form-label">Descripción</label>
+
+                              <textarea formControlName="descripcion" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.descripcion.dirty && (newSubsectionForm.controls.descripcion.hasError('minlength') || newSubsectionForm.controls.descripcion.hasError('required') ) }" placeholder="Ingrese una descripción más larga">
+                              </textarea>
+
+                              <div class="invalid-feedback" *ngIf="newSubsectionForm.controls.descripcion.dirty && newSubsectionForm.controls.descripcion.hasError('minlength')">{{hintErrorLength}}</div>
+
+                              <div class="invalid-feedback" *ngIf="newSubsectionForm.controls.descripcion.dirty && newSubsectionForm.controls.descripcion.hasError('required')">{{hintError}}</div>
+
+                          </div>
                         </form>
 
                         <button class="btn btn-success btn-block" [disabled]="newSubsectionForm.invalid" (click)="onAddSubSection()">add subsection </button>

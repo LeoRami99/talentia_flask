@@ -9,7 +9,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
-import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview/lesson-preview.component';
+import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

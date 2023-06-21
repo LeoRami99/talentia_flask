@@ -1,7 +1,7 @@
 <div class="page-section border-bottom-2">
     <div class="container">
 
-        <div *ngIf="!isLoading">
+        <div *ngIf="!isLoading;">
             <div class="row">
                 <!-- Contenido del template -->
                 <div class="col-md-8">
@@ -39,7 +39,9 @@
                     <div class="accordion js-accordion accordion--boxed mb-24pt" id="parent"
                         *ngFor="let secciones of curso.secciones">
                         <div class="accordion__item">
-                            <a (click)="false" class="accordion__toggle collapsed" data-toggle="collapse"
+                          <!-- el data-toggle colapse se elimina -->
+                          <!-- data-toggle="collapse" -->
+                            <a (click)="false" class="accordion__toggle collapsed"
                                 data-target="#course-toc-1" data-parent="#parent">
                                 <div class="w-100">
                                     <div class="mb-3">
@@ -57,25 +59,33 @@
                                 </div>
                                 <!-- <span class="flex">{{secciones.titulo}}</span> -->
 
-                                <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                <!-- <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span> -->
                             </a>
                             <div class="accordion__menu opened" id="course-toc-1"
                                 *ngFor="let subsecciones of secciones.subsecciones">
+                                <hr class="mx-2">
                                 <div class="accordion__menu-link">
                                     <!-- <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i> -->
                                     <div class="w-100">
                                         <div class="mb-3">
-                                            <label [attr.for]="'sub'+subsecciones.titulo">Titulo subsección</label>
+                                            <label [attr.for]="'sub'+subsecciones.titulo">Titulo de lección</label>
                                             <input type="text" class="form-control"
                                                 [attr.id]="'sub'+subsecciones.titulo" [(ngModel)]="subsecciones.titulo">
                                         </div>
                                         <div class="mb-3">
-                                            <label [attr.for]="'desc'+subsecciones.titulo">Descripción
-                                                subsección</label>
+                                            <label [attr.for]="'desc'+subsecciones.titulo">URL de video</label>
                                             <input type="text" class="form-control"
                                                 [attr.id]="'desc'+subsecciones.titulo"
                                                 [(ngModel)]="subsecciones.contenido">
                                         </div>
+                                        <div class="mb-3">
+                                          <label [attr.for]="'desc'+subsecciones.titulo">Descripción
+                                              de lección</label>
+                                          <textarea type="text" class="form-control"
+                                              [attr.id]="'desc'+subsecciones.titulo"
+                                              [(ngModel)]="subsecciones.descripcion">
+                                          </textarea>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -185,6 +195,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

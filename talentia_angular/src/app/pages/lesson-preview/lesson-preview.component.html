@@ -4,18 +4,18 @@
       <nav class="nav navbar-nav">
         <div class="nav-item py-16pt py-sm-0">
           <div class="media flex-nowrap">
-            <!-- <div class="media-left mr-16pt">
-                        <a href="student-take-course.html"><img src="assets/images/paths/angular_64x64.png"
+            <div class="media-left mr-16pt">
+                        <a [attr.href]="'take-lesson/'+curso.id"><img [attr.src]="api_url+'curso-imagenes/curso/'+curso.imagen_card"
                                  width="40"
                                  alt="Angular"
                                  class="rounded"></a>
-                    </div> -->
+                    </div>
             <div class="media-body d-flex flex-column">
-              <a href="" (click)="false" class="card-title">{{modulo.titulo}}</a>
-              <!-- <div class="d-flex">
-                            <span class="text-50 small font-weight-bold mr-8pt">Elijah Murray</span>
-                            <span class="text-50 small">Software Engineer and Developer</span>
-                        </div> -->
+              <a [attr.href]="'take-lesson/'+curso.id" class="card-title">{{curso.titulo}}</a>
+              <div class="d-flex">
+                            <span class="text-50 small font-weight-bold mr-8pt">{{modulo.titulo}}</span>
+                            <!-- <span class="text-50 small">Software Engineer and Developer</span> -->
+                </div>
             </div>
           </div>
         </div>
@@ -64,11 +64,11 @@
         <!-- <p class="h1 text-white-50 font-weight-light m-0">50:13</p> -->
       </div>
 
-      <p class="hero__lead measure-hero-lead text-white-50 mb-24pt">JavaScript is now used to power backends, create
-        hybrid mobile applications, architect cloud solutions, design neural networks and even control robots. Enter
-        TypeScript: a superset of JavaScript for scalable, secure, performant and feature-rich applications.</p>
+      <p class="hero__lead measure-hero-lead text-white-50 mb-24pt">
+        {{lessons.descripcion}}
+      </p>
 
-      <a href="" class="btn btn-white">Resume lesson</a>
+      <!-- <a href="" class="btn btn-white">Resume lesson</a> -->
     </div>
   </div>
   <div class="navbar navbar-expand-sm  navbar-list p-0 m-0 align-items-center">

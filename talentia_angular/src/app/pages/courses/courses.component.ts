@@ -56,23 +56,25 @@ export class CoursesComponent implements OnInit {
   get filteredCursos() {
     if (this.selectedCategory === '') {
       return this.lista_curso.filter((curso) =>
-        curso.titulo.toLowerCase().includes(this.filterText.toLowerCase())
+        curso.titulo.toLowerCase().includes(this.filterText.toLowerCase()) && curso.estado === 1
       );
     } else {
       return this.lista_curso.filter(
         (curso) =>
           curso.categoria === this.selectedCategory &&
-          curso.titulo.toLowerCase().includes(this.filterText.toLowerCase())
+          curso.titulo.toLowerCase().includes(this.filterText.toLowerCase()) &&
+          curso.estado === 1
       );
     }
   }
 
   filteredCursosByCategoria(categoria: string) {
     const cursosFiltrados = this.filteredCursos.filter(
-      (curso) => curso.categoria === categoria
+      (curso) => curso.categoria === categoria && curso.estado === 1
     );
     return cursosFiltrados;
   }
+
 
   generateAutocompleteSuggestions() {
     this.loadingCursos = true;
