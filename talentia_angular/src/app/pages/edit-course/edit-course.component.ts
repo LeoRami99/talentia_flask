@@ -39,7 +39,7 @@ export class EditCourseComponent implements OnInit {
         (res: any) => {
           if (res.status === 200) {
             this.curso = res.curso;
-            console.log(this.curso);
+            // console.log(this.curso);
             this.isLoading = false;
           } else {
             this.toastr.error('Ocurrió un error al obtener el curso', 'Error');
@@ -58,12 +58,13 @@ export class EditCourseComponent implements OnInit {
   }
   saveChanges() {
     this.curso.categoria_id = this.categoria_id;
-    console.log(this.curso);
+    // console.log(this.curso);
     // envio del json para actualizar la información del curso
     this.updateCurso.updateCurso(this.curso).subscribe(
       (res: any) => {
         if (res.status === 200) {
           this.toastr.success('Curso actualizado correctamente', 'Éxito');
+          // console.log(this.curso);
           // recargar la página
           window.location.reload();
         } else {
@@ -75,7 +76,7 @@ export class EditCourseComponent implements OnInit {
       }
     );
 
-    console.log(this.curso);
+
   }
   // Actualización de estado del curso
   updateEstadoCurso() {
