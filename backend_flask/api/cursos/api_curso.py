@@ -21,7 +21,7 @@ def create():
     if request.method == 'POST':
         try:
             datos=request.get_json()
-            print(datos)
+            # print(datos)
             if True:
                 titulo_curso = datos.get('title')
                 descripcion_curso = datos.get('description')
@@ -33,7 +33,7 @@ def create():
                 estado = 1
                 dificultad = datos.get("dificultad")
                 categoria = datos.get("categoria")
-                print(titulo_curso, descripcion_curso, imagen_portada, imagen_card, trailer, precio, id_instructor)
+                # print(titulo_curso, descripcion_curso, imagen_portada, imagen_card, trailer, precio, id_instructor)
                 if titulo_curso is not None and descripcion_curso is not None and imagen_portada is not None and imagen_card is not None and trailer is not None and precio is not None and id_instructor is not None and estado is not None and dificultad is not None and categoria is not None:
                     curso = CursoDB(imagen_portada, imagen_card, titulo_curso, descripcion_curso, trailer, precio, id_instructor, estado, dificultad)
                     curso_id = curso.create_curso()
@@ -44,7 +44,7 @@ def create():
                             seccion_id = CursoDB.create_section(curso_id, seccion['headerTitle'], seccion['descriptionSection'], 1)
                             if seccion.get('items') is not None:
                                 for subsection in seccion.get('items'):
-                                    CursoDB.create_subsection(seccion_id, subsection['title'], subsection['url'])
+                                    CursoDB.create_subsection(seccion_id, subsection['title'], subsection['url'], subsection['descripcion'])
                     # emitir el evento para que se actualice la lista de cursos en el front end
                     response_data = {"message": "Curso creado", "status": 200}
                     return make_response(jsonify(response_data), 200)
@@ -55,14 +55,14 @@ def create():
                 response_data = {"message": "No hay datos", "status": 400}
                 return make_response(jsonify(response_data), 400)
         except Exception as e:
-            print(e)
+            # print(e)
             response_data = {"message": "Error en el servidor", "status": 500}
             return make_response(jsonify(response_data), 500) 
 """ Este endpoint es para subir las imagenes de portada y carda de cada curso , se debe enviar por form-data """
 @api_curso.route('/upload_imagenes_curso', methods=['POST'])
 def  upload_imagenes_curso():
     if request.method=="POST":
-        print(request.data)
+        # print(request.data)
         try:
             #se optiene por formularo las imagenes de portada y card
             imagen_portada = request.files['imagen_portada']
@@ -89,7 +89,7 @@ def  upload_imagenes_curso():
                 response_data = {"message": "No hay imagenes", "status": 400}
                 return jsonify (response_data, 400)
         except Exception as e:
-            print(e)
+            # print(e)
             response_data = {"message": "Error al subir las imagenes", "status": 500}
             return jsonify (response_data, 500)
     else:
@@ -121,7 +121,7 @@ def get_cursos():
         response_data = {"message": "Cursos obtenidos", "status": 200, "cursos": cursos}
         return jsonify(response_data), 200
     except Exception as e:
-        print(e)
+        # print(e)
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
     
@@ -140,7 +140,7 @@ def get_curso(id_curso):
             response_data = {"message": "Metodo no permitido", "status": 405}
             return jsonify (response_data, 405)
     except Exception as e:
-        print(e)
+        # print(e)
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
     
@@ -155,7 +155,7 @@ def get_categorias():
             response_data = {"message": "Metodo no permitido", "status": 405}
             return jsonify (response_data, 405)
     except Exception as e:
-        print(e)
+        # print(e)
         response_data = {"message": "Error en el servidor", "status": 500}
         return jsonify(response_data), 500
     
@@ -194,18 +194,19 @@ def update_curso():
                             id_subseccion = subseccion['id_subseccion']
                             titulo_subseccion = subseccion['titulo']
                             contenido_subseccion = subseccion['contenido']
-                            CursoDB.actualizar_subseccion(titulo_subseccion,contenido_subseccion, id_seccion, id_subseccion)
+                            descripcion_subseccion = subseccion['descripcion']
+                            CursoDB.actualizar_subseccion(titulo_subseccion, contenido_subseccion, descripcion_subseccion , id_seccion, id_subseccion)
                     response_data = {"message": "Curso actualizado", "status": 200}
                     return jsonify(response_data), 200
                 else:
                     response_data = {"message": "Error al actualizar el curso", "status": 500}
                     return jsonify(response_data), 500
             else:
-                print("No entro")
+                # print("No entro")
                 return jsonify(data)        
             # return jsonify(data) 
         except Exception as e:
-            print(e)
+            # print(e)
             return jsonify ({"message": "Error en el servidor", "status": 500}, 500)
     else:
         response_data = {"message": "Metodo no permitido", "status": 405}
@@ -233,7 +234,7 @@ def desactivar_curso():
                 return jsonify(response_data), 500
             
         except Exception as e:
-            print(e)
+            # print(e)
             return jsonify ({"message": "Error en el servidor", "status": 500}, 500)
     else:
         response_data = {"message": "Metodo no permitido", "status": 405}
@@ -247,7 +248,7 @@ def delete_curso():
         # print("entro al metodo delete")
         try:
             data =  request.get_json()
-            print("Esta es la data para eliminar:", data)
+            # print("Esta es la data para eliminar:", data)
             id_curso = data['id']
             if all([id_curso]):
                 secciones = data['secciones']
@@ -261,7 +262,7 @@ def delete_curso():
                     response_data = {"message": "Curso eliminado", "status": 200}
                     return jsonify(response_data), 200
         except Exception as e:
-            print(e)
+            # print(e)
             return jsonify({'message': "Error en el servidor", "status": 500}, 500)
     else:
         response_data = {"message": "Método no permitido", "status": 405}

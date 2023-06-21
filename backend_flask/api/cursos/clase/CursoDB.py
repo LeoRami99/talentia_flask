@@ -39,20 +39,20 @@ class CursoDB:
                 conection.commit()
                 return seccion_id
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
-    def create_subsection(seccion_id, titulo, contenido):
+    def create_subsection(seccion_id, titulo, contenido, descripcion):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="INSERT INTO subsecciones(id_seccion, titulo, contenido) VALUES (%s, %s, %s)"
-                values=(seccion_id, titulo, contenido)
+                sql="INSERT INTO subsecciones(id_seccion, titulo, contenido, descripcion) VALUES (%s, %s, %s, %s)"
+                values=(seccion_id, titulo, contenido, descripcion)
                 cursor.execute(sql, values)
                 conection.commit()
                 return True
         except Exception as e:
-            # print(e)
+            print(e)
             return False
     # creación de la categoria del curso
     @staticmethod
@@ -159,13 +159,13 @@ class CursoDB:
                     values=(seccion[0],)
                     cursor.execute(sql, values)
                     subsecciones = cursor.fetchall()
-                    print(subsecciones)
+                    # print(subsecciones)
                     for subseccion in subsecciones:
                         subseccion_dict = {
                             "id_subseccion": subseccion[0],
                             "id_seccion": subseccion[1],
                             "titulo": subseccion[2],
-                            # "descripcion": subseccion[3],
+                            "descripcion": subseccion[3],
                             "contenido": subseccion[4]
                         }
                         seccion_dict['subsecciones'].append(subseccion_dict)
@@ -173,7 +173,7 @@ class CursoDB:
                 curso_dict['secciones'] = secciones_list
                 return curso_dict
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def get_categorias():
@@ -211,7 +211,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def actualizar_seccion(titulo, descripcion, id_seccion, id_curso):
@@ -224,20 +224,20 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
-    def actualizar_subseccion(titulo, contenido, id_seccion, id_subseccion):
+    def actualizar_subseccion(titulo, contenido, descripcion, id_seccion, id_subseccion):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="UPDATE subsecciones SET titulo=%s, contenido=%s WHERE id_seccion=%s and id=%s"
-                values  = (titulo, contenido, id_seccion, id_subseccion)
+                sql="UPDATE subsecciones SET titulo=%s, contenido=%s, descripcion=%s WHERE id_seccion=%s and id=%s"
+                values  = (titulo, contenido, descripcion, id_seccion, id_subseccion)
                 cursor.execute(sql, values)
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def actualizar_categoria(id_curso, id_categoria):
@@ -250,7 +250,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def actualizar_estado(id_curso, estado):
@@ -263,7 +263,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def eliminar_subsecciones(id_seccion):
@@ -276,7 +276,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     def eliminar_secciones(id_curso, id_secciones):
         try:
@@ -288,7 +288,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def eliminar_curso(id_curso):
@@ -301,7 +301,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
     @staticmethod
     def eliminar_categoria(id_curso):
@@ -314,7 +314,7 @@ class CursoDB:
                 conection.commit()
                 return True
         except Exception as e:
-            print(e)
+            # print(e)
             return False
 
         
