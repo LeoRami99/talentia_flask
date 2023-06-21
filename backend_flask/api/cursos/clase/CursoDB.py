@@ -227,12 +227,12 @@ class CursoDB:
             print(e)
             return False
     @staticmethod
-    def actualizar_subseccion(titulo, contenido, id_seccion):
+    def actualizar_subseccion(titulo, contenido, id_seccion, id_subseccion):
         try:
             with conectionDatabase() as conection:
                 cursor = conection.cursor()
-                sql="UPDATE subsecciones SET titulo=%s, contenido=%s WHERE id_seccion=%s"
-                values  = (titulo, contenido, id_seccion)
+                sql="UPDATE subsecciones SET titulo=%s, contenido=%s WHERE id_seccion=%s and id=%s"
+                values  = (titulo, contenido, id_seccion, id_subseccion)
                 cursor.execute(sql, values)
                 conection.commit()
                 return True

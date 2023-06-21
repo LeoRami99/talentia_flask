@@ -191,9 +191,10 @@ def update_curso():
                         #Se recorre la lista de subsecciones y se actualiza la información de cada una
                         for subseccion in seccion['subsecciones']:
                             id_seccion = subseccion['id_seccion']
+                            id_subseccion = subseccion['id_subseccion']
                             titulo_subseccion = subseccion['titulo']
                             contenido_subseccion = subseccion['contenido']
-                            CursoDB.actualizar_subseccion(titulo_subseccion,contenido_subseccion, id_seccion)
+                            CursoDB.actualizar_subseccion(titulo_subseccion,contenido_subseccion, id_seccion, id_subseccion)
                     response_data = {"message": "Curso actualizado", "status": 200}
                     return jsonify(response_data), 200
                 else:
