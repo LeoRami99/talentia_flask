@@ -8,7 +8,7 @@ import { API_URL } from '../../api.constants';
 export class CursosPreviewService {
   constructor(private http: HttpClient) { }
   getCursos(){
-    const uri = API_URL+"/curso/get-cursos"
+    const uri = API_URL+"curso/get-cursos"
     return this.http.get(uri)
   }
 }

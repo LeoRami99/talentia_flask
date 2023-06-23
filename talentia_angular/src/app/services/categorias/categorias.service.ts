@@ -9,7 +9,7 @@ export class CategoriasService {
 
   constructor(private http: HttpClient) { }
   getCategorias(){
-    const uri = API_URL+"/curso/get-categorias"
+    const uri = API_URL+"curso/get-categorias"
     return this.http.get(uri)
   }
 }

@@ -8,7 +8,7 @@ export class CreateCursoService {
 
   constructor(private http:HttpClient ) { }
   createCurso(cursoData:any){
-    const uri = API_URL+'/curso/create';
+    const uri = API_URL+'curso/create';
     return this.http.post(uri, cursoData);
   }
 }
