@@ -26,7 +26,7 @@ export class TakeCourseComponent implements OnInit{
         (res: any) => {
           if (res.status === 200) {
             this.curso = res.curso;
-            // console.log(this.curso);
+            console.log(this.curso);
           } else {
             this.toastr.error('Error', 'Error');
             // console.log('Error');

@@ -37,11 +37,14 @@ export class EditCourseComponent implements OnInit {
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe(
         (res: any) => {
+
           if (res.status === 200) {
-            this.curso = res.curso;
-            // console.log(this.curso);
+            console.log(res.curso);
+            this.curso = res.curso.curso;
+            console.log(this.curso);
             this.isLoading = false;
           } else {
+            confirm('Ocurrió un error al obtener el curso');
             this.toastr.error('Ocurrió un error al obtener el curso', 'Error');
             this.router.navigate(['/courses']);
           }

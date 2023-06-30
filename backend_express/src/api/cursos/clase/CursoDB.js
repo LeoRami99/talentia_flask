@@ -39,6 +39,8 @@ class CursoDB {
         return false;
     }
   }
+
+	
   // creación de las secciones del curso
   async createSection(curso_id, titulo, descripcion, orden) {
     try {
@@ -118,6 +120,56 @@ async createCategoria(curso_id, categoria_id) {
 			return false;
 		}
 	}
+	static async getCurso(id_curso){
+		try{
+			let sql = "SELECT * FROM cursos WHERE id = ?";
+			let values = [id_curso];
+			let [result] = await db.query(sql, values);
+			let curso = {
+				id: result[0].id,
+				imagen_portada: result[0].imagen_portada,
+				imagen_card: result[0].imagen_card,
+				titulo: result[0].titulo,
+				descripcion: result[0].descripcion,
+				trailer: result[0].trailer,
+				precio: result[0].precio,
+				id_instructor: result[0].id_instructor,
+				estado: result[0].estado,
+				dificultad: result[0].dificultad,
+				secciones: [],
+			}
+			sql = "SELECT * FROM secciones WHERE curso_id = ?";
+			values = [id_curso];
+			[result] = await db.query(sql, values);
+			for(let seccion of result){
+				let seccion_dict = {
+					id: seccion.id,
+					curso_id: seccion.curso_id,
+					titulo: seccion.titulo,
+					descripcion: seccion.descripcion,
+					orden: seccion.orden,
+					subsecciones: [],
+				}
+				sql = "SELECT * FROM subsecciones WHERE id_seccion = ?";
+				values = [seccion.id];
+				let [result2] = await db.query(sql, values);
+				for(let subseccion of result2){
+					let subseccion_dict = {
+						id_subseccion: subseccion.id,
+						id_seccion: subseccion.id_seccion,
+						titulo: subseccion.titulo,
+						contenido: subseccion.contenido,
+						descripcion: subseccion.descripcion,
+					}
+					seccion_dict.subsecciones.push(subseccion_dict);
+				}
+				curso.secciones.push(seccion_dict);
+			}
+			return curso;
+		}catch(error){
+			console.error(error);
+			return false;
+	  }}
 	// Función para obtener la información de todos los cursos con su respectiva categoría
 	static async getCategorias() {
 		try {

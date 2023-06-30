@@ -13,7 +13,7 @@ export class CardPreviewComponent {
   @Input() id: number = 0;
   @Input() title: string = '';
   // descripcion de la tarjeta
-  url_images : string = 'http://localhost:5000/curso-imagenes/curso/';
+  url_images : string = 'http://localhost:3000/imagenes/';
   @Input() imagen_card: string = '';
   @Input() dificultad: string = '';
 }

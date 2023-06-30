@@ -1,6 +1,5 @@
 <div class="page-section border-bottom-2">
     <div class="container">
-
         <div *ngIf="!isLoading;">
             <div class="row">
                 <!-- Contenido del template -->
@@ -154,6 +153,7 @@
                             <div class="form-group">
                                 <label class="form-label">Categoria</label>
                                 <select name="category" class="form-control custom-select" [(ngModel)]="categoria_id">
+
                                     <option *ngFor="let category of categorias" [value]="category.id">
                                         {{category.nombre}}</option>
                                 </select>

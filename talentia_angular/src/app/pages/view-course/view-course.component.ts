@@ -46,7 +46,7 @@ export class ViewCourseComponent implements OnInit {
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe(
         (res: any) => {
-          // console.log(res);
+          console.log(res.curso);
           const {
             titulo,
             descripcion,
@@ -63,7 +63,6 @@ export class ViewCourseComponent implements OnInit {
             dificultad: dificultad,
             trailer: trailer,
           };
-          // console.log(this.curso.sections);
         },
         (error) => {
           // Manejo de error, podrías redirigir al usuario o mostrar un mensaje de error

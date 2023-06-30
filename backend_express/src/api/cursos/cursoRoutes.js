@@ -8,13 +8,17 @@ const CursoDB = require('./clase/CursoDB');
 const { getCurso, getCursos, createCurso, updateCurso, deleteCurso, getCategorias} = require('./clase/CursoDB');
 // Confiuración de multer para subir archivos y la subida de imagenes
 const storage = multer.diskStorage({
-    destinatio: 'images/curso',
+    destination: function(req, file, cb) {
+        cb(null, 'src/images/curso');
+    },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
         if (file.fieldname === "imagen_portada") {
             cb(null, 'portada_' + Date.now() + ext);
         } else if (file.fieldname === "imagen_card") {
             cb(null, 'card_' + Date.now() + ext);
+        } else {
+            cb(null, file.originalname); // Para otros campos o como opción por defecto
         }
     }
 });
@@ -40,7 +44,6 @@ router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {
 router.post('/create', async (req, res) => {
     try {
         const datos = req.body;
-        
         const titulo_curso = datos.title;
         const descripcion_curso = datos.description;
         const imagen_portada = datos.imagen_portada;
@@ -57,11 +60,9 @@ router.post('/create', async (req, res) => {
             console.log(curso_id);
 
             await curso.createCategoria(curso_id, categoria);
-
             if (datos.sections) {
                 for (let seccion of datos.sections) {
                     const seccion_id = await curso.createSection(curso_id, seccion.headerTitle, seccion.descriptionSection, 1);
-
                     if (seccion.items) {
                         for (let subsection of seccion.items) {
                             await curso.createSubsection(seccion_id, subsection.title, subsection.url, subsection.descripcion);
@@ -69,7 +70,6 @@ router.post('/create', async (req, res) => {
                     }
                 }
             }
-
             return res.status(200).json({"message": "Curso creado", "status": 200});
         } else {
             return res.status(400).json({"message": "No hay datos", "status": 400});
@@ -97,6 +97,16 @@ router.get('/get-categorias', async (req, res) => {
         res.status(500).json({ error: err.toString() });
     }
 });
+router.get('/get-curso/:id', async (req, res) => {
+    try{
+        console.log(req.params.id);
+
+        const curso = await getCurso(req.params.id);
+        res.json({'status':200, curso});
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+})
 
 // router.get('/:id', getCursos);
 // router.post('/', createCurso);

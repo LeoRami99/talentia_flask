@@ -46,9 +46,10 @@ export class LessonPreviewComponent implements OnInit {
     // Ahora puedes usar los valores de id_curso, id_seccion e id_subseccion
     // console.log(this.id_curso, this.id_seccion, this.id_subseccion);
     this.getCurso.getCourse(this.id_curso).subscribe((res: any) => {
-      // console.log(res.curso);
       this.curso=res.curso;
-      res.curso.secciones.forEach((seccion: any) => {
+      // console.log(this.curso.secciones);
+
+      this.curso.secciones.forEach((seccion: any) => {
         this.allLessons = this.allLessons.concat(seccion.subsecciones);
       });
       res.curso.secciones.forEach((seccion: any) => {
@@ -59,9 +60,10 @@ export class LessonPreviewComponent implements OnInit {
           // console.log(this.modulo);
           seccion.subsecciones.forEach((subseccion: any) => {
             // console.log("entro");
+            // console.log(subseccion);
             if (subseccion.id_subseccion == this.id_subseccion) {
               this.lessons = subseccion;
-              // console.log(this.lessons);
+              console.log(this.lessons);
             }
 
           });
