@@ -60,7 +60,7 @@ export class LessonPreviewComponent implements OnInit {
           // console.log(this.modulo);
           seccion.subsecciones.forEach((subseccion: any) => {
             // console.log("entro");
-            // console.log(subseccion);
+            console.log(subseccion);
             if (subseccion.id_subseccion == this.id_subseccion) {
               this.lessons = subseccion;
               console.log(this.lessons);

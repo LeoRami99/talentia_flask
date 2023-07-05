@@ -9,7 +9,7 @@ export class DeleteCursoService {
 
   constructor(private http: HttpClient) { }
   deleteCurso(curso: any) {
-    let uri= API_URL + '/curso/delete-curso/';
+    let uri= API_URL + 'curso/delete-curso/';
     return this.http.delete(uri, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

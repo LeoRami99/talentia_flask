@@ -8,6 +8,6 @@ import { HttpClient } from '@angular/common/http';
 export class UpdateStateCursoService {
   constructor(private http: HttpClient) {}
   updateStateCurso(curso: any) {
-    return this.http.put(`${API_URL}/curso/estado-curso/`, curso);
+    return this.http.put(`${API_URL}curso/estado-curso/`, curso);
   }
 }

@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoriasService } from 'src/app/services/categorias/categorias.service';
 import { UpdateStateCursoService } from 'src/app/services/update-state-curso/update-state-curso.service';
 import { DeleteCursoService } from 'src/app/services/delete-curso/delete-curso.service';
+import { DeleteSeccionService } from 'src/app/services/delete-seccion/delete-seccion.service';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-edit-course',
@@ -25,7 +27,8 @@ export class EditCourseComponent implements OnInit {
     private categoriasService: CategoriasService,
     private updateStateCurso: UpdateStateCursoService,
     // se agrega el nombre all ya que elimina todo lo relacionado a dicho curso
-    private deleteCursoAll: DeleteCursoService
+    private deleteCursoAll: DeleteCursoService,
+    private deleteSeccion: DeleteSeccionService
   ) {}
   // // se agrega los inputs model para despues poder editarlos
   // @Input() titulo: string='';
@@ -39,9 +42,9 @@ export class EditCourseComponent implements OnInit {
         (res: any) => {
 
           if (res.status === 200) {
-            console.log(res.curso);
-            this.curso = res.curso.curso;
-            console.log(this.curso);
+            // console.log(res.curso);
+            this.curso = res.curso;
+            // console.log(this.curso);
             this.isLoading = false;
           } else {
             confirm('Ocurrió un error al obtener el curso');
@@ -142,6 +145,27 @@ export class EditCourseComponent implements OnInit {
         }
       },(error: any) =>{
         this.toastr.error('Ocurrió un error al eliminar el curso', 'Error');
+      }
+    );
+  }
+  eliminarSeccion(id_seccion: any, id_curso: any, subsecciones: any){
+    const data = {
+      id_seccion: id_seccion,
+      id_curso: id_curso,
+      subsecciones: subsecciones
+    }
+    console.log(data);
+    this.deleteSeccion.deleteSeccion(data).subscribe(
+      (res: any) => {
+        if (res.status === 200) {
+          this.toastr.success('Sección eliminada correctamente', 'Éxito');
+          // recargar la página
+          this.router.navigate(['/edit-courses']);
+        } else {
+          this.toastr.error('Ocurrió un error al eliminar la sección', 'Error');
+        }
+      },(error: any) =>{
+        this.toastr.error('Ocurrió un error al eliminar la sección', 'Error');
       }
     );
   }

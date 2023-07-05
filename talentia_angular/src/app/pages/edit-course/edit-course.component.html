@@ -41,20 +41,22 @@
                           <!-- el data-toggle colapse se elimina -->
                           <!-- data-toggle="collapse" -->
                             <a (click)="false" class="accordion__toggle collapsed"
+                                data-toggle="collapse"
                                 data-target="#course-toc-1" data-parent="#parent">
                                 <div class="w-100">
                                     <div class="mb-3">
-                                        <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
-                                        <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control"
-                                            [(ngModel)]="secciones.titulo">
+                                      <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
+                                      <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control"
+                                      [(ngModel)]="secciones.titulo">
                                     </div>
                                     <div class="mb-3">
-                                        <label [attr.for]="'descripcion'+secciones.titulo">Descripción del
-                                            módulo</label>
+                                      <label [attr.for]="'descripcion'+secciones.titulo">Descripción del
+                                        módulo</label>
                                         <textarea [attr.id]="'descripcion'+secciones.titulo" type="text"
-                                            class="form-control" [(ngModel)]="secciones.descripcion">
-                            </textarea>
+                                        class="form-control" [(ngModel)]="secciones.descripcion">
+                                      </textarea>
                                     </div>
+                                    <button class="btn btn-danger" (click)="eliminarSeccion(secciones.id, curso.id, secciones.subsecciones)">Eliminar Módulo</button>
                                 </div>
                                 <!-- <span class="flex">{{secciones.titulo}}</span> -->
 
