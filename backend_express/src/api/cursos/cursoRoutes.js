@@ -2,10 +2,28 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
-
 // Aquí importarías las funciones del controlador para cada ruta
 const CursoDB = require('./clase/CursoDB');
-const { getCurso, getCursos, createCurso, updateCurso, deleteCurso, getCategorias} = require('./clase/CursoDB');
+const {
+	getCurso,
+	getCursos,
+	createCurso,
+	updateCurso,
+	deleteCurso,
+	getCategorias,
+    // actualización de curso
+	actualizarEstado,
+	actualizarCurso,
+	actualizarSeccion,
+	actualizarSubseccion,
+	actualizarCategoria,
+    // Eliminación de curso
+	eliminarSubsecciones,
+	eliminarSecciones,
+	eliminarCurso,
+	eliminarCategoria,
+    eliminarSubseccion,
+} = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -107,6 +125,132 @@ router.get('/get-curso/:id', async (req, res) => {
         res.status(500).json({ error: err.toString() });
     }
 })
+router.put('/estado-curso/', async(req,res)=>{
+    try{
+        const estado = actualizarEstado(req.body.id,req.body.estado);
+        res.json({'status':200, 'message':'Estado actualizado correctamente'});
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+})
+router.put('/update-curso/', async(req,res)=>{
+    try{
+        let data=req.body;
+        let id_curso = data.id,
+            imagen_portada = data.imagen_portada,
+			imagen_card = data.imagen_card,
+			titulo= data.titulo,
+			descripcion = data.descripcion,
+			trailer = data.trailer,
+			precio = data.precio,
+			estado = data.estado,
+			dificultad = data.dificultad,
+			secciones = data.secciones,
+			categoria_id = data.categoria_id;
+        if (id_curso!='' && titulo!='' && descripcion!='' && trailer!='' && precio!='' && estado!='' && dificultad!='' && categoria_id!='') {
+            const update_curso = await actualizarCurso(imagen_portada, imagen_portada, id_curso, titulo, descripcion, trailer, precio, estado, dificultad);
+            if(update_curso){
+                
+                if(await actualizarCategoria(id_curso,categoria_id)){
+                    secciones.forEach(async secciones => {
+                        await actualizarSeccion(secciones.titulo, secciones.descripcion, secciones.id, id_curso);
+                        secciones.subsecciones.forEach(async subsecciones => {
+                             await actualizarSubseccion(subsecciones.titulo, subsecciones.contenido, subsecciones.descripcion, subsecciones.id_subseccion, secciones.id, id_curso);
+                        });
+                    });               
+                    return res.status(200).json({"message": "Curso actualizado", "status": 200});
+                }else{
+                    return res.status(400).json({"message": "No hay datos", "status": 400});
+                }
+            }else{
+                return res.status(400).json({"message": "No hay datos", "status": 400});
+            }
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+
+        }
+
+    }catch(err){
+        res.status(500).json({ 'error': err.toString() });
+    }
+})
+
+// router.delete('/delete-curso/', async (req, res) => {
+//     try{
+//         let data=req.body;
+//         if(data.id!=''){
+//             let seccion = data.secciones
+//             seccion.forEach(async secciones => {
+//                 secciones.subsecciones.forEach(async subsecciones => {
+//                     await eliminarSubsecciones(subsecciones.id_seccion);
+//                 });
+//                 await eliminarSecciones(secciones.curso_id, secciones.id);
+//             });
+//             await eliminarCategoria(data.id);
+//             await eliminarCurso(data.id) ? res.status(200).json({"message": "Curso eliminado", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+//         }else{
+//             return res.status(400).json({"message": "No hay datos", "status": 400});
+//         }
+//     }catch(err){
+//         res.status(500).json({ error: err.toString() });
+//     }
+// });
+router.delete('/delete-curso/', async (req, res) => {
+    try{
+        let data=req.body;
+        if(data.id!=''){
+            let seccion = data.secciones
+            for (const secciones of seccion) {
+                for (const subsecciones of secciones.subsecciones) {
+                    await eliminarSubsecciones(subsecciones.id_seccion);
+                };
+                await eliminarSecciones(secciones.curso_id, secciones.id);
+            };
+            await eliminarCategoria(data.id);
+            await eliminarCurso(data.id) ? res.status(200).json({"message": "Curso eliminado", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+});
+
+// esto es cuando se edita el curso
+// eliminar seccion
+ /* Al eliminar una sección se elimna las subsecciones del mismos */
+router.delete('/delete-seccion/', async (req, res) => {
+    console.log(req.body);
+    try{
+        let data=req.body;
+        if(data.id!=''){
+            let subsecciones = data.subsecciones;
+            for (const subseccion of subsecciones) {
+                await eliminarSubseccion(subseccion.id_subseccion,subseccion.id_seccion);
+            }
+            await eliminarSecciones(data.id_curso, data.id_seccion) ? res.status(200).json({"message": "Sección eliminada", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+    
+});
+
+
+
+
+
+// router.delete('/delete-curso/', async (req, res) => {
+//     try{
+//         let data=req.body;
+//         console.log(req.body);
+        
+//     }catch(err){
+//         res.status(500).json({ error: err.toString() });
+//     }
+// })
 
 // router.get('/:id', getCursos);
 // router.post('/', createCurso);

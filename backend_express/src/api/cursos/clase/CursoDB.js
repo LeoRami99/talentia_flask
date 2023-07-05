@@ -191,6 +191,129 @@ async createCategoria(curso_id, categoria_id) {
 			return false;
 		}
 	}
+	// Actualización del estado del curso
+	static async actualizarEstado(id_curso, estado) {
+		try {
+			let sql = "UPDATE cursos SET estado=? WHERE id=?";
+			let values = [estado, id_curso];
+			let result = await db.query(sql, values);
+			return true;
+		} catch (error) {
+			console.error(error);
+			return false;
+		}
+	}
+	// Actualización de curso
+	static async actualizarCurso(imagen_portada, imagen_card, id_curso, titulo, descripcion, trailer, precio, estado, dificultad) {
+		try{
+			let sql= "UPDATE cursos SET imagen_portada=?, imagen_card=?, titulo=?, descripcion=?, trailer=?, precio=?, estado=?, dificultad=? WHERE id=?"
+			let values = [imagen_portada, imagen_card, titulo, descripcion, trailer, precio, estado, dificultad, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	// Actualización de sección
+	static async actualizarSeccion(titulo, descripcion, id_seccion, id_curso){
+		try{
+			let sql= "UPDATE secciones SET titulo=?, descripcion=? WHERE id=? AND curso_id=?"
+			let values= [titulo, descripcion, id_seccion, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	// Actualización de subsección
+	static async actualizarSubseccion(titulo, contenido, descripcion, id_subseccion, id_seccion, id_curso){
+		try{
+			console.log(titulo, contenido, descripcion, id_subseccion, id_seccion, id_curso);
+			let sql= "UPDATE subsecciones SET titulo=?, contenido=?, descripcion=? WHERE id_seccion=? AND id=?"
+			let values = [titulo, contenido, descripcion, id_seccion, id_subseccion];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	// Actualización de categoría
+	static async actualizarCategoria(id_curso, id_categoria){
+		try{
+			let sql= "UPDATE categorias_curso SET id_categoria=? WHERE id_curso=?"
+			let values = [id_categoria, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	// Eliminación de las subsecciones basada en el id de la sección
+	//Indica que se elimina todas las subsecciones
+	static async eliminarSubsecciones(id_seccion){
+		try{
+			let sql= "DELETE FROM subsecciones WHERE id_seccion=?";
+			let values = [id_seccion];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async eliminarSecciones(id_curso, id_secciones){
+		try{
+			let sql= "DELETE FROM secciones WHERE id=? AND curso_id=?";
+			let values = [id_secciones, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async eliminarSubseccion(id_subseccion, id_seccion){
+		try{
+			let sql= "DELETE FROM subsecciones WHERE id=? AND id_seccion=?";
+			let values = [id_subseccion, id_seccion];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async eliminarCurso(id_curso){
+		try{
+			let sql= "DELETE FROM cursos WHERE id=?";
+			let values = [id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async eliminarCategoria(id_curso){
+		try{
+			let sql= "DELETE FROM categorias_curso WHERE id_curso=?";
+			let values = [id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+
+
+
+
+
 }
 
 module.exports = CursoDB;
