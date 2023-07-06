@@ -234,9 +234,27 @@ router.delete('/delete-seccion/', async (req, res) => {
         }
     }catch(err){
         res.status(500).json({ error: err.toString() });
-    }
-    
+    } 
 });
+router.delete('/delete-subseccion/', async (req, res) => {
+    try{
+        let data=req.body;
+        console.log(data);
+        if(data.id!=''){
+            await eliminarSubseccion(data.id_subseccion, data.id_seccion) ? res.status(200).json({"message": "Subsección eliminada", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    } 
+})
+
+// Creación de lecciones
+
+// router.post('/create-leccion/', async (req, res) => {
+
+// });
 
 
 

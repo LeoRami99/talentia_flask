@@ -7,8 +7,15 @@ import { CategoriasService } from 'src/app/services/categorias/categorias.servic
 import { UpdateStateCursoService } from 'src/app/services/update-state-curso/update-state-curso.service';
 import { DeleteCursoService } from 'src/app/services/delete-curso/delete-curso.service';
 import { DeleteSeccionService } from 'src/app/services/delete-seccion/delete-seccion.service';
+import { DeleteSubseccionService } from 'src/app/services/delete-subseccion/delete-subseccion.service';
 import { data } from 'jquery';
 
+interface iSubseccion {
+  id_seccion: number,
+  titulo: string,
+  url_conteido: string,
+  descripcion: string
+}
 @Component({
   selector: 'app-edit-course',
   templateUrl: './edit-course.component.html',
@@ -28,7 +35,8 @@ export class EditCourseComponent implements OnInit {
     private updateStateCurso: UpdateStateCursoService,
     // se agrega el nombre all ya que elimina todo lo relacionado a dicho curso
     private deleteCursoAll: DeleteCursoService,
-    private deleteSeccion: DeleteSeccionService
+    private deleteSeccion: DeleteSeccionService,
+    private deleteSubseccion: DeleteSubseccionService
   ) {}
   // // se agrega los inputs model para despues poder editarlos
   // @Input() titulo: string='';
@@ -44,7 +52,7 @@ export class EditCourseComponent implements OnInit {
           if (res.status === 200) {
             // console.log(res.curso);
             this.curso = res.curso;
-            // console.log(this.curso);
+            console.log(this.curso);
             this.isLoading = false;
           } else {
             confirm('Ocurrió un error al obtener el curso');
@@ -154,7 +162,7 @@ export class EditCourseComponent implements OnInit {
       id_curso: id_curso,
       subsecciones: subsecciones
     }
-    console.log(data);
+    // console.log(data);
     this.deleteSeccion.deleteSeccion(data).subscribe(
       (res: any) => {
         if (res.status === 200) {
@@ -168,5 +176,24 @@ export class EditCourseComponent implements OnInit {
         this.toastr.error('Ocurrió un error al eliminar la sección', 'Error');
       }
     );
+  }
+  eliminarSubseccion(id_subseccion: any, id_seccion: any){
+    const data ={
+      id_subseccion: id_subseccion,
+      id_seccion: id_seccion
+    }
+    this.deleteSubseccion.deleteSubseccion(data).subscribe({
+      next: (res: any) => {
+        if( res.status === 200){
+          this.toastr.success('Lección eliminada correctamente', 'Éxito');
+          window.location.reload();
+        }else{
+          this.toastr.error('Ocurrió un error al eliminar la lección', 'Error');
+        }
+      }
+    });
+  }
+  onAddSubsection(){
+
   }
 }
