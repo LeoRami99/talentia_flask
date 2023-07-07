@@ -24,6 +24,7 @@ interface iSubseccion {
 export class EditCourseComponent implements OnInit {
   isLoading: boolean = true;
   curso: any;
+  addSubSection: boolean = false;
   // curso: Curso | undefined;
   constructor(
     private getcourse: GetCourseService,
@@ -44,6 +45,13 @@ export class EditCourseComponent implements OnInit {
   // estado_curso
   @Input() estado_curso: string = '';
   categorias: any[] = [];
+
+// models para las lecciones Subsecciones
+@Input() titulo_leccion: string = '';
+@Input() url_contenido: string = '';
+@Input() descripcion_leccion: string = '';
+
+
   ngOnInit(): void {
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe(
@@ -194,6 +202,16 @@ export class EditCourseComponent implements OnInit {
     });
   }
   onAddSubsection(){
-
+      this.addSubSection = true;
+  }
+  cancelAddSubsection(){
+    this.addSubSection = false;
+  }
+  // Se recoge el objeto de la subsección con los models
+  onAddSubsectionSubmit(id_seccion: any){
+    return "Hola"
+    // const data ={
+    //   id_seccion: this.id_seccion,
+    // }
   }
 }

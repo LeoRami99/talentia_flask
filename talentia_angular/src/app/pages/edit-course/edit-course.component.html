@@ -56,7 +56,35 @@
                                         class="form-control" [(ngModel)]="secciones.descripcion">
                                       </textarea>
                                     </div>
-                                    <button class="btn btn-danger" (click)="eliminarSeccion(secciones.id, curso.id, secciones.subsecciones)">Eliminar Módulo</button>
+                                    <div class="d-flex justify-content-end" style="gap: 20px;">
+                                      <button class="btn btn-danger" (click)="eliminarSeccion(secciones.id, curso.id, secciones.subsecciones)">Eliminar Módulo</button>
+                                      <button class="btn btn-success" (click)="onAddSubsection()">Agrega Lección</button>
+                                    </div>
+                                    <div class="w-100 p-3 mt-2 shadow border bg-light" *ngIf="addSubSection">
+                                      <h3 class="form-label">Agregar Lección </h3>
+                                      <div class="mb-3">
+                                        <label [attr.for]="'sub'">Titulo de lección</label>
+                                        <input type="text" class="form-control" [attr.id]="'sub'"  [(ngModel)]="titulo_leccion">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label [attr.for]="'desc'">URL de video</label>
+                                        <input type="text" class="form-control" [attr.id]="'desc'" [(ngModel)]="url_contenido">
+                                      </div>
+                                      <div class="mb-3">
+                                        <label [attr.for]="'desc'">Descripción
+                                          de lección</label>
+                                        <textarea type="text" class="form-control" [attr.id]="'desc'" [(ngModel)]="descripcion_leccion"></textarea>
+                                      </div>
+                                      <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
+
+                                      </div>
+                                      <div class="d-flex flex-grow-1">
+                                        <button class="btn btn-danger" (click)="cancelAddSubsection()">Cancelar</button>
+                                        <div class="flex-grow-1"></div>
+                                        <h1>{{secciones.id}}</h1>
+                                        <button class="btn btn-success" (click)="onAddSubsectionSubmit(secciones.id)">Agregar</button>
+                                      </div>
+                                    </div>
                                 </div>
                                 <!-- <span class="flex">{{secciones.titulo}}</span> -->
 
@@ -69,7 +97,6 @@
                                     <!-- <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i> -->
                                     <div class="w-100">
                                         <div class="mb-3">
-
                                             <label [attr.for]="'sub'+subsecciones.titulo">Titulo de lección</label>
                                             <input type="text" class="form-control"
                                                 [attr.id]="'sub'+subsecciones.titulo" [(ngModel)]="subsecciones.titulo">
@@ -91,10 +118,12 @@
                                       </div>
                                       <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
                                         <button class="btn btn-danger" (click)="eliminarSubseccion(subsecciones.id_subseccion, subsecciones.id_seccion)">Eliminar Lección</button>
-                                        <button class="btn btn-success">Agrega Lección</button>
+                                        <button class="btn btn-success" (click)="onAddSubsection()">Agregar Lección</button>
                                       </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
