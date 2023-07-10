@@ -47,18 +47,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {name: 'imagen_card'}]), (req, res) => {
-    if (req.files.imagen_portada && req.files.imagen_card) {
-        let response_data = {
-            "message": "Imagenes subidas correctamente",
-            "status": 200,
-            "imagen_portada": req.files.imagen_portada[0].filename,
-            "imagen_card": req.files.imagen_card[0].filename
-        };
-        console.log(response_data);
-        res.status(200).json(response_data);
-    } else {
-        let response_data = {"message": "No hay imagenes", "status": 400};
-        res.status(400).json(response_data);
+    try{
+        if (req.files.imagen_portada && req.files.imagen_card) {
+            let response_data = {
+                "message": "Imagenes subidas correctamente",
+                "status": 200,
+                "imagen_portada": req.files.imagen_portada[0].filename,
+                "imagen_card": req.files.imagen_card[0].filename
+            };
+            console.log(response_data);
+            res.status(200).json(response_data);
+        } else {
+            let response_data = {"message": "No hay imagenes", "status": 400};
+            res.status(400).json(response_data);
+        }
+    } catch (err) {
+        let response_data = {"message": "Error al subir las imagenes", "status": 500};
+        res.status(500).json(response_data);
     }
 });
 
