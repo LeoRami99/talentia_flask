@@ -31,7 +31,7 @@ const {
 // Confiuración de multer para subir archivos y la subida de imagenes
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'src/images/curso');
+        cb(null, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
