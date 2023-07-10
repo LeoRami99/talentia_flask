@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { API_URL } from 'src/app/api.constants';
 
 @Component({
   selector: 'app-card-edit',
@@ -10,7 +11,7 @@ export class CardEditComponent {
   @Input() id: number = 0;
   @Input() title: string = '';
   // descripcion de la tarjeta
-  url_images : string = 'http://localhost:3000/imagenes/';
+  url_images : string = API_URL+'/imagenes/';
   @Input() imagen_card: string = '';
   @Input() dificultad: string = '';
 
