@@ -29,21 +29,49 @@ const {
     eliminarSubseccion,
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
+//     },
+//     filename: function(req, file, cb) {
+//         let ext = path.extname(file.originalname);
+//         if (file.fieldname === "imagen_portada") {
+//             cb(null, 'portada_' + Date.now() + ext);
+//         } else if (file.fieldname === "imagen_card") {
+//             cb(null, 'card_' + Date.now() + ext);
+//         } else {
+//             cb(null, file.originalname); // Para otros campos o como opción por defecto
+//         }
+//     }
+// });
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
+        const dir = '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso';
+        fs.access(dir, fs.constants.W_OK, (err) => {
+            console.log(`Checking permissions for directory: ${dir}`);
+            if (err) {
+                console.error(`Directory ${dir} is not writable:`, err);
+                cb(err);
+            } else {
+                cb(null, dir);
+            }
+        });
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
+        let filename;
         if (file.fieldname === "imagen_portada") {
-            cb(null, 'portada_' + Date.now() + ext);
+            filename = 'portada_' + Date.now() + ext;
         } else if (file.fieldname === "imagen_card") {
-            cb(null, 'card_' + Date.now() + ext);
+            filename = 'card_' + Date.now() + ext;
         } else {
-            cb(null, file.originalname); // Para otros campos o como opción por defecto
+            filename = file.originalname; // Para otros campos o como opción por defecto
         }
+        console.log(`Saving file with filename: ${filename}`);
+        cb(null, filename);
     }
 });
+
 
 const upload = multer({storage: storage});
 router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {name: 'imagen_card'}]), (req, res) => {
