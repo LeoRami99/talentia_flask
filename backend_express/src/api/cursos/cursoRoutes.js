@@ -62,6 +62,7 @@ router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {
             res.status(400).json(response_data);
         }
     } catch (err) {
+        console.error(err);  // Agrega esta línea
         let response_data = {"message": "Error al subir las imagenes", "status": 500};
         res.status(500).json(response_data);
     }
