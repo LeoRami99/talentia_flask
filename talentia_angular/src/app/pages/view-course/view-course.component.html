@@ -6,7 +6,7 @@
       <h1 class="text-white">{{curso?.title}}</h1>
       <p class="lead text-white-50 measure-hero-lead">{{curso?.description}}</p>
       <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-        <a [attr.href]="'/take-lesson/'+id_curso" class="btn btn-white">Take a course</a>
+        <a [attr.href]="'/take-lesson/'+id_curso" class="btn btn-white">Tomar curso</a>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
 <div class="page-section border-bottom-2">
   <div class="container">
     <div class="page-separator">
-      <div class="page-separator__text">Table of Contents</div>
+      <div class="page-separator__text">Tabla de contenidos</div>
     </div>
     <div class="row mb-0">
       <div class="col-lg-7">
@@ -69,11 +69,12 @@
             <div [attr.id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i" data-parent="#accordionExample">
               <div class="card-body">
                 <div class="accordion__menu-link" *ngFor="let lesson of sections.subsecciones">
+
                   <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                    <i class="material-icons icon-16pt">lock</i>
+                    <i class="material-icons icon-16pt">book</i>
                   </span>
-                  <a class="flex" (click)="false">{{lesson.titulo}}</a>
-                  <span class="text-muted">1m 10s</span>
+                  <a class="flex" (click)="false">{{lesson.descripcion}}</a>
+                  <!-- <span class="text-muted">1m 10s</span> -->
                 </div>
               </div>
             </div>
@@ -110,7 +111,7 @@
       <div class="col-lg-5 justify-content-center">
         <div class="card">
           <div class="card-body py-16pt text-center">
-            <h4 class="card-title">Watch trailer</h4>
+            <h4 class="card-title">Mirar trailer</h4>
             <div class="video-container">
               <iframe width="300" height="200" [src]="getVideoUrl(curso?.trailer || '')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>

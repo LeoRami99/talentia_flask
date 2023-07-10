@@ -199,7 +199,7 @@ export class CreateCourseComponent implements OnInit {
                   return EMPTY;
                 }),
                 tap((res: any) => {
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/courses']);
                   this.toast.success(
                     'Curso creado correctamente',
                     'Curso creado'

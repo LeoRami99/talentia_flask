@@ -24,6 +24,7 @@ interface Subseccion {
   id_seccion: number;
   titulo: string;
   contenido: string;
+  descripcion: string;
 }
 
 @Component({

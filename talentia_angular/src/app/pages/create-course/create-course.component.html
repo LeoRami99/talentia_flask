@@ -6,17 +6,17 @@
             <div class="col-md-8">
 
                 <div class="page-separator">
-                    <div class="page-separator__text">Basic information</div>
+                    <div class="page-separator__text">Información del curso</div>
                 </div>
 
-                <label class="form-label">Course title</label>
+                <label class="form-label">Titulo del Curso</label>
                 <div class="form-group mb-24pt">
-                    <input type="text" class="form-control form-control-lg" placeholder="Course title" [(ngModel)]=title>
-                    <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small>
+                    <input type="text" class="form-control form-control-lg" placeholder="Titulo del curso" [(ngModel)]=title>
+                    <!-- <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small> -->
                 </div>
 
 
-                <label class="form-label">Description</label>
+                <label class="form-label">Descripción</label>
                 <textarea class="form-control" rows="3" placeholder="Course description" [(ngModel)]=description></textarea>
 
                 <!-- Esta sección se comenta debido a que se debe usar una libreria de quill aparte pero no deberia de afectar -->
@@ -52,15 +52,13 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- ! Form para agregar seccion  -->
                 <div class="collapse" id="addSectionDiv">
 
                     <div class="card card-body">
 
-                        <h2>Nueva Módulo</h2>
+                        <h2>Nuevo Módulo</h2>
 
                         <div class="mb-3">
                             <label class="form-label">Titulo de Módulo</label>
@@ -97,7 +95,7 @@
                                 <label class="form-label">Titulo de contenido</label>
 
                                 <input formControlName="title" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.title.dirty && (newSubsectionForm.controls.title.hasError('minlength') || newSubsectionForm.controls.title.hasError('required') ) }"
-                                    value="" placeholder="titulo de seccion">
+                                    value="" placeholder="Titulo de la lección">
 
                                 <div class="invalid-feedback" *ngIf="newSubsectionForm.controls.title.dirty && newSubsectionForm.controls.title.hasError('minlength')">{{hintErrorLength}}</div>
 
@@ -119,7 +117,7 @@
 
                               <label class="form-label">Descripción</label>
 
-                              <textarea formControlName="descripcion" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.descripcion.dirty && (newSubsectionForm.controls.descripcion.hasError('minlength') || newSubsectionForm.controls.descripcion.hasError('required') ) }" placeholder="Ingrese una descripción más larga">
+                              <textarea formControlName="descripcion" type="text" class="form-control " [ngClass]="{'is-invalid': newSubsectionForm.controls.descripcion.dirty && (newSubsectionForm.controls.descripcion.hasError('minlength') || newSubsectionForm.controls.descripcion.hasError('required') ) }" placeholder="Ingresa una descripción">
                               </textarea>
 
                               <div class="invalid-feedback" *ngIf="newSubsectionForm.controls.descripcion.dirty && newSubsectionForm.controls.descripcion.hasError('minlength')">{{hintErrorLength}}</div>
@@ -129,7 +127,7 @@
                           </div>
                         </form>
 
-                        <button class="btn btn-success btn-block" [disabled]="newSubsectionForm.invalid" (click)="onAddSubSection()">add subsection </button>
+                        <button class="btn btn-success btn-block" [disabled]="newSubsectionForm.invalid" (click)="onAddSubSection()">Añadir Lección</button>
                     </div>
                 </div>
 
@@ -166,14 +164,14 @@
                   <div class="card-body">
                     <label class="form-label">URL</label>
                     <input type="text" class="form-control" [(ngModel)]="url_video" placeholder="Enter Video URL">
-                    <small class="form-text text-muted">Enter a valid video URL.</small>
+                    <small class="form-text text-muted">Ingrese una URL valida</small>
                     <!-- <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" [src]=url_video allowfullscreen=""></iframe>
                     </div> -->
                     </div>
                 </div>
                 <div class="page-separator">
-                  <div class="page-separator__text">Imagenes</div>
+                  <div class="page-separator__text">Imágenes</div>
               </div>
               <div class="card">
 
@@ -184,7 +182,7 @@
                         <input class="form-control" type="file" name="imagenPortada" id="imagenPortada" (change)="onPortadaSelected($event)">
                       </div>
                       <div class="mb-3 custom-file">
-                        <label for="imagenCard" class="">Imagen de Card</label>
+                        <label for="imagenCard" class="">Imagen de card</label>
                         <input class="form-control" type="file" name="imagenCard" id="imagenCard" (change)="onCardSelected($event)">
                       </div>
                       <!-- imagen card -->
@@ -192,26 +190,26 @@
               </div>
 
                 <div class="page-separator">
-                    <div class="page-separator__text">Options</div>
+                    <div class="page-separator__text">Opciones</div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <label class="form-label">Difficulty</label>
+                            <label class="form-label">Nivel del curso</label>
                             <select name="difficulty" class="form-control custom-select" [(ngModel)]="dificultad">
                                 <option value="Beginner">Beginner</option>
                                 <option value="Intermediate">Intermediate</option>
                                 <option value="Advanced">Advanced</option>
                             </select>
-                            <small class="form-text text-muted">Select a category.</small>
+                            <small class="form-text text-muted">Selecciones un nivel</small>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Category</label>
+                            <label class="form-label">Categoría</label>
                             <select name="category" class="form-control custom-select" [(ngModel)]="categoria">
                               <option *ngFor="let category of categorias" [value]="category.id">{{category.nombre}}</option>
                             </select>
-                            <small class="form-text text-muted">Select a category.</small>
+                            <small class="form-text text-muted">Selecciona una categoría.</small>
                         </div>
                         <!-- Seccón para el precio y los tags del curso -->
                         <!-- <div class="form-group">

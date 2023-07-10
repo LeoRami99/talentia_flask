@@ -2,10 +2,10 @@
   <div class="container">
 
     <div class="d-flex align-items-center mb-24pt flex-wrap" style="white-space: nowrap;">
-      <input type="text" [(ngModel)]="filterText" placeholder="Filter" class="form-control" style="width: 200px;" (keyup)="generateAutocompleteSuggestions()">
+      <input type="text" [(ngModel)]="filterText" placeholder="Filtro" class="form-control" style="width: 200px;" (keyup)="generateAutocompleteSuggestions()">
       <div class="flex-grow-1"></div>
       <select [(ngModel)]="selectedCategory" class="form-control" style="max-width: 200px;">
-        <option value="">All Categories</option>
+        <option value="">Todas las categorías</option>
         <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</option>
       </select>
     </div>
