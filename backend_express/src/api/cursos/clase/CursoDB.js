@@ -122,7 +122,7 @@ async createCategoria(curso_id, categoria_id) {
 	}
 	static async getCurso(id_curso){
 		try{
-			let sql = "SELECT * FROM cursos WHERE id = ?";
+			let sql = "SELECT cursos.*, categorias_curso.id_categoria FROM cursos JOIN categorias_curso ON cursos.id = categorias_curso.id_curso WHERE cursos.id = ?";
 			let values = [id_curso];
 			let [result] = await db.query(sql, values);
 			let curso = {
@@ -136,6 +136,7 @@ async createCategoria(curso_id, categoria_id) {
 				id_instructor: result[0].id_instructor,
 				estado: result[0].estado,
 				dificultad: result[0].dificultad,
+				categoria_id: result[0].id_categoria,
 				secciones: [],
 			}
 			sql = "SELECT * FROM secciones WHERE curso_id = ?";
@@ -305,6 +306,32 @@ async createCategoria(curso_id, categoria_id) {
 			await db.query(sql, values);
 			return true;
 		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	// Para estas dos secciones se cren las funciones estaticas debido a que las principales son llamadas por el controlador
+	static async createLeccion(seccion_id, titulo, contenido, descripcion) {
+		try{
+			let sql = "INSERT INTO subsecciones(id_seccion, titulo, contenido, descripcion) VALUES (?, ?, ?, ?)";
+			let values = [seccion_id, titulo, contenido, descripcion];
+			let result = await db.query(sql, values);
+			// El id de la subsección recién creada estará en result[0].insertId
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async createModulo(curso_id, titulo, descripcion, orden) {
+		try {
+			let sql = "INSERT INTO secciones(curso_id, titulo, descripcion, orden) VALUES (?, ?, ?, ?)";
+			let values = [curso_id, titulo, descripcion, orden];
+			let result = await db.query(sql, values);
+			// El id de la sección recién creada estará en result[0].insertId
+			let seccion_id = result[0].insertId;
+			return seccion_id;
+		} catch (error) {
 			console.error(error);
 			return false;
 		}
