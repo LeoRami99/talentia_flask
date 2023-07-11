@@ -29,29 +29,23 @@ const {
     eliminarSubseccion,
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
-const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		const dir = path.join(__dirname, "src/images/curso");
 
-		// Crea el directorio si no existe
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir, {recursive: true});
-		}
-		cb(null, dir);
-	},
-	filename: function (req, file, cb) {
-		let ext = path.extname(file.originalname);
-		if (file.fieldname === "imagen_portada") {
-			cb(null, "portada_" + Date.now() + ext);
-		} else if (file.fieldname === "imagen_card") {
-			cb(null, "card_" + Date.now() + ext);
-		} else {
-			cb(null, file.originalname); // Para otros campos o como opción por defecto
-		}
-	},
+const storage = multer.diskStorage(
+    {
+    destination: function(req, file, cb) {
+        cb(null, 'src/images/curso');
+    },
+    filename: function(req, file, cb) {
+        let ext = path.extname(file.originalname);
+        if (file.fieldname === "imagen_portada") {
+            cb(null, 'portada_' + Date.now() + ext);
+        } else if (file.fieldname === "imagen_card") {
+            cb(null, 'card_' + Date.now() + ext);
+        } else {
+            cb(null, file.originalname); // Para otros campos o como opción por defecto
+        }
+    }
 });
-
-console.log(storage)
 // const storage = multer.diskStorage({
 //     destination: function(req, file, cb) {
 //         const dir = '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso';
@@ -82,13 +76,6 @@ console.log(storage)
 
 
 const upload = multer({storage: storage});
-// habilitar los cors para que se puedan hacer peticiones desde el frontend
-router.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*"); // authorization, Origin, X-Requested-With, Content-Type, Accept
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    next();
-});
 router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {name: 'imagen_card'}]), (req, res) => {
     try{
         if (req.files.imagen_portada && req.files.imagen_card) {
