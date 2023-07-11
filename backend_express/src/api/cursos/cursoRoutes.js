@@ -32,7 +32,8 @@ const {
 const storage = multer.diskStorage(
     {
     destination: function(req, file, cb) {
-        cb(null, 'src/images/curso');
+        const dir = path.join(__dirname, 'src/images/curso');
+        cb(null, dir);
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
