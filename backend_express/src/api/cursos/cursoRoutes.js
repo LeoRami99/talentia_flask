@@ -82,6 +82,13 @@ console.log(storage)
 
 
 const upload = multer({storage: storage});
+// habilitar los cors para que se puedan hacer peticiones desde el frontend
+router.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*"); // authorization, Origin, X-Requested-With, Content-Type, Accept
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    next();
+});
 router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {name: 'imagen_card'}]), (req, res) => {
     try{
         if (req.files.imagen_portada && req.files.imagen_card) {
