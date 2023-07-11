@@ -29,29 +29,26 @@ const {
     eliminarSubseccion,
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
-const storage = multer.diskStorage(
-    {
-    destination: function(req, file, cb) {
-            const dir = 'src/images/curso';
-            fs.mkdir(dir, { recursive: true }, (err) => {
-                if (err) {
-                    console.error(`Error creating directory ${dir}:`, err);
-                    cb(err);
-                } else {
-                    cb(null, dir);
-                }
-            });
-        },
-    filename: function(req, file, cb) {
-        let ext = path.extname(file.originalname);
-        if (file.fieldname === "imagen_portada") {
-            cb(null, 'portada_' + Date.now() + ext);
-        } else if (file.fieldname === "imagen_card") {
-            cb(null, 'card_' + Date.now() + ext);
-        } else {
-            cb(null, file.originalname); // Para otros campos o como opción por defecto
-        }
-    }
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		const dir = path.join(__dirname, "src/images/curso");
+
+		// Crea el directorio si no existe
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir, {recursive: true});
+		}
+		cb(null, dir);
+	},
+	filename: function (req, file, cb) {
+		let ext = path.extname(file.originalname);
+		if (file.fieldname === "imagen_portada") {
+			cb(null, "portada_" + Date.now() + ext);
+		} else if (file.fieldname === "imagen_card") {
+			cb(null, "card_" + Date.now() + ext);
+		} else {
+			cb(null, file.originalname); // Para otros campos o como opción por defecto
+		}
+	},
 });
 
 console.log(storage)
