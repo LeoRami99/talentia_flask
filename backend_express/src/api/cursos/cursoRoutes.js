@@ -32,7 +32,7 @@ const {
 const storage = multer.diskStorage(
     {
     destination: function(req, file, cb) {
-        const dir = path.join(__dirname, 'src/images/curso');
+        const dir = path.join(__dirname, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
         cb(null, dir);
     },
     filename: function(req, file, cb) {
