@@ -29,48 +29,51 @@ const {
     eliminarSubseccion,
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
-// const storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//         cb(null, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
-//     },
-//     filename: function(req, file, cb) {
-//         let ext = path.extname(file.originalname);
-//         if (file.fieldname === "imagen_portada") {
-//             cb(null, 'portada_' + Date.now() + ext);
-//         } else if (file.fieldname === "imagen_card") {
-//             cb(null, 'card_' + Date.now() + ext);
-//         } else {
-//             cb(null, file.originalname); // Para otros campos o como opción por defecto
-//         }
-//     }
-// });
-const storage = multer.diskStorage({
+const storage = multer.diskStorage(
+    {
     destination: function(req, file, cb) {
-        const dir = '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso';
-        fs.access(dir, fs.constants.W_OK, (err) => {
-            console.log(`Checking permissions for directory: ${dir}`);
-            if (err) {
-                console.error(`Directory ${dir} is not writable:`, err);
-                cb(err);
-            } else {
-                cb(null, dir);
-            }
-        });
+        cb(null, 'src/images/curso');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
-        let filename;
         if (file.fieldname === "imagen_portada") {
-            filename = 'portada_' + Date.now() + ext;
+            cb(null, 'portada_' + Date.now() + ext);
         } else if (file.fieldname === "imagen_card") {
-            filename = 'card_' + Date.now() + ext;
+            cb(null, 'card_' + Date.now() + ext);
         } else {
-            filename = file.originalname; // Para otros campos o como opción por defecto
+            cb(null, file.originalname); // Para otros campos o como opción por defecto
         }
-        console.log(`Saving file with filename: ${filename}`);
-        cb(null, filename);
     }
 });
+
+console.log(storage)
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         const dir = '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso';
+//         fs.access(dir, fs.constants.W_OK, (err) => {
+//             console.log(`Checking permissions for directory: ${dir}`);
+//             if (err) {
+//                 console.error(`Directory ${dir} is not writable:`, err);
+//                 cb(err);
+//             } else {
+//                 cb(null, dir);
+//             }
+//         });
+//     },
+//     filename: function(req, file, cb) {
+//         let ext = path.extname(file.originalname);
+//         let filename;
+//         if (file.fieldname === "imagen_portada") {
+//             filename = 'portada_' + Date.now() + ext;
+//         } else if (file.fieldname === "imagen_card") {
+//             filename = 'card_' + Date.now() + ext;
+//         } else {
+//             filename = file.originalname; // Para otros campos o como opción por defecto
+//         }
+//         console.log(`Saving file with filename: ${filename}`);
+//         cb(null, filename);
+//     }
+// });
 
 
 const upload = multer({storage: storage});
@@ -86,10 +89,12 @@ router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {
             console.log(response_data);
             res.status(200).json(response_data);
         } else {
+            console.log("No hay imagenes");
             let response_data = {"message": "No hay imagenes", "status": 400};
             res.status(400).json(response_data);
         }
     } catch (err) {
+        console.log("Error al subir las imagenes");
         console.error(err);  // Agrega esta línea
         let response_data = {"message": "Error al subir las imagenes", "status": 500};
         res.status(500).json(response_data);
