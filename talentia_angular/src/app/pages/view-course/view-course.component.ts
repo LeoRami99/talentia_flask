@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GetCourseService } from '../../services/get-course/get-course.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { API_URL } from 'src/app/api.constants';
 
 interface Curso {
   title: string;
@@ -41,7 +42,7 @@ export class ViewCourseComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private toastr: ToastrService
   ) {}
-
+  public ruta: string=API_URL+'imagenes/';
   ngOnInit(): void {
     this.id_curso = this.routeActive.snapshot.params['id'];
     this.routeActive.params.subscribe((params) => {

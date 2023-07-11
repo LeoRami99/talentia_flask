@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/curso', cursoRoutes);
-app.use('/usuarios', usuarioRoutes);
+app.use('/user', usuarioRoutes);
 app.use('/imagenes', express.static(path.join(__dirname, 'images/curso')));
 
 // Middleware de manejo de errores

@@ -9,6 +9,8 @@ export class CursosPreviewService {
   constructor(private http: HttpClient) { }
   getCursos(){
     const uri = API_URL+"curso/get-cursos"
-    return this.http.get(uri)
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}`};
+    return this.http.get(uri, {headers: headers})
   }
 }

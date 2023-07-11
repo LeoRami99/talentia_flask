@@ -10,16 +10,15 @@ import { ViewCourseComponent } from './pages/view-course/view-course.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'create-course', component: CreateCourseComponent },
   { path: 'edit-courses', component: EditCoursesComponent},
-  { path: 'courses',
-    children: [
-      { path: '', component: CoursesComponent},
-    ]
+  { path: 'courses', component: CoursesComponent,
+    canActivate: [authGuard]
   },
   { path: 'view-course/:id', component: ViewCourseComponent},
   { path: 'edit-course/:id', component: EditCourseComponent},

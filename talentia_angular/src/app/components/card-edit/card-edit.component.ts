@@ -11,7 +11,7 @@ export class CardEditComponent {
   @Input() id: number = 0;
   @Input() title: string = '';
   // descripcion de la tarjeta
-  url_images : string = API_URL+'/imagenes/';
+  url_images : string = API_URL+'imagenes/';
   @Input() imagen_card: string = '';
   @Input() dificultad: string = '';
 

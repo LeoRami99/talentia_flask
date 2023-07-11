@@ -2,6 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
+const authenticateToken = require('../middlewares/authenticateToken');
+
+
 // Aquí importarías las funciones del controlador para cada ruta
 const CursoDB = require('./clase/CursoDB');
 const {
@@ -33,7 +36,10 @@ const {
 const storage = multer.diskStorage(
     {
     destination: function(req, file, cb) {
-        cb(null, 'images/curso');
+        // en local se usa esta ruta
+        cb(null, 'src/images/curso');
+        //en producción se usa esta ruta
+        // cb(null, 'images/curso');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
@@ -141,7 +147,7 @@ router.post('/create', async (req, res) => {
 });
 
 // obtener todos los cursos
-router.get('/get-cursos', async (req, res) => {
+router.get('/get-cursos', authenticateToken, async (req, res) => {
     try {
         const cursos = await getCursos();
         res.json(cursos);
