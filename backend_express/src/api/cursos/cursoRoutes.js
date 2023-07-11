@@ -32,9 +32,16 @@ const {
 const storage = multer.diskStorage(
     {
     destination: function(req, file, cb) {
-        const dir = path.join(__dirname, '/home/pruebawp/public_html/api.pruebawp.cymetria.com/talentia_flask/backend_express/src/images/curso');
-        cb(null, dir);
-    },
+            const dir = 'src/images/curso';
+            fs.mkdir(dir, { recursive: true }, (err) => {
+                if (err) {
+                    console.error(`Error creating directory ${dir}:`, err);
+                    cb(err);
+                } else {
+                    cb(null, dir);
+                }
+            });
+        },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
         if (file.fieldname === "imagen_portada") {
