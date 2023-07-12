@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'edit-course/:id', component: EditCourseComponent},
   { path: 'take-lesson/:id', component: TakeCourseComponent},
   { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', component: LessonPreviewComponent},
-  { path: '', component: HomeComponent}
+  { path: '', component: HomeComponent},
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

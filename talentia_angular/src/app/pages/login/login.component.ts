@@ -3,22 +3,30 @@ import { ApiService } from '../../services/api_service/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EMPTY, catchError, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { OnInit } from '@angular/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   constructor(
     private apiService: ApiService,
     private toast: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public router: Router
   ) {}
   // traer los datos del formulario
   formulario: FormGroup = this.formBuilder.group({
     correo: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
+  ngOnInit(): void {
+    if (this.apiService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+  }
   // metodo para el envio de datos a la api y guardar el token
   login(): void {
     const userData = {
@@ -55,6 +63,7 @@ export class LoginComponent {
               // limipiar los campos
               // guardar el token en el localstorage
               localStorage.setItem('token', response.access_token);
+              this.router.navigate(['/home']);
             } else if (response.status === 401) {
               this.toast.error(response.message, 'Talentia', {
                 timeOut: 2000,

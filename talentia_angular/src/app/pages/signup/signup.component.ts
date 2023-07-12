@@ -8,19 +8,28 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   // Constructor
   constructor(
     private apiService: ApiService,
     private toast: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public router: Router
   ) {}
+  ngOnInit(): void {
+    if (this.apiService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+  }
+
   // Inicialización del formulario con los campos requeridos
   formulario: FormGroup = this.formBuilder.group({
     nombre: ['', Validators.required],
@@ -28,6 +37,7 @@ export class SignupComponent {
     correo: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
+
   // metodo para el envio de datos a la api
   signup(): void {
     const userData = {

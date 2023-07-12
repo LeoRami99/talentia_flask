@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from './sidebar-service.service';
-
+import { ApiService } from './services/api_service/api.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     // ver la url actual
     sidebarOpened = false; // Variable para mantener el estado del sidebar
 
-  constructor(private sidebarService: SidebarService) {}
+  constructor(private sidebarService: SidebarService, public auth: ApiService) {}
 
 
   ngOnInit(): void {
