@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Usuarios = require('./clase/UsuariosDB');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // la secret key del archivo de .env
 const secret = process.env.SECRET_KEY;
