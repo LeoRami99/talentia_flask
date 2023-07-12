@@ -6,7 +6,8 @@
       <h1 class="text-white">{{curso?.title}}</h1>
       <p class="lead text-white-50 measure-hero-lead">{{curso?.description}}</p>
       <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-        <a [attr.href]="'/take-lesson/'+id_curso" class="btn btn-white">Tomar curso</a>
+        <button  class="btn btn-white" (click)="crearProgresoCurso(this.dataUsuario.id, id_curso)">Tomar curso</button>
+        <!-- <button [attr.href]="'/take-lesson/'+id_curso" class="btn btn-white" (click)="crearProgresoCurso(this.dataUsuario.id, id_curso)">Tomar curso</button> -->
       </div>
     </div>
   </div>

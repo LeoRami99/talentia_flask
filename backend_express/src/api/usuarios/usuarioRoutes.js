@@ -3,6 +3,7 @@ const router = express.Router();
 const Usuarios = require('./clase/UsuariosDB');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const authenticateToken = require('../middlewares/authenticateToken');
 // la secret key del archivo de .env
 const secret = process.env.SECRET_KEY;
 
@@ -46,6 +47,20 @@ router.post('/login', async (req, res) => {
             res.status(200).json({ message: 'Usuario logueado exitosamente', status: 200, access_token: token });
         }else{
             res.status(401).json({ message: 'Usuario o contraseña incorrectos', status: 401 });
+        }
+    }catch(e){
+        console.error(e);
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+});
+router.get('/data-usuario/:id', authenticateToken, async (req, res) => {
+    const { id } = req.params;
+    try{
+        const data = await Usuarios.dataUser(id);
+        if(data){
+            res.status(200).json({ message: 'Datos del usuario', status: 200, data});
+        }else{
+            res.status(404).json({ message: 'Usuario no encontrado', status: 404 });
         }
     }catch(e){
         console.error(e);

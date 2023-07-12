@@ -30,6 +30,12 @@ const {
 	eliminarCurso,
 	eliminarCategoria,
     eliminarSubseccion,
+    // Progreso de curso
+    progresoCurso,
+    actualizarProgresoCurso,
+    getProgresoCurso,
+    verificarProgresoCurso
+
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
 
@@ -325,6 +331,65 @@ router.post('/create-modulo/', async (req, res) => {
         res.status(500).json({ error: err.toString() });
     }
 })
+
+// Rutas para el progreso del curso
+router.post('/progreso-curso/', async (req, res) => {
+    try{
+        let data=req.body;
+        console.log(data);
+        if(data.id_curso!='' && data.id_usuario!=''){
+            await progresoCurso(data.id_usuario, data.id_curso, data.id_modulo, data.id_leccion) ? res.status(200).json({"message": "Progreso del curso creado", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+});
+
+router.get('/verificar-progreso-curso/:id_curso/:id_usuario', async (req, res) => {
+    try{
+        let data=req.params;
+        if(data.id_curso!='' && data.id_usuario!=''){
+            let progreso = await verificarProgresoCurso(data.id_usuario, data.id_curso);
+            if(progreso.length>0){
+                return res.status(200).json({"message": "Progreso del curso", "status": 200, "data": progreso});
+            }else{
+                return res.status(400).json({"message": "No hay datos", "status": 400});
+            }
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+
+});
+
+router.get('/progreso-curso/:id_curso/:id_usuario', async (req, res) => {
+    try{
+        let data=req.params;
+        if(data.id_curso!='' && data.id_usuario!=''){
+            let progreso = await getProgresoCurso(data.id_usuario, data.id_curso);
+            if(progreso.length>0){
+                return res.status(200).json({"message": "Progreso del curso", "status": 200, "data": progreso});
+            }else{
+                return res.status(400).json({"message": "No hay datos", "status": 400});
+            }
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(err){
+        res.status(500).json({ error: err.toString() });
+    }
+});
+
+
+
+
+
+
+
 
 // router.delete('/delete-curso/', async (req, res) => {
 //     try{

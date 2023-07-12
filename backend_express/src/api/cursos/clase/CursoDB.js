@@ -337,10 +337,55 @@ async createCategoria(curso_id, categoria_id) {
 		}
 	}
 
-
-
-
-
+	// Progreso del curso basado en los id de usuario y curso, modulo y leccion
+	static async progresoCurso(id_usuario, id_curso){
+		try{
+			let sql= "INSERT INTO progreso_usuario(id_usuario, id_curso) VALUES (?, ?)";
+			let values = [id_usuario, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async verificarProgresoCurso(id_usuario, id_curso){
+		try{
+			let sql= "SELECT id_usuario, id_curso FROM progreso_usuario WHERE id_usuario=? AND id_curso=?";
+			let values = [id_usuario, id_curso];
+			let result = await db.query(sql, values);
+			if(result.length > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch(erro){
+			console.error(error);
+			return false;
+		}
+	}
+	static async actualizarProgresoCurso(id_usuario, id_curso, id_modulo, id_leccion){
+		try{
+			let sql= "UPDATE progreso_usuario SET id_seccion=?, id_subseccion=? WHERE id_usuario=? AND id_curso=?";
+			let values = [id_modulo, id_leccion, id_usuario, id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async getProgresoCurso(id_usuario, id_curso){
+		try{
+			let sql = "SELECT id_curso, id_seccion, id_subseccion FROM progreso_usuario WHERE id_usuario=? AND id_curso=?";
+			let values = [id_usuario, id_curso];
+			let result = await db.query(sql, values);
+			return result[0];
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
 }
 
 module.exports = CursoDB;

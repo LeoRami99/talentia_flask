@@ -44,6 +44,16 @@ class usuarioDB {
       return false;
     }
   }
+  static async dataUser(id){
+    try{
+      const sql = 'SELECT id, nombre, apellidos, correo FROM usuario WHERE id = ?';
+      const [result] = await db.execute(sql, [id]);
+      return result[0];
+    }catch(error){
+      console.log(error);
+      return false;
+    }
+  }
 }
 
 module.exports = usuarioDB;

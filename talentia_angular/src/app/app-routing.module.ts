@@ -15,15 +15,15 @@ import { authGuard } from './auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'create-course', component: CreateCourseComponent },
-  { path: 'edit-courses', component: EditCoursesComponent},
+  { path: 'create-course', canActivate: [authGuard], component: CreateCourseComponent },
+  { path: 'edit-courses',canActivate: [authGuard], component: EditCoursesComponent},
   { path: 'courses', component: CoursesComponent,
     canActivate: [authGuard]
   },
-  { path: 'view-course/:id', component: ViewCourseComponent},
-  { path: 'edit-course/:id', component: EditCourseComponent},
-  { path: 'take-lesson/:id', component: TakeCourseComponent},
-  { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', component: LessonPreviewComponent},
+  { path: 'view-course/:id', canActivate: [authGuard], component: ViewCourseComponent},
+  { path: 'edit-course/:id', canActivate: [authGuard], component: EditCourseComponent},
+  { path: 'take-lesson/:id', canActivate: [authGuard], component: TakeCourseComponent},
+  { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard], component: LessonPreviewComponent},
   { path: '', component: HomeComponent},
   { path: '**', redirectTo: '' }
 ];
