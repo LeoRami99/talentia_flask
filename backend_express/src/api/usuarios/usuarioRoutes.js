@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
         const usuario = new Usuarios('', '', correo);
         const user  = await usuario.getUser();
         if(user && bcrypt.compareSync(password, user.password)){
-            const token = jwt.sign({id:user.id}, secret, {expiresIn: '1h'});
+            const token = jwt.sign({id:user.id}, secret, {expiresIn: '24h'});
             res.status(200).json({ message: 'Usuario logueado exitosamente', status: 200, access_token: token });
         }else{
             res.status(401).json({ message: 'Usuario o contraseña incorrectos', status: 401 });

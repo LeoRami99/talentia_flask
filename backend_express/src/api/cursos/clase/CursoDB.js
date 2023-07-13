@@ -353,7 +353,8 @@ async createCategoria(curso_id, categoria_id) {
 		try{
 			let sql= "SELECT id_usuario, id_curso FROM progreso_usuario WHERE id_usuario=? AND id_curso=?";
 			let values = [id_usuario, id_curso];
-			let result = await db.query(sql, values);
+			let [result] = await db.query(sql, values);
+			// console.log(result);
 			if(result.length > 0){
 				return true;
 			}else{
@@ -368,8 +369,13 @@ async createCategoria(curso_id, categoria_id) {
 		try{
 			let sql= "UPDATE progreso_usuario SET id_seccion=?, id_subseccion=? WHERE id_usuario=? AND id_curso=?";
 			let values = [id_modulo, id_leccion, id_usuario, id_curso];
-			await db.query(sql, values);
-			return true;
+			let [update] = await db.query(sql, values);
+			console.log(update.affectedRows > 0);
+			if (update.affectedRows > 0) {
+				return true;
+			}else{
+				return false;
+			}
 		}catch(error){
 			console.error(error);
 			return false;
@@ -386,6 +392,45 @@ async createCategoria(curso_id, categoria_id) {
 			return false;
 		}
 	}
+	// esto verifica si hay más lecciones en el modulo actual
+	static async leccionesModuloActual(id_seccion, id_subseccion){
+		try{
+			let sql = "SELECT id, titulo FROM subsecciones WHERE id_seccion=? AND id>? ORDER BY id LIMIT 1";
+			let values= [id_seccion, id_subseccion];
+			let [result] = await db.query(sql, values);
+			if(result.length > 0){
+				return result[0];
+			}else{
+				return false;
+			}
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async modulosCurso(id_curso, id_seccion){
+		try{
+			//-- Verificar si hay más módulos en el curso
+			// SELECT id, titulo
+			// FROM secciones
+			// WHERE curso_id = :curso_id
+			// AND id > :seccion_id
+			// ORDER BY id
+			// LIMIT 1
+			let sql = "SELECT id, titulo FROM secciones WHERE curso_id=? AND id>? ORDER BY id LIMIT 1";
+			let values= [id_curso, id_seccion];
+			let [result] = await db.query(sql, values);
+			if(result.length > 0){
+				return result[0];
+			}else{
+				return false;
+			}
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+
 }
 
 module.exports = CursoDB;

@@ -31,6 +31,7 @@ import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.co
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 
 
+
 // Configuración de socket.io
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 

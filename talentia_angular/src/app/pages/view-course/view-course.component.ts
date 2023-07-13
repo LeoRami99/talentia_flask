@@ -42,6 +42,9 @@ export class ViewCourseComponent implements OnInit {
   curso: Curso | undefined;
   id_curso: string = '';
   dataUsuario: any;
+  buttonOculto : boolean = true
+
+  verificiarProgreso: any;
   constructor(
     private routeActive: ActivatedRoute,
     private router: Router,
@@ -54,13 +57,23 @@ export class ViewCourseComponent implements OnInit {
   ) {}
   public ruta: string=API_URL+'imagenes/';
   ngOnInit(): void {
+
+
+
     // decode token
+
+
+    this.id_curso = this.routeActive.snapshot.params['id'];
     const token = localStorage.getItem('token');
     const tokenDecoded = jwtHelper.decodeToken(token!);
     this.userData.dataUsuario(tokenDecoded.id).subscribe(
       (res: any) => {
         this.dataUsuario = res.data;
-
+        this.crearProgreso.verificarProgreso(this.id_curso, this.dataUsuario.id).subscribe(
+          (res:any)=>{
+            this.verificiarProgreso=res.data;
+          }
+        );
       },
       (error) => {
         // Manejo de error, podrías redirigir al usuario o mostrar un mensaje de error
@@ -68,7 +81,6 @@ export class ViewCourseComponent implements OnInit {
         this.router.navigate(['/courses']);
     });
 
-    this.id_curso = this.routeActive.snapshot.params['id'];
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe(
         (res: any) => {
@@ -93,10 +105,10 @@ export class ViewCourseComponent implements OnInit {
           // Manejo de error, podrías redirigir al usuario o mostrar un mensaje de error
           this.toastr.error('Error no se puede obtener la información del curso', 'Error');
           this.router.navigate(['/courses']);
-
         }
       );
     });
+
   }
   getVideoUrl(trailerUrl: string): SafeResourceUrl {
     const videoId = this.extractVideoId(trailerUrl);
@@ -121,9 +133,14 @@ export class ViewCourseComponent implements OnInit {
     // data.id_usuario, data.id_curso, data.id_modulo, data.id_leccion
     this.crearProgreso.createProgreso(data).subscribe(
       (res: any) => {
-        this.toastr.success('Hemos creado correctamente tu progreso', 'Exito');
-        // this.router.navigate(['/courses']);
-        console.log(res);
+        this.toastr.success('Hemos agregado correctamente el curso', 'Exito');
+        this.toastr.info('Ahora puedes empezar a aprender', 'Información');
+        this.toastr.info('Seras redireccionado en 5 segundos', 'Información');
+        this.buttonOculto=false
+        setTimeout(() => {
+          this.router.navigate(['/take-lesson/'+this.id_curso]);
+        }, 5000);
+
       },
       (error) => {
         // Manejo de error, podrías redirigir al usuario o mostrar un mensaje de error
