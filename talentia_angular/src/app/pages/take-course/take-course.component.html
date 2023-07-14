@@ -5,8 +5,8 @@
             <div class="">
                 <h1 class="text-white">{{curso.titulo}}</h1>
                 <p class="lead text-white-50 measure-hero-lead mb-24pt">{{curso.descripcion}}</p>
-                <a href="student-take-lesson.html"
-                   class="btn btn-white">Resume course</a>
+                <a [attr.href]="this.urlCurso" *ngIf="this.resumenCurso"
+                   class="btn btn-white">Reanudar el curso</a>
 
             </div>
         </div>

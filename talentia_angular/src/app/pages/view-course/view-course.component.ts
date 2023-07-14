@@ -9,6 +9,8 @@ import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Inject } from '@angular/core';
 import { CrearProgresoService } from 'src/app/services/crear-progreos/crear-progreso.service';
+import { CursosPreviewService } from '../../services/cursos-preview/cursos-preview.service'
+
 interface Curso {
   title: string;
   description: string;
@@ -43,7 +45,7 @@ export class ViewCourseComponent implements OnInit {
   id_curso: string = '';
   dataUsuario: any;
   buttonOculto : boolean = true
-
+  cursos: any;
   verificiarProgreso: any;
   constructor(
     private routeActive: ActivatedRoute,
@@ -52,17 +54,17 @@ export class ViewCourseComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private toastr: ToastrService,
     private userData: UserDataService,
-    private crearProgreso: CrearProgresoService
+    private crearProgreso: CrearProgresoService,
+    private cursosPreview: CursosPreviewService
 
   ) {}
   public ruta: string=API_URL+'imagenes/';
   ngOnInit(): void {
-
-
-
+    this.cursosPreview.getCursos().subscribe((res:any)=>{
+      this.cursos=res.cursos;
+      console.log(this.cursos);
+    });
     // decode token
-
-
     this.id_curso = this.routeActive.snapshot.params['id'];
     const token = localStorage.getItem('token');
     const tokenDecoded = jwtHelper.decodeToken(token!);

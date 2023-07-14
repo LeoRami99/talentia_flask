@@ -24,5 +24,8 @@ export class ProgresoCursoService {
     }
     return this.http.put(`${API_URL}curso/actualizar-progreso-curso/`, data);
   }
+  obtenerProgreso(id_curso:any, id_usuario:any){
+    return this.http.get(`${API_URL}curso/progreso-curso/${id_curso}/${id_usuario}`);
+  }
 
 }

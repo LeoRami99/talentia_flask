@@ -47,6 +47,7 @@ export class LessonPreviewComponent implements OnInit {
 
 
 
+
   constructor(
     private routeActive: ActivatedRoute,
     private getCurso: GetCourseService,
@@ -62,11 +63,11 @@ export class LessonPreviewComponent implements OnInit {
     // token jwt
     const token=localStorage.getItem('token')
     const decodedToken = jwtHelper.decodeToken(token!);
-
     this.userData.dataUsuario(decodedToken.id).subscribe((res: any) => {
       // console.log(res);
       this.id_usuario = res.data.id;
     });
+
 
 
     this.id_curso = this.routeActive.snapshot.paramMap.get('id_curso');

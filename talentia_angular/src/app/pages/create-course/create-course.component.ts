@@ -8,7 +8,10 @@ import { CreateCursoService } from '../../services/create_curso/create-curso.ser
 import { EMPTY, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { CategoriasService } from 'src/app/services/categorias/categorias.service';
+import { RolesService } from 'src/app/services/roles/roles.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
+const jwt = new JwtHelperService();
 
 @Component({
   selector: 'app-create-course',
@@ -23,7 +26,8 @@ export class CreateCourseComponent implements OnInit {
     private upload_imgs: UploadImgsService,
     private crear_curso: CreateCursoService,
     private router: Router,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private rolesService: RolesService
   ) {}
 
   // declarar una variable de tipo file
@@ -142,12 +146,46 @@ export class CreateCourseComponent implements OnInit {
 
   onPortadaSelected(event: any): void {
     const file_portada: File = event.target.files[0];
-    this.portada = file_portada;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result as string;
+        img.onload = () => {
+          const width = img.width;
+          const height = img.height
+          console.log(width, height);
+          if (width != 1000 || height != 800) {
+            this.toast.error('La imagen debe de tener una resolucion de 1000x800 pixeles');
+            return;
+          }else{
+            this.portada = file_portada;
+          }
+        }
+    };
+    reader.readAsDataURL(file_portada);
+    // this.portada = file_portada;
     // console.log(file_portada);
   }
   onCardSelected(event: any): void {
     const file_card: File = event.target.files[0];
-    this.card = file_card;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result as string;
+        img.onload = () => {
+          const width = img.width;
+          const height = img.height
+          if (width != 200 || height != 168) {
+            this.toast.error('La imagen para la tarjeta debe ser igual a 200x168 pixeles');
+            return;
+          }else{
+            this.card = file_card;
+          }
+        }
+    };
+
+    reader.readAsDataURL(file_card);
+    // this.card = file_card;
     // console.log(file_card);
   }
 

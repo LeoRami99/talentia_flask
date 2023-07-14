@@ -1,0 +1,81 @@
+<div class="page-section container">
+  <div class="col-lg-10 p-0 mx-auto">
+    <div class="row">
+      <div class="col-md-6 mb-24pt mb-md-0">
+        <form  [formGroup]="formulario">
+          <div class="form-group">
+            <label class="form-label" for="name">Nombres:</label>
+            <input id="name" type="text" class="form-control" placeholder="Tus nombres" name="firstName" formControlName="nombre">
+            <!-- hacer la validación de los campos -->
+            <div *ngIf="formulario.controls['nombre'].invalid && formulario.controls['nombre'].touched" class="alert alert-danger">
+              <div *ngIf="formulario.controls['nombre'].errors">
+                El nombre es obligatorio
+              </div>
+              <div *ngIf="formulario.controls['nombre'].hasError('pattern')">
+                El nombre debe de ser alfabético
+              </div>
+            </div>
+
+
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">apellidos:</label>
+            <input id="lastname" type="text" class="form-control" placeholder="Tus apellidos" name="firstLastName" formControlName="apellidos">
+            <div *ngIf="formulario.controls['apellidos'].invalid && formulario.controls['apellidos'].touched" class="alert alert-danger">
+              <div *ngIf="formulario.controls['apellidos'].errors">
+                El apellido es obligatorio
+              </div>
+              <div *ngIf="formulario.controls['apellidos'].hasError('pattern')">
+                El apellido debe de ser alfabético
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">email:</label>
+            <input id="email" type="email" class="form-control" placeholder="Tu email" name="email" formControlName="correo">
+            <div *ngIf="formulario.controls['correo'].invalid && formulario.controls['correo'].touched" class="alert alert-danger">
+              <div *ngIf="formulario.controls['correo'].errors">
+                Digite un correo válido
+              </div>
+              <div *ngIf="formulario.controls['correo'].hasError('pattern')">
+                El correo debe de ser alfabético
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-24pt">
+            <label class="form-label" for="password">Password:</label>
+            <input id="password" type="password" class="form-control" placeholder="Your password ..." name="password" formControlName="password">
+            <div *ngIf="formulario.controls['password'].invalid && formulario.controls['password'].touched" class="alert alert-danger">
+              <div *ngIf="formulario.controls['password'].errors">
+                Digite un password válido y con al menos 8 caracteres
+              </div>
+              <div *ngIf="formulario.controls['password'].hasError('pattern')">
+                El password debe de ser alfabético
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="button" (click)="signup()">Crear cuenta</button>
+        </form>
+      </div>
+      <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <h1>Talentia Admin</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="page-separator justify-content-center m-0">
+  <div class="page-separator__text">or sign-in with</div>
+</div>
+<div class="page-section text-center">
+  <div class="container d-flex justify-content-center" style="gap:10px">
+    <a href="signup-payment.html" class="btn btn-secondary btn-block-xs">
+      <i class="fa-brands fa-facebook mr-2"></i>
+      Facebook
+    </a>
+    <a href="signup-payment.html" class="btn btn-secondary btn-block-xs">
+      <i class="fa-brands fa-twitter mr-2"></i>
+      Twitter
+    </a>
+  </div>
+</div> -->
+

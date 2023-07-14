@@ -11,19 +11,19 @@ import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
 import { authGuard } from './auth.guard';
+import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'create-course', canActivate: [authGuard], component: CreateCourseComponent },
-  { path: 'edit-courses',canActivate: [authGuard], component: EditCoursesComponent},
-  { path: 'courses', component: CoursesComponent,
-    canActivate: [authGuard]
-  },
-  { path: 'view-course/:id', canActivate: [authGuard], component: ViewCourseComponent},
-  { path: 'edit-course/:id', canActivate: [authGuard], component: EditCourseComponent},
-  { path: 'take-lesson/:id', canActivate: [authGuard], component: TakeCourseComponent},
-  { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard], component: LessonPreviewComponent},
+  {path: 'signup-admin', component: SignupAdminComponent},
+  { path: 'create-course', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: CreateCourseComponent },
+  { path: 'edit-courses',canActivate: [authGuard],  data: { expectedRole: 'ADMIN' }, component: EditCoursesComponent},
+  { path: 'courses', component: CoursesComponent, canActivate: [authGuard],  data: { expectedRole: 'USER' } },
+  { path: 'view-course/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: ViewCourseComponent},
+  { path: 'edit-course/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditCourseComponent},
+  { path: 'take-lesson/:id', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: TakeCourseComponent},
+  { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: LessonPreviewComponent},
   { path: '', component: HomeComponent},
   { path: '**', redirectTo: '' }
 ];

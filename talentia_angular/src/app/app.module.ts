@@ -29,6 +29,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
+import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
 
 
 
@@ -61,6 +62,7 @@ import { TakeCourseComponent } from './pages/take-course/take-course.component';
     EditCourseComponent,
     LessonPreviewComponent,
     TakeCourseComponent,
+    SignupAdminComponent,
   ],
   imports: [
     BrowserModule,

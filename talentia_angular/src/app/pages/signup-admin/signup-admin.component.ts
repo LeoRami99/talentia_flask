@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  selector: 'app-signup-admin',
+  templateUrl: './signup-admin.component.html',
+  styleUrls: ['./signup-admin.component.css'],
 })
-export class SignupComponent implements OnInit{
+export class SignupAdminComponent implements OnInit{
   // Constructor
   constructor(
     private apiService: ApiService,
@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit{
       apellidos: this.formulario.value.apellidos,
       correo: this.formulario.value.correo,
       password: this.formulario.value.password,
-      rol : 'USER'
+      rol : 'ADMIN'
     };
 
     if (

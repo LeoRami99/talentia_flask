@@ -82,42 +82,42 @@
           </div>
           <div *ngIf="auth.isLoggedIn()">
           <!-- Instructor sidebar -->
-          <div class="sidebar-heading">ADMIN</div>
-          <ul class="sidebar-menu">
-            <li class="sidebar-menu-item">
-              <a class="sidebar-menu-button" href="/create-course">
-                <i class="fa-solid fa-plus mr-2 sidebar-menu-icon--left"></i>
-                <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                <span class="sidebar-menu-text">Crear curso</span>
-              </a>
-            </li>
-            <li class="sidebar-menu-item">
-              <a class="sidebar-menu-button" href="/edit-courses">
-                <i class="fa-solid fa-pen-to-square mr-2 sidebar-menu-icon--left"></i>
-                <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                <span class="sidebar-menu-text">Editar cursos</span>
-              </a>
-            </li>
-            <!-- <li class="sidebar-menu-item">
-              <a class="sidebar-menu-button"
-                 href="/courses">
+            <div *ngIf="rol.getRoles() == 'ADMIN'">
 
-                 <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i>
+                <div class="sidebar-heading" >ADMIN</div>
+                <ul class="sidebar-menu">
+
+                  <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button" href="/edit-courses">
+                      <i class="fa-solid fa-pen-to-square mr-2 sidebar-menu-icon--left"></i>
+                    <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                    <span class="sidebar-menu-text">Gestión de cursos</span>
+                  </a>
+                </li>
+                <!-- <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                  href="/courses">
+
+                  <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i>
                   <span class="sidebar-menu-text">Cursos</span>
-              </a>
-           </li> -->
-          </ul>
-          <div class="sidebar-heading">USUARIO</div>
-          <ul class="sidebar-menu">
-            <li class="sidebar-menu-item">
-              <a class="sidebar-menu-button" href="/courses">
+                </a>
+              </li> -->
+            </ul>
+          </div>
+          <div *ngIf="rol.getRoles() == 'USER'">
 
-                <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i>
-                <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                <span class="sidebar-menu-text">Cursos</span>
-              </a>
-            </li>
-          </ul>
+            <div class="sidebar-heading">USUARIO</div>
+            <ul class="sidebar-menu">
+              <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button" href="/courses">
+
+                  <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i>
+                  <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                  <span class="sidebar-menu-text">Cursos</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 

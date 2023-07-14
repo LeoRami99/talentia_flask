@@ -28,12 +28,12 @@
         <div *ngFor="let lessons of allLessons">
           <div class="d-flex flex-column justify-content-center">
             <div *ngIf="this.id_curso == curso.id && this.id_seccion==lessons.id_seccion && this.id_subseccion==lessons.id_subseccion; else noColor">
-              <a data-toggle="tooltip" data-placement="bottom" [attr.data-title]="lessons.titulo"
+              <a (click)="false" data-toggle="tooltip" data-placement="bottom" [attr.data-title]="lessons.titulo"
               [attr.href]="['/lesson-preview/lesson/'+curso.id+'/'+lessons.id_seccion+'/'+lessons.id_subseccion]"><span class="material-icons" style="color: green; font-size: 30px;">check_circle</span>
             </a>
           </div>
           <ng-template #noColor>
-            <a data-toggle="tooltip" data-placement="bottom" [attr.data-title]="lessons.titulo"
+            <a (click)="false" data-toggle="tooltip" data-placement="bottom" [attr.data-title]="lessons.titulo"
               [attr.href]="['/lesson-preview/lesson/'+curso.id+'/'+lessons.id_seccion+'/'+lessons.id_subseccion]"><span class="material-icons">check_circle</span>
             </a>
           </ng-template>
