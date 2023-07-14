@@ -385,7 +385,7 @@ async createCategoria(curso_id, categoria_id) {
 		try{
 			let sql = "SELECT id_curso, id_seccion, id_subseccion FROM progreso_usuario WHERE id_usuario=? AND id_curso=?";
 			let values = [id_usuario, id_curso];
-			let result = await db.query(sql, values);
+			let [result] = await db.query(sql, values);
 			return result[0];
 		}catch(error){
 			console.error(error);

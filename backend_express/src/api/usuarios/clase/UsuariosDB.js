@@ -1,14 +1,15 @@
 const db = require('../../../config/db');
 
 class usuarioDB {
-  constructor(nombre, apellidos, correo){
+  constructor(nombre, apellidos, correo, rol){
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.correo = correo;
+    this.rol = rol
   }
   async registerUser(password){
     try{
-      const [result] = await db.execute('INSERT INTO usuario (nombre, apellidos, correo, password) VALUES (?, ?, ?, ?)', [this.nombre, this.apellidos, this.correo, password]);
+      const [result] = await db.execute('INSERT INTO usuario (nombre, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)', [this.nombre, this.apellidos, this.correo, password, this.rol]);
       return result.affectedRows > 0;
     }catch(error){
       console.log(error);
@@ -26,7 +27,7 @@ class usuarioDB {
   }
   async getUser(){
     try {
-      const [rows] = await db.execute('SELECT id, nombre, apellidos, correo, password FROM usuario WHERE correo = ?', [this.correo]);
+      const [rows] = await db.execute('SELECT id, nombre, apellidos, correo, password, rol FROM usuario WHERE correo = ?', [this.correo]);
       if(rows.length > 0){
         const user = rows[0];
         return {
@@ -34,7 +35,8 @@ class usuarioDB {
           nombre: user.nombre,
           apellidos: user.apellidos,
           correo: user.correo,
-          password: user.password
+          password: user.password,
+          rol : user.rol
         }
       }else{
         return false;

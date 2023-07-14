@@ -373,7 +373,8 @@ router.get('/progreso-curso/:id_curso/:id_usuario', async (req, res) => {
         let data=req.params;
         if(data.id_curso!='' && data.id_usuario!=''){
             let progreso = await getProgresoCurso(data.id_usuario, data.id_curso);
-            if(progreso.length>0){
+            console.log(progreso);
+            if(progreso){
                 return res.status(200).json({"message": "Progreso del curso", "status": 200, "data": progreso});
             }else{
                 return res.status(400).json({"message": "No hay datos", "status": 400});

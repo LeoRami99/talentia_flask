@@ -9,18 +9,18 @@ const secret = process.env.SECRET_KEY;
 
 
 router.post('/signup', async (req, res) => {
-    const { nombre, apellidos, correo, password } = req.body;
+    const { nombre, apellidos, correo, password, rol } = req.body;
     // Validación de los campos
     const validNamePattern = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
     const validEmailPattern = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!nombre || !apellidos || !correo || !password) {
+    if (!nombre || !apellidos || !correo || !password || !rol) {
         return res.status(400).json({ message: "Error al registrar usuario campos vacíos", status: 400 });
     }
     if (!validNamePattern.test(nombre) || !validNamePattern.test(apellidos) || !validEmailPattern.test(correo)) {
         return res.status(400).json({ message: "Error al registrar usuario campos inválidos", status: 400 });
     }
-    try {
-        const usuarioDB = new Usuarios(nombre, apellidos, correo);
+    try { 
+        const usuarioDB = new Usuarios(nombre, apellidos, correo, rol);
         const userExists = await usuarioDB.verifyUser(correo);
         if (userExists) {
             return res.status(400).json({ message: "Usuario ya registrado", status: 400 });
@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
         const usuario = new Usuarios('', '', correo);
         const user  = await usuario.getUser();
         if(user && bcrypt.compareSync(password, user.password)){
-            const token = jwt.sign({id:user.id}, secret, {expiresIn: '24h'});
+            const token = jwt.sign({id:user.id, rol: user.rol}, secret, {expiresIn: '24h'});
             res.status(200).json({ message: 'Usuario logueado exitosamente', status: 200, access_token: token });
         }else{
             res.status(401).json({ message: 'Usuario o contraseña incorrectos', status: 401 });
