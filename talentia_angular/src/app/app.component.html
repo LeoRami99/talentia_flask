@@ -25,10 +25,13 @@
 </div>
 <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
   <div class="mdk-drawer-layout__content page-content">
-    <app-nabvar></app-nabvar>
+      <ng-container *ngIf="!isHomeRoute()">
+        <app-nabvar></app-nabvar>
+      </ng-container>
     <!-- <div class="container"> -->
     <router-outlet></router-outlet>
     <!-- </div> -->
+
     <app-footer></app-footer>
   </div>
 
@@ -37,6 +40,9 @@
   <!-- Drawer -->
 
   <!-- <app-sidebar></app-sidebar> -->
+  <ng-container *ngIf="!isHomeRoute()">
+
+
   <div class="mdk-drawer js-mdk-drawer" id="default-drawer" id="default-drawer"
     [attr.data-opened]="sidebarOpened ? '' : null">
     <div class="mdk-drawer__content" data-opened="">
@@ -126,6 +132,7 @@
       </div>
     </div>
   </div>
+</ng-container>
 
 
   <!-- // END Drawer -->

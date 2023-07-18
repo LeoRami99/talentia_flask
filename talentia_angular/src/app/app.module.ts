@@ -30,6 +30,7 @@ import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
+import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
 
 
 
@@ -63,6 +64,7 @@ import { SignupAdminComponent } from './pages/signup-admin/signup-admin.componen
     LessonPreviewComponent,
     TakeCourseComponent,
     SignupAdminComponent,
+    CreateQuizComponent,
   ],
   imports: [
     BrowserModule,

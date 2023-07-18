@@ -9,10 +9,10 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
 import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
+import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
 import { authGuard } from './auth.guard';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'edit-course/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditCourseComponent},
   { path: 'take-lesson/:id', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: TakeCourseComponent},
   { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: LessonPreviewComponent},
+  { path: 'create-examen', component: CreateQuizComponent},
   { path: '', component: HomeComponent},
   { path: '**', redirectTo: '' }
 ];
