@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'take-lesson/:id', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: TakeCourseComponent},
   { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: LessonPreviewComponent},
   { path: 'create-examen', component: CreateQuizComponent},
-  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
   { path: '**', redirectTo: '' }
 ];
 
