@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const fs = require('fs');
 const cursoRoutes = require('./api/cursos/cursoRoutes');
 const usuarioRoutes = require('./api/usuarios/usuarioRoutes');
+const examenRoutes = require('./api/examen/examenRoutes');
 
 const app = express();
 
@@ -17,10 +18,13 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
 app.use('/curso', cursoRoutes);
 app.use('/user', usuarioRoutes);
+app.use('/examen', examenRoutes);
 app.use('/imagenes', express.static(path.join(__dirname, 'images/curso')));
+app.use('/imagenes', express.static(path.join(__dirname, 'images/examen')));
 
 // Middleware de manejo de errores
 app.use(function (err, req, res, next) {
