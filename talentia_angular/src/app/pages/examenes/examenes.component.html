@@ -1,0 +1,33 @@
+<div class="container page-section">
+  <div class="d-flex justify-content-end">
+    <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
+      class="form-control w-25">
+  </div>
+
+  <div class="row card-group-row d-flex">
+    <div *ngFor="let examen of examenesFiltrados;">
+      <app-card-examen-preview nombre={{examen.nombre}} descripcion={{examen.descripcion}}
+        imagen={{examen.imagen}}></app-card-examen-preview>
+    </div>
+  </div>
+
+<ul class="pagination">
+
+  <li class="page-item" [class.disabled]="currentPage === 1">
+    <button class="page-link"  (click)="previousPage()" aria-label="Previous">
+      <span aria-hidden="true" class="material-icons">chevron_left</span>
+      <span>Prev</span>
+    </button>
+  </li>
+
+  <li class="pagination-next" [class.disabled]="currentPage === totalPages">
+    <button class="page-link" (click)="nextPage()" aria-label="Next">
+      <span>Next</span>
+      <span aria-hidden="true" class="material-icons">chevron_right</span>
+    </button>
+  </li>
+</ul>
+
+
+
+</div>

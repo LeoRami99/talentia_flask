@@ -1,6 +1,8 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CursosPreviewService } from '../../services/cursos-preview/cursos-preview.service';
+import { CreateExamenService } from 'src/app/services/create-examen/create-examen.service';
+import { UploadImgsService } from 'src/app/services/upload_images/upload-imgs.service';
 // Interfaces para la creación del examen
 interface Iexamen{
   nombre: string;
@@ -28,9 +30,16 @@ interface IOpcion{
 
 
 
-export class CreateQuizComponent implements OnInit {
-  constructor(private toastr: ToastrService, private getCursos : CursosPreviewService) { }
+export class CreateQuizComponent {
+  constructor(private toastr: ToastrService, private getCursos : CursosPreviewService
+    , private createExamen: CreateExamenService,
+    private uploadImg: UploadImgsService,
+
+
+  ) { }
   // Modelos binding para recoger la información
+  @Input() nombre: string = '';
+  @Input() descripcion: string = '';
   @Input() pregunta: string = '';
   @Input() opcion_correcta: boolean = false;
   @Input() opcion: string = '';
@@ -41,16 +50,17 @@ export class CreateQuizComponent implements OnInit {
   viewAddQuestion: boolean = true;
   cursos: any[] = [];
 
-  ngOnInit(): void {
-    this.getCursos.getCursos().subscribe(
-      (res: any) => {
-        this.cursos = res.cursos;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  }
+  // ngOnInit(): void {
+  //   this.getCursos.getCursos().subscribe(
+  //     (res: any) => {
+  //       this.cursos = res.cursos;
+  //       console.log(this.cursos)
+  //     },
+  //     (err: any) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 
 
   toggleAddPregunta() {
@@ -117,7 +127,7 @@ export class CreateQuizComponent implements OnInit {
     this.opciones.splice(index, 1);
   }
   onImagenSelected(event: any): void {
-    const imagen_card: File = event.target.files[0];
+    const imagen: File = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (e: any) => {
         const img = new Image();
@@ -130,13 +140,59 @@ export class CreateQuizComponent implements OnInit {
             this.toastr.error('La imagen debe de tener una resolucion de 40x40 pixeles');
             return;
           }else{
-            this.imagen = imagen_card;
+            this.imagen = imagen;
           }
         }
     };
-    reader.readAsDataURL(imagen_card);
+    reader.readAsDataURL(imagen);
     // this.portada = file_portada;
     // console.log(file_portada);
+  }
+  onCreate(){
+    const formData = new FormData();
+    formData.append('imagen', this.imagen);
+    if (this.nombre === '' || this.descripcion === '' || this.preguntas.length == 0) {
+      this.toastr.error('Debes completar todos los campos', 'Error');
+      return;
+    }else{
+      this.uploadImg.uploadImgExamen(formData).subscribe(
+        (res: any) => {
+          if (res.status == 200 ){
+          const examen: Iexamen = {
+            nombre: this.nombre,
+            descripcion: this.descripcion,
+            imagen: res.imagen_examen,
+            tiempo: '60',
+            preguntas: this.preguntas
+          }
+          console.log(examen)
+          this.createExamen.createExamen(examen).subscribe({
+            next: (res: any) => {
+              if (res.status == 200) {
+                this.toastr.success('Examen creado correctamente', 'Exito');
+                this.nombre = '';
+                this.descripcion = '';
+                this.preguntas = [];
+                this.imagen = new File([], '');
+              }
+            },
+            error: (err: any) => {
+              console.log(err);
+              this.toastr.error('Error al crear el examen', 'Error');
+            }
+          });
+        }else{
+          console.log(res);
+        }
+      },
+      (err: any) => {
+        if (err.status == 400) {
+          this.toastr.error('Error al subir la imagen', 'Error');
+        }
+      }
+      )
+    }
+
   }
 
 }

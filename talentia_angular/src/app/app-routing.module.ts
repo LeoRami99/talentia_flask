@@ -11,6 +11,11 @@ import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
 import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.component';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.component';
+import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
+
+
 import { authGuard } from './auth.guard';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
 const routes: Routes = [
@@ -25,8 +30,11 @@ const routes: Routes = [
   { path: 'take-lesson/:id', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: TakeCourseComponent},
   { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: LessonPreviewComponent},
   { path: 'create-examen', component: CreateQuizComponent},
+  { path: 'examenes', component: ExamenesComponent},
+  { path: 'edit-examenes', component: EditExamenesComponent},
+  { path : 'edit-examen/:id', component: EditQuizComponent},
   { path: 'home', component: HomeComponent},
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

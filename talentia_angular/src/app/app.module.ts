@@ -31,6 +31,11 @@ import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.co
 import { TakeCourseComponent } from './pages/take-course/take-course.component';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
 import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
+import { CardExamenPreviewComponent } from './components/card-examen-preview/card-examen-preview.component';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.component';
+import { CardExamenEditComponent } from './components/card-examen-edit/card-examen-edit.component';
+import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
 
 
 
@@ -65,6 +70,11 @@ import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
     TakeCourseComponent,
     SignupAdminComponent,
     CreateQuizComponent,
+    CardExamenPreviewComponent,
+    ExamenesComponent,
+    EditExamenesComponent,
+    CardExamenEditComponent,
+    EditQuizComponent,
   ],
   imports: [
     BrowserModule,
