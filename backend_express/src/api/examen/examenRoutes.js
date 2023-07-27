@@ -90,11 +90,48 @@ router.get('/get-examen/:id', async (req, res) => {
     const id_examen = req.params.id;
     try {
         const examen = await ExamenDB.getExamen(id_examen);
-        res.status(200).json(examen);
+        res.status(200).json({'status':200, 'examen': examen});
     } catch (error) {
         console.error(error);
         res.status(500).json({"message": "Error al obtener el examen", "status": 500});
     }
     
 });
+
+// actualizar estado del examen
+router.put('/update-estado-examen', async (req, res) => {
+    try{
+        const id_examen = req.body.id;
+        const estado = req.body.estado;
+        const examen = await ExamenDB.updateEstado(id_examen, estado);
+        if (examen) {
+            res.status(200).json({"message": "Estado del examen actualizado correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al actualizar el estado del examen", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al actualizar el estado del examen", "status": 500});
+    }
+});
+
+// funciones para crear opciones por separado sin dependencia del constructor de la clase ExamenDB
+router.post('/crear-opciones', async (req, res) => {
+    try{
+        const id_pregunta = req.body.id_pregunta;
+        const opcion = req.body.opcion;
+        const opcion_correcta = req.body.opcion_correcta;
+        const examen = new ExamenDB();
+        const respuesta = await examen.createOpciones(id_pregunta, opcion, opcion_correcta);
+        if (respuesta) {
+            res.status(200).json({"message": "Opcion creada correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al crear la opcion", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al crear las opciones", "status": 500});
+    }
+});
+
 module.exports = router;

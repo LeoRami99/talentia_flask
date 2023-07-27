@@ -83,6 +83,36 @@ class ExamenDB{
             throw error;
         }
     }
+    static async updateEstado(id_examen, estado){
+        try{
+            let query = "UPDATE examen SET estado = ? WHERE id = ?";
+            let rows = await db.query(query, [estado, id_examen]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            // return;
+            throw error;
+        }
+    }
+
+    // funciones para crear opciones seperadas de la clase
+    static async createOpciones(id_pregunta, opcion, opcion_correcta){
+        try{
+            let query = "INSERT INTO opciones (id_pregunta, opcion, opcion_correcta) VALUES (?,?,?)";
+            let rows = await db.query(query, [id_pregunta, opcion, opcion_correcta]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    
 
 }
 
