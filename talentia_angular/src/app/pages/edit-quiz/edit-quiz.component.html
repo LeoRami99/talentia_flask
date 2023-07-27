@@ -8,43 +8,68 @@
         <div class="card card-body">
           <div class="form-group">
             <label class="form-label">Nombre del examen </label>
-            <input class="form-control" placeholder="Nombre del examen" >
+            <input class="form-control" placeholder="Nombre del examen" value="{{examen.nombre}}">
             <!-- <small class="form-text text-muted">Shortly describe the question.</small> -->
           </div>
           <div class="form-group">
             <label class="form-label">Descripcion del examen  </label>
-            <textarea class="form-control" placeholder="Descripción del examen" ></textarea>
+            <textarea class="form-control" placeholder="Descripción del examen" value="{{examen.descripcion}}"></textarea>
             <!-- <small class="form-text text-muted">Shortly describe the question.</small> -->
           </div>
         </div>
         <div class="page-separator">
           <div class="page-separator__text">Preguntas</div>
         </div>
-        <ul class="list-group mb-40pt">
-          <li class="list-group-item d-flex animate__animated animate__slideInLeft" >
+        <div id="accordion" >
 
-            <div class="flex d-flex flex-column " >
-              <div class="card-title mb-4pt">Pregunta - </div>
-              <div class="card-subtitle text-70 paragraph-max mb-16pt">
-
-
-              </div>
-              <div>
-              </div>
-            </div>
-
-
-            <div class="dropdown">
-              <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i
-                  class="material-icons">more_horiz</i></a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <!-- <button href="javascript:void(0)" class="dropdown-item">Edit Question</button> -->
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item text-danger" >Eliminar pregunta</button>
+          <div class="card d-flex justify-content-start flex-column w-100 animate__animated animate__slideInLeft" *ngFor="let preguntas of examen.preguntas; let i = index">
+            <div class="card-header" [id]="'heading' + i">
+              <div class="d-flex">
+                <input type="text" class="form-control w-100" placeholder="Pregunta" [(ngModel)]="preguntas.pregunta">
+                <button class="btn btn-link ml-2" data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+                  +
+                </button>
               </div>
             </div>
-          </li>
-        </ul>
+            <div [id]="'collapse' + i" class="collapse" [attr.aria-labelledby]="'heading' + i" data-parent="#accordion">
+              <h6 class="text-center">Opciones</h6>
+              <div class="card-body d-flex align-items-center justify-content-center flex-wrap" *ngFor="let opcion of preguntas.opciones">
+                <input type="text" name="" id="" class="form-control w-50 m-1" value="{{opcion.opcion}}">
+                <select class="form-control w-25 m-1" >
+                  <option value="true"  [selected]="opcion.opcion_correcta=='true'">Si</option>
+                  <option value="false" [selected]="opcion.opcion_correcta=='false'">No</option>
+                </select>
+                <!-- rta o no -->
+                <!-- <div class="d-flex justify-content-center"> -->
+                  <button class="btn btn-danger m-1" >Eliminar</button>
+                  <!-- </div> -->
+                </div>
+                <ng-container *ngIf="preguntas.opciones.length < 4">
+                  <div class="d-flex justify-content-center p-2">
+                    <button class="btn btn-success" >Añadir opción</button>
+                  </div>
+                  <div>
+                    <div class="d-flex m-2">
+
+                      <input type="text" class="form-control w-75" placeholder="Escribe la opción" >
+                      <!-- basado de que si ya hay un select verdadero colocar el select en falso para enviar pero si no hay ningun select enviar como true -->
+
+                      <div *ngIf="!tieneRespuestaVerdadera(preguntas.opciones)">
+                        <select class="form-control" >
+                          <option value="true">Si</option>
+                        </select>
+                      </div>
+                      <div *ngIf="tieneRespuestaVerdadera(preguntas.opciones)">
+                        <select class="form-control" >
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+            </div>
+          </div>
+        </div>
 
         <div class="page-separator">
           <div class="page-separator__text">Nueva pregunta</div>
@@ -79,8 +104,11 @@
               </select>
             </div>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-success" >Añadir opción</button>
+                <button class="btn btn-success">Añadir opción</button>
             </div>
+
+
+
           </div>
           <!-- <div *ngFor="let opciones of opciones; let index = index">
             <div class="card card-body">
@@ -107,10 +135,17 @@
 
         <div class="card">
           <div class="card-header text-center">
-            <button class="btn btn-accent" >Guardar Quiz</button>
+            <button class="btn btn-accent" >Guardar Examen</button>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header text-center">
+            <button class="btn btn-accent" (click)="updateEstadoExamen()">
+              {{examen.estado==1 ? 'Desactivar examen' : 'Activar examen'}}
+            </button>
+          </div>
 
+        </div>
         <!-- <div class="page-separator">
           <div class="page-separator__text">Courses</div>
         </div>

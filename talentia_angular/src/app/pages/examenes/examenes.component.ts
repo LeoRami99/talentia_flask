@@ -18,6 +18,7 @@ export class ExamenesComponent implements OnInit {
   constructor(private examen: ExamenesService, private toastr: ToastrService) {}
   examenes: any = [];
   currentPage: number = 1;
+  examenesAuxiliar: any = [];
   itemsPerPage: number = 12;
   totalPages: number = 1; // Añade esta línea
   filtroNombre: string = '';
@@ -26,7 +27,13 @@ export class ExamenesComponent implements OnInit {
   ngOnInit(): void {
     this.examen.getExamenes().subscribe(
       (res: any) => {
-        this.examenes = res;
+
+        this.examenesAuxiliar = res;
+        for (let index = 0; index < this.examenesAuxiliar.length; index++) {
+            if (this.examenesAuxiliar[index].estado==='1') {
+              this.examenes.push(this.examenesAuxiliar[index]);
+            }
+        }
         this.filtrarExamen();
       },
       (err: any) => {
@@ -37,7 +44,6 @@ export class ExamenesComponent implements OnInit {
 
   filtrarExamen() {
     let filteredExams = this.examenes;
-
     if (this.filtroNombre) {
       filteredExams = this.examenes.filter((examen: { nombre: string }) =>
         examen.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase())

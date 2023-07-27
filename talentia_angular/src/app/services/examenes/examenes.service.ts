@@ -11,4 +11,7 @@ export class ExamenesService {
   getExamenes(){
     return this.http.get(`${API_URL}examen/get-examens`);
   }
+  getExamen(id: string){
+    return this.http.get(`${API_URL}examen/get-examen/${id}`);
+  }
 }
