@@ -101,7 +101,7 @@ export class CreateQuizComponent {
             contador++;
           }
         }
-        console.log(contador);
+        // console.log(contador);
         if (contador > 1 || contador == 0) {
           this.toastr.error(
             'Tienes más de una opción correcta o ninguna',

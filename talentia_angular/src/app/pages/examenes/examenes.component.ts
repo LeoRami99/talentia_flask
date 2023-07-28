@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ExamenesService } from 'src/app/services/examenes/examenes.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,6 +23,11 @@ export class ExamenesComponent implements OnInit {
   totalPages: number = 1; // Añade esta línea
   filtroNombre: string = '';
   examenesFiltrados: any[] = [];
+
+
+
+
+
 
   ngOnInit(): void {
     this.examen.getExamenes().subscribe(
