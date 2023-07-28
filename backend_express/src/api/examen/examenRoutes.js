@@ -59,11 +59,11 @@ router.post('/crear', async (req, res) => {
         const descripcion = datos.descripcion;
         const imagen = datos.imagen;
         const tiempo = datos.tiempo;
-        console.log(datos);
+        // console.log(datos);
         if (nombre !== '' && descripcion !== '' && imagen !== '' && tiempo !==''){
             const examen = new ExamenDB(nombre, descripcion, imagen, tiempo);
             const examen_id = await examen.create();
-            console.log(examen_id);
+            // console.log(examen_id);
             const preguntas = datos.preguntas;
             preguntas.forEach(async elementos => {
                 const id_pregunta = await examen.createPregunta(examen_id, elementos.pregunta);
@@ -116,7 +116,7 @@ router.put('/update-estado-examen', async (req, res) => {
 });
 
 // funciones para crear opciones por separado sin dependencia del constructor de la clase ExamenDB
-router.post('/crear-opciones', async (req, res) => {
+router.post('/create-opcion', async (req, res) => {
     try{
         const id_pregunta = req.body.id_pregunta;
         const opcion = req.body.opcion;
@@ -133,5 +133,87 @@ router.post('/crear-opciones', async (req, res) => {
         res.status(500).json({"message": "Error al crear las opciones", "status": 500});
     }
 });
+// eliminar opción
+router.delete('/delete-opcion', async (req, res) => {
+    try{
+        const id_opcion = req.body.id;
+        // console.log(id_opcion);
+        const examen = new ExamenDB();
+        const respuesta = await examen.deleteOpciones(id_opcion);
+        if (respuesta) {
+            res.status(200).json({"message": "Opcion eliminada correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al eliminar la opcion", "status": 400});
+        }
+    }catch(error){
+        console.log(error)
+        res.status(500).json({"message": "Error al eliminar la opcion", "status": 500});
+    }
+})
+
+// ruta para actualización de examen, preguntas y opciones
+router.put('/update-examen', async (req, res) => {
+    try{
+        // console.log(req.body);
+        const [id, nombre, descripcion, imagen, tiempo, preguntas] = [req.body.id, req.body.nombre, req.body.descripcion, req.body.imagen, req.body.tiempo, req.body.preguntas];
+        const examen = new ExamenDB();
+        const respuesta = await examen.updateExamen(id, nombre, descripcion);
+		preguntas.forEach(async (pregunta) => {
+			const respuesta_pregunta = await examen.updatePregunta(
+					pregunta.id,
+					pregunta.pregunta
+				);
+			pregunta.opciones.forEach(async (opcion) => {
+				const respuesta_opcion = await examen.updateOpciones(
+						opcion.id,
+						opcion.opcion,
+						opcion.opcion_correcta
+					);
+				});
+			});
+        if (respuesta) {
+            res.status(200).json({"message": "Examen actualizado correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al actualizar el examen", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al actualizar el examen", "status": 500});
+    }
+})
+
+router.post('/create-pregunta', async (req, res) => {
+    try{
+        
+        const [id_examen, pregunta, opciones] = [req.body.id_examen, req.body.pregunta, req.body.opciones];
+        // console.log(id_examen, pregunta, opciones);
+        const examen = new ExamenDB();
+        const respuesta = await examen.createPregunta(id_examen, pregunta);
+        opciones.forEach(async (elemento) => {
+            await examen.createOpciones(respuesta, elemento.opcion, elemento.opcion_correcta);
+        });
+        res.status(200).json({"message": "Pregunta creada correctamente", "status": 200});
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al crear la pregunta", "status": 500});
+    }
+})
+router.delete('/delete-pregunta', async (req, res) => {
+    try{
+        const id_pregunta = req.body.id;
+        const examen = new ExamenDB();
+        const respuesta_opciones = await examen.deleteOpcionesByPregunta(id_pregunta);
+        const respuesta = await examen.deletePregunta(id_pregunta);
+        if (respuesta) {
+           res.status(200).json({"message": "Pregunta eliminada correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al eliminar la pregunta", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al eliminar la pregunta", "status": 500});
+    }
+});
+
 
 module.exports = router;

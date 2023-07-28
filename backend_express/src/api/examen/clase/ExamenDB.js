@@ -112,7 +112,86 @@ class ExamenDB{
             throw error;
         }
     }
-    
+    async deleteOpciones(id_opcion){
+        try{
+            let query = "DELETE FROM opciones WHERE id = ?";
+            let rows = await db.query(query, [id_opcion]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    // Funciones para actualizar un examen con sun correspondientes preguntas y opciones
+    async updateExamen(id_examen, nombre, descripcion){
+        try{
+            let query = "UPDATE examen SET nombre = ?, descripcion = ? WHERE id = ?";
+            let rows = await db.query(query, [nombre, descripcion, id_examen]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async updatePregunta(id_pregunta, pregunta){
+        try{
+            let query = "UPDATE pregunta SET pregunta = ? WHERE id = ?";
+            let rows = await db.query(query, [pregunta, id_pregunta]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async updateOpciones(id_opcion, opcion, opcion_correcta){
+        try{
+            let query = "UPDATE opciones SET opcion = ?, opcion_correcta = ? WHERE id = ?";
+            let rows = await db.query(query, [opcion, opcion_correcta, id_opcion]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    // eliminar preguntas y opciones
+    async deletePregunta(id_pregunta){
+        try{
+            let query = "DELETE FROM pregunta WHERE id = ?";
+            let rows = await db.query(query, [id_pregunta]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async deleteOpcionesByPregunta(id_pregunta){
+        try{
+            let query = "DELETE FROM opciones WHERE id_pregunta = ?";
+            let rows = await db.query(query, [id_pregunta]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
 
 }
 
