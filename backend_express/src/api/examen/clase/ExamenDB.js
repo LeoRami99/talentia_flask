@@ -192,6 +192,47 @@ class ExamenDB{
             throw error;
         }
     }
+    // creación del progreso del examen
+    async createProgreso(id_examen, id_usuario){
+        try{
+            let query = "INSERT INTO intentos_examen (id_examen, id_usuario) VALUES (?,?)";
+            let rows = await db.query(query, [id_examen, id_usuario]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(error){
+            throw error;
+        }
+    }
+    async getProgreso(id_examen, id_usuario){
+        try{
+            let query = "SELECT * FROM intentos_examen WHERE id_examen = ? AND id_usuario = ?";
+            let [res] = await db.query(query, [id_examen, id_usuario]);
+            if (res.length > 0){
+                return res[0];
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async actualizarProgreso(id_examen, id_usuario, aprobado, fecha_fin){
+        try{    
+            let query = "UPDATE intentos_examen SET aprobado = ?, fecha_fin = ? WHERE id_examen = ? AND id_usuario = ?";
+            let rows = await db.query(query, [aprobado, id_examen, id_usuario]);
+            if (rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
 
 }
 

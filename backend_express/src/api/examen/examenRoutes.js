@@ -216,4 +216,43 @@ router.delete('/delete-pregunta', async (req, res) => {
 });
 
 
+
+
+// sección para el manejo de la creación de progreso de usuario por examen
+
+router.post('/create-progreso', async (req, res) => {
+    try{
+        const id_examen = req.body.id_examen;
+        const id_usuario = req.body.id_usuario;
+        const examen = new ExamenDB();
+        const respuesta = await examen.createProgreso(id_examen, id_usuario);
+        if (respuesta) {
+            res.status(200).json({"message": "Progreso creado correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al crear el progreso", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al crear el progreso", "status": 500});
+    }
+});
+router.get('/get-progreso/:id_examen/:id_usuario', async (req, res) => {
+    try{
+        const id_examen = req.params.id_examen;
+        const id_usuario = req.params.id_usuario;
+        const examen = new ExamenDB();
+        const respuesta = await examen.getProgreso(id_examen, id_usuario);
+        if (respuesta) {
+            res.status(200).json({"message": "Progreso obtenido correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener el progreso", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al obtener el progreso", "status": 500});
+    }
+});
+
+
+
 module.exports = router;
