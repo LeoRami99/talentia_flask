@@ -36,6 +36,7 @@ import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.component';
 import { CardExamenEditComponent } from './components/card-examen-edit/card-examen-edit.component';
 import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
+import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
 
 
 
@@ -75,6 +76,7 @@ import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
     EditExamenesComponent,
     CardExamenEditComponent,
     EditQuizComponent,
+    TakeQuizComponent,
   ],
   imports: [
     BrowserModule,

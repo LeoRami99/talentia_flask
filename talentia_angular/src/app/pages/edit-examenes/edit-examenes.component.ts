@@ -30,7 +30,6 @@ export class EditExamenesComponent  implements OnInit {
 
   filtrarExamen() {
     let filteredExams = this.examenes;
-
     if (this.filtroNombre) {
       filteredExams = this.examenes.filter((examen: { nombre: string }) =>
         examen.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase())

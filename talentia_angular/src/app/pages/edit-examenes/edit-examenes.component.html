@@ -7,7 +7,7 @@
   <div class="row card-group-row d-flex">
     <div *ngFor="let examen of examenesFiltrados;">
       <app-card-examen-edit nombre={{examen.nombre}} descripcion={{examen.descripcion}}
-        imagen={{examen.imagen}}></app-card-examen-edit>
+        imagen={{examen.imagen}} id={{examen.id}}></app-card-examen-edit>
     </div>
   </div>
 

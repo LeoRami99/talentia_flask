@@ -14,6 +14,7 @@ import { LessonPreviewComponent } from './pages/lesson-preview/lesson-preview.co
 import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.component';
 import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
+import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
 
 
 import { authGuard } from './auth.guard';
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'create-examen', component: CreateQuizComponent},
   { path: 'examenes', component: ExamenesComponent},
   { path: 'edit-examenes', component: EditExamenesComponent},
-  { path : 'edit-examen/:id', component: EditQuizComponent},
+  { path: 'edit-examen/:id', component: EditQuizComponent},
+  { path: 'take-quiz/:id', component: TakeQuizComponent},
   { path: 'home', component: HomeComponent},
   { path: '**', redirectTo: '' },
 ];

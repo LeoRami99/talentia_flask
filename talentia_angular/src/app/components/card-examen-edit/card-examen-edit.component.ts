@@ -12,5 +12,6 @@ export class CardExamenEditComponent {
   @Input() imagen: string = '';
   url_images : string = API_URL+'imagenes/';
   @Input() tiempo: string = '';
+  @Input() id: string = '';
 
 }
