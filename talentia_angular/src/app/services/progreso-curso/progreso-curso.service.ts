@@ -27,5 +27,9 @@ export class ProgresoCursoService {
   obtenerProgreso(id_curso:any, id_usuario:any){
     return this.http.get(`${API_URL}curso/progreso-curso/${id_curso}/${id_usuario}`);
   }
+  // obtener los cursos por progreso
+  obtenerCursosProgreso(id_usuario:any){
+    return this.http.get(`${API_URL}curso/usuario-curso/${id_usuario}`);
+  }
 
 }

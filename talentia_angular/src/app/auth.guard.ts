@@ -24,9 +24,9 @@ const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterSt
   }
 
   const rolEsperado = route.data['expectedRole'];
-  console.log('Rol esperado: ' + rolEsperado);
+  // console.log('Rol esperado: ' + rolEsperado);
   const rolActual = rolesService.getRoles();
-  console.log('Rol actual: ' + rolActual);
+  // console.log('Rol actual: ' + rolActual);
   if (rolActual === rolEsperado) {
     return true;
   } else {

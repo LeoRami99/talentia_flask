@@ -1,0 +1,11 @@
+.fixed-size-card {
+  width: 400px; /* o el valor que desees */
+  overflow: hidden; /* esto es para ocultar cualquier contenido que exceda el tamaño fijo de la tarjeta */
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .fixed-size-card {
+    width: 350px;
+  }
+}

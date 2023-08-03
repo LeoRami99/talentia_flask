@@ -37,6 +37,8 @@ import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.compo
 import { CardExamenEditComponent } from './components/card-examen-edit/card-examen-edit.component';
 import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
 import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
+import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
+import { CardHomeExamenComponent } from './components/card-home-examen/card-home-examen.component';
 
 
 
@@ -77,6 +79,8 @@ import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
     CardExamenEditComponent,
     EditQuizComponent,
     TakeQuizComponent,
+    DashboardHomeComponent,
+    CardHomeExamenComponent,
   ],
   imports: [
     BrowserModule,

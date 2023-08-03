@@ -15,6 +15,7 @@ import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.component';
 import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
 import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
+import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
 
 
 import { authGuard } from './auth.guard';
@@ -30,11 +31,12 @@ const routes: Routes = [
   { path: 'edit-course/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditCourseComponent},
   { path: 'take-lesson/:id', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: TakeCourseComponent},
   { path: 'lesson-preview/lesson/:id_curso/:id_seccion/:id_subseccion', canActivate: [authGuard],  data: { expectedRole: 'USER' }, component: LessonPreviewComponent},
-  { path: 'create-examen', component: CreateQuizComponent},
-  { path: 'examenes', component: ExamenesComponent},
-  { path: 'edit-examenes', component: EditExamenesComponent},
-  { path: 'edit-examen/:id', component: EditQuizComponent},
-  { path: 'take-quiz/:id', component: TakeQuizComponent},
+  { path: 'create-examen', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: CreateQuizComponent, },
+  { path: 'examenes', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: ExamenesComponent},
+  { path: 'edit-examenes', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditExamenesComponent},
+  { path: 'edit-examen/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditQuizComponent},
+  { path: 'take-quiz/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: TakeQuizComponent},
+  { path: 'dashboard-home', component: DashboardHomeComponent},
   { path: 'home', component: HomeComponent},
   { path: '**', redirectTo: '' },
 ];
