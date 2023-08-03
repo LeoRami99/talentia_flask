@@ -214,10 +214,6 @@ router.delete('/delete-pregunta', async (req, res) => {
         res.status(500).json({"message": "Error al eliminar la pregunta", "status": 500});
     }
 });
-
-
-
-
 // sección para el manejo de la creación de progreso de usuario por examen
 
 router.post('/create-progreso', async (req, res) => {
@@ -252,7 +248,42 @@ router.get('/get-progreso/:id_examen/:id_usuario', async (req, res) => {
         res.status(500).json({"message": "Error al obtener el progreso", "status": 500});
     }
 });
+router.put('/update-progreso', async (req, res) => {
+    try{
+        const id_examen = req.body.id_examen;
+        const id_usuario = req.body.id_usuario;
+        const progreso = req.body.progreso;
+        const fecha_actual = new Date();
+        // console.log(fecha_actual);
+        const examen = new ExamenDB();
+        const respuesta = await examen.actualizarProgreso(id_examen, id_usuario, progreso, fecha_actual);
+        if (respuesta) {
+            res.status(200).json({"message": "Progreso actualizado correctamente", "status": 200});
+        }else{
+            res.status(400).json({"message": "Error al actualizar el progreso", "status": 400});
+        }
+    }catch(error){
+        console.error(error);
+        res.status(500).json({"message": "Error al actualizar el progreso", "status": 500});
+    }
+});
 
+
+// obtener el progreso de un usuario en un examen
+router.get('/get-progreso/:id_usuario', async (req, res) => {
+    try{
+        const id_usuario = req.params.id_usuario;
+        const examen = new ExamenDB();
+        const respuesta = await examen.getProgresosByIdUsuario(id_usuario);
+        if (respuesta) {
+            res.status(200).json({"message": "Progreso obtenido correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener el progreso", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({"message": "Error al obtener el progreso", "status": 500});
+    }
+})
 
 
 module.exports = router;

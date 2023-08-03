@@ -431,6 +431,21 @@ async createCategoria(curso_id, categoria_id) {
 		}
 	}
 
+
+	// función para traer el progreso de los cursos y tomados por el estudiante
+	static async getProgresoCursos(id_usuario){
+		try{
+			let sql = "SELECT id_curso FROM progreso_usuario WHERE id_usuario=?";
+			let values = [id_usuario];
+			let [result] = await db.query(sql, values);
+			return result;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+
+
 }
 
 module.exports = CursoDB;

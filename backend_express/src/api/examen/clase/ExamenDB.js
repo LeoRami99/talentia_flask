@@ -223,9 +223,23 @@ class ExamenDB{
     async actualizarProgreso(id_examen, id_usuario, aprobado, fecha_fin){
         try{    
             let query = "UPDATE intentos_examen SET aprobado = ?, fecha_fin = ? WHERE id_examen = ? AND id_usuario = ?";
-            let rows = await db.query(query, [aprobado, id_examen, id_usuario]);
+            let rows = await db.query(query, [aprobado, fecha_fin, id_examen, id_usuario]);
             if (rows[0].affectedRows > 0){
                 return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    // obtener los progresos de los examenes por id del usuario
+    async getProgresosByIdUsuario(id_usuario){
+        try{
+            let query = "SELECT * FROM intentos_examen WHERE id_usuario = ?";
+            let [res] = await db.query(query, [id_usuario]);
+            if (res.length > 0){
+                return res;
             }else{
                 return false;
             }

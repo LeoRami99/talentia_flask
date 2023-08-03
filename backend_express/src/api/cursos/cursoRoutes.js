@@ -36,7 +36,8 @@ const {
     getProgresoCurso,
     verificarProgresoCurso,
     modulosCurso,
-    leccionesModuloActual
+    leccionesModuloActual,
+    getProgresoCursos
 
 } = require("./clase/CursoDB");
 // Confiuración de multer para subir archivos y la subida de imagenes
@@ -436,6 +437,24 @@ router.put('/actualizar-progreso-curso/', async (req, res) => {
         }
     }catch{
         res.status(500).json({ error: err.toString() });
+    }
+});
+
+router.get('/usuario-curso/:id_usuario', async (req, res) => {
+    try{
+        let data=req.params;
+        if(data.id_usuario!=''){
+            let progreso = await getProgresoCursos(data.id_usuario);
+            if(progreso){
+                return res.status(200).json({"message": "Progreso del curso", "status": 200, "data": progreso});
+            }else{
+                return res.status(400).json({"message": "No hay datos", "status": 400});
+            }
+        }else{
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({ error: error.toString() });
     }
 });
 
