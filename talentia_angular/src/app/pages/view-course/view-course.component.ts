@@ -62,7 +62,7 @@ export class ViewCourseComponent implements OnInit {
   ngOnInit(): void {
     this.cursosPreview.getCursos().subscribe((res:any)=>{
       this.cursos=res.cursos;
-      console.log(this.cursos);
+      // console.log(this.cursos);
     });
     // decode token
     this.id_curso = this.routeActive.snapshot.params['id'];
@@ -74,6 +74,7 @@ export class ViewCourseComponent implements OnInit {
         this.crearProgreso.verificarProgreso(this.id_curso, this.dataUsuario.id).subscribe(
           (res:any)=>{
             this.verificiarProgreso=res.data;
+            console.log(this.verificiarProgreso);
           }
         );
       },

@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { GetCourseService } from 'src/app/services/get-course/get-course.service';
 import { ExamenesService } from 'src/app/services/examenes/examenes.service';
+import { UserDataService } from 'src/app/services/user-data/user-data.service';
 
 const helper = new JwtHelperService();
 @Component({
@@ -14,11 +15,18 @@ const helper = new JwtHelperService();
 export class DashboardHomeComponent implements OnInit {
   cursos: any = [];
   examenes: any = [];
+  examenes_aprobados: any = [];
+  nombre_usuario: string = ''
+  contador_certificados = 0;
+  contador_examenes = 0;
+  contador_cursos = 0;
+
   constructor(
     private progresoService: ProgresoCursoService,
     private toastr: ToastrService,
     private getCourses: GetCourseService,
-    private examenService: ExamenesService
+    private examenService: ExamenesService,
+    private dataUser : UserDataService
   ) {}
   ngOnInit(): void {
     // obtener el token
@@ -30,9 +38,8 @@ export class DashboardHomeComponent implements OnInit {
           if (data.data.length > 0) {
             let progreso = data.data;
             progreso.forEach((element: any) => {
-              this.getCourses
-                .getCourse(element.id_curso)
-                .subscribe((data: any) => {
+              this.getCourses.getCourse(element.id_curso).subscribe((data: any) => {
+                  this.contador_cursos += 1;
                   this.cursos.push(data.curso);
                 });
             });
@@ -40,14 +47,21 @@ export class DashboardHomeComponent implements OnInit {
             this.cursos = [];
           }
         });
-
+        this.dataUser.dataUsuario(decodedToken['id']).subscribe((data:any)=>{
+          this.nombre_usuario=data.data.nombre+" "+ data.data.apellidos;
+        })
       this.examenService.getProgresoUsuario(decodedToken['id']).subscribe((data: any) => {
         if(data.status === 200){
           let examenes = data.data;
-          console.log(examenes);
           examenes.forEach((element: any) => {
             this.examenService.getExamen(element.id_examen).subscribe((data: any) => {
               this.examenes.push(data.examen);
+              this.contador_examenes += 1;
+              // console.log(element.aprobado)
+              if (element.aprobado == "aprobado") {
+                this.contador_certificados += 1;
+                this.examenes_aprobados.push(data.examen);
+              }
             });
           });
         }else{

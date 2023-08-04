@@ -94,6 +94,7 @@ export class EditCourseComponent implements OnInit {
     this.curso.categoria_id = this.categoria_id;
     // console.log(this.curso);
     // envio del json para actualizar la información del curso
+    console.log(this.curso)
     this.updateCurso.updateCurso(this.curso).subscribe(
       (res: any) => {
         if (res.status === 200) {

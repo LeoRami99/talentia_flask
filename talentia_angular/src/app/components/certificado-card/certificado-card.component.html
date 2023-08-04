@@ -1,0 +1,37 @@
+<div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 mb-16pt"
+                   data-toggle="popover"
+                   data-trigger="hover">
+
+                  <div class="card-body d-flex flex-column">
+                      <div class="d-flex align-items-center">
+                          <div class="flex">
+                              <div class="d-flex align-items-center">
+                                  <div class="rounded mr-12pt z-0 o-hidden">
+                                      <div class="overlay">
+                                          <img [src]="url_images+imagen"
+                                               width="40"
+                                               height="40"
+                                               alt="Certificados"
+                                               class="rounded">
+                                          <span class="overlay__content overlay__content-transparent">
+                                              <span class="overlay__action d-flex flex-column text-center lh-1">
+                                                  <small class="h6 small text-white mb-0"
+                                                         style="font-weight: 500;">OK</small>
+                                              </span>
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="flex">
+                                      <div class="card-title">{{nombre}}</div>
+                                      <p class="flex text-50 lh-1 mb-0"><small>{{descripcion}}</small></p>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <a href="#"
+                             class="ml-4pt btn btn-sm btn-link text-secondary">Descargar</a>
+
+                      </div>
+
+                  </div>
+              </div>

@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'edit-examenes', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditExamenesComponent},
   { path: 'edit-examen/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditQuizComponent},
   { path: 'take-quiz/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: TakeQuizComponent},
-  { path: 'dashboard-home', component: DashboardHomeComponent},
+  { path: 'dashboard-home', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: DashboardHomeComponent},
   { path: 'home', component: HomeComponent},
   { path: '**', redirectTo: '' },
 ];

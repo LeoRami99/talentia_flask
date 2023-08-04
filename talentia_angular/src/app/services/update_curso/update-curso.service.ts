@@ -10,6 +10,7 @@ export class UpdateCursoService {
   constructor(private http: HttpClient) { }
   updateCurso(dataCurso: any) {
     const uri = API_URL + 'curso/update-curso';
+    console.log(dataCurso);
     return this.http.put(uri, dataCurso);
   }
 }

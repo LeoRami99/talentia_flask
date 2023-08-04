@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit{
   });
   ngOnInit(): void {
     if (this.apiService.isLoggedIn()) {
+      // dependiendo de rol redirigir a la vista
       this.router.navigate(['/home']);
     }
   }
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit{
               // limipiar los campos
               // guardar el token en el localstorage
               localStorage.setItem('token', response.access_token);
-              this.router.navigate(['/home']);
+              this.router.navigate(['/']);
             } else if (response.status === 401) {
               this.toast.error(response.message, 'Talentia', {
                 timeOut: 2000,
