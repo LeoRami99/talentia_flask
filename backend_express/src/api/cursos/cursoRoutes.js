@@ -205,7 +205,7 @@ router.put('/update-curso/', async(req,res)=>{
 			secciones = data.secciones,
 			categoria_id = data.categoria_id;
         if (id_curso!='' && titulo!='' && descripcion!='' && trailer!='' && precio!='' && estado!='' && dificultad!='' && categoria_id!='') {
-            const update_curso = await actualizarCurso(imagen_portada, imagen_portada, id_curso, titulo, descripcion, trailer, precio, estado, dificultad);
+            const update_curso = await actualizarCurso(imagen_portada, imagen_card, id_curso, titulo, descripcion, trailer, precio, estado, dificultad);
             if(update_curso){
                 
                 if(await actualizarCategoria(id_curso,categoria_id)){
