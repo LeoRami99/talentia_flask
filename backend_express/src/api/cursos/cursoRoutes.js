@@ -457,6 +457,32 @@ router.get('/usuario-curso/:id_usuario', async (req, res) => {
         res.status(500).json({ error: error.toString() });
     }
 });
+router.get('/get-cursos-estado', async (req, res) => {
+    try{
+        const cursos = new CursoDB();
+        const respuesta = await cursos.getCountCursosEstado();
+        if (respuesta) {
+            res.status(200).json({"message": "Cursos obtenidos correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener los cursos", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({"message": "Error al obtener los cursos", "status": 500});
+    }
+})
+router.get('/get-cursos-tomados', async (req, res)=>{
+    try{
+        const cursos = new CursoDB();
+        const respuesta = await cursos.getCountCursos();
+        if (respuesta) {
+            res.status(200).json({"message": "Cursos obtenidos correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener los cursos", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({"message": "Error al obtener los cursos", "status": 500});
+    }
+})
 
 
 

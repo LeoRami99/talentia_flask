@@ -248,6 +248,35 @@ class ExamenDB{
         }
     }
 
+    // count de los examenes activos
+    async countExamenesActivos(){
+        try{
+            let query = "SELECT COUNT(*) AS count FROM examen WHERE estado = 1";
+            let query2 = "SELECT COUNT(*) AS count FROM examen WHERE estado = 0";
+            let [res] = await db.query(query);
+            let [res2] =  await db.query(query2);
+            if(res && res2){
+                return {activos: res[0].count, inactivos: res2[0].count};
+            }else{
+                false
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async countExamenesAprobados(){
+        try{
+            let query = "SELECT COUNT(*) AS count FROM intentos_examen WHERE aprobado = 'aprobado'";
+            let [res] = await db.query(query);
+            if(res.length > 0){
+                return {aprobados: res[0].count};
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
 }
 
 module.exports = ExamenDB;

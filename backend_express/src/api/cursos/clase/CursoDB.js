@@ -444,6 +444,34 @@ async createCategoria(curso_id, categoria_id) {
 			return false;
 		}
 	}
+	async getCountCursosEstado(){
+        try{
+            let query = "SELECT COUNT(*) as count FROM cursos WHERE estado = 1";
+            let query2 = "SELECT COUNT(*) as count FROM cursos WHERE estado = 0";
+            let [res] = await db.query(query);
+            let [res2] = await db.query(query2);
+            if (res && res){
+                return {activos: res[0].count, inactivos: res2[0].count};
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+	async getCountCursos(){
+		try{
+			let query = "SELECT COUNT(*) as count FROM progreso_usuario";
+			let [res] = await db.query(query);
+			if (res){
+				return {progreso: res[0].count};
+			}else{
+				return false;
+			}
+		}catch(error){
+			throw error;
+		}
+	}
 
 
 }

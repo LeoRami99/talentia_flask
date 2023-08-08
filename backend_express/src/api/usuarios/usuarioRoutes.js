@@ -68,5 +68,19 @@ router.get('/data-usuario/:id', authenticateToken, async (req, res) => {
     }
 });
 
+router.get("/count-users" , async (req, res) => {
+    try{
+        const count = await Usuarios.countUsers();
+        if(count){
+            res.status(200).json({ message: 'Datos del usuario', status: 200, count});
+        }else{
+            res.status(404).json({ message: 'Usuario no encontrado', status: 404 });
+        }
+    }catch(e){
+        console.error(e);
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+});
+
 
 module.exports = router;

@@ -56,6 +56,19 @@ class usuarioDB {
       return false;
     }
   }
+
+  // conteo de usuarios con el rol USER
+  static async countUsers(){
+    try{
+      const sql = 'SELECT COUNT(*) as total FROM usuario WHERE rol = "USER"';
+      const [result] = await db.execute(sql);
+      return result[0].total;
+    }catch(error){
+      console.log(error);
+      return false;
+    }
+  }
+
 }
 
 module.exports = usuarioDB;

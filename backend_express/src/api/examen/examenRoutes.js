@@ -284,6 +284,36 @@ router.get('/get-progreso/:id_usuario', async (req, res) => {
         res.status(500).json({"message": "Error al obtener el progreso", "status": 500});
     }
 })
+router.get('/get-examenes-estado', async (req, res) => {
+    try{
+        const examen = new ExamenDB();
+        const respuesta = await examen.countExamenesActivos();
+        if (respuesta) {
+            res.status(200).json({"message": "Examenes obtenidos correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener los examenes", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({"message": "Error al obtener los examenes", "status": 500});
+    }
+})
+router.get('/get-examenes-aprobados', async(req, res)=>{
+    try{
+        const examen = new ExamenDB();
+        const respuesta = await examen.countExamenesAprobados();
+    
+        if (respuesta) {
+            res.status(200).json({"message": "Examenes obtenidos correctamente", "status": 200, "data": respuesta});
+        }else{
+            console.log(respuesta);
+            res.status(400).json({"message": "Error al obtener los examenes", "status": 400});
+        }
+    }catch(error){
+        res.status(500).json({"message": "Error al obtener los examenes", "status": 500});
+    }
+})
+
+
 
 
 module.exports = router;
