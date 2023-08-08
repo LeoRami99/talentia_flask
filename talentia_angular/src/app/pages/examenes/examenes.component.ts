@@ -25,10 +25,6 @@ export class ExamenesComponent implements OnInit {
   examenesFiltrados: any[] = [];
 
 
-
-
-
-
   ngOnInit(): void {
     this.examen.getExamenes().subscribe(
       (res: any) => {

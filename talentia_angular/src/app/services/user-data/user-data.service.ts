@@ -11,4 +11,7 @@ export class UserDataService {
     const header = { 'Authorization': `Bearer ${localStorage.getItem('token')}`};
     return this.http.get(`${API_URL}user/data-usuario/${id}`, {headers: header});
   }
+  countUsers(){
+    return this.http.get(`${API_URL}user/count-users`);
+  }
 }

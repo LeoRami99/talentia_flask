@@ -10,4 +10,10 @@ export class GetCourseService {
   getCourse(id: number){
     return this.http.get(API_URL+`curso/get-curso/${id}`)
   }
+  getCursosEstado(){
+    return this.http.get(API_URL+'curso/get-cursos-estado')
+  }
+  getCursosTomados(){
+    return this.http.get(API_URL+'curso/get-cursos-tomados')
+  }
 }

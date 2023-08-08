@@ -40,6 +40,8 @@ import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
 import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
 import { CardHomeExamenComponent } from './components/card-home-examen/card-home-examen.component';
 import { CertificadoCardComponent } from './components/certificado-card/certificado-card.component';
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 
 
@@ -83,6 +85,8 @@ import { CertificadoCardComponent } from './components/certificado-card/certific
     DashboardHomeComponent,
     CardHomeExamenComponent,
     CertificadoCardComponent,
+    DashboardAdminComponent,
+    InicioComponent,
   ],
   imports: [
     BrowserModule,

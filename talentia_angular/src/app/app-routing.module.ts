@@ -16,6 +16,8 @@ import { EditExamenesComponent } from './pages/edit-examenes/edit-examenes.compo
 import { EditQuizComponent } from './pages/edit-quiz/edit-quiz.component';
 import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
 import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 
 import { authGuard } from './auth.guard';
@@ -37,8 +39,10 @@ const routes: Routes = [
   { path: 'edit-examen/:id', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: EditQuizComponent},
   { path: 'take-quiz/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: TakeQuizComponent},
   { path: 'dashboard-home', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: DashboardHomeComponent},
-  { path: 'home', component: HomeComponent},
-  { path: '**', redirectTo: '' },
+  { path: 'dashboard-admin', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: DashboardAdminComponent},
+  { path: 'inicio', component: InicioComponent},
+  { path: '', component: HomeComponent},
+  { path: '**', redirectTo: 'inicio' },
 ];
 
 @NgModule({

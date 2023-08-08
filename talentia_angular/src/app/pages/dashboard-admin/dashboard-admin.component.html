@@ -1,0 +1,127 @@
+
+<!-- <div id="divChart">
+  <canvas id="myChart"></canvas>
+</div> -->
+
+<div class="page-section bg-primary border-bottom-white">
+  <div class="container">
+
+    <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
+      <img src="assets/images/illustration/teacher/128/white.svg" width="104" class="mr-md-32pt mb-32pt mb-md-0"
+        alt="student">
+      <div class="flex mb-32pt mb-md-0">
+        <h1 class="text-white mb-0">¡Bienvenido!</h1>
+        <h2 class="text-white mb-0">{{nombre_usuario}}</h2>
+        <!-- <p class="lead text-white-50 d-flex align-items-center">Student <span class="ml-16pt d-flex align-items-center"><i class="material-icons icon-16pt mr-4pt">opacity</i> 2,300 IQ</span></p> -->
+      </div>
+      <!-- <a href=""
+      class="btn btn-outline-white">Follow</a> -->
+    </div>
+  </div>
+</div>
+
+<div class="page-section border-bottom-2">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-4">
+              <div class="card text-center mb-lg-0">
+                  <div class="card-body">
+                    <img src="https://img.icons8.com/?size=512&id=Ut1mhCuyFDJQ&format=png" alt="" class="img-fluid" style="width: 80px;">
+                    <h4 class="h2 mb-0">{{countUsers}}</h4>
+                    <div>Usuarios registrados</div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="card text-center mb-lg-0">
+                  <div class="card-body">
+                    <img src="https://img.icons8.com/?size=512&id=AefXIkx4A693&format=png" alt="" class="img-fluid" style="width: 80px;">
+                      <h4 class="h2 mb-0">{{countCursosActivos}}</h4>
+                      <div>Cursos Activos</div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="card text-center mb-lg-0">
+                  <div class="card-body">
+                    <img src="https://img.icons8.com/?size=512&id=faXHmzlIKEVi&format=png" alt="" class="img-fluid" style="width: 80px;">
+                      <h4 class="h2 mb-0">{{countCursosInactivos}}</h4>
+                      <div>Cursos Inactivos</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-4">
+            <div class="card text-center mb-lg-0">
+                <div class="card-body">
+                  <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid" style="width: 80px;">
+                  <h4 class="h2 mb-0">{{countExamenActivos}}</h4>
+                  <div>Examenes activos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card text-center mb-lg-0">
+                <div class="card-body">
+                  <img src="https://img.icons8.com/?size=512&id=GFZarxtFIkhx&format=png" alt="" class="img-fluid" style="width: 80px;">
+                    <h4 class="h2 mb-0">{{countExamenInactivos}}</h4>
+                    <div>Examenes inactivos</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-lg-4">
+            <div class="card text-center mb-lg-0">
+                <div class="card-body">
+                    <h4 class="h2 mb-0"> a </h4>
+                    <div>Curso</div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+  </div>
+</div>
+
+<div class="container page-section">
+
+  <div class="page-separator">
+      <div class="page-separator__text">Usuarios Certificados respecto a Usuarios que aprobaron un certificado </div>
+  </div>
+  <div class="card card-body mb-32pt">
+    <div id="canvaContainer">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <div class="row mb-8pt">
+      <div class="col-lg-6">
+
+          <div class="page-separator">
+              <div class="page-separator__text">Crear curso</div>
+          </div>
+          <div class="card">
+            <div class="card-body d-flex justify-content-center flex-column align-items-center">
+              <img src="https://img.icons8.com/?size=512&id=X7Ps4LtblU6u&format=png" alt="" class="img-fluid" style="width: 150px;">
+              <a href="/create-course" class="btn btn-outline-primary w-50">Crear curso</a>
+            </div>
+          </div>
+
+      </div>
+      <div class="col-lg-6">
+
+          <div class="page-separator">
+              <div class="page-separator__text">Crear examen</div>
+          </div>
+          <div class="card">
+              <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="img-fluid" style="width: 150px;">
+                <a href="/create-examen" class="btn btn-outline-primary">Crear examen</a>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+</div>

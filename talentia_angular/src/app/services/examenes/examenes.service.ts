@@ -54,4 +54,10 @@ export class ExamenesService {
   getProgresoUsuario(id_usuario: string) {
     return this.http.get(`${API_URL}examen/get-progreso/${id_usuario}`);
   }
+  getExamenesEstado(){
+      return this.http.get(`${API_URL}examen/get-examenes-estado`);
+  }
+  getExamenesAprobados(){
+    return this.http.get(`${API_URL}examen/get-examenes-aprobados`);
+  }
 }
