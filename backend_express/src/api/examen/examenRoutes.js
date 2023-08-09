@@ -10,9 +10,9 @@ const ExamenDB = require('./clase/ExamenDB');
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         // en local se usa esta ruta
-        cb(null, 'src/images/examen');
+        // cb(null, 'src/images/examen');
         //en producción se usa esta ruta
-        // cb(null, 'images/examen');
+        cb(null, 'images/examen');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
