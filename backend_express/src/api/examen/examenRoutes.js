@@ -3,6 +3,9 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const ExamenDB = require('./clase/ExamenDB');
+const {UsuarioDB, dataUser} = require ('../usuarios/clase/UsuariosDB');
+const {PDFDocument, rgb} = require('pdf-lib');
+const fs = require('fs').promises;
 
 
 
@@ -10,9 +13,9 @@ const ExamenDB = require('./clase/ExamenDB');
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         // en local se usa esta ruta
-        // cb(null, 'src/images/examen');
+        cb(null, 'src/images/examen');
         //en producción se usa esta ruta
-        cb(null, 'images/examen');
+        // cb(null, 'images/examen');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);
@@ -312,6 +315,68 @@ router.get('/get-examenes-aprobados', async(req, res)=>{
         res.status(500).json({"message": "Error al obtener los examenes", "status": 500});
     }
 })
+router.get('/certificados/:id_usuario/:id_examen', async (req, res) => {
+    try {
+        // Cargar la plantilla PDF
+        const id_usuario = req.params.id_usuario;
+        const id_examen = req.params.id_examen;
+        const user_data = await dataUser(id_usuario)
+        const examen = await ExamenDB.getExamen(id_examen);
+        const nombre_examen = examen.nombre
+        // console.log(await user_data.)
+        const plantillaPdf = await fs.readFile('./src/plantillas/plantilla.pdf');
+        const pdfDoc = await PDFDocument.load(plantillaPdf);
+        
+        // Obtener la primera página y añadir texto
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+        const pageWidth = firstPage.getWidth();
+        console.log(pageWidth);
+        // conmbre con apellidos completos.
+        const nombre_completo = user_data.nombre + " " + user_data.apellidos;
+        drawCenteredText(firstPage, nombre_completo, 340, 30, rgb(0,0,0))
+        drawCenteredText(firstPage, nombre_examen, 270, 30, rgb((77/255), (123/255), (170/255)))
+      
+        // Guardar el PDF modificado y enviarlo como respuesta
+        const pdfBytes = await pdfDoc.save();
+        // await fs.writeFile('./src/plantillas/plantilla2.pdf', pdfBytes);
+
+        res.setHeader('Content-Disposition', 'attachment; filename=certificado.pdf');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(Buffer.from(pdfBytes));
+
+        // Si planeas usar estos parámetros, descomenta las siguientes líneas
+        // const id_usuario = req.params.id_usuario;
+        // const id_examen = req.params.id_examen;
+
+        // Aquí puedes agregar lógica para obtener información de la base de datos
+        // basada en id_usuario e id_examen, si es necesario.
+        function estimateTextWidth(text, fontSize) {
+            // Este es un valor estimado. Puede que necesites ajustarlo dependiendo de la fuente que estés usando.
+            const averageCharWidth = fontSize * 0.5;
+            return text.length * averageCharWidth;
+        }
+        
+        // Función para centrar el texto en la página
+        function drawCenteredText(page, text, y, size, color) {
+            const textWidth = estimateTextWidth(text, size);
+            const x = (pageWidth - textWidth) / 2;
+            console.log(x)
+            page.drawText(text, {
+                x: x,
+                y: y,
+                size: size,
+                color: color,
+                // center only text 
+                
+            });
+        }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ "message": "Error al generar el certificado", "status": 500 });
+    }
+});
 
 
 

@@ -46,9 +46,9 @@ const storage = multer.diskStorage(
     {
     destination: function(req, file, cb) {
         // en local se usa esta ruta
-        // cb(null, 'src/images/curso');
+        cb(null, 'src/images/curso');
         //en producción se usa esta ruta
-        cb(null, 'images/curso');
+        // cb(null, 'images/curso');
     },
     filename: function(req, file, cb) {
         let ext = path.extname(file.originalname);

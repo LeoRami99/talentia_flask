@@ -6,6 +6,7 @@ const fs = require('fs');
 const cursoRoutes = require('./api/cursos/cursoRoutes');
 const usuarioRoutes = require('./api/usuarios/usuarioRoutes');
 const examenRoutes = require('./api/examen/examenRoutes');
+const ofertaRoutes = require('./api/ofertas/ofertaRoutes');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(morgan('dev'));
 app.use('/curso', cursoRoutes);
 app.use('/user', usuarioRoutes);
 app.use('/examen', examenRoutes);
+app.use('/oferta', ofertaRoutes);
 app.use('/imagenes', express.static(path.join(__dirname, 'images/curso')));
 app.use('/imagenes', express.static(path.join(__dirname, 'images/examen')));
 
