@@ -55,7 +55,7 @@ export class DashboardAdminComponent implements OnInit{
         let myChart = new Chart("myChart", {
             type: 'bar',
             data: {
-                labels: ['Cursos tomados por usuarios', 'Examenes aprobados usuarios'],
+                labels: ['Cursos tomados por usuarios', 'Examenes aprobados por usuarios'],
                 datasets: [{
                     label: 'Datos de usuarios',
                     data: [this.cursosTomados, this.exameneAprobados],

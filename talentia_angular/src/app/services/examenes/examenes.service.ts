@@ -60,4 +60,9 @@ export class ExamenesService {
   getExamenesAprobados(){
     return this.http.get(`${API_URL}examen/get-examenes-aprobados`);
   }
+  // descargar certificado
+  getCertificado(id_usuario: string, id_examen: string) {
+    return this.http.get(`${API_URL}examen/certificados/${id_usuario}/${id_examen}`,
+    {responseType: 'blob'});
+  }
 }

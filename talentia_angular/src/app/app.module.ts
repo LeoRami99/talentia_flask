@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -42,6 +43,15 @@ import { CardHomeExamenComponent } from './components/card-home-examen/card-home
 import { CertificadoCardComponent } from './components/certificado-card/certificado-card.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { CrearOfertaComponent } from './pages/crear-oferta/crear-oferta.component';
+import { CrearEmpresaComponent } from './pages/crear-empresa/crear-empresa.component';
+import { SignUpEmpresaComponent } from './pages/sign-up-empresa/sign-up-empresa.component';
+import { DashboardEmpresaComponent } from './pages/dashboard-empresa/dashboard-empresa.component';
+import { OfertasAdminComponent } from './pages/ofertas-admin/ofertas-admin.component';
+import { OfertaEditCardComponent } from './components/oferta-edit-card/oferta-edit-card.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { OfertaCardComponent } from './components/oferta-card/oferta-card.component';
+import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
 
 
 
@@ -87,6 +97,16 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     CertificadoCardComponent,
     DashboardAdminComponent,
     InicioComponent,
+    CrearOfertaComponent,
+    CrearEmpresaComponent,
+    SignUpEmpresaComponent,
+    DashboardEmpresaComponent,
+    OfertasAdminComponent,
+    OfertaEditCardComponent,
+    OfertasComponent,
+    OfertaCardComponent,
+    VerOfertaComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -99,6 +119,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     ToastrModule.forRoot(), // ToastrModule added,
     // SocketIoModule.forRoot(config),
     NgxPaginationModule,
+    NgSelectModule,
   ],
   providers: [
     provideAnimations(), // required animations providers

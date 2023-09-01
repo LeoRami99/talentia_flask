@@ -1,0 +1,29 @@
+<div class="container">
+  <h1 class="text-center mt-5">Ofertas Laborales</h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="text-center">Filtros</h2>
+            <input type="text" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control mb-2" placeholder="Busca una oferta laboral">
+            <select name="opciones" id="" class="form-control mb-2">
+              <option value="Filtro">Filtro</option>
+            </select>
+            <select name="opciones" id="" class="form-control mb-2">
+              <option value="Filtro">Filtro</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+      <div class="vh-100 overflow-auto">
+        <div *ngFor="let ofertas of ofertasBusqueda | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+          <app-oferta-card  nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}" [habilidades_oferta]="ofertas.habilidades" ubicacion=" {{ofertas.ciudad}} / {{ofertas.pais}}" modalidad="{{ofertas.modalidad}}"  id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}"></app-oferta-card>
+        </div>
+      </div>
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+

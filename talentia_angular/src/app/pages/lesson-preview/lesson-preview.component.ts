@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { GetCourseService } from 'src/app/services/get-course/get-course.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -134,7 +134,10 @@ export class LessonPreviewComponent implements OnInit {
           } else if(this.haySiguienteModulo == false && this.haySiguienteLeccion == false) {
             console.log("hay siguiente modulo y hay siguiente leccion");
             // No hay siguiente lección ni siguiente módulo, el curso ha finalizado
+
             this.toastr.success('¡Felicidades, has finalizado el curso!', 'Curso finalizado');
+            // redireccionar al seccion de cursos
+            window.location.href = `/courses`;
           }
         });
       }

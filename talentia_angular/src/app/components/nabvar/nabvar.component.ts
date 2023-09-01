@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-// location from '@angular/common';
-import {Location} from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import {Observable, map} from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../services/api_service/api.service';
-import { Route } from '@angular/router';
 
 @Component({
   selector: 'app-nabvar',
@@ -12,13 +8,17 @@ import { Route } from '@angular/router';
   styleUrls: ['./nabvar.component.css']
 })
 export class NabvarComponent {
-  // se va a ocultar el contenido de html
   mostrarContenidoHTML: boolean = false;
-  constructor(private route: ActivatedRoute, private location: Location, public auth: ApiService, private router: Router) {
-    this.location.onUrlChange((url: string) => {
-      this.mostrarContenidoHTML = url !== '/login' && url !== '/signup';
+
+  constructor(public auth: ApiService, private router: Router) {
+    // Suscríbete a los eventos del router
+    this.router.events.subscribe((event:any) => {
+      if (event.routerEvent.urlAfterRedirects === '/login' || event.routerEvent.urlAfterRedirects === '/signup') {
+        this.mostrarContenidoHTML = true;
+      }
     });
   }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);

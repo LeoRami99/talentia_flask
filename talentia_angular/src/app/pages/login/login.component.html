@@ -1,7 +1,8 @@
 <div class="pt-32pt pt-sm-64pt pb-32pt">
-  <div class="container">
-    <form class="col-md-5 p-0 mx-auto" (ngSubmit)="login()" [formGroup]="formulario">
+  <div class="container vh-100">
+    <form class="col-md-5 p-0 mx-auto shadow bg-white p-5 rounded animate__animated animate__fadeInUp" (ngSubmit)="login()" [formGroup]="formulario">
       <div class="form-group">
+        <h2 class="text-center">Talentia | Log-in</h2>
         <label class="form-label" for="email">Email:</label>
         <input id="email" type="text" class="form-control" placeholder="Tu email" formControlName="correo">
         <!-- Validación de email -->
@@ -26,7 +27,7 @@
             El password debe de ser alfabético
           </div>
         </div>
-        <p class="text-right"><a href="reset-password.html" class="small">Forgot your password?</a></p>
+        <!-- <p class="text-right"><a href="reset-password.html" class="small">Forgot your password?</a></p> -->
       </div>
       <div class="text-center">
         <button class="btn btn-primary" type="submit">Login</button>

@@ -18,14 +18,19 @@ import { TakeQuizComponent } from './pages/take-quiz/take-quiz.component';
 import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
-
-
+import { CrearEmpresaComponent } from './pages/crear-empresa/crear-empresa.component';
+import { SignUpEmpresaComponent} from './pages/sign-up-empresa/sign-up-empresa.component';
+import { DashboardEmpresaComponent } from './pages/dashboard-empresa/dashboard-empresa.component';
+import { CrearOfertaComponent } from './pages/crear-oferta/crear-oferta.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { authGuard } from './auth.guard';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
+import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path: 'signup-admin', component: SignupAdminComponent},
+  { path: 'signup-admin', component: SignupAdminComponent},
+  { path: 'signup-empresa', component: SignUpEmpresaComponent},
   { path: 'create-course', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: CreateCourseComponent },
   { path: 'edit-courses',canActivate: [authGuard],  data: { expectedRole: 'ADMIN' }, component: EditCoursesComponent},
   { path: 'courses', component: CoursesComponent, canActivate: [authGuard],  data: { expectedRole: 'USER' } },
@@ -40,6 +45,12 @@ const routes: Routes = [
   { path: 'take-quiz/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: TakeQuizComponent},
   { path: 'dashboard-home', canActivate: [authGuard], data: { expectedRole: 'USER' }, component: DashboardHomeComponent},
   { path: 'dashboard-admin', canActivate: [authGuard], data: { expectedRole: 'ADMIN' }, component: DashboardAdminComponent},
+  { path: 'dashboard-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: DashboardEmpresaComponent},
+  { path: 'create-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearEmpresaComponent},
+  { path: 'crear-oferta', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearOfertaComponent},
+  { path: 'ver-oferta/:id', component:VerOfertaComponent},
+
+  { path: 'ofertas', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:OfertasComponent},
   { path: 'inicio', component: InicioComponent},
   { path: '', component: HomeComponent},
   { path: '**', redirectTo: 'inicio' },

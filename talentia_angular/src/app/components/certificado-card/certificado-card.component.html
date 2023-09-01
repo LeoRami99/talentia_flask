@@ -1,4 +1,4 @@
-<div class="card js-overlay card-sm overlay--primary-dodger-blue stack stack--1 mb-16pt"
+<div class="card js-overlay card-sm overlay--primary-dodger-blue mb-16pt"
                    data-toggle="popover"
                    data-trigger="hover">
 
@@ -13,12 +13,12 @@
                                                height="40"
                                                alt="Certificados"
                                                class="rounded">
-                                          <span class="overlay__content overlay__content-transparent">
+                                          <!-- <span class="overlay__content overlay__content-transparent">
                                               <span class="overlay__action d-flex flex-column text-center lh-1">
                                                   <small class="h6 small text-white mb-0"
                                                          style="font-weight: 500;">OK</small>
                                               </span>
-                                          </span>
+                                          </span> -->
                                       </div>
                                   </div>
                                   <div class="flex">
@@ -28,8 +28,8 @@
                               </div>
                           </div>
 
-                          <a href="#"
-                             class="ml-4pt btn btn-sm btn-link text-secondary">Descargar</a>
+                          <button
+                             class="ml-4pt btn btn-sm btn-link text-secondary" (click)="descargarCertificado()">Descargar</button>
 
                       </div>
 

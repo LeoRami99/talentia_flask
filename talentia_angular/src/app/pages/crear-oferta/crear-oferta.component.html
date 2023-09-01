@@ -1,0 +1,147 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="text-center">Crear Oferta</h1>
+      <div class="">
+        <div class="mb-3">
+          <label for="" class="form-label">Nombre de la oferta</label>
+          <input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="nombre_oferta">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Descripción de la oferta</label>
+          <textarea class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="descripcion_oferta"></textarea>
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Salario</label>
+          <input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="salario">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Fecha de cierre</label>
+          <input type="date" class="form-control" placeholder="Fecha de cierre de la oferta" [(ngModel)]="fecha_cierre">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Tipo de contrato</label><input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="tipo_contrato">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Requisitos</label>
+          <input type="text" class="form-control" placeholder="Requisitos" [(ngModel)]="requisitos">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Modalidad</label>
+          <textarea class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="modalidad"></textarea>
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Url de referencia</label>
+          <input type="text" class="form-control" placeholder="Url de referencia" [(ngModel)]="url_referencia">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">País</label>
+          <input type="text" class="form-control" placeholder="País" [(ngModel)]="pais">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Ciudad</label>
+          <input type="text" class="form-control" placeholder="Ciudad" [(ngModel)]="ciudad">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Empresa</label>
+          <select name="" class="form-control" id="" [(ngModel)]="empresa_oferta">
+            <option *ngFor="let empresa of empresa" [value]="empresa.id">{{empresa.nombre}}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Habilidades</label>
+          <ng-select [multiple]="true" class="custom" [items]="habilidades" bindLabel="nombre" [(ngModel)]="habilidades_oferta">
+            <ng-option *ngFor="let habilidad of habilidades" [value]="habilidad.id">{{habilidad.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <button class="btn btn-primary w-100" (click)="crearOferta()">Crear</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1 class="text-center" style="text-shadow: 5px 5px 5px #afafaf;">Vista previa</h1>
+      <div class="shadow rounded p-4 bg-white">
+          <div class="mb-3">
+            <label for="" class="form-label">Nombre de la oferta: </label>
+            <div>{{nombre_oferta}}</div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Descripción de la oferta: </label>
+            <div>
+              {{descripcion_oferta}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Salario: </label>
+            <div>
+              {{salario}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Fecha de cierre: </label>
+            <div>
+              {{fecha_cierre}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Tipo de contrato: </label>
+            <div>
+              {{tipo_contrato}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Modalidad: </label>
+            <div>
+              {{modalidad}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Requisitos: </label>
+            <div>
+              {{requisitos}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Url de referencia: </label>
+            <div>
+              {{url_referencia}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">País: </label>
+            <div>
+              {{pais}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Ciudad: </label>
+            <div>
+              {{ciudad}}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Empresa: </label>
+            <div *ngIf="empresa_oferta!=='' ">
+              {{nombreEmpresaPreview(empresa_oferta)}}
+              {{nombre_empresa_view}}
+            </div>
+          </div>
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let habilidad of habilidades_oferta" class="align-items-center mr-2">
+                <span class="badge badge-primary">{{habilidad.nombre}}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

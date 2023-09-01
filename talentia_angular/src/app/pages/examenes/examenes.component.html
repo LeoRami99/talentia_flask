@@ -1,16 +1,22 @@
+
 <div class="container page-section">
-  <div class="d-flex justify-content-end">
+  <div class="d-flex justify-content-start">
     <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
       class="form-control w-25">
   </div>
 
   <div class="row card-group-row d-flex">
+    <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length==0; else hayExamenes">
+        <h2 class="text-center">No hay examenes disponibles...</h2>
+    </div>
+    <ng-template #hayExamenes>
     <div *ngFor="let examen of examenesFiltrados;">
       <app-card-examen-preview nombre={{examen.nombre}} descripcion={{examen.descripcion}}
         imagen={{examen.imagen}}
         id_examen={{examen.id}}
         ></app-card-examen-preview>
     </div>
+    </ng-template>
   </div>
 
 <ul class="pagination">

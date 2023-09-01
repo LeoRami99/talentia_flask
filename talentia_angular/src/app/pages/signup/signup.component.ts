@@ -80,6 +80,7 @@ export class SignupComponent implements OnInit{
                 progressAnimation: 'increasing',
               });
               this.formulario.reset();
+              this.router.navigate(['/login']);
             } else if (response.status === 400) {
               this.toast.error(response.message, 'Talentia', {
                 timeOut: 2000,

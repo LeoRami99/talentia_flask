@@ -1,0 +1,57 @@
+<div class="container">
+  <div *ngIf="loading==false;">
+    <div class="card mt-5 animate__animated animate__fadeInUp" >
+      <div class="card-header">
+        <!-- arrow back -->
+        <a routerLink="/ofertas" class="btn btn-outline-primary btn-sm">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </div>
+      <div class="card-body p-5">
+        <h2 class="text-center">{{ofertaData.titulo}}</h2>
+        <hr>
+        <h3>
+          Descripción:
+        </h3>
+        <p>{{ofertaData.descripcion}}</p>
+        <!-- <p>{{ofertaData.habilidades}}</p> -->
+        <h3>
+          Lugar de trabajo:
+        </h3>
+        <p>{{ofertaData.ciudad}} / {{ofertaData.pais}}</p>
+        <h3>
+          Modalidad:
+        </h3>
+        <p>{{ofertaData.modalidad}}</p>
+        <h3>
+          Requisitos:
+        </h3>
+        <p>{{ofertaData.requisitos}}</p>
+        <h3>
+          Salario:
+        </h3>
+        <p>{{ofertaData.salario}}</p>
+        <p>{{ofertaData.fecha}}</p>
+        <h3>
+          Tipo de contrato:
+        </h3>
+        <p>{{ofertaData.tipo_contrato}}</p>
+        <h3>
+          URL de referencia:
+        </h3>
+        <p>{{ofertaData.url_referencia}}</p>
+        <h3>
+          Habilidades:
+        </h3>
+        <div class="d-flex align-items-center flex-wrap " style="gap: 10px;">
+            <div class="badge badge-pill badge-success" *ngFor="let skills of ofertaData.habilidades">{{skills.nombre}}</div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-center">
+        <!-- Botones para aplicar a la oferta -->
+        <button class="btn btn-outline-primary" style="gap: 4px;" (click)="aplicarOferta()">
+          <i class="fas fa-heart"></i> Aplicar
+        </button>
+      </div>
+    </div>
+  </div>

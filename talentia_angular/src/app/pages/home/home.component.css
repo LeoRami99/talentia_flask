@@ -1,0 +1,25 @@
+/* .fondo-section{
+  background-image: linear-gradient(to left top, #ffffff, #eeeffc, #d9e1fb, #bed4f9, #9dc8f6);
+  background-attachment: fixed;
+} */
+.fondo-hero{
+  background-image: linear-gradient(to right bottom, #373840, #415ed4, #3752a9, #33467f, #303956);
+  border-radius: 0 0 50% 0 / 0 0 100px 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.blur-fondo{
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.5);
+  /* redondear solo la parte inferior */
+  border-radius: 10px;
+}
+
+.panel-blur{
+  padding: 20px;
+  background: rgba( 74, 144, 226, 0.25 );
+  background: rgba( 0, 0, 0, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 20px );
+  -webkit-backdrop-filter: blur( 20px );
+  border-radius: 10px;
+}

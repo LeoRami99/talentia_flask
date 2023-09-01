@@ -1,6 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { API_URL } from 'src/app/api.constants';
 
+
 @Component({
   selector: 'app-card-home-examen',
   templateUrl: './card-home-examen.component.html',
@@ -13,4 +14,7 @@ export class CardHomeExamenComponent {
   url_images : string = API_URL+'imagenes/';
   @Input() tiempo: string = '';
   @Input() id_examen: string = '';
+
+
+
 }

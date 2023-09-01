@@ -21,6 +21,8 @@ export class InicioComponent implements OnInit{
         window.location.href = '/dashboard-admin';
       }else if(decodedToken['rol'] == "USER"){
         window.location.href = '/dashboard-home';
+      }else if(decodedToken['rol'] == "EMPRESA"){
+        window.location.href = '/dashboard-empresa';
       }else{
         window.location.href = '/';
       }

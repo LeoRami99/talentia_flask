@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GetCourseService } from 'src/app/services/get-course/get-course.service';
 import { ExamenesService } from 'src/app/services/examenes/examenes.service';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
+import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
 
 const helper = new JwtHelperService();
 @Component({
@@ -20,19 +21,25 @@ export class DashboardHomeComponent implements OnInit {
   contador_certificados = 0;
   contador_examenes = 0;
   contador_cursos = 0;
+  contador_ofertas = 0;
+  id_usuario: any;
 
   constructor(
     private progresoService: ProgresoCursoService,
     private toastr: ToastrService,
     private getCourses: GetCourseService,
     private examenService: ExamenesService,
-    private dataUser : UserDataService
+    private dataUser : UserDataService,
+    private ofertaService: OfertaEmpresaService
   ) {}
   ngOnInit(): void {
     // obtener el token
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = helper.decodeToken(token);
+      this.ofertaService.countOfertasByUser(decodedToken['id']).subscribe((data:any)=>{
+        this.contador_ofertas = data.ofertas;
+      })
       this.progresoService.obtenerCursosProgreso(decodedToken['id'])
         .subscribe((data: any) => {
           if (data.data.length > 0) {
@@ -48,6 +55,7 @@ export class DashboardHomeComponent implements OnInit {
           }
         });
         this.dataUser.dataUsuario(decodedToken['id']).subscribe((data:any)=>{
+          this.id_usuario=data.data.id;
           this.nombre_usuario=data.data.nombre+" "+ data.data.apellidos;
         })
       this.examenService.getProgresoUsuario(decodedToken['id']).subscribe((data: any) => {
