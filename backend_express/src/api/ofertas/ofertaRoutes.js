@@ -95,10 +95,39 @@ router.get("/ofertas", async (req, res) => {
         const oferta = new OfertaDB();
         const ofertas = await oferta.getOfertas();
         res.status(200).json({"message": "Ofertas obtenidas exitosamente", "ofertas": ofertas, "status": 200});
-    }catch{
+    }catch(error){
         res.status(500).json({"error": error.message});
     }
 })
+
+// Esta ruta es para insertar los datos del id_usuario y el id_oferta 
+router.post("/aplicar-oferta", async (req, res) => {
+    try{
+        const {id_usuario, id_oferta} = req.body;
+        const oferta = new OfertaDB();
+        if (await oferta.existOfertaUsuario(id_usuario, id_oferta)) { 
+            res.status(200).json({"message": "Ya aplicaste a esta oferta", "status": 200});
+            return;
+        }else{
+            const aplicar = await oferta.ofertaUsuario(id_usuario, id_oferta);
+            res.status(200).json({"message": "Aplicacion exitosa", "aplicar": aplicar, "status": 200});
+        }
+        console.log(id_usuario, id_oferta);
+    }catch(error){
+        res.status(500).json({"error": error.message});
+    }
+});
+
+router.get("/ofertas-usuario/:id_usuario", async (req, res) => {
+    try{
+        const id_usuario = req.params.id_usuario
+        const oferta = new OfertaDB();
+        const ofertas = await oferta.countConexiones(id_usuario);
+        res.status(200).json({"message": "Ofertas obtenidas exitosamente", "ofertas": ofertas, "status": 200});
+    }catch(error){
+        res.status(500).json({"error": error.message});
+    }
+});
 
 
 module.exports = router;

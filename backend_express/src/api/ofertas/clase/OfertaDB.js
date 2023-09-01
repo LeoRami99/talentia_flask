@@ -83,6 +83,43 @@ class OfertaDB{
             throw error;
         }
     }
+    async ofertaUsuario(id_usuario, id_oferta){
+        try{
+            let query = "INSERT INTO oferta_usuario (id_usuario, id_oferta) VALUES (?,?)";
+            let rows = await db.query(query, [id_usuario, id_oferta]);
+            if (rows[0].affectedRows > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    async existOfertaUsuario(id_usuario, id_oferta){
+        try{
+            let query = "SELECT * FROM oferta_usuario WHERE id_usuario = ? AND id_oferta = ?";
+            let rows = await db.query(query, [id_usuario, id_oferta]);
+            if (rows[0].length > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        }catch(error){
+            throw error;
+        }
+    }
+    // las conexiones son ofertas laborales a las que aplica un usuario
+    async countConexiones(id_usuario){
+        try {
+            let query = "SELECT COUNT(*) AS conexiones FROM oferta_usuario WHERE id_usuario = ?";
+            let rows = await db.query(query, [id_usuario]);
+            console.log(rows);
+            return rows[0][0].conexiones;
+        } catch (error) {
+            throw error;
+        }
+    }
 
 }
 module.exports = OfertaDB;
