@@ -31,6 +31,35 @@ class OfertaDB{
             throw error;
         }
     }
+    async updateOferta(id_oferta, titulo, descripcion, fecha_publicacion, fecha_cierre, salario, tipo_contrato, modalida, url_referencia, ciudad, pais, requisitos, estado){
+        try {
+            let query = "UPDATE oferta_laboral SET titulo = ?, descripcion = ?, fecha_publicacion = ?, fecha_cierre = ?, salario = ?, tipo_contrato = ?, modalidad = ?, url_referencia = ?, ciudad = ?, pais = ?, requisitos = ?, estado = ? WHERE id = ?";
+            let rows = await db.query(query, [titulo, descripcion, fecha_publicacion, fecha_cierre, salario, tipo_contrato, modalida, url_referencia, ciudad, pais, requisitos, estado, id_oferta]);
+            if (rows[0].affectedRows > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+    //ActualizarEstado
+    async updateEstadoOferta(id_oferta, estado){
+        try {
+            let query = "UPDATE oferta_laboral SET estado = ? WHERE id = ?";
+            let rows = await db.query(query, [estado, id_oferta]);
+            if (rows[0].affectedRows > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+
     async crearHabilidadOferta(id_oferta, id_habilidad){
         try{
             let query = "INSERT INTO habilidades_oferta (id_oferta, id_habilidad) VALUES (?,?)";

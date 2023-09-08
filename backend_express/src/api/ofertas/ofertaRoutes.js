@@ -128,6 +128,53 @@ router.get("/ofertas-usuario/:id_usuario", async (req, res) => {
         res.status(500).json({"error": error.message});
     }
 });
-
+// Actualización de la oferta
+router.put("/update-oferta", async (req, res) => {
+    try {
+        const data  = req.body;
+        const oferta = new OfertaDB();
+        const update = await oferta.updateOferta(
+            data.id,
+            data.titulo,
+            data.descripcion,
+            // para convertir la fecha a formato mysql
+            convertToMySQLFormat(data.fecha_publicacion),
+            // data.fecha_publicacion,
+            convertToMySQLFormat(data.fecha_cierre),
+            data.salario,
+            data.tipo_contrato,
+            data.modalidad,
+            data.url_referencia,
+            data.ciudad,
+            data.pais,
+            data.requisitos,
+            data.estado
+        );
+        if (update) {
+            res.status(200).json({"message": "Oferta actualizada exitosamente", "status": 200});
+        }else{
+            res.status(500).json({"message": "Hubo un error al actualizar la oferta", "status": 500});
+        }
+    }catch (error) {
+        console.log(error);
+    }
+});
+router.put("/update-estado-oferta", async (req, res) => {
+    try {
+        const data  = req.body;
+        const oferta = new OfertaDB();
+        const update = await oferta.updateEstadoOferta(
+            data.id,
+            data.estado
+        );
+        if (update) {
+            res.status(200).json({"message": "Oferta actualizada exitosamente", "status": 200});
+        }else{
+            res.status(500).json({"message": "Hubo un error al actualizar la oferta", "status": 500});
+        }
+    } catch (error) {
+        res.status(500).json({"error": error.message});
+    }
+});
 
 module.exports = router;
