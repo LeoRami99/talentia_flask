@@ -117,7 +117,6 @@
             </ul>
           </div>
           <div *ngIf="rol.getRoles() == 'USER'">
-
             <div class="sidebar-heading">USUARIO</div>
             <ul class="sidebar-menu">
               <li class="sidebar-menu-item">
@@ -148,6 +147,26 @@
                   <!-- <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i> -->
                   <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
                   <span class="sidebar-menu-text">Certificación</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="rol.getRoles() == 'EMPRESA'">
+            <div class="sidebar-heading">Empresa</div>
+            <ul class="sidebar-menu">
+              <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button" href="/inicio">
+                  <i class="fa-solid fa-house" style="margin-right: 10px;"></i>
+                  <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                <span class="sidebar-menu-text"> Inicio</span>
+              </a>
+              </li>
+              <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button" href="/editar-ofertas">
+                  <i class="fa-solid fa-certificate mr-2 sidebar-menu-icon--left"></i>
+                  <!-- <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i> -->
+                  <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                  <span class="sidebar-menu-text">Editar ofertas</span>
                 </a>
               </li>
             </ul>

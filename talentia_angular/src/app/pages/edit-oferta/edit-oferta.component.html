@@ -1,0 +1,108 @@
+<div class="container p-5">
+  <div *ngIf="!loading">
+    <!-- boton de atras -->
+    <a routerLink="/editar-ofertas" class="btn btn-outline-primary btn-sm">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="text-center">Editar oferta</h1>
+        <div class="">
+          <div class="mb-3">
+            <label for="" class="form-label">Nombre de la oferta</label>
+            <input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="ofertaData.titulo">
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Descripción de la oferta</label>
+            <textarea class="form-control" placeholder="Nombre de la oferta"
+            [(ngModel)]="ofertaData.descripcion"></textarea>
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Salario</label>
+            <input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="ofertaData.salario">
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+          <label for="" class="form-label">Fecha de cierre</label>
+          <input type="date" class="form-control" placeholder="Fecha de cierre de la oferta"
+            [(ngModel)]="ofertaData.fecha_cierre" value="{{ofertaData.fecha_cierre}}">
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Tipo de contrato</label><input type="text" class="form-control"
+            placeholder="Nombre de la oferta" [(ngModel)]="ofertaData.tipo_contrato">
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Requisitos</label>
+            <input type="text" class="form-control" placeholder="Requisitos" [(ngModel)]="ofertaData.requisitos">
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Modalidad</label>
+            <textarea class="form-control" placeholder="Nombre de la oferta"
+            [(ngModel)]="ofertaData.modalidad"></textarea>
+            <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+          </div>
+          <div class="mb-3">
+          <label for="" class="form-label">Url de referencia</label>
+          <input type="text" class="form-control" placeholder="Url de referencia"
+          [(ngModel)]="ofertaData.url_referencia">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">País</label>
+          <input type="text" class="form-control" placeholder="País" [(ngModel)]="ofertaData.pais">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Ciudad</label>
+          <input type="text" class="form-control" placeholder="Ciudad" [(ngModel)]="ofertaData.ciudad">
+          <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
+        </div>
+        <!-- <div class="mb-3">
+          <label for="" class="form-label">Empresa</label>
+          <select name="" class="form-control" id="" [(ngModel)]="ofertaData.empresa_oferta">
+            <option *ngFor="let empresa of empresa" [value]="empresa.id">{{empresa.nombre}}</option>
+          </select>
+        </div> -->
+        <!-- <div class="mb-3">
+          <label for="" class="form-label">Habilidades</label>
+          <ng-select [multiple]="true" class="custom" [items]="ofertaData.habilidades" bindLabel="nombre"
+          [(ngModel)]="ofertaData.habilidades_oferta">
+          <ng-option *ngFor="let habilidad of ofertaData.habilidades"
+          [value]="habilidad.id">{{habilidad.nombre}}</ng-option>
+        </ng-select>
+      </div> -->
+      <button class="btn btn-primary w-100" (click)="actualiarOferta()">Guardar</button>
+    </div>
+    </div>
+    <div class="col-md-6 pt-5">
+      <div class="card">
+        <div class="card-body d-flex justify-content-center flex-column aling-items-center">
+          <h2 class="text-center">Estado de la oferta</h2>
+          <div *ngIf="ofertaData.estado==1; else noActiva">
+              <div class="alert alert-success text-center" role="alert">
+                Activa
+              </div>
+              <button class="btn btn-danger w-100" (click)="desactivarOferta()">
+                Desactivar oferta
+              </button>
+          </div>
+          <ng-template #noActiva>
+            <div class="alert alert-danger text-center" role="alert">
+              Desactivada
+            </div>
+            <button class="btn btn-success w-100" (click)="activarOferta()">
+              Activar oferta
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

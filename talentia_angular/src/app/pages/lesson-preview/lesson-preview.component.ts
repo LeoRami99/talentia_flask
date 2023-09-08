@@ -43,6 +43,7 @@ export class LessonPreviewComponent implements OnInit {
   haySiguienteModuloId : string = '';
   siguienteLeccion: boolean = false;
   leccionFinalizada : boolean=  false;
+  url_sanitizada :any=''
 
 
 
@@ -92,6 +93,7 @@ export class LessonPreviewComponent implements OnInit {
             // console.log(subseccion);
             if (subseccion.id_subseccion == this.id_subseccion) {
               this.lessons = subseccion;
+              this.url_sanitizada = this.sanitizeUrl(this.lessons.contenido);
               // console.log(this.lessons);
             }
 

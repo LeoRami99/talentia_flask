@@ -1,10 +1,9 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Nombre de la oferta: </h5>
-    <p class="card-text">Prueba</p>
+    <h5 class="card-title">{{nombre_oferta}}</h5>
+    <p class="descripcion">{{descripcion_oferta}}</p>
     <div class="d-flex g-3 justify-content-end" style="gap: 10px;">
-      <button class="btn btn-primary">Editar</button>
-      <button class="btn btn-danger">Terminar Oferta</button>
+      <button class="btn btn-primary" (click)="editarOferta()">Editar</button>
     </div>
   </div>
 </div>

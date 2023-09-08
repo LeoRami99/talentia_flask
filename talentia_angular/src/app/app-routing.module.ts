@@ -26,6 +26,8 @@ import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { authGuard } from './auth.guard';
 import { SignupAdminComponent } from './pages/signup-admin/signup-admin.component';
 import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
+import { EditOfertaComponent } from './pages/edit-oferta/edit-oferta.component';
+import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'create-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearEmpresaComponent},
   { path: 'crear-oferta', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearOfertaComponent},
   { path: 'ver-oferta/:id', component:VerOfertaComponent},
+  { path: 'editar-oferta/:id', component: EditOfertaComponent},
+  { path: 'editar-ofertas', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:EditarOfertasComponent},
 
   { path: 'ofertas', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:OfertasComponent},
   { path: 'inicio', component: InicioComponent},

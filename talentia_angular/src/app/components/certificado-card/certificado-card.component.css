@@ -1,0 +1,5 @@
+.descripción{
+  max-width: 800ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

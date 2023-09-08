@@ -1,0 +1,14 @@
+<div class="container p-2">
+  <!-- grilla de cards -->
+
+  <input type="text" class="form-control" placeholder="Buscar oferta" [(ngModel)]="input_busqueda" (keyup)="ofertasFiltroBusqueda()">
+  <div class="row p-2">
+    <div class="col-md-4" *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+      <app-oferta-edit-card nombre_oferta="{{ofertas.titulo}}"
+        descripcion_oferta="{{ofertas.descripcion}}"
+        id_oferta="{{ofertas.id}}"
+        ></app-oferta-edit-card>
+    </div>
+  </div>
+  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+</div>

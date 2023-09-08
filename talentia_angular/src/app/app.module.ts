@@ -52,6 +52,8 @@ import { OfertaEditCardComponent } from './components/oferta-edit-card/oferta-ed
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { OfertaCardComponent } from './components/oferta-card/oferta-card.component';
 import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
+import { EditOfertaComponent } from './pages/edit-oferta/edit-oferta.component';
+import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.component';
 
 
 
@@ -106,6 +108,8 @@ import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
     OfertasComponent,
     OfertaCardComponent,
     VerOfertaComponent,
+    EditOfertaComponent,
+    EditarOfertasComponent,
 
   ],
   imports: [
