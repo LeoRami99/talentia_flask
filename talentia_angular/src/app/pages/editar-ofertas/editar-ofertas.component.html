@@ -2,13 +2,22 @@
   <!-- grilla de cards -->
 
   <input type="text" class="form-control" placeholder="Buscar oferta" [(ngModel)]="input_busqueda" (keyup)="ofertasFiltroBusqueda()">
-  <div class="row p-2">
-    <div class="col-md-4" *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-      <app-oferta-edit-card nombre_oferta="{{ofertas.titulo}}"
+  <div *ngIf="!loading; else Cargando">
+    <div class="row p-2">
+      <div class="col-md-4" *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+        <app-oferta-edit-card nombre_oferta="{{ofertas.titulo}}"
         descripcion_oferta="{{ofertas.descripcion}}"
         id_oferta="{{ofertas.id}}"
         ></app-oferta-edit-card>
+      </div>
     </div>
   </div>
-  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  <ng-template #Cargando>
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div class="spinner-border text-primary" role="status">
+      </div>
+      <span class="visually-hidden">Cargando ofertas...</span>
+    </div>
+  </ng-template>
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>

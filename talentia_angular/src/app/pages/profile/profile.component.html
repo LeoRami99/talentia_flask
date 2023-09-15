@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="page-section" *ngIf="!no_exist_profile; else exist">
+    <div class="page-separator">
+      <div class="page-separator__text">Perfil público</div>
+    </div>
+    <div class="col-md-7 p-0">
+      <!-- <div class="form-group">
+        <label class="form-label">Your photo</label>
+        <div class="media align-items-center">
+          <a href="" class="media-left mr-16pt">
+            <img src="public/images/people/110/guy-3.jpg" alt="people" width="56" class="rounded-circle" />
+          </a>
+          <div class="media-body">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01">
+              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <label class="form-label">Nombre de perfil</label>
+        <input type="text" class="form-control" value=".com/" placeholder="Your profile name ..." [(ngModel)]="username" (keyup)="validateUsername()">
+        <br>
+        <div *ngIf="valida_username && username.length > 0; else noValido">
+          <div class="alert alert-success">
+            Nombre de usuario valido
+          </div>
+        </div>
+        <ng-template #noValido>
+          <div class="alert alert-danger">
+            Nombre de usuario no valido
+          </div>
+        </ng-template>
+        <small class="form-text text-muted" [(ngModel)]="username">
+          Tú nombre de usuario es único y no puede ser cambiado, así que elige sabiamente.
+          <br>
+          De igual manera tu nombre de usuario sera de gran ayuda cuando apliques a ofertas
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Sobre ti</label>
+        <textarea rows="3" class="form-control" placeholder="Sobre ti" [(ngModel)]="sobre_ti"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL CV</label>
+        <input  class="form-control" placeholder="Url CV" [(ngModel)]="link_cv">
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          Número de teléfono
+        </label>
+        <input  class="form-control" placeholder="Número de teléfono" [(ngModel)]="num_telefono">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="saveProfile()">Guardar Cambios</button>
+    </div>
+  </div>
+  <ng-template #exist>
+    <div class="page-section">
+      <div class="page-separator">
+        <div class="page-separator__text">Tú perfil: {{data_usuario.nombre}} {{data_usuario.apellidos}}
+        </div>
+      </div>
+      <div class="col-md-7 p-0">
+        <!-- <div class="form-group">
+          <label class="form-label">Your photo</label>
+          <div class="media align-items-center">
+            <a href="" class="media-left mr-16pt">
+              <img src="public/images/people/110/guy-3.jpg" alt="people" width="56" class="rounded-circle" />
+            </a>
+            <div class="media-body">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <div class="form-group">
+            <label class="form-label">
+              Nombres
+            </label>
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="data_usuario.nombre">
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              Apellidos
+            </label>
+            <input  type="text" class="form-control" placeholder="Apellido" [(ngModel)]="data_usuario.apellidos">
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              Correo electronico
+            </label>
+            <input  type="email" class="form-control" placeholder="correo" [(ngModel)]="data_usuario.correo">
+            <small class="form-text text-muted" >
+              Tu correo sera de gran ayuda cuando apliques a ofertas
+              <br>
+              Ten cuidado con el correo que ingreses, ya puedes perder tu cuenta.
+            </small>
+          </div>
+          <label class="form-label">Nombre de perfil</label>
+          <input type="text" class="form-control not-allowed" placeholder="Tu nombre de usuario ..." [(ngModel)]="data_usuario.nombre_usuario" disabled>
+          <small class="form-text text-muted" [(ngModel)]="username">
+            Tú nombre de usuario es único y no puede ser cambiado, así que elige sabiamente.
+            <br>
+            De igual manera tu nombre de usuario sera de gran ayuda cuando apliques a ofertas
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Sobre ti</label>
+          <textarea rows="3" class="form-control" placeholder="Sobre ti" [(ngModel)]="data_usuario.sobre_mi"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">URL CV</label>
+          <input  class="form-control" placeholder="Url CV" [(ngModel)]="data_usuario.url_cv">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            Número de teléfono
+          </label>
+          <input  class="form-control" placeholder="Número de teléfono" [(ngModel)]="data_usuario.num_telefono">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="updateProfile()">Guardar Cambios</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -36,4 +36,10 @@ export class OfertaEmpresaService {
   actualizarEstadoOferta(data:any){
     return this.http.put(`${API_URL}oferta/update-estado-oferta`,data)
   }
+  usuariosAplicaronOferta(){
+    return this.http.get(`${API_URL}oferta/ofertas-usuario`);
+  }
+  usuariosAplicantesOfertas(id:any){
+    return this.http.get(`${API_URL}oferta/oferta-aplicantes/${id}`);
+  }
 }

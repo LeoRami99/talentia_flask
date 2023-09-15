@@ -16,7 +16,7 @@ export class OfertasComponent implements OnInit {
   @Input() filtro: string = '';
   id_usuario = "";
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   filtroHabilidad = '';
   filtroModalidad = '';
   loading = true;

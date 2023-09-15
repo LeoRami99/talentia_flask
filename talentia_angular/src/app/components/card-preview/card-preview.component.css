@@ -1,89 +1,74 @@
 .custom-card {
   position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  margin-bottom: 10px;
+  border: 1px solid #e1e1e1; /* Borde ligero para la card */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Escondemos cualquier elemento hijo que exceda los límites de la card */
+  transition: transform 0.3s; /* Efecto suave para el hover */
 }
 
 .custom-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px); /* Eleva la card un poco cuando se pasa el ratón por encima */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto de elevación */
 }
 
 .custom-card-image {
-  position: relative;
   display: block;
+  width: 100%;
+  height: 200px; /* Altura fija para las imágenes. Puede ajustar según sea necesario */
 }
 
 .custom-card-image img {
   width: 100%;
-  display: block;
+  height: 100%;
+  object-fit: cover; /* Asegura que las imágenes cubran completamente el espacio sin deformarse */
 }
 
 .custom-overlay {
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(85, 103, 2255, 0.5);
+  bottom: calc(100% - 200px); /* Altura de la imagen */
+  left: 0;
+  background: rgba(68, 134, 226, 0.6); /* Overlay oscuro */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 .custom-card:hover .custom-overlay {
-  opacity: 1;
-}
-
-.material-icons {
-  font-size: 24px;
-  color: #fff;
-  margin-right: 10px;
-}
-
-.custom-card-title {
-  font-size: 18px;
-  color: #fff;
+  opacity: 1; /* Muestra el overlay al pasar el ratón por encima */
 }
 
 .custom-card-content {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: calc(100% - 0px);
   right: 0;
   bottom: 0;
-  opacity: 0;
-  transition: opacity 0.3s;
-  color: #fff;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.5); /* Agrega un fondo oscuro para mejorar la legibilidad del texto */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centrar el contenido verticalmente */
-  align-items: center;     /* Centrar el contenido horizontalmente*/
+  left: 0;
+  background: #fff;
+  padding: 15px;
+  transition: top 0.3s;
+}
+.custom-card:hover .custom-card-content {
+  top: calc(100% - 90px); /* Muestra el contenido al pasar el ratón por encima */
 }
 
-.custom-card:hover .custom-card-content {
-  backdrop-filter: blur(5px);
-  opacity: 1;
-}
+
+
 
 .custom-card-title-link {
   font-size: 18px;
-  font-weight: 600;
-  color: #fff;
+  color: #333;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
-.custom-card-details {
-  margin-bottom: 10px;
+.custom-card-title-link:hover {
+  color: #007BFF; /* Cambia el color del título al pasar el ratón por encima */
 }
 
 .custom-card-rating small {
-  font-size: 14px;
-  color: #fff;
+  color: #888;
 }

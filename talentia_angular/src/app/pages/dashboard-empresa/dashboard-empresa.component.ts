@@ -11,18 +11,33 @@ const jwt = new JwtHelperService();
 export class DashboardEmpresaComponent implements OnInit {
     contadorOfertas = 0;
     contadorOfertasInactivas = 0;
+    contadorUsuariosAplicaronOferta = 0;
     constructor(private oferta: OfertaEmpresaService) { }
 
     ngOnInit(): void {
       const token = localStorage.getItem('token');
       if(token != null){
         const tokenPayload:any = jwt.decodeToken(token);
-        console.log(tokenPayload["id"]);
         this.oferta.allOfertas().subscribe((data:any)=>{
           data.ofertas.filter((oferta:any)=>{
-            if(oferta.estado == 1){
-              this.contadorOfertas += 1;
-            }
+            this.oferta.getEmpresaById(tokenPayload['id']).subscribe((data_empresa:any)=>{
+              for(let i = 0; i < data_empresa.empresa.length; i++){
+                if(oferta.id_empresa == data_empresa.empresa[i].id){
+                  this.oferta.usuariosAplicaronOferta().subscribe((data_usuarios:any)=>{
+                    data_usuarios.ofertas.filter((usuario:any)=>{
+                      if(usuario.id_oferta == oferta.id){
+                        this.contadorUsuariosAplicaronOferta += 1;
+                      }
+                    })
+                  })
+                  if(oferta.estado == 1){
+                    this.contadorOfertas += 1;
+                  }else{
+                    this.contadorOfertasInactivas += 1;
+                  }
+                }
+              }
+            })
           })
           // this.contadorOfertas = data.ofertas.length
         });

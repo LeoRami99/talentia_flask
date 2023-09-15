@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="page-separator mt-5">
+    <div class="page-separator__text">Postulantes</div>
+  </div>
+  <div *ngIf="loading">
+    <table datatable class="row-border hover">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Correo</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let aplicantes of pustalantes">
+          <td>{{aplicantes.nombre}}</td>
+          <td>{{aplicantes.apellidos}}</td>
+          <td>{{aplicantes.correo}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="verPerfil(aplicantes.id)">Ver Perfil</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

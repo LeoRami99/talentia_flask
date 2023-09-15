@@ -1,9 +1,10 @@
-<div class="card">
+<div class="card" style="border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
   <div class="card-body">
-    <h5 class="card-title">{{nombre_oferta}}</h5>
-    <p class="descripcion">{{descripcion_oferta}}</p>
-    <div class="d-flex g-3 justify-content-end" style="gap: 10px;">
-      <button class="btn btn-primary" (click)="editarOferta()">Editar</button>
+    <h5 class="card-title" style="color: #333; font-size: 1.5rem; font-weight: bold;">{{nombre_oferta}}</h5>
+    <p class="descripcion" style="color: #666;">{{descripcion_oferta}}</p>
+    <div class="d-flex justify-content-center flex-column" style="gap: 10px;">
+      <button class="btn btn-primary" style="background-color: #007bff; color: #fff; border: none;" (click)="editarOferta()"> <i class="fa-regular fa-pen-to-square mr-2"></i> Editar</button>
+      <button class="btn btn-danger" style="background-color: #356adc; color: #fff; border: none;" (click)="verPostulantes()"><i class="fa-solid fa-eye mr-2"></i> Postulaciones</button>
     </div>
   </div>
 </div>

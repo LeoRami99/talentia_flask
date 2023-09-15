@@ -15,8 +15,9 @@ export class EditarOfertasComponent implements OnInit {
   ofertas_por_empresa: any[] = [];
   input_busqueda = "";
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 9;
   ofertasFiltradas: any[] = [];
+  loading = true;
 
   constructor(private ofertas: OfertaEmpresaService, private router: Router) {}
 
@@ -28,6 +29,7 @@ export class EditarOfertasComponent implements OnInit {
         switchMap((data_empresa: any) => {
           return this.ofertas.allOfertas().pipe(
             switchMap((data_oferta: any) => {
+              this.loading = false;
               this.ofertas_por_empresa = data_oferta.ofertas.filter((oferta: any) => oferta.id_empresa == data_empresa.empresa[0].id);
               return this.ofertas_por_empresa; // Esto es opcional, dependiendo de si necesitas el valor en el siguiente observable.
             })
@@ -35,6 +37,7 @@ export class EditarOfertasComponent implements OnInit {
         })
       ).subscribe({
         next: (result) => {
+          this.loading = false;
           this.ofertasFiltroBusqueda();
         },
         error: (err) => {

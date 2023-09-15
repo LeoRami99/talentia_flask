@@ -23,6 +23,7 @@ export class DashboardHomeComponent implements OnInit {
   contador_cursos = 0;
   contador_ofertas = 0;
   id_usuario: any;
+  loading = false;
 
   constructor(
     private progresoService: ProgresoCursoService,
@@ -47,7 +48,13 @@ export class DashboardHomeComponent implements OnInit {
             progreso.forEach((element: any) => {
               this.getCourses.getCourse(element.id_curso).subscribe((data: any) => {
                   this.contador_cursos += 1;
-                  this.cursos.push(data.curso);
+                  if(data){
+                    this.loading = true;
+                    this.cursos.push(data.curso);
+                  }else{
+                    this.cursos = [];
+                    this.loading = false;
+                  }
                 });
             });
           } else {

@@ -1,5 +1,5 @@
 <div class="container p-5">
-  <div *ngIf="!loading">
+  <div *ngIf="!loading; else Cargando">
     <!-- boton de atras -->
     <a routerLink="/editar-ofertas" class="btn btn-outline-primary btn-sm">
       <i class="fas fa-arrow-left"></i>
@@ -104,5 +104,12 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
+  <ng-template #Cargando>
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div class="spinner-border text-primary" role="status">
+      </div>
+      <span class="visually-hidden">Cargando la oferta...</span>
+    </div>
+  </ng-template>
 </div>

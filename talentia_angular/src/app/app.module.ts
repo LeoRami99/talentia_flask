@@ -24,6 +24,7 @@ import { CardEditComponent } from './components/card-edit/card-edit.component';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 import { ViewCourseComponent } from './pages/view-course/view-course.component';
+import { DataTablesModule } from "angular-datatables";
 
 // paginación
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -54,6 +55,9 @@ import { OfertaCardComponent } from './components/oferta-card/oferta-card.compon
 import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
 import { EditOfertaComponent } from './pages/edit-oferta/edit-oferta.component';
 import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { VerPostulantesComponent } from './pages/ver-postulantes/ver-postulantes.component';
+import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 
 
 
@@ -110,6 +114,9 @@ import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.co
     VerOfertaComponent,
     EditOfertaComponent,
     EditarOfertasComponent,
+    ProfileComponent,
+    VerPostulantesComponent,
+    VerPerfilComponent,
 
   ],
   imports: [
@@ -124,6 +131,7 @@ import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.co
     // SocketIoModule.forRoot(config),
     NgxPaginationModule,
     NgSelectModule,
+    DataTablesModule
   ],
   providers: [
     provideAnimations(), // required animations providers

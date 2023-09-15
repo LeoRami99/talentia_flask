@@ -1,49 +1,59 @@
 <div class="container">
   <h1 class="text-center mt-5">Ofertas Laborales</h1>
   <hr>
-  <div *ngIf="!loading">
   <div class="row">
     <div class="col-md-4">
-
-        <div class="card">
-          <div class="card-body">
-            <h2 class="text-center">Filtros</h2>
-            <hr>
-            <label for="" class="form-label">Busqueda</label>
-            <input type="text" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control mb-2" placeholder="Busca una oferta laboral">
-            <label for="" class="form-label">Modalidad</label>
-            <select name="opciones" [(ngModel)]="filtroModalidad" id="" class="form-control mb-2">
-              <option value="">Seleccione una Modalidad</option>
-              <option value="Presencial">Presencial</option>
-              <option value="Hibrido">Hibrido</option>
-              <option value="Virtual">Virtual</option>
-            </select>
-            <label for="" class="form-label">Habilidad</label>
-            <select class="custom"  class="form-control" bindLabel="nombre" [(ngModel)]="filtroHabilidad">
-              <option value="">Seleccione una habilidad</option>
-              <option *ngFor="let skills of habilidades" [value]="skills.nombre">{{skills.nombre}}</option>
-            </select>
-            <!-- <select name="" id="">
-              <option  *ngFor="let skills of habilidades" value="{{skills.nombre}}">{{skills.nombre}}</option>
-            </select> -->
-          </div>
+      <div class="card">
+        <div class="card-body">
+          <h2 class="text-center">Filtros</h2>
+          <hr>
+          <label for="" class="form-label">Busqueda</label>
+          <input type="text" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control mb-2"
+            placeholder="Busca una oferta laboral">
+          <label for="" class="form-label">Modalidad</label>
+          <select name="opciones" [(ngModel)]="filtroModalidad" id="" class="form-control mb-2">
+            <option value="">Seleccione una Modalidad</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Hibrido">Hibrido</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+          <label for="" class="form-label">Habilidad</label>
+          <select class="custom" class="form-control" bindLabel="nombre" [(ngModel)]="filtroHabilidad">
+            <option value="">Seleccione una habilidad</option>
+            <option *ngFor="let skills of habilidades" [value]="skills.nombre">{{skills.nombre}}</option>
+          </select>
+          <!-- <select name="" id="">
+                <option  *ngFor="let skills of habilidades" value="{{skills.nombre}}">{{skills.nombre}}</option>
+              </select> -->
         </div>
+      </div>
     </div>
     <div class="col-md-8">
       <div class="vh-100 overflow-auto">
-        <div *ngIf="ofertasFiltradas.length===0" class="d-flex justify-content-center flex-column align-items-center">
-          <h1 class="text-center">No hay ofertas disponibles</h1>
-          <img src="assets/images/metaverso-amico.png" alt="" class="img-fluid" style="width: 400px;">
-        </div>
-        <div *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-          <div *ngIf="ofertas.estado==1">
-            <app-oferta-card  nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}" [habilidades_oferta]="ofertas.habilidades" ubicacion=" {{ofertas.ciudad}} / {{ofertas.pais}}" modalidad="{{ofertas.modalidad}}"  id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}"></app-oferta-card>
+        <div *ngIf="!loading; else Cargando">
+          <div *ngIf="ofertasFiltradas.length===0" class="d-flex justify-content-center flex-column align-items-center">
+            <h1 class="text-center">No hay ofertas disponibles</h1>
+            <img src="assets/images/metaverso-amico.png" alt="" class="img-fluid" style="width: 400px;">
+          </div>
+          <div
+            *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+            <div *ngIf="ofertas.estado==1">
+              <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
+                [habilidades_oferta]="ofertas.habilidades" ubicacion=" {{ofertas.ciudad}} / {{ofertas.pais}}"
+                modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}"
+                id_usuario="{{id_usuario}}"></app-oferta-card>
+            </div>
           </div>
         </div>
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
-      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
     </div>
   </div>
+  <ng-template #Cargando>
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div class="spinner-border text-primary" role="status">
+      </div>
+      <span class="visually-hidden">Cargandos las ofertas...</span>
+    </div>
+  </ng-template>
 </div>
-</div>
-

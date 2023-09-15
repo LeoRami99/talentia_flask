@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="loading==false;">
+  <div *ngIf="loading==false; else Cargando">
     <div class="card mt-5 animate__animated animate__fadeInUp" >
       <div class="card-header">
         <!-- arrow back -->
@@ -55,3 +55,11 @@
       </div>
     </div>
   </div>
+  <ng-template #Cargando>
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div class="spinner-border text-primary" role="status">
+      </div>
+      <span class="visually-hidden">Cargando oferta...</span>
+    </div>
+  </ng-template>
+</div>

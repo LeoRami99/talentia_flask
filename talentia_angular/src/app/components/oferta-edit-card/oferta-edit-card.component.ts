@@ -14,4 +14,7 @@ export class OfertaEditCardComponent {
   editarOferta() {
     this.router.navigate(['/editar-oferta', this.id_oferta]);
   }
+  verPostulantes() {
+    this.router.navigate(['/ver-postulantes', this.id_oferta]);
+  }
 }

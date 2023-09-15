@@ -1,0 +1,29 @@
+
+<div class="container">
+  <div class="page-separator mt-5">
+    <div class="page-separator__text">Perfil</div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <!-- boton de ir atrás -->
+      <a class="btn btn-outline-primary" href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div *ngFor="let datos of usuario" class="d-flex justify-content-center align-items-center flex-column text-center">
+          <div class="box w-50"><img class="rounded-circle bg-primary" src="assets/images/illustration/student/128/white.svg">
+              <h3 class="name">{{datos.nombre}} {{datos.apellidos}}</h3>
+              <p class="description">{{datos.sobre_mi}}</p>
+              <h4>Correo y teléfono</h4>
+              <p class="title">{{datos.correo}}</p>
+              <p class="title">{{datos.num_telefono}}</p>
+              <div class="social">
+                <!-- ver hoja de vida -->
+                <a class="btn btn-outline-primary" target="_blank" href="{{datos.url_cv}}">Ver CV</a>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -28,6 +28,12 @@ import { SignupAdminComponent } from './pages/signup-admin/signup-admin.componen
 import { VerOfertaComponent } from './pages/ver-oferta/ver-oferta.component';
 import { EditOfertaComponent } from './pages/edit-oferta/edit-oferta.component';
 import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { VerPostulantesComponent } from './pages/ver-postulantes/ver-postulantes.component';
+import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
+
+
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -50,9 +56,12 @@ const routes: Routes = [
   { path: 'dashboard-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: DashboardEmpresaComponent},
   { path: 'create-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearEmpresaComponent},
   { path: 'crear-oferta', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearOfertaComponent},
-  { path: 'ver-oferta/:id', component:VerOfertaComponent},
-  { path: 'editar-oferta/:id', component: EditOfertaComponent},
+  { path: 'ver-oferta/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:VerOfertaComponent},
+  { path: 'editar-oferta/:id', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: EditOfertaComponent},
   { path: 'editar-ofertas', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:EditarOfertasComponent},
+  { path: 'profile', component:ProfileComponent},
+  { path: 'ver-postulantes/:id',  component:VerPostulantesComponent},
+  { path: 'ver-perfil/:id', component:VerPerfilComponent},
 
   { path: 'ofertas', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:OfertasComponent},
   { path: 'inicio', component: InicioComponent},
