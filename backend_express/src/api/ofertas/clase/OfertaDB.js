@@ -149,6 +149,31 @@ class OfertaDB{
             throw error;
         }
     }
+    // para esta función se va crear
+    async allOfertasUsuario(){
+        try{
+            let query = "SELECT * FROM oferta_usuario";
+            let rows = await db.query(query);
+            return rows[0];
+        }catch(error){
+            throw error;
+        }
+    }
+
+
+    async getAplicantsOferta(id_oferta){
+        try {
+            let query = "SELECT usuario.id, usuario.nombre, usuario.apellidos, usuario.correo FROM oferta_usuario INNER JOIN usuario ON oferta_usuario.id_usuario = usuario.id WHERE oferta_usuario.id_oferta = ?;";
+            let rows = await db.query(query, [id_oferta]);
+            if (rows[0].length > 0) {
+                return rows[0];
+            }else{
+                return false;
+            }
+        } catch (error) {
+            
+        }
+    }
 
 }
 module.exports = OfertaDB;

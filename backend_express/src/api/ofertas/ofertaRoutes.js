@@ -128,6 +128,29 @@ router.get("/ofertas-usuario/:id_usuario", async (req, res) => {
         res.status(500).json({"error": error.message});
     }
 });
+router.get("/ofertas-usuario", async(req, res)=>{
+    try {
+        const oferta = new OfertaDB();
+        const ofertas = await oferta.allOfertasUsuario();
+        res.status(200).json({"message": "Ofertas por usuario obtenidas exitosamente", "ofertas": ofertas, "status": 200});
+    } catch (error) {
+        res.status(500).json({"error": error.message});
+    }
+})
+router.get('/oferta-aplicantes/:id_oferta', async (req, res) => {
+    try {
+        const { id_oferta } = req.params;
+        const oferta = new OfertaDB();
+        const aplicantes = await oferta.getAplicantsOferta(id_oferta);
+        res.status(200).json({"message": "Aplicantes obtenidos exitosamente", "aplicantes": aplicantes, "status": 200});
+    } catch (error) {
+        res.status(500).json({"error": error.message});
+    }
+})
+
+
+
+
 // Actualización de la oferta
 router.put("/update-oferta", async (req, res) => {
     try {

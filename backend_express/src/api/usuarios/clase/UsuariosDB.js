@@ -1,3 +1,4 @@
+const e = require('express');
 const db = require('../../../config/db');
 
 class usuarioDB {
@@ -67,6 +68,80 @@ class usuarioDB {
       console.log(error);
       return false;
     }
+  }
+
+  // estas funciones son para actualizar
+
+  async createProfile(id_usuario, nombre_usuario, sobre_mi, url_cv, num_telefono){ 
+      try {
+          let query = "INSERT INTO perfil (id_usuario, nombre_usuario, sobre_mi, url_cv, num_telefono) VALUES (?,?,?,?,?)";
+          let rows = await db.query(query, [id_usuario, nombre_usuario, sobre_mi, url_cv, num_telefono]);
+          if(rows[0].affectedRows > 0){
+              return true;
+          }else{
+              return false;
+          } 
+      } catch (error) {
+        console.log(error);
+          throw error;
+      }
+  }
+  async getProfileByIdUsuario(id_usuario){
+      try {
+          let query = "SELECT * FROM perfil WHERE id_usuario = ?";
+          let [rows] = await db.query(query, [id_usuario]);
+          return rows;
+      } catch (error) {
+          throw error;
+      }
+  }
+  async updateProfile(id_usuario, nombre_usuario, sobre_mi, url_cv, num_telefono){
+      try {
+          let query = "UPDATE perfil SET nombre_usuario = ?, sobre_mi = ?, url_cv = ?, num_telefono = ? WHERE id_usuario = ?";
+          let rows = await db.query(query, [nombre_usuario, sobre_mi, url_cv, num_telefono, id_usuario]);
+          return true;
+      } catch (error) {
+          throw error;
+      }
+  }
+  async ProfileExist(id_usuario){
+      try {
+          let query = "SELECT * FROM perfil WHERE id_usuario = ?";
+          let [rows] = await db.query(query, [id_usuario]);
+          if(rows.length > 0){
+              return true;
+          }else{
+              return false;
+          }
+      } catch (error) {
+          throw error;
+      }
+  }
+  async getProfileById(id_usuario){
+      try {
+          let query = "SELECT usuario.id, usuario.nombre, usuario.apellidos, usuario.correo, perfil.id as id_perfil, perfil.nombre_usuario, perfil.sobre_mi, perfil.sobre_mi, perfil.url_cv, perfil.num_telefono FROM usuario INNER JOIN perfil ON usuario.id = perfil.id_usuario WHERE usuario.id  = ?";
+          let [rows] = await db.query(query, [id_usuario]);
+          return rows;
+      } catch (error) {
+          throw error;
+      }
+  }
+  async updatePerfilAll(...args){
+      try {
+          let [id, nombre_usuario, sobre_mi, url_cv, num_telefono, nombre, apellidos, correo] = args;
+          let query = "UPDATE perfil SET nombre_usuario = ?, sobre_mi = ?, url_cv = ?, num_telefono = ? WHERE id_usuario = ?";
+          let rows = await db.query(query, [nombre_usuario, sobre_mi, url_cv, num_telefono, id]);
+          let query_usuario = "UPDATE usuario SET nombre = ?, apellidos = ?, correo = ? WHERE id = ?";
+          let rows_usuario= await db.query(query_usuario, [nombre, apellidos, correo, id]);
+          if(rows[0].affectedRows > 0 && rows_usuario[0].affectedRows > 0){
+              return true;
+          }else{
+              return false;
+          }
+      } catch (error) {
+        console.log(error);
+          throw error;
+      }
   }
 
 }
