@@ -4,6 +4,8 @@ const Usuarios = require('./clase/UsuariosDB');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authenticateToken = require('../middlewares/authenticateToken');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 // la secret key del archivo de .env
 const secret = process.env.SECRET_KEY;
 
@@ -141,6 +143,107 @@ router.put("/update-profile" , async (req, res) => {
         res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });   
     }
 });
+
+router.post('/restore-password', async (req, res)=>{
+    try {
+        const { correo } = req.body;
+        const usuario = new Usuarios();
+        const user  = await usuario.getUserByemail(correo);
+        if(user.length > 0){
+            const codigo = generarCodigoResetPass();
+            if(await usuario.insertDataCodePass(user[0].id, codigo, new Date(), 0)){
+                if(!envioCorreoCodigo(user[0].correo, codigo)){
+                    res.status(200).json({ message: 'Se envio un correo con el codigo para restablecer la contraseña', status: 200 });
+                }else{
+                    res.status(400).json({ message: 'No se pudo enviar el correo', status: 400 });
+                }
+            }else{
+                res.status(400).json({ message: 'No se pudo enviar el correo', status: 400 });
+            }
+        }else{
+            console.log(user);
+            res.status(404).json({ message: 'Usuario no encontrado', status: 404 });
+        }
+    } catch (error) {
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+})
+router.post('/verify-code', async (req, res)=>{
+    try {
+        const { codigo, correo } = req.body;
+        const usuario = new Usuarios();
+        const user  = await usuario.getUserByemail(correo);
+        if(user.length > 0){
+            const data = await usuario.verifyCodePass(user[0].id, codigo);
+            if(data){
+                res.status(200).json({ message: 'Código correcto', status: 200 });
+            }else{
+                res.status(400).json({ message: 'Código incorrecto', status: 400 });
+            }
+        }else{
+            res.status(404).json({ message: 'Usuario no encontrado', status: 404 });
+        }
+    } catch (error) {
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+})
+router.post('/update-password', async (req, res)=>{
+    try {
+        const { correo, password } = req.body;
+        const usuario = new Usuarios();
+        const user  = await usuario.getUserByemail(correo);
+        if(user.length > 0){
+            const passwordHash = await bcrypt.hash(password, 10);
+            if(await usuario.updatePassword(user[0].id, passwordHash,1)){
+                res.status(200).json({ message: 'Contraseña actualizada', status: 200 });
+            }else{
+                res.status(400).json({ message: 'No se pudo actualizar la contraseña', status: 400 });
+            }
+        }else{
+            res.status(404).json({ message: 'Usuario no encontrado', status: 404 });
+        }
+    } catch (error) {
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+})
+
+function generarCodigoResetPass() {
+    let codigo = '';
+    let caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let caracteresLength = caracteres.length;
+    for (let i = 0; i < 10; i++) {
+        codigo += caracteres.charAt(Math.floor(Math.random() * caracteresLength));
+    }
+    return codigo;
+}
+
+function envioCorreoCodigo(correo, codigo) {
+    let transporter = nodemailer.createTransport({
+        port: 465,
+        host: process.env.EMAIL_HOST,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+    let mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: correo,
+        subject: 'Código para restablecer contraseña',
+        text: 'Su código para restablecer la contraseña es: ' + codigo
+
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            return false;
+        } else {
+            console.log('Email enviado: ' + info.response);
+            return true;
+        }
+    })
+}
 
 
 module.exports = router;

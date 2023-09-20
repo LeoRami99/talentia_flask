@@ -144,6 +144,71 @@ class usuarioDB {
       }
   }
 
+  // funcionaes para resetear la contraseña
+  async getUserByemail(correo){
+      try {
+          let query = "SELECT * FROM usuario WHERE correo = ?";
+          let [rows] = await db.query(query, [correo]);
+          return rows;
+      } catch (error) {
+          throw error;
+      }
+  }
+  async insertDataCodePass(id_usuario, codigo, expireAt, validacion){
+      try {
+          let query = "SELECT * FROM reset_pass_code WHERE id_usuario = ?";
+          let [rows] = await db.query(query, [id_usuario]);
+          if(rows.length > 0){
+              let query = "UPDATE reset_pass_code SET codigo = ?, expireAt = ?, validacion = ? WHERE id_usuario = ?";
+              let rows = await db.query(query, [codigo, expireAt, validacion, id_usuario]);
+              if(rows[0].affectedRows > 0){
+                  return true;
+              }else{
+                  return false;
+              }
+          }else{
+              let query = "INSERT INTO reset_pass_code (id_usuario, codigo, expireAt, validacion) VALUES (?,?,?,?)";
+              let rows = await db.query(query, [id_usuario, codigo, expireAt, validacion]);
+              if(rows[0].affectedRows > 0){
+                  return true;
+              }else{
+                  return false;
+              }
+          }
+      } catch (error) {
+          throw error;
+      }
+  }
+  async verifyCodePass(id_usuario, codigo){
+      try {
+          let query = "SELECT * FROM reset_pass_code WHERE id_usuario = ? AND codigo = ?";
+          let [rows] = await db.query(query, [id_usuario, codigo]);
+          if(rows.length > 0){
+              return true;
+          }else{
+              return false;
+          }
+      } catch (error) {
+          throw error;
+      }
+  }
+  async updatePassword(id_usuario, password, estado){
+      try {
+          let query = "UPDATE usuario SET password = ? WHERE id = ?";
+          let rows = await db.query(query, [password, id_usuario]);
+          let query_code = "UPDATE reset_pass_code SET validacion = ?, codigo=? WHERE id_usuario = ?";
+          let rows_code = await db.query(query_code, [estado, "", id_usuario]);
+          if(rows[0].affectedRows > 0, rows_code[0].affectedRows > 0){
+              return true;
+          }else{
+              return false;
+          }
+      } catch (error) {
+          throw error;
+      }
+  }
+
+
 }
 
 module.exports = usuarioDB;

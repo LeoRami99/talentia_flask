@@ -324,7 +324,7 @@ router.get('/certificados/:id_usuario/:id_examen', async (req, res) => {
         const examen = await ExamenDB.getExamen(id_examen);
         const nombre_examen = examen.nombre
         // console.log(await user_data.)
-        const plantillaPdf = await fs.readFile('./src/plantillas/plantilla.pdf');
+        const plantillaPdf = await fs.readFile('plantillas/plantilla.pdf');
         const pdfDoc = await PDFDocument.load(plantillaPdf);
         
         // Obtener la primera página y añadir texto
@@ -373,8 +373,7 @@ router.get('/certificados/:id_usuario/:id_examen', async (req, res) => {
         }
         
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ "message": "Error al generar el certificado", "status": 500 });
+        res.status(500).json({ "message": "Error al generar el certificado", "status": 500 ,"error": error});
     }
 });
 

@@ -91,13 +91,13 @@ const storage = multer.diskStorage(
 
 
 const upload = multer({storage: storage});
-router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_portada'}, {name: 'imagen_card'}]), (req, res) => {
+router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_card'}]), (req, res) => {
     try{
-        if (req.files.imagen_portada && req.files.imagen_card) {
+        if (req.files.imagen_card) {
             let response_data = {
                 "message": "Imagenes subidas correctamente",
                 "status": 200,
-                "imagen_portada": req.files.imagen_portada[0].filename,
+                "imagen_portada": 'imagen_portada',
                 "imagen_card": req.files.imagen_card[0].filename
             };
             // console.log(response_data);
