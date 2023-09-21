@@ -3,6 +3,7 @@ import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-emp
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { modalidad, tipo_contrato } from 'src/app/data_oferta';
 const jwt= new JwtHelperService();
 //ng-select
 
@@ -14,6 +15,8 @@ const jwt= new JwtHelperService();
 export class CrearOfertaComponent implements OnInit {
   constructor(private ofertaEmpresaService: OfertaEmpresaService, private toastr: ToastrService, private router: Router) { }
   habilidades:any;
+  tipos_de_contrato = tipo_contrato;
+  tipos_de_modalidad = modalidad;
   @Input() nombre_oferta: string = '';
   @Input() descripcion_oferta: string = '';
   @Input() salario: string = '';

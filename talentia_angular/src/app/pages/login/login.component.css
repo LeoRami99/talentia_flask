@@ -1,4 +1,9 @@
-.login{
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-  border: solid 1px #ccc;
+.login {
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+}
+
+.login .form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
 }

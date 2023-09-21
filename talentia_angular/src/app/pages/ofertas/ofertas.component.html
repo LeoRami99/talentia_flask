@@ -1,6 +1,9 @@
 <div class="container">
-  <h1 class="text-center mt-5">Ofertas Laborales</h1>
-  <hr>
+  <div class="page-section">
+    <div class="page-separator">
+      <div class="page-separator__text">Ofertas</div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-4">
       <div class="card">
@@ -27,6 +30,11 @@
               </select> -->
         </div>
       </div>
+      <div class="card">
+        <div class="card-body">
+
+        </div>
+      </div>
     </div>
     <div class="col-md-8">
       <div class="vh-100 overflow-auto">
@@ -41,12 +49,12 @@
               <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
                 [habilidades_oferta]="ofertas.habilidades" ubicacion=" {{ofertas.ciudad}} / {{ofertas.pais}}"
                 modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}"
-                id_usuario="{{id_usuario}}"></app-oferta-card>
+                id_usuario="{{id_usuario}}" ></app-oferta-card>
             </div>
           </div>
         </div>
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
     </div>
   </div>
   <ng-template #Cargando>

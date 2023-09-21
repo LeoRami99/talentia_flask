@@ -9,6 +9,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BotonSidebarComponent } from './components/boton-sidebar/boton-sidebar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -58,6 +59,9 @@ import { EditarOfertasComponent } from './pages/editar-ofertas/editar-ofertas.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { VerPostulantesComponent } from './pages/ver-postulantes/ver-postulantes.component';
 import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { VerifyCodeComponent } from './pages/verify-code/verify-code.component';
+import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
 
 
 
@@ -117,7 +121,9 @@ import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
     ProfileComponent,
     VerPostulantesComponent,
     VerPerfilComponent,
-
+    ResetPasswordComponent,
+    VerifyCodeComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +132,7 @@ import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    CarouselModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added,
     // SocketIoModule.forRoot(config),

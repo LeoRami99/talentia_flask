@@ -1,5 +1,4 @@
-
-<div class="page-section bg-primary border-bottom-white">
+<div class="page-section fondo-header y border-bottom-white">
   <div class="container">
 
     <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
@@ -25,28 +24,28 @@
     </div>
 
     <div class="row ">
-      <div class="col-lg-3">
+      <div class="col-6 col-md-4 col-lg-3">
         <div class="card bg-fondo">
           <div class="card-body text-center">
             <img src="https://img.icons8.com/?size=512&id=JCDjQ3zAwdDu&format=png" alt="" class="img-fluid"
-            style="width: 80px;">
+              style="width: 80px;">
             <h5 class="text-center text-white">Certificados</h5>
             <h1 class="text-center text-white">{{contador_certificados}}</h1>
           </div>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-6 col-md-4 col-lg-3">
         <div class="card bg-fondo">
           <div class="card-body text-center">
-            <img src="https://img.icons8.com/?size=512&id=D5jqabDUzubh&format=png" alt="" class="img-fluid"
-            style="width:80px;">
+            <img src="https://img.icons8.com/?size=256&id=ChugQlss1ohB&format=png" alt="" class="img-fluid"
+              style="width:80px;">
             <h5 class="text-center text-white">Mis Cursos</h5>
             <h1 class="text-center text-white">{{contador_cursos}}</h1>
           </div>
         </div>
       </div>
-      <div class="col-lg-3">
-          <div class="card bg-fondo">
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card bg-fondo">
           <div class="card-body text-center">
             <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid"
               style="width: 80px;">
@@ -55,11 +54,11 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-6 col-md-4 col-lg-3">
         <div class="card bg-fondo">
           <div class="card-body text-center">
             <img src="https://img.icons8.com/?size=512&id=FUZiNN6aw2Rb&format=png" alt="" class="img-fluid"
-            style="width: 80px;">
+              style="width: 80px;">
             <h5 class="text-center text-white">Mis conexiones</h5>
             <h1 class="text-center text-white">{{contador_ofertas}}</h1>
           </div>
@@ -77,7 +76,8 @@
             <img src="https://img.icons8.com/?size=512&id=AmjB9UaIooPa&format=png" alt="" class="img-fluid w-25">
             <h1 class="text-center">Sin certificados</h1>
           </div>
-          <app-certificado-card nombre={{certificados.nombre}} imagen="{{certificados.imagen}}" id_examen="{{certificados.id}}" id_usuario="{{id_usuario}}"
+          <app-certificado-card nombre={{certificados.nombre}} imagen="{{certificados.imagen}}"
+            id_examen="{{certificados.id}}" id_usuario="{{id_usuario}}"
             *ngFor="let certificados of examenes_aprobados; let i = index"></app-certificado-card>
         </div>
       </div>
@@ -89,24 +89,33 @@
 
         <div class="position-relative carousel-card">
           <div class="js-mdk-carousel row d-block" id="carousel-courses1">
-            <a class="carousel-control-next js-mdk-carousel-control mt-n24pt" href="#carousel-courses1" role="button"
-              data-slide="next">
-              <span class="carousel-control-icon material-icons" aria-hidden="true">keyboard_arrow_right</span>
-              <span class="sr-only">Next</span>
-            </a>
-
             <div *ngIf="cursos.length == 0; " class="text-center">
               <img src="https://img.icons8.com/?size=512&id=AmjB9UaIooPa&format=png" alt="" class="img-fluid w-25">
               <h1 class="text-center">Sin cursos</h1>
             </div>
-            <div class="mdk-carousel__content">
-              <div *ngIf="loading">
-                <div class="col-12 col-md-6" *ngFor="let curso of cursos">
+            <div *ngIf="loading; else Cargando">
+              <owl-carousel-o [options]="customOptions">
+                <ng-template  carouselSlide *ngFor="let curso of cursos">
                   <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card"
-                  [dificultad]="curso.dificultad"></app-card-preview>
-                </div>
-              </div>
+                    [dificultad]="curso.dificultad"></app-card-preview>
+                </ng-template>
+                <!-- <ng-template carouselSlide>Slide 1</ng-template>
+                <ng-template carouselSlide>Slide 2</ng-template>
+                <ng-template carouselSlide>Slide 3</ng-template> -->
+                <!-- <div class="col-12 col-md-6" *ngFor="let curso of cursos">
+
+                </div> -->
+              </owl-carousel-o>
+              <!-- <div class="mdk-carousel__content">
+              </div> -->
             </div>
+            <ng-template #Cargando>
+              <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+                <div class="spinner-border text-primary" role="status">
+                </div>
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </ng-template>
           </div>
         </div>
 
@@ -128,7 +137,7 @@
       <h1 class="text-center">Sin examenes</h1>
     </div>
     <div class="row card-group-row">
-      <div class="card-group-row__col col-md-6" *ngFor="let examen of examenes">
+      <div class="card-group-row__col col-md-4 col-sm-6 d-flex justify-content-center align-items-center" *ngFor="let examen of examenes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
 
         <app-card-home-examen nombre={{examen.nombre}} descripcion={{examen.descripcion}} imagen={{examen.imagen}}
           id_examen={{examen.id}}></app-card-home-examen>
@@ -173,6 +182,9 @@
 
           </div> -->
 
+    </div>
+    <div class="d-flex justify-content-center">
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
     </div>
 
 

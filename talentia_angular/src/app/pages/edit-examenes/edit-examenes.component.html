@@ -1,19 +1,30 @@
 <div class="container page-section">
-  <div class="d-flex justify-content-end">
-    <a href="/create-examen" class="btn btn-outline-primary"><i class="fa-solid fa-plus mr-2 sidebar-menu-icon--left"></i> Crear examen</a>
-  </div>
-  <br>
-  <div class="d-flex justify-content-start">
-    <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
-      class="form-control w-25">
+  <div class="page-section">
+    <div class="page-separator">
+      <div class="page-separator__text">Examenes</div>
+    </div>
   </div>
 
-  <div class="row card-group-row d-flex">
+  <div class="d-flex mb-5">
+    <div class="d-flex justify-content-start">
+      <div class="form-group">
+        <label class="form-label" for="search">Buscar:</label>
+        <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
+        class="form-control">
+      </div>
+    </div>
+    <div class="flex-grow-1"></div>
+    <div class="d-flex justify-content-end">
+      <a href="/create-examen" class="btn btn-outline-primary"><i class="fa-solid fa-plus mr-2 sidebar-menu-icon--left"></i> Crear examen</a>
+    </div>
+  </div>
+
+  <div class="row card-group-row d-flex"  style="gap: 10px;">
     <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length==0; else hayExamenes">
       <h2 class="text-center">No hay examenes disponibles...</h2>
     </div>
     <ng-template #hayExamenes>
-    <div *ngFor="let examen of examenesFiltrados; ">
+    <div *ngFor="let examen of examenesFiltrados;">
         <app-card-examen-edit nombre={{examen.nombre}} descripcion={{examen.descripcion}}
         imagen={{examen.imagen}} id={{examen.id}}></app-card-examen-edit>
       </div>

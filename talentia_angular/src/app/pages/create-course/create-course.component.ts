@@ -144,28 +144,28 @@ export class CreateCourseComponent implements OnInit {
     this.newSection.items.splice(index, 1);
   }
 
-  onPortadaSelected(event: any): void {
-    const file_portada: File = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-        const img = new Image();
-        img.src = e.target.result as string;
-        img.onload = () => {
-          const width = img.width;
-          const height = img.height
-          console.log(width, height);
-          if (width != 1000 || height != 800) {
-            this.toast.error('La imagen debe de tener una resolucion de 1000x800 pixeles');
-            return;
-          }else{
-            this.portada = file_portada;
-          }
-        }
-    };
-    reader.readAsDataURL(file_portada);
-    // this.portada = file_portada;
-    // console.log(file_portada);
-  }
+  // onPortadaSelected(event: any): void {
+  //   const file_portada: File = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = (e: any) => {
+  //       const img = new Image();
+  //       img.src = e.target.result as string;
+  //       img.onload = () => {
+  //         const width = img.width;
+  //         const height = img.height
+  //         console.log(width, height);
+  //         if (width != 1000 || height != 800) {
+  //           this.toast.error('La imagen debe de tener una resolucion de 1000x800 pixeles');
+  //           return;
+  //         }else{
+  //           this.portada = file_portada;
+  //         }
+  //       }
+  //   };
+  //   reader.readAsDataURL(file_portada);
+  //   // this.portada = file_portada;
+  //   // console.log(file_portada);
+  // }
   onCardSelected(event: any): void {
     const file_card: File = event.target.files[0];
     const reader = new FileReader();
@@ -194,7 +194,7 @@ export class CreateCourseComponent implements OnInit {
     let json = {
       title: this.title,
       description: this.description,
-      imagen_portada: '',
+      imagen_portada: 'portada',
       imagen_card: '',
       price: this.price,
       categoria: this.categoria,
@@ -211,11 +211,10 @@ export class CreateCourseComponent implements OnInit {
       // this.price !== 0 &&
 
       this.url_video !== '' &&
-      this.portada !== undefined &&
       this.card !== undefined
     ) {
       const formData = new FormData();
-      formData.append('imagen_portada', this.portada);
+      // formData.append('imagen_portada', this.portada);
       formData.append('imagen_card', this.card);
       this.upload_imgs
         .uploadImgs(formData)
@@ -225,7 +224,7 @@ export class CreateCourseComponent implements OnInit {
             return EMPTY;
           }),
           tap((res: any) => {
-            json.imagen_portada = res.imagen_portada;
+            // json.imagen_portada = 'imagen_portada';
             json.imagen_card = res.imagen_card;
             // console.log(json);
             // enviar el json al backend

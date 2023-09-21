@@ -47,6 +47,7 @@ export class ViewCourseComponent implements OnInit {
   buttonOculto : boolean = true
   cursos: any;
   verificiarProgreso: any;
+  loading: boolean = true;
   constructor(
     private routeActive: ActivatedRoute,
     private router: Router,
@@ -87,22 +88,31 @@ export class ViewCourseComponent implements OnInit {
     this.routeActive.params.subscribe((params) => {
       this.getcourse.getCourse(params['id']).subscribe(
         (res: any) => {
-          const {
-            titulo,
-            descripcion,
-            imagen_portada,
-            secciones,
-            dificultad,
-            trailer,
-          } = res.curso;
-          this.curso = {
-            title: titulo,
-            description: descripcion,
-            imagen_portada,
-            sections: secciones,
-            dificultad: dificultad,
-            trailer: trailer,
-          };
+          if (res.curso == null) {
+            this.toastr.error('Error no se puede obtener la información del curso', 'Error');
+            this.router.navigate(['/courses']);
+            this.loading = false;
+          }else{
+            const {
+              titulo,
+              descripcion,
+              imagen_portada,
+              secciones,
+              dificultad,
+              trailer,
+            } = res.curso;
+            this.curso = {
+              title: titulo,
+              description: descripcion,
+              imagen_portada,
+              sections: secciones,
+              dificultad: dificultad,
+              trailer: trailer,
+            };
+            this.loading = false;
+          }
+
+
         },
         (error) => {
           // Manejo de error, podrías redirigir al usuario o mostrar un mensaje de error
@@ -113,16 +123,9 @@ export class ViewCourseComponent implements OnInit {
     });
 
   }
-  getVideoUrl(trailerUrl: string): SafeResourceUrl {
-    const videoId = this.extractVideoId(trailerUrl);
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-  }
 
-  private extractVideoId(url: string) {
-    // Extraer el ID del video de la URL de YouTube
-    const videoId = url.split('/').pop();
-    return videoId;
+  sanitizeUrl(videoUrl: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 
   //Crear el progreso basado en el id del curso y el id del usuario

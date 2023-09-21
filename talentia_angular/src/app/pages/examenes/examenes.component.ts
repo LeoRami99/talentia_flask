@@ -18,9 +18,9 @@ export class ExamenesComponent implements OnInit {
   constructor(private examen: ExamenesService, private toastr: ToastrService) {}
   examenes: any = [];
   currentPage: number = 1;
+  itemsPerPage: number = 10;
   examenesAuxiliar: any = [];
-  itemsPerPage: number = 12;
-  totalPages: number = 1; // Añade esta línea
+
   filtroNombre: string = '';
   examenesFiltrados: any[] = [];
 
@@ -34,8 +34,8 @@ export class ExamenesComponent implements OnInit {
             if (this.examenesAuxiliar[index].estado==='1') {
               this.examenes.push(this.examenesAuxiliar[index]);
             }
+            this.filtrarExamen();
         }
-        this.filtrarExamen();
       },
       (err: any) => {
         this.toastr.error('Ocurrio un error al obtener los examenes', 'Error');
@@ -44,44 +44,8 @@ export class ExamenesComponent implements OnInit {
   }
 
   filtrarExamen() {
-    let filteredExams = this.examenes;
-    if (this.filtroNombre) {
-      filteredExams = this.examenes.filter((examen: { nombre: string }) =>
-        examen.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase())
-      );
-    }
-
-    // Calcula el número total de páginas
-    this.totalPages = Math.ceil(filteredExams.length / this.itemsPerPage);
-
-    this.paginateResults(filteredExams);
+    this.examenesFiltrados = this.examenes.filter((examen: any) =>
+      examen.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase())
+    );
   }
-
-  paginateResults(data: any[]) {
-    const startItem = (this.currentPage - 1) * this.itemsPerPage;
-    const endItem = this.currentPage * this.itemsPerPage;
-
-    this.examenesFiltrados = data.slice(startItem, endItem);
-  }
-
-  onPageChange(page: number) {
-    if (page >= 1 && page <= this.totalPages) { // Asegurarse de que la página esté en el rango permitido
-      this.currentPage = page;
-      this.filtrarExamen();
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-        this.onPageChange(this.currentPage - 1);
-    }
-}
-
-nextPage() {
-    if (this.currentPage < this.totalPages) {
-        this.onPageChange(this.currentPage + 1);
-    }
-}
-
-
 }

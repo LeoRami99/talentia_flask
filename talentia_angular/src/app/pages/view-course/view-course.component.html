@@ -1,6 +1,5 @@
-<div class="mdk-box__content"
-  [style.background-image]="'url(' + ruta + curso?.imagen_portada + ')'"
-  style="background-position: center; background-size: cover;">
+<div class="bg-primary mb-0"
+  style="background-image: radial-gradient( circle 975px at 2.6% 48.3%,  rgba(0,8,120, 0.2) 0%, rgba(95,184,224,1) 99.7% ); z-index: -10;">
   <div class="hero py-64pt text-center text-sm-left">
     <div class="p-5">
       <h1 class="text-white">{{curso?.title}}</h1>
@@ -33,10 +32,10 @@
           </div>
         </div>
       </li> -->
-      <li class="nav-item navbar-list__item">
+      <!-- <li class="nav-item navbar-list__item">
         <i class="material-icons text-muted icon--left">schedule</i>
         2h 46m
-      </li>
+      </li> -->
       <li class="nav-item navbar-list__item">
         <i class="material-icons text-muted icon--left">assessment</i>
         {{curso?.dificultad}}
@@ -119,7 +118,7 @@
           <div class="card-body py-16pt text-center">
             <h4 class="card-title">Mirar trailer</h4>
             <div class="video-container">
-              <iframe width="300" height="200" [src]="getVideoUrl(curso?.trailer || '')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="300" height="200" [src]="sanitizeUrl(curso?.trailer || '')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
           </div>
         </div>

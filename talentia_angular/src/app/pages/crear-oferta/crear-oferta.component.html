@@ -24,7 +24,12 @@
           <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
         </div>
         <div class="mb-3">
-          <label for="" class="form-label">Tipo de contrato</label><input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="tipo_contrato">
+          <label for="" class="form-label">Tipo de contrato</label>
+          <select class="form-control" name="" id="" [(ngModel)]="tipo_contrato">
+            <option value="">Seleccione un tipo de contrato</option>
+            <option [value]="tipoContrato" *ngFor="let tipoContrato of tipos_de_contrato">{{tipoContrato}}</option>
+          </select>
+          <!-- <input type="text" class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="tipo_contrato"> -->
           <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
         </div>
         <div class="mb-3">
@@ -34,7 +39,12 @@
         </div>
         <div class="mb-3">
           <label for="" class="form-label">Modalidad</label>
-          <textarea class="form-control" placeholder="Nombre de la oferta" [(ngModel)]="modalidad"></textarea>
+          <select name="" id=""  [(ngModel)]="modalidad" class="form-control">
+            <option value="" >Seleccione una modalidad</option>
+            <option value="Presencial">Presencial</option>
+            <option value="Hibrido">Hibrido</option>
+            <option value="Virtual">Virtual</option>
+          </select>
           <!-- <div class="form-text">Ej: Desarrollador Full Stack</div> -->
         </div>
         <div class="mb-3">

@@ -6,6 +6,7 @@ import { GetCourseService } from 'src/app/services/get-course/get-course.service
 import { ExamenesService } from 'src/app/services/examenes/examenes.service';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 const helper = new JwtHelperService();
 @Component({
@@ -14,6 +15,9 @@ const helper = new JwtHelperService();
   styleUrls: ['./dashboard-home.component.css'],
 })
 export class DashboardHomeComponent implements OnInit {
+  currentPage: number = 1;
+  itemsPerPage: number = 9;
+  pageSize: number = 9;
   cursos: any = [];
   examenes: any = [];
   examenes_aprobados: any = [];
@@ -24,6 +28,32 @@ export class DashboardHomeComponent implements OnInit {
   contador_ofertas = 0;
   id_usuario: any;
   loading = false;
+  customOptions:OwlOptions={
+    loop:true,
+    autoplay:true,
+    mouseDrag:true,
+    touchDrag:true,
+    pullDrag:true,
+    dots:false,
+    navSpeed:1000,
+    margin:10,
+    navText:['<','>'],
+    responsive:{
+      0:{
+        items:1
+      },
+      400:{
+        items:2
+      },
+      740:{
+        items:2
+      },
+      940:{
+        items:2
+      }
+    },
+    nav:true
+  }
 
   constructor(
     private progresoService: ProgresoCursoService,

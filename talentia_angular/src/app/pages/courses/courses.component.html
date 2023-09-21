@@ -35,7 +35,9 @@
           </div>
         </ng-template>
       </div>
-      <pagination-controls [id]="'categoria-' + categoria.nombre" (pageChange)="onPageChange($event, categoria.nombre)" [maxSize]="5"></pagination-controls>
+      <div class="d-flex justify-content-center">
+        <pagination-controls [id]="'categoria-' + categoria.nombre" (pageChange)="onPageChange($event, categoria.nombre)" [maxSize]="5"></pagination-controls>
+      </div>
     </div>
   </div>
 </div>

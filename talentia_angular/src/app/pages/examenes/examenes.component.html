@@ -1,41 +1,29 @@
 
 <div class="container page-section">
-  <div class="d-flex justify-content-start">
-    <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
-      class="form-control w-25">
+  <div class="page-separator">
+    <div class="page-separator__text">Examenes</div>
   </div>
 
-  <div class="row card-group-row d-flex">
+
+  <div class="d-flex justify-content-start">
+    <div class="form-group">
+      <label for="filtroNombre">Filtrar por nombre:</label>
+      <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
+      class="form-control" id="filtroNombre">
+    </div>
+  </div>
+
+  <div class="row card-group-row d-flex" style="gap: 10px;">
     <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length==0; else hayExamenes">
         <h2 class="text-center">No hay examenes disponibles...</h2>
     </div>
     <ng-template #hayExamenes>
-    <div *ngFor="let examen of examenesFiltrados;">
-      <app-card-examen-preview nombre={{examen.nombre}} descripcion={{examen.descripcion}}
-        imagen={{examen.imagen}}
-        id_examen={{examen.id}}
-        ></app-card-examen-preview>
+    <div *ngFor="let examen of examenesFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+      <app-card-examen-preview nombre={{examen.nombre}} descripcion={{examen.descripcion}} imagen={{examen.imagen}} id_examen={{examen.id}}></app-card-examen-preview>
     </div>
     </ng-template>
   </div>
-
-<ul class="pagination">
-
-  <li class="page-item" [class.disabled]="currentPage === 1">
-    <button class="page-link"  (click)="previousPage()" aria-label="Previous">
-      <span aria-hidden="true" class="material-icons">chevron_left</span>
-      <span>Prev</span>
-    </button>
-  </li>
-
-  <li class="pagination-next" [class.disabled]="currentPage === totalPages">
-    <button class="page-link" (click)="nextPage()" aria-label="Next">
-      <span>Next</span>
-      <span aria-hidden="true" class="material-icons">chevron_right</span>
-    </button>
-  </li>
-</ul>
-
-
-
+  <div class="d-flex justify-content-center">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
 </div>

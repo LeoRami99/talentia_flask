@@ -27,5 +27,4 @@ export class UserDataService {
     return this.http.put(`${API_URL}user/update-profile`,data)
   }
 
-
 }

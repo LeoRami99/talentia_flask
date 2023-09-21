@@ -1,0 +1,8 @@
+.fondo-header{
+  background: hsla(225, 78%, 59%, 1);
+
+  background: linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+  background: -moz-linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+}
