@@ -18,7 +18,7 @@ interface Curso {
 })
 export class CoursesComponent implements OnInit {
   pageData: { [categoria: string]: number } = {}; // Objeto para almacenar las páginas actuales por categoría
-  pageSize: number = 8;
+  pageSize: number = 12;
   selectedCategory: string = '';
   filterText: string = '';
   lista_curso: Curso[] = [];
@@ -26,6 +26,7 @@ export class CoursesComponent implements OnInit {
 
   autocompleteSuggestions: string[] = [];
   loadingCursos: boolean = false;
+  loadingAllCursos: boolean = false;
 
   constructor(
     private cursos: CursosPreviewService,
@@ -43,7 +44,12 @@ export class CoursesComponent implements OnInit {
     });
 
     this.cursos.getCursos().subscribe((data: any) => {
-      this.lista_curso = data.cursos;
+      if (data) {
+        this.loadingAllCursos= true;
+        this.lista_curso = data.cursos;
+      }else{
+        this.loadingAllCursos = false;
+      }
     });
   }
 

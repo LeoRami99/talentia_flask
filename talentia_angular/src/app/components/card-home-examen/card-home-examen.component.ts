@@ -14,7 +14,5 @@ export class CardHomeExamenComponent {
   url_images : string = API_URL+'imagenes/';
   @Input() tiempo: string = '';
   @Input() id_examen: string = '';
-
-
-
+  @Input() aprobado: string = '';
 }

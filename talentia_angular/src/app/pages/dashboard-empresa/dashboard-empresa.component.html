@@ -1,81 +1,51 @@
-
-<!-- <div id="divChart">
-  <canvas id="myChart"></canvas>
-</div> -->
-<div class="page-section bg-primary border-bottom-white">
-  <div class="container">
-
-    <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
+<!-- Background with gradient for a more modern look -->
+<div class="page-section gradient-back" style="border-bottom: 4px solid #FFF;">
+  <div class="container py-5">
+    <div class="d-flex flex-column flex-md-row align-items-center text-center text-md-left">
       <div class="flex mb-32pt mb-md-0">
-        <h1 class="text-white mb-0">¡Bienvenido!</h1>
-        <h2 class="text-white mb-0"></h2>
-        <!-- <p class="lead text-white-50 d-flex align-items-center">Student <span class="ml-16pt d-flex align-items-center"><i class="material-icons icon-16pt mr-4pt">opacity</i> 2,300 IQ</span></p> -->
+        <h1 class="text-white mb-2">¡Bienvenido!</h1>
       </div>
-      <div class="d-flex" style="gap: 10px;">
-        <a href="/crear-oferta" class="btn btn-outline-white"><i class="fa-solid fa-briefcase mr-2 sidebar-menu-icon--left"></i>Crear Oferta</a>
-        <a href="/create-empresa" class="btn btn-outline-white"><i class="fa-regular fa-building mr-2 sidebar-menu-icon--left"></i>Crear Empresa</a>
-        <a href="/editar-ofertas" class="btn btn-outline-white"><i class="fa-regular fa-pen-to-square mr-2 sidebar-menu-icon--left"></i>Editar Ofertas</a>
+      <!-- Utilizando flexbox para el alineamiento de los botones -->
+      <div class="d-flex align-items-center ml-md-4" style="gap: 15px;">
+        <a href="/crear-oferta" class="btn btn-light"><i class="fa-solid fa-briefcase mr-2 sidebar-menu-icon--left"></i>Crear Oferta</a>
+        <a href="/create-empresa" class="btn btn-light"><i class="fa-regular fa-building mr-2 sidebar-menu-icon--left"></i>Crear Empresa</a>
+        <a href="/editar-ofertas" class="btn btn-light"><i class="fa-regular fa-pen-to-square mr-2 sidebar-menu-icon--left"></i>Editar Ofertas</a>
       </div>
-        <!-- <a href=""></a> -->
-      <!-- <a href=""
-      class="btn btn-outline-white">Follow</a> -->
     </div>
   </div>
 </div>
 
-<div class="page-section border-bottom-2">
+<!-- Statistic cards with more white space and responsive adjustments -->
+<div class="page-section py-5">
   <div class="container">
-      <div class="row">
-          <div class="col-lg-4">
-              <div class="card text-center mb-lg-0">
-                  <div class="card-body">
-                    <img src="https://img.icons8.com/?size=256&id=eMJFlZiyvaqY&format=png" alt="" class="img-fluid" style="width: 80px;">
-                    <h4 class="h2 mb-0">{{contadorUsuariosAplicaronOferta}}</h4>
-                    <div>Usuarios aplicados a ofertas</div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4">
-              <div class="card text-center mb-lg-0">
-                  <div class="card-body">
-                      <img src="https://img.icons8.com/?size=256&id=NTa3xp2XGiRy&format=png" alt="" class="img-fluid" style="width: 80px;">
-                      <h4 class="h2 mb-0">{{contadorOfertas}}</h4>
-                      <div>Ofertas Activas</div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-4">
-              <div class="card text-center mb-lg-0">
-                  <div class="card-body">
-                      <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid" style="width: 80px;">
-                      <h4 class="h2 mb-0">{{contadorOfertasInactivas}}</h4>
-                      <div>Ofertas finalizadas</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <br>
-      <!-- <div class="row">
-        <div class="col-lg-4">
-            <div class="card text-center mb-lg-0">
-                <div class="card-body">
-                  <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid" style="width: 80px;">
-                  <h4 class="h2 mb-0"></h4>
-                  <div>Examenes activos</div>
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                  <img src="https://img.icons8.com/?size=256&id=eMJFlZiyvaqY&format=png" alt="" class="img-fluid mb-3" style="width: 80px;">
+                  <h4 class="h2 mb-0">{{contadorUsuariosAplicaronOferta}}</h4>
+                  <p class="text-muted">Usuarios aplicados a ofertas</p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="card text-center mb-lg-0">
-                <div class="card-body">
-                  <img src="https://img.icons8.com/?size=512&id=GFZarxtFIkhx&format=png" alt="" class="img-fluid" style="width: 80px;">
-                    <h4 class="h2 mb-0"></h4>
-                    <div>Examenes inactivos</div>
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <img src="https://img.icons8.com/?size=256&id=NTa3xp2XGiRy&format=png" alt="" class="img-fluid mb-3" style="width: 80px;">
+                    <h4 class="h2 mb-0">{{contadorOfertas}}</h4>
+                    <p class="text-muted">Ofertas Activas</p>
                 </div>
             </div>
         </div>
-    </div> -->
-
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <div class="card shadow-lg">
+                <div class="card-body text-center">
+                    <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid mb-3" style="width: 80px;">
+                    <h4 class="h2 mb-0">{{contadorOfertasInactivas}}</h4>
+                    <p class="text-muted">Ofertas finalizadas</p>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
-

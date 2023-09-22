@@ -140,17 +140,18 @@
       <div class="col-md-4">
 
         <div class="card">
-          <div class="card-header text-center">
-            <button class="btn btn-accent" (click)="updateExamen()">Guardar Examen</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header text-center">
-            <button class="btn btn-accent" (click)="updateEstadoExamen()">
-              {{examen.estado==1 ? 'Desactivar examen' : 'Activar examen'}}
-            </button>
-          </div>
+          <div class="card-header text-center" style="gap: 10px;">
+            <h4 class="card-title">Opciones</h4>
+            <br>
+            <div class="d-flex justify-content-center aling-items-center flex-column">
 
+              <button class="btn btn-accent" (click)="updateExamen()">Guardar Examen</button>
+              <br>
+              <button class="btn btn-accent" (click)="updateEstadoExamen()">
+                {{examen.estado==1 ? 'Desactivar examen' : 'Activar examen'}}
+              </button>
+            </div>
+          </div>
         </div>
     <!-- <div class="page-separator">
           <div class="page-separator__text">Courses</div>

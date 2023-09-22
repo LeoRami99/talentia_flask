@@ -47,7 +47,6 @@ export class ExamenesService {
     return this.http.get(`${API_URL}examen/get-progreso/${data.id_examen}/${data.id_usuario}`);
   }
   updateProgreso(data: any) {
-    console.log(data);
     return this.http.put(`${API_URL}examen/update-progreso`, data);
   }
 

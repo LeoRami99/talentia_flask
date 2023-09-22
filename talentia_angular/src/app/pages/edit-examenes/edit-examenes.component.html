@@ -1,52 +1,49 @@
 <div class="container page-section">
-  <div class="page-section">
-    <div class="page-separator">
-      <div class="page-separator__text">Examenes</div>
-    </div>
-  </div>
-
-  <div class="d-flex mb-5">
-    <div class="d-flex justify-content-start">
-      <div class="form-group">
-        <label class="form-label" for="search">Buscar:</label>
-        <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
-        class="form-control">
+  <!-- Page Title -->
+  <div class="mb-4">
+      <div class="page-separator">
+          <h4 class="page-separator__text">Examenes</h4>
       </div>
-    </div>
-    <div class="flex-grow-1"></div>
-    <div class="d-flex justify-content-end">
-      <a href="/create-examen" class="btn btn-outline-primary"><i class="fa-solid fa-plus mr-2 sidebar-menu-icon--left"></i> Crear examen</a>
-    </div>
   </div>
 
-  <div class="row card-group-row d-flex"  style="gap: 10px;">
-    <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length==0; else hayExamenes">
-      <h2 class="text-center">No hay examenes disponibles...</h2>
-    </div>
-    <ng-template #hayExamenes>
-    <div *ngFor="let examen of examenesFiltrados;">
-        <app-card-examen-edit nombre={{examen.nombre}} descripcion={{examen.descripcion}}
-        imagen={{examen.imagen}} id={{examen.id}}></app-card-examen-edit>
+  <!-- Search and Create Buttons -->
+  <div class="d-flex justify-content-between mb-5">
+      <div class="d-flex align-items-center">
+          <label class="form-label mr-2" for="search">Buscar:</label>
+          <input [(ngModel)]="filtroNombre" placeholder="Buscar por nombre..." (keyup)="filtrarExamen()"
+                 class="form-control" id="search">
       </div>
-    </ng-template>
+      <a href="/create-examen" class="btn btn-outline-primary">
+          <i class="fa-solid fa-plus mr-2 sidebar-menu-icon--left"></i> Crear examen
+      </a>
   </div>
 
-<ul class="pagination">
-  <li class="page-item" [class.disabled]="currentPage === 1">
-    <button class="page-link"  (click)="previousPage()" aria-label="Previous">
-      <span aria-hidden="true" class="material-icons">chevron_left</span>
-      <span>Prev</span>
-    </button>
-  </li>
+  <!-- Display Exam Cards -->
+  <div class="row card-group-row d-flex justify-content-center" style="gap: 10px;">
+      <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length === 0; else hayExamenes">
+          <h5 class="text-center text-muted">No hay examenes disponibles...</h5>
+      </div>
+      <ng-template #hayExamenes>
+          <div *ngFor="let examen of examenesFiltrados">
+              <app-card-examen-edit [nombre]="examen.nombre" [descripcion]="examen.descripcion"
+                                     [imagen]="examen.imagen" [id]="examen.id"></app-card-examen-edit>
+          </div>
+      </ng-template>
+  </div>
 
-  <li class="pagination-next" [class.disabled]="currentPage === totalPages">
-    <button class="page-link" (click)="nextPage()" aria-label="Next">
-      <span>Next</span>
-      <span aria-hidden="true" class="material-icons">chevron_right</span>
-    </button>
-  </li>
-</ul>
-
-
-
+  <!-- Pagination -->
+  <ul class="pagination mt-4">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="previousPage()" aria-label="Previous">
+              <span aria-hidden="true" class="material-icons">chevron_left</span>
+              <span>Prev</span>
+          </button>
+      </li>
+      <li class="pagination-next" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="nextPage()" aria-label="Next">
+              <span>Next</span>
+              <span aria-hidden="true" class="material-icons">chevron_right</span>
+          </button>
+      </li>
+  </ul>
 </div>

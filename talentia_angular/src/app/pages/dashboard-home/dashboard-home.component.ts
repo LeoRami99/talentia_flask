@@ -100,7 +100,9 @@ export class DashboardHomeComponent implements OnInit {
           let examenes = data.data;
           examenes.forEach((element: any) => {
             this.examenService.getExamen(element.id_examen).subscribe((data: any) => {
-              this.examenes.push(data.examen);
+              // añadir tambien el estado de aprobado
+              console.log()
+              this.examenes.push({examen:data.examen, aprobado:element.aprobado});
               this.contador_examenes += 1;
               // console.log(element.aprobado)
               if (element.aprobado == "aprobado") {
@@ -119,7 +121,7 @@ export class DashboardHomeComponent implements OnInit {
 
 
     } else {
-      this.toastr.error('Error en la obtención del toke', 'Error');
+      this.toastr.error('Error en la obtención del token', 'Error');
     }
   }
 }

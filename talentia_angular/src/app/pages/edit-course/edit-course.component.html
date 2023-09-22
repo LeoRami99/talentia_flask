@@ -20,15 +20,6 @@
                         <label class="form-label">Descripción</label>
                         <textarea class="form-control" rows="3" placeholder="Course description"
                             [(ngModel)]="curso.descripcion"></textarea>
-                        <!-- <div style="height: 150px;"
-                       class="mb-0"
-                       data-toggle="quill"
-                       data-quill-placeholder="Course description">
-                      <h1>Hello World!</h1>
-                      <p>Some initial <strong>bold</strong> text</p>
-                      <p><br></p>
-                  </div> -->
-                        <!-- <small class="form-text text-muted">Shortly describe this course.</small> -->
                     </div>
 
                     <div class="page-separator">
@@ -58,8 +49,7 @@
                     <div class="accordion js-accordion accordion--boxed mb-24pt" id="parent"
                         *ngFor="let secciones of curso.secciones; let i = index">
                         <div class="accordion__item">
-                          <!-- el data-toggle colapse se elimina -->
-                          <!-- data-toggle="collapse" -->
+
                             <a (click)="false" class="accordion__toggle">
                                 <div class="w-100">
                                   <div class="d-flex justify-content-end">
@@ -110,14 +100,11 @@
                                       </div>
                                     </div>
                                 </div>
-                                <!-- <span class="flex">{{secciones.titulo}}</span> -->
-                                <!-- <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span> -->
                             </a>
                             <div class="accordion__menu"  [attr.id]="'course-toc-' + i"
                                 *ngFor="let subsecciones of secciones.subsecciones">
                                 <hr class="mx-2">
                                 <div class="accordion__menu-link">
-                                    <!-- <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i> -->
                                     <div class="w-100">
                                         <div class="mb-3">
                                             <label [attr.for]="'sub'+subsecciones.titulo">Titulo de lección</label>
@@ -141,7 +128,7 @@
                                       </div>
                                       <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
                                         <button class="btn btn-danger" (click)="eliminarSubseccion(subsecciones.id_subseccion, subsecciones.id_seccion)">Eliminar Lección</button>
-                                        <!-- <button class="btn btn-success" (click)="onAddSubsection(i)">Agregar Lección</button> -->
+
                                       </div>
                                     </div>
 
@@ -163,11 +150,7 @@
                         </div>
 
                         <div class="list-group list-group-flush text-center">
-                            <!-- <div class="list-group-item d-flex">
-                          <a class="flex"
-                             href="#"><strong>Save Draft</strong></a>
-                          <i class="material-icons text-muted">check</i>
-                      </div> -->
+
                             <div class="list-group-item">
                                 <label class="form-label">Estado del curso</label>
                                 <span *ngIf="curso.estado==1">
@@ -219,37 +202,6 @@
                             </select>
                             <small class="form-text text-muted">Seleccione una categoría.</small>
                         </div>
-
-
-                            <!-- <div class="form-group">
-                                <label class="form-label">Price</label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-group form-inline">
-                                            <span class="input-group-prepend"><span
-                                                    class="input-group-text">$</span></span>
-                                            <input type="text" class="form-control" value="24">
-                                        </div>
-                                    </div>
-                                </div>
-                                <small class="form-text text-muted">The recommended price is between &dollar;17 and
-                                    &dollar;24</small>
-                            </div> -->
-                            <!-- <div class="form-group mb-0">
-                          <label class="form-label"
-                                 for="select03">Tags</label>
-                          <select id="select03"
-                                  data-toggle="select"
-                                  multiple
-                                  class="form-control">
-                              <option selected="">JavaScript</option>
-                              <option selected="">Angular</option>
-                              <option>Bootstrap</option>
-                              <option>CSS</option>
-                              <option>HTML</option>
-                          </select>
-                          <small class="form-text text-muted">Select one or more tags.</small>
-                      </div> -->
                         </div>
                     </div>
 

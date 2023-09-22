@@ -1,10 +1,20 @@
-<div class="card" style="border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+<div class="card" style="border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+  <!-- Encabezado del Card -->
+  <div class="card-header bg-primary text-white d-flex align-items-center" style="border: none;">
+    <i class="fas fa-briefcase fa-2x mr-3"></i>
+    <h5 class="card-title m-0 text-white" style="font-weight: bold;">{{nombre_oferta}}</h5>
+  </div>
+
+  <!-- Cuerpo del Card -->
   <div class="card-body">
-    <h5 class="card-title" style="color: #333; font-size: 1.5rem; font-weight: bold;">{{nombre_oferta}}</h5>
-    <p class="descripcion" style="color: #666;">{{descripcion_oferta}}</p>
-    <div class="d-flex justify-content-center flex-column" style="gap: 10px;">
-      <button class="btn btn-primary" style="background-color: #007bff; color: #fff; border: none;" (click)="editarOferta()"> <i class="fa-regular fa-pen-to-square mr-2"></i> Editar</button>
-      <button class="btn btn-danger" style="background-color: #356adc; color: #fff; border: none;" (click)="verPostulantes()"><i class="fa-solid fa-eye mr-2"></i> Postulaciones</button>
+    <p class="descripcion" style="color: #555; margin-bottom: 1rem;">{{descripcion_oferta}}</p>
+    <div class="d-flex flex-column justify-content-between" style="gap: 8px;">
+      <button class="btn btn-primary w-100 w-sm-auto" style="background-color: #007bff; border: none;" (click)="editarOferta()">
+        <i class="fas fa-edit mr-2"></i> Editar
+      </button>
+      <button class="btn btn-danger w-100 w-sm-auto" style="background-color: #dc3545; border: none;" (click)="verPostulantes()">
+        <i class="fas fa-users mr-2"></i> Postulaciones
+      </button>
     </div>
   </div>
 </div>

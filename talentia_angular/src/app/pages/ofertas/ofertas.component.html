@@ -1,67 +1,89 @@
-<div class="container">
+<div class="container my-4"> <!-- Margen superior e inferior -->
   <div class="page-section">
     <div class="page-separator">
       <div class="page-separator__text">Ofertas</div>
     </div>
   </div>
-  <div class="row">
+
+  <div class="row mt-4"> <!-- Margen superior -->
+
+    <!-- Filtros -->
     <div class="col-md-4">
-      <div class="card">
+      <div class="card mb-3"> <!-- Margen inferior -->
         <div class="card-body">
-          <h2 class="text-center">Filtros</h2>
+          <h2 class="text-center mb-3">Filtros</h2> <!-- Margen inferior -->
           <hr>
-          <label for="" class="form-label">Busqueda</label>
-          <input type="text" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control mb-2"
-            placeholder="Busca una oferta laboral">
-          <label for="" class="form-label">Modalidad</label>
-          <select name="opciones" [(ngModel)]="filtroModalidad" id="" class="form-control mb-2">
-            <option value="">Seleccione una Modalidad</option>
-            <option value="Presencial">Presencial</option>
-            <option value="Hibrido">Hibrido</option>
-            <option value="Virtual">Virtual</option>
-          </select>
-          <label for="" class="form-label">Habilidad</label>
-          <select class="custom" class="form-control" bindLabel="nombre" [(ngModel)]="filtroHabilidad">
-            <option value="">Seleccione una habilidad</option>
-            <option *ngFor="let skills of habilidades" [value]="skills.nombre">{{skills.nombre}}</option>
-          </select>
-          <!-- <select name="" id="">
-                <option  *ngFor="let skills of habilidades" value="{{skills.nombre}}">{{skills.nombre}}</option>
-              </select> -->
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
+          <div class="mb-3"> <!-- Margen inferior para agrupar -->
+            <label for="busqueda" class="form-label">Búsqueda</label>
+            <input type="text" id="busqueda" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control"
+                   placeholder="Busca una oferta laboral">
+          </div>
+
+          <div class="mb-3"> <!-- Margen inferior para agrupar -->
+            <label for="modalidad" class="form-label">Modalidad</label>
+            <select name="opciones" id="modalidad" [(ngModel)]="filtroModalidad" class="form-control">
+              <option value="">Seleccione una Modalidad</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Hibrido">Híbrido</option>
+              <option value="Virtual">Virtual</option>
+            </select>
+          </div>
+
+          <div class="mb-3"> <!-- Margen inferior para agrupar -->
+            <label for="habilidad" class="form-label">Habilidad</label>
+            <select id="habilidad" class="form-control" bindLabel="nombre" [(ngModel)]="filtroHabilidad">
+              <option value="">Seleccione una habilidad</option>
+              <option *ngFor="let skills of habilidades" [value]="skills.nombre">{{skills.nombre}}</option>
+            </select>
+          </div>
 
         </div>
       </div>
     </div>
+
+    <!-- Contenido de ofertas -->
     <div class="col-md-8">
       <div class="vh-100 overflow-auto">
         <div *ngIf="!loading; else Cargando">
+
+          <!-- Mensaje de no hay ofertas -->
           <div *ngIf="ofertasFiltradas.length===0" class="d-flex justify-content-center flex-column align-items-center">
-            <h1 class="text-center">No hay ofertas disponibles</h1>
+            <h1 class="text-center mb-4">No hay ofertas disponibles</h1>
             <img src="assets/images/metaverso-amico.png" alt="" class="img-fluid" style="width: 400px;">
           </div>
-          <div
-            *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+
+          <!-- Listado de ofertas -->
+          <div *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
             <div *ngIf="ofertas.estado==1">
-              <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
-                [habilidades_oferta]="ofertas.habilidades" ubicacion=" {{ofertas.ciudad}} / {{ofertas.pais}}"
-                modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}"
-                id_usuario="{{id_usuario}}" ></app-oferta-card>
+              <app-oferta-card
+                nombre_oferta="{{ofertas.titulo}}"
+                descripcion_oferta="{{ofertas.descripcion}}"
+                [habilidades_oferta]="ofertas.habilidades"
+                ubicacion="{{ofertas.ciudad}} / {{ofertas.pais}}"
+                modalidad="{{ofertas.modalidad}}"
+                id_oferta="{{ofertas.id}}"
+                id_usuario="{{id_usuario}}">
+              </app-oferta-card>
             </div>
           </div>
+
         </div>
       </div>
-      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
+      <!-- Paginación -->
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
     </div>
   </div>
+
+  <!-- Template de carga -->
   <ng-template #Cargando>
-    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
-      <div class="spinner-border text-primary" role="status">
+    <div class="d-flex justify-content-center align-items-center vh-50">
+      <div class="text-center">
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <p>Cargando las ofertas...</p>
       </div>
-      <span class="visually-hidden">Cargandos las ofertas...</span>
     </div>
   </ng-template>
 </div>

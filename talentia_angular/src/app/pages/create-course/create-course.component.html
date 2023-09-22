@@ -19,19 +19,6 @@
                 <label class="form-label">Descripción</label>
                 <textarea class="form-control" rows="3" placeholder="Course description" [(ngModel)]=description></textarea>
 
-                <!-- Esta sección se comenta debido a que se debe usar una libreria de quill aparte pero no deberia de afectar -->
-                <!-- <div class="form-group mb-32pt">
-                  <div style="height: 150px;"
-                       class="mb-0"
-                       data-toggle="quill"
-                       data-quill-placeholder="Course description">
-                      <h1>Hello World!</h1>
-                      <p>Some initial <strong>bold</strong> text</p>
-                      <p><br></p>
-                  </div>
-                  <small class="form-text text-muted">Shortly describe this course.</small>
-              </div> -->
-
                 <div class="page-separator p-2">
                     <div class="page-separator__text">Módulos</div>
                 </div>
@@ -144,7 +131,12 @@
             <div class="col-md-4">
 
                 <div class="card">
+                    <!-- titulo -->
+
                     <div class="card-header text-center">
+                      <label class="form-label">Guardar curso</label>
+                        <!-- opciones -->
+
                         <button href="#" class="btn btn-accent" (click)="createCourse()">Guardar cambios</button>
                     </div>
                 </div>
@@ -175,7 +167,7 @@
                         <input class="form-control" type="file" name="imagenPortada" id="imagenPortada" (change)="onPortadaSelected($event)">
                       </div> -->
                       <div class="mb-3 custom-file">
-                        <label for="imagenCard" class="">Imagen de card</label>
+                        <label for="imagenCard" class="">Imagen de card (200x168 pixeles)</label>
                         <input class="form-control" type="file" name="imagenCard" id="imagenCard" (change)="onCardSelected($event)">
                       </div>
                       <!-- imagen card -->
@@ -204,33 +196,6 @@
                             </select>
                             <small class="form-text text-muted">Selecciona una categoría.</small>
                         </div>
-                        <!-- Seccón para el precio y los tags del curso -->
-                        <!-- <div class="form-group">
-                            <label class="form-label">Price</label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-prepend"><span class="input-group-text">$</span></span>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <small class="form-text text-muted">The recommended price is between &dollar;17 and &dollar;24</small>
-                        </div> -->
-                        <!-- <div class="form-group mb-0">
-                            <label class="form-label" for="select03">Tags</label>
-                            <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
-                              <option *ngFor="let tag of tagsOptions" [value]="tag.name">{{tag.name}}</option>
-                            </select>
-                            <select id="select03" data-toggle="select" multiple="multiple" class="select2 form-control" [(ngModel)]="SelectTags">
-                                <option>JavaScript</option>
-                                <option>Angular</option>
-                                <option>Bootstrap</option>
-                                <option>CSS</option>
-                                <option>HTML</option>
-                            </select>
-                            <small class="form-text text-muted">Select one or more tags.</small>
-                        </div> -->
                     </div>
                 </div>
 

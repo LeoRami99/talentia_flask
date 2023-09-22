@@ -14,16 +14,23 @@
       </div>
 
   </div>
-
   <div class="card-footer">
       <div class="d-flex align-items-center">
-          <div class="flex mr-2">
+          <div class="flex mr-2" *ngIf="aprobado== 'reprobado' || aprobado == ''; else ok">
               <a [attr.href]="'take-quiz/'+id_examen"
-                 class="btn btn-light btn-sm">
-                  <i class="material-icons icon--left">playlist_add_check</i> Reintentar
+                 class="btn btn-light btn-sm gradient-back">
+                 <i class="fa-solid fa-rotate-right mr-2"></i> Reintentar
                   <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
               </a>
           </div>
+          <ng-template #ok>
+              <div class="flex mr-2">
+                  <span class="btn btn-light btn-sm bg-success text-white">
+                     <i class="fa-solid fa-check mr-2"></i> Aprobado
+                      <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
+              </span>
+              </div>
+          </ng-template>
 
 
       </div>
