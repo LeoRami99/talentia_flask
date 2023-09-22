@@ -73,7 +73,6 @@
         </div>
         <div style="height: 250px; overflow:scroll;">
           <div *ngIf="examenes_aprobados.length == 0" class="text-center d-flex flex-column justify-content-center">
-            <a class="btn btn-light gradient-back rounded" href="/examenes">Certificate</a>
             <img src="assets/exploracion.png" alt="" class="img-fluid w-100">
           </div>
           <app-certificado-card nombre={{certificados.nombre}} imagen="{{certificados.imagen}}"
@@ -95,19 +94,19 @@
           <div class="js-mdk-carousel row d-block" id="carousel-courses1">
 
             <!-- Si está cargando, muestra "Cargando..." -->
-            <div *ngIf="loading" class="d-flex justify-content-center align-items-center flex-column">
+            <div *ngIf="!loading && cursos.length != 0" class="d-flex justify-content-center align-items-center flex-column">
               <div class="spinner-border text-primary" role="status"></div>
               <span>Cargando...</span>
             </div>
 
-            <!-- Si no hay cursos, muestra "Sin cursos" -->
+            <!-- Si no está cargando y no hay cursos, muestra "Sin cursos" -->
             <div *ngIf="!loading && cursos.length === 0" class="text-center d-flex flex-column justify-content-center align-items-center">
               <img src="assets/exploracion.png" alt="" class="img-fluid w-50">
               <a href="/courses" class="btn btn-light gradient-back">Explorar cursos</a>
             </div>
 
-            <!-- Si hay cursos y no está cargando, muestra el carrusel -->
-            <div *ngIf="!loading && cursos.length > 0">
+            <!-- Si no está cargando y hay cursos, muestra el carrusel -->
+            <div *ngIf="loading && cursos.length > 0">
               <owl-carousel-o [options]="customOptions">
                 <ng-template carouselSlide *ngFor="let curso of cursos">
                   <app-card-preview
@@ -122,6 +121,8 @@
 
           </div>
         </div>
+
+
 
 
       </div>
