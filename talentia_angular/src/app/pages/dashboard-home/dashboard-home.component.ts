@@ -15,6 +15,7 @@ const helper = new JwtHelperService();
   styleUrls: ['./dashboard-home.component.css'],
 })
 export class DashboardHomeComponent implements OnInit {
+  randomOfertas: any = []
   currentPage: number = 1;
   itemsPerPage: number = 9;
   pageSize: number = 9;
@@ -54,7 +55,31 @@ export class DashboardHomeComponent implements OnInit {
     },
     nav:true
   }
-
+  customOptionsOfertas:OwlOptions={
+    loop:true,
+    autoplay:true,
+    mouseDrag:true,
+    touchDrag:true,
+    pullDrag:true,
+    dots:false,
+    navSpeed:1000,
+    margin:10,
+    navText:['<','>'],
+    responsive:{
+      0:{
+        items:1
+      },
+      400:{
+        items:1
+      },
+      740:{
+        items:1
+      },
+      940:{
+        items:1
+      }
+    },
+  }
   constructor(
     private progresoService: ProgresoCursoService,
     private toastr: ToastrService,
@@ -64,6 +89,7 @@ export class DashboardHomeComponent implements OnInit {
     private ofertaService: OfertaEmpresaService
   ) {}
   ngOnInit(): void {
+    this.ofertasRandom()
     // obtener el token
     const token = localStorage.getItem('token');
     if (token) {
@@ -123,5 +149,21 @@ export class DashboardHomeComponent implements OnInit {
     } else {
       this.toastr.error('Error en la obtención del token', 'Error');
     }
+  }
+  ofertasRandom(){
+    this.ofertaService.allOfertas().subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          // las ofertas tienen que estar activas
+          data.ofertas.filter((oferta:any)=>oferta.estado == 1)
+          this.randomOfertas = data.ofertas.sort(() => Math.random() - Math.random()).slice(0, 3);
+        }else{
+          this.randomOfertas = [];
+        }
+      },
+      error: (error: any) => {
+        this.randomOfertas = [];
+      }
+    })
   }
 }

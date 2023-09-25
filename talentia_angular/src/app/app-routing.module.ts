@@ -63,7 +63,7 @@ const routes: Routes = [
   { path: 'editar-oferta/:id', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: EditOfertaComponent},
   { path: 'editar-ofertas', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:EditarOfertasComponent},
   { path: 'profile', component:ProfileComponent},
-  { path: 'ver-postulantes/:id',  component:VerPostulantesComponent},
+  { path: 'ver-postulantes/:id',  canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:VerPostulantesComponent},
   { path: 'ver-perfil/:id', component:VerPerfilComponent},
   { path: 'reset-password', component: ResetPasswordComponent},
   { path: 'verify-code', component: VerifyCodeComponent},

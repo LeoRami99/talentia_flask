@@ -12,7 +12,14 @@
   transform: translateY(-5px);
 }
 
-
+.descripcion{
+  /* ellipsis */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+}
 /* ... el resto de tu CSS ... */
 
 

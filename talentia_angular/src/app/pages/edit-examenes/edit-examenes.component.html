@@ -19,31 +19,26 @@
   </div>
 
   <!-- Display Exam Cards -->
-  <div class="row card-group-row d-flex justify-content-center" style="gap: 10px;">
-      <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenesFiltrados.length === 0; else hayExamenes">
+  <div class="row card-group-row" style="gap: 10px;" *ngIf="loading; else noCargados">
+      <div class="d-flex align-items-center justify-content-center container vh-100" *ngIf="examenes.length === 0; else hayExamenes">
           <h5 class="text-center text-muted">No hay examenes disponibles...</h5>
       </div>
       <ng-template #hayExamenes>
-          <div *ngFor="let examen of examenesFiltrados">
+          <div *ngFor="let examen of examenes | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
               <app-card-examen-edit [nombre]="examen.nombre" [descripcion]="examen.descripcion"
                                      [imagen]="examen.imagen" [id]="examen.id"></app-card-examen-edit>
           </div>
       </ng-template>
   </div>
+  <ng-template #noCargados>
+      <div class="d-flex justify-content-center align-items-center vh-100">
+          <div class="spinner-border text-primary" role="status"></div>
+          <span>Cargando...</span>
+      </div>
+  </ng-template>
 
   <!-- Pagination -->
-  <ul class="pagination mt-4">
-      <li class="page-item" [class.disabled]="currentPage === 1">
-          <button class="page-link" (click)="previousPage()" aria-label="Previous">
-              <span aria-hidden="true" class="material-icons">chevron_left</span>
-              <span>Prev</span>
-          </button>
-      </li>
-      <li class="pagination-next" [class.disabled]="currentPage === totalPages">
-          <button class="page-link" (click)="nextPage()" aria-label="Next">
-              <span>Next</span>
-              <span aria-hidden="true" class="material-icons">chevron_right</span>
-          </button>
-      </li>
-  </ul>
+  <div class="d-flex justify-content-center mt-5">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
 </div>

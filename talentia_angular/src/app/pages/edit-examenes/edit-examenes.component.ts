@@ -11,15 +11,17 @@ export class EditExamenesComponent  implements OnInit {
   constructor(private examen: ExamenesService, private toastr: ToastrService) {}
   examenes: any = [];
   currentPage: number = 1;
-  itemsPerPage: number = 12;
-  totalPages: number = 1; // Añade esta línea
+  itemsPerPage: number = 9;
+  // totalPages: number = 1; // Añade esta línea
   filtroNombre: string = '';
   examenesFiltrados: any[] = [];
+  loading = false;
 
   ngOnInit(): void {
     this.examen.getExamenes().subscribe(
       (res: any) => {
         this.examenes = res;
+        this.loading = true;
         this.filtrarExamen();
       },
       (err: any) => {
@@ -37,36 +39,36 @@ export class EditExamenesComponent  implements OnInit {
     }
 
     // Calcula el número total de páginas
-    this.totalPages = Math.ceil(filteredExams.length / this.itemsPerPage);
+    // this.totalPages = Math.ceil(filteredExams.length / this.itemsPerPage);
 
-    this.paginateResults(filteredExams);
+    // this.paginateResults(filteredExams);
   }
 
-  paginateResults(data: any[]) {
-    const startItem = (this.currentPage - 1) * this.itemsPerPage;
-    const endItem = this.currentPage * this.itemsPerPage;
+  // paginateResults(data: any[]) {
+  //   const startItem = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endItem = this.currentPage * this.itemsPerPage;
 
-    this.examenesFiltrados = data.slice(startItem, endItem);
-  }
+  //   this.examenesFiltrados = data.slice(startItem, endItem);
+  // }
 
-  onPageChange(page: number) {
-    if (page >= 1 && page <= this.totalPages) { // Asegurarse de que la página esté en el rango permitido
-      this.currentPage = page;
-      this.filtrarExamen();
-    }
-  }
+  // onPageChange(page: number) {
+  //   if (page >= 1 && page <= this.totalPages) { // Asegurarse de que la página esté en el rango permitido
+  //     this.currentPage = page;
+  //     this.filtrarExamen();
+  //   }
+  // }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-        this.onPageChange(this.currentPage - 1);
-    }
-}
+//   previousPage() {
+//     if (this.currentPage > 1) {
+//         this.onPageChange(this.currentPage - 1);
+//     }
+// }
 
-nextPage() {
-    if (this.currentPage < this.totalPages) {
-        this.onPageChange(this.currentPage + 1);
-    }
-}
+// nextPage() {
+//     if (this.currentPage < this.totalPages) {
+//         this.onPageChange(this.currentPage + 1);
+//     }
+// }
 
 
 }

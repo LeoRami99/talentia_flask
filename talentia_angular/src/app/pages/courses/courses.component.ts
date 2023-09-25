@@ -46,7 +46,7 @@ export class CoursesComponent implements OnInit {
     this.cursos.getCursos().subscribe((data: any) => {
       if (data) {
         this.loadingAllCursos= true;
-        this.lista_curso = data.cursos;
+        this.lista_curso = data.cursos.reverse();
       }else{
         this.loadingAllCursos = false;
       }

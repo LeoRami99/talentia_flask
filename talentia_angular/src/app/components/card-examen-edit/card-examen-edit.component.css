@@ -44,3 +44,13 @@
 .btn-light:hover {
   background-color: #e2e6ea;
 }
+
+.descripcion{
+  /* hacer ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+
+}

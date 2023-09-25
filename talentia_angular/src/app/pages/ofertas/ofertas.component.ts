@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { GetCourseService } from 'src/app/services/get-course/get-course.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 
 const jwt = new JwtHelperService();
@@ -21,10 +23,48 @@ export class OfertasComponent implements OnInit {
   filtroModalidad = '';
   loading = true;
   habilidades: any;
+  cursos_aleatorios : any;
+  customOptions:OwlOptions={
+    loop:true,
+    autoplay:true,
+    mouseDrag:true,
+    touchDrag:true,
+    pullDrag:true,
+    dots:false,
+    navSpeed:1000,
+    margin:10,
+    // navText:['<','>'],
+    responsive:{
+      0:{
+        items:1
+      },
+      400:{
+        items:2
+      },
+      740:{
+        items:2
+      },
+      940:{
+        items:2
+      }
+    },
+    // nav:true
+  }
 
-  constructor(private ofertas: OfertaEmpresaService) { }
-
+  constructor(private ofertas: OfertaEmpresaService, private cursosAleatorios: GetCourseService) { }
   ngOnInit(): void {
+    this.cursosAleatorios.getCoursesAleatorios().subscribe({
+      next: (data: any) => {
+        if (data) {
+          this.cursos_aleatorios = data.data;
+        }else{
+          this.cursos_aleatorios = [];
+        }
+      },
+      error: (error: any) => {
+        this.cursos_aleatorios = [];
+      }
+    })
     this.ofertas.getHabilidades().subscribe((data: any) => {
       if (data.status == 200) {
         this.habilidades = data.habilidades[0];
@@ -41,7 +81,7 @@ export class OfertasComponent implements OnInit {
 
     this.ofertas.allOfertas().subscribe(
       (data: any) => {
-        this.ofertasTodos = data.ofertas;
+        this.ofertasTodos = data.ofertas.reverse();
         this.filtrarOfertas();
         this.loading = false;
       },
@@ -64,6 +104,4 @@ export class OfertasComponent implements OnInit {
       return habilidadCoincide && modalidadCoincide;
     });
   }
-
-
 }

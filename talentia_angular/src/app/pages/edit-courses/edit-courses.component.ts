@@ -17,6 +17,7 @@ interface Curso {
   styleUrls: ['./edit-courses.component.css']
 })
 export class EditCoursesComponent {
+  loadCourses  = false;
   pageData: { [categoria: string]: number } = {}; // Objeto para almacenar las páginas actuales por categoría
   pageSize: number = 8;
   selectedCategory: string = '';
@@ -26,6 +27,7 @@ export class EditCoursesComponent {
 
   autocompleteSuggestions: string[] = [];
   loadingCursos: boolean = false;
+  cursoCargados : boolean = false;
 
   constructor(
     private cursos: CursosPreviewService,
@@ -43,7 +45,14 @@ export class EditCoursesComponent {
     });
 
     this.cursos.getCursos().subscribe((data: any) => {
-      this.lista_curso = data.cursos;
+      console.log(data);
+      if(data.cursos.length > 0){
+        this.loadCourses = true;
+        this.lista_curso = data.cursos;
+      }else{
+        this.lista_curso = [];
+        this.loadCourses = true;
+      }
     });
   }
 

@@ -17,6 +17,28 @@
 <div class="container">
 
   <div class="page-section">
+    <div *ngIf="randomOfertas.length > 0">
+      <div class="page-separator">
+        <div class="page-separator__text"><i class="fa-solid fa-briefcase mr-2"></i>Ofertas de trabajo
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <owl-carousel-o [options]="customOptionsOfertas">
+            <ng-template carouselSlide *ngFor="let ofertas of randomOfertas">
+              <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
+                [habilidades_oferta]="ofertas.habilidades" ubicacion="{{ofertas.ciudad}} / {{ofertas.pais}}"
+                modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}">
+              </app-oferta-card>
+            </ng-template>
+          </owl-carousel-o>
+          <!-- ver mas ofertas -->
+          <div class="d-flex justify-content-center">
+            <a href="/ofertas" >Ver más ofertas</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <div class="page-separator">
@@ -94,13 +116,15 @@
           <div class="js-mdk-carousel row d-block" id="carousel-courses1">
 
             <!-- Si está cargando, muestra "Cargando..." -->
-            <div *ngIf="!loading && cursos.length != 0" class="d-flex justify-content-center align-items-center flex-column">
+            <div *ngIf="!loading && cursos.length != 0"
+              class="d-flex justify-content-center align-items-center flex-column">
               <div class="spinner-border text-primary" role="status"></div>
               <span>Cargando...</span>
             </div>
 
             <!-- Si no está cargando y no hay cursos, muestra "Sin cursos" -->
-            <div *ngIf="!loading && cursos.length === 0" class="text-center d-flex flex-column justify-content-center align-items-center">
+            <div *ngIf="!loading && cursos.length === 0"
+              class="text-center d-flex flex-column justify-content-center align-items-center">
               <img src="assets/exploracion.png" alt="" class="img-fluid w-50">
               <a href="/courses" class="btn btn-light gradient-back">Explorar cursos</a>
             </div>
@@ -109,10 +133,7 @@
             <div *ngIf="loading && cursos.length > 0">
               <owl-carousel-o [options]="customOptions">
                 <ng-template carouselSlide *ngFor="let curso of cursos">
-                  <app-card-preview
-                    [id]="curso.id"
-                    [title]="curso.titulo"
-                    [imagen_card]="curso.imagen_card"
+                  <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card"
                     [dificultad]="curso.dificultad">
                   </app-card-preview>
                 </ng-template>
@@ -146,7 +167,8 @@
     <!-- agregar una descripción sonre la seccion -->
 
 
-    <div *ngIf="examenes.length == 0; " class="text-center d-flex flex-column justify-content-center align-items-center">
+    <div *ngIf="examenes.length == 0; "
+      class="text-center d-flex flex-column justify-content-center align-items-center">
       <a class="btn btn-light gradient-back" href="/examenes">Certificate</a>
       <img src="assets/exploracion.png" alt="" class="img-fluid w-50">
     </div>
@@ -154,8 +176,9 @@
       <div
         class="card-group-row__col col-md-4 col-sm-6 d-flex justify-content-center align-items-center animate__animated animate__fadeInRight"
         *ngFor="let examen of examenes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
-        <app-card-home-examen nombre={{examen.examen.nombre}} descripcion={{examen.examen.descripcion}} imagen={{examen.examen.imagen}}
-          id_examen={{examen.examen.id}} aprobado="{{examen.aprobado}}"></app-card-home-examen>
+        <app-card-home-examen nombre={{examen.examen.nombre}} descripcion={{examen.examen.descripcion}}
+          imagen={{examen.examen.imagen}} id_examen={{examen.examen.id}}
+          aprobado="{{examen.aprobado}}"></app-card-home-examen>
 
       </div>
 

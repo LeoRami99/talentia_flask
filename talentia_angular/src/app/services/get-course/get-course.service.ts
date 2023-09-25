@@ -16,4 +16,7 @@ export class GetCourseService {
   getCursosTomados(){
     return this.http.get(API_URL+'curso/get-cursos-tomados')
   }
+  getCoursesAleatorios(){
+    return this.http.get(API_URL+'curso/curso-aleatorio')
+  }
 }

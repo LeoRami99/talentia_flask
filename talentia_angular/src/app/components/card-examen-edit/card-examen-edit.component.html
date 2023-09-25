@@ -6,14 +6,14 @@
       </a>
       <div class="flex">
           <a class="card-title" href="">{{nombre}}</a>
-          <div class="card-subtitle text-50">{{descripcion}}</div>
+          <div class="card-subtitle text-50 descripcion">{{descripcion}}</div>
       </div>
   </div>
   <div class="card-footer">
       <div class="d-flex align-items-center">
           <div class="flex mr-2">
               <a [attr.href]="'/edit-examen/'+id" class="btn btn-light gradient-back w-100">
-                  Editar examen
+                <i class="fa-regular fa-pen-to-square mr-2"></i>Editar examen
                   <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
               </a>
           </div>

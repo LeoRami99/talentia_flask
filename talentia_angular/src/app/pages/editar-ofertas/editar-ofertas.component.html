@@ -1,44 +1,49 @@
 <!-- page section title -->
-<div class="page-separator">
-<div class="page-separator__text">Ofertas</div>
-</div>
+<div class="container">
 
-<div class="container p-4"> <!-- Ampliado el padding -->
-
-  <!-- Barra de búsqueda -->
-  <div class="mb-4"> <!-- Agregado margen inferior para separar de la grilla -->
-    <input type="text" class="form-control" placeholder="Buscar por nombre de oferta..." [(ngModel)]="input_busqueda" (keyup)="ofertasFiltroBusqueda()">
+  <div class="page-separator py-5">
+    <div class="page-separator__text">Ofertas</div>
   </div>
 
-  <!-- Contenido de ofertas o mensaje de carga -->
-  <div *ngIf="!loading; else Cargando">
+  <div class="container p-4"> <!-- Ampliado el padding -->
 
-    <!-- Grilla de cards de ofertas -->
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"> <!-- Añadido margen inferior para separar cards -->
-        <app-oferta-edit-card
-          nombre_oferta="{{ofertas.titulo}}"
-          descripcion_oferta="{{ofertas.descripcion}}"
-          id_oferta="{{ofertas.id}}">
-        </app-oferta-edit-card>
-      </div>
+    <!-- Barra de búsqueda -->
+    <div class="mb-4"> <!-- Agregado margen inferior para separar de la grilla -->
+      <input type="text" class="form-control" placeholder="Buscar por nombre de oferta..." [(ngModel)]="input_busqueda"
+        (keyup)="ofertasFiltroBusqueda()">
     </div>
 
-  </div>
+    <!-- Contenido de ofertas o mensaje de carga -->
+    <div *ngIf="!loading; else Cargando">
 
-  <!-- Template de carga -->
-  <ng-template #Cargando>
-    <div class="d-flex justify-content-center align-items-center vh-50"> <!-- Reducida la altura a la mitad -->
-      <div class="text-center"> <!-- Añadido para centrar el texto bajo el spinner -->
-        <div class="spinner-border text-primary mb-3" role="status"></div> <!-- Añadido margen inferior -->
-        <p>Cargando ofertas...</p> <!-- Cambiado a párrafo para ser más visible -->
+      <!-- Grilla de cards de ofertas -->
+      <div class="row">
+        <div class="col-md-4 mb-4"
+          *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+          <!-- Añadido margen inferior para separar cards -->
+          <app-oferta-edit-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
+            id_oferta="{{ofertas.id}}">
+          </app-oferta-edit-card>
+        </div>
       </div>
-    </div>
-  </ng-template>
 
-  <!-- Paginación -->
-  <div class="d-flex justify-content-center mt-4"> <!-- Centrado y añadido margen superior -->
-    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+
+    <!-- Template de carga -->
+    <ng-template #Cargando>
+      <div class="d-flex justify-content-center align-items-center vh-50"> <!-- Reducida la altura a la mitad -->
+        <div class="text-center"> <!-- Añadido para centrar el texto bajo el spinner -->
+          <div class="spinner-border text-primary mb-3" role="status"></div> <!-- Añadido margen inferior -->
+          <p>Cargando ofertas...</p> <!-- Cambiado a párrafo para ser más visible -->
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4"> <!-- Centrado y añadido margen superior -->
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+
   </div>
 
 </div>

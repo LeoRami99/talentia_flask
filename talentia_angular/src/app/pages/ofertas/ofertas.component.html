@@ -39,6 +39,29 @@
 
         </div>
       </div>
+      <div class="card">
+        <!-- curso recomendados -->
+        <div class="card-body">
+          <label for="busqueda" class="form-label">Cursos, que te pueden interesar</label>
+          <hr>
+          <div class="mb-3"> <!-- Margen inferior para agrupar -->
+            <div class="">
+              <!-- owl carousel -->
+              <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let curso of cursos_aleatorios">
+                  <app-card-preview
+                    [id]="curso.id"
+                    [title]="curso.titulo"
+                    [imagen_card]="curso.imagen_card"
+                    [dificultad]="curso.dificultad">
+                  </app-card-preview>
+                </ng-template>
+              </owl-carousel-o>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Contenido de ofertas -->

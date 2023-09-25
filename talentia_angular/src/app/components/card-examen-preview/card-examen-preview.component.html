@@ -6,13 +6,14 @@
     </a>
     <div class="flex">
       <a class="card-title" href="">{{nombre}}</a>
-      <div class="card-subtitle text-50">{{descripcion}}</div>
+      <div class="descripcion">{{descripcion}}</div>
     </div>
   </div>
   <div class="card-footer">
     <div class="d-flex align-items-center justify-content-center">
       <div class="flex mr-2">
         <a [attr.href]="'take-quiz/'+id_examen" class="w-100 btn btn-light btn-sm gradient-back">
+          <i class="fa-solid fa-check mr-2"></i>
           Tomar examen
           <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
         </a>
