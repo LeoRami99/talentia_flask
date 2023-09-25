@@ -473,6 +473,20 @@ async createCategoria(curso_id, categoria_id) {
 		}
 	}
 
+	async getCursoAleatorio(){
+		try {
+			let query= "SELECT * FROM cursos WHERE estado = 1 ORDER BY RAND() LIMIT 3";
+			let [res] = await db.query(query);
+			if (res){
+				return res;
+			}else{
+				return false;
+			}
+		} catch (error) {
+			throw error;
+		}
+	}
+
 
 }
 

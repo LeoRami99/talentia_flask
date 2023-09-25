@@ -484,6 +484,21 @@ router.get('/get-cursos-tomados', async (req, res)=>{
     }
 })
 
+// cursosAleatorios
+router.get('/curso-aleatorio', async (req, res) => {
+    try {
+        const curso = new CursoDB();
+        const respuesta = await curso.getCursoAleatorio();
+        if (respuesta) {
+            res.status(200).json({"message": "Curso obtenido correctamente", "status": 200, "data": respuesta});
+        }else{
+            res.status(400).json({"message": "Error al obtener el curso", "status": 400});
+        }
+    } catch (error) {
+        res.status(500).json({"message": "Error al obtener el curso", "status": 500});
+    }
+});
+
 
 
 
