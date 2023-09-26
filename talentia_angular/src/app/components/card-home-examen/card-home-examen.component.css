@@ -26,6 +26,9 @@
 .avatar {
   position: relative;
 }
+.avatar-img{
+  border-radius: 50%;
+}
 
 .overlay__content {
   position: absolute;

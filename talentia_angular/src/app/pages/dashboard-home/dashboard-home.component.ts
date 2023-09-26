@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, } from '@angular/core';
 import { ProgresoCursoService } from 'src/app/services/progreso-curso/progreso-curso.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';

@@ -24,7 +24,17 @@
   </div>
   <div class="bg-primary pb-lg-64pt py-32pt">
     <div class="container">
-      <nav class="course-nav">
+      <nav class="course-nav" style="
+        /* ocultar scrollbar */
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox */
+        overflow: -moz-scrollbars-none;
+
+        /* overflow */
+        gap: 50px;
+        overflow-x: scroll;
+
+      ">
         <div *ngFor="let lessons of allLessons">
           <div class="d-flex flex-column justify-content-center">
             <div *ngIf="this.id_curso == curso.id && this.id_seccion==lessons.id_seccion && this.id_subseccion==lessons.id_subseccion; else noColor">
@@ -65,28 +75,28 @@
       <div class="d-flex flex-wrap align-items-end mb-16pt">
         <h1 class="text-white flex m-0">{{lessons.titulo}}</h1>
         <!-- <p class="h1 text-white-50 font-weight-light m-0">50:13</p> -->
+        <div class="d-flex align-items-center justify-content-end">
+          <button class="btn btn-primary shadow border"
+                  *ngIf="!this.leccionFinalizada"
+                  (click)="updateProgreso(this.id_usuario, curso.id, lessons.id_seccion, lessons.id_subseccion)">
+            Finalizar lección
+          </button>
+          <button class="btn btn-primary shadow border"
+                  *ngIf="this.leccionFinalizada && this.haySiguienteLeccion"
+                  (click)="nextLesson(id_curso, lessons.id_seccion, lessons.id_subseccion)">
+            Siguiente lección
+          </button>
+          <button class="btn btn-primary shadow border"
+                  *ngIf="this.leccionFinalizada && !this.haySiguienteLeccion && !this.haySiguienteModulo"
+                  (click)="finCurso()">
+            Finalizar Curso
+          </button>
+        </div>
       </div>
 
       <p class="hero__lead measure-hero-lead text-white-50 mb-24pt">
         {{lessons.descripcion}}
       </p>
-      <div class="d-flex align-items-center justify-content-end">
-        <button class="btn btn-primary shadow border"
-                *ngIf="!this.leccionFinalizada"
-                (click)="updateProgreso(this.id_usuario, curso.id, lessons.id_seccion, lessons.id_subseccion)">
-          Finalizar lección
-        </button>
-        <button class="btn btn-primary shadow border"
-                *ngIf="this.leccionFinalizada && this.haySiguienteLeccion"
-                (click)="nextLesson(id_curso, lessons.id_seccion, lessons.id_subseccion)">
-          Siguiente lección
-        </button>
-        <button class="btn btn-primary shadow border"
-                *ngIf="this.leccionFinalizada && !this.haySiguienteLeccion && !this.haySiguienteModulo"
-                (click)="finCurso()">
-          Finalizar Curso
-        </button>
-      </div>
 
 
 

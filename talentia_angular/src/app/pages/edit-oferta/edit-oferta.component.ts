@@ -48,7 +48,12 @@ export class EditOfertaComponent implements OnInit {
   actualiarOferta() {
     this.ofertaSr.actualizarOferta(this.ofertaData).subscribe({
       next: (data: any) => {
-        console.log(data);
+        if (data.status == 200) {
+          this.toastr.success(data.message);
+          window.location.reload();
+        }else{
+          this.toastr.error("Error al actualizar la oferta");
+        }
         // this.router.navigate(['/inicio']);
       },
       error: (error: any) => {

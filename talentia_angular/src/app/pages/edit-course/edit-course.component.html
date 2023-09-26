@@ -1,212 +1,221 @@
 <div class="page-section border-bottom-2">
-    <div class="container">
-        <div *ngIf="!isLoading;">
-            <div class="row">
-                <!-- Contenido del template -->
-                <div class="col-md-8">
+  <div class="container">
+    <div *ngIf="!isLoading;">
+      <div class="row">
+        <!-- Contenido del template -->
+        <div class="col-md-8">
 
-                    <div class="page-separator">
-                        <div class="page-separator__text">Información del curso</div>
-                    </div>
+          <div class="page-separator">
+            <div class="page-separator__text">Información del curso</div>
+          </div>
 
-                    <label class="form-label">Titulo del curso</label>
-                    <div class="form-group mb-24pt">
-                        <input type="text" class="form-control form-control-lg" placeholder="Course title"
-                            [(ngModel)]="curso.titulo">
-                        <!-- <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small> -->
-                    </div>
+          <label class="form-label">Titulo del curso</label>
+          <div class="form-group mb-24pt">
+            <input type="text" class="form-control form-control-lg" placeholder="Course title"
+              [(ngModel)]="curso.titulo">
+            <!-- <small class="form-text text-muted">Please see our <a href="">course title guideline</a></small> -->
+          </div>
 
-                    <div class="form-group mb-32pt">
-                        <label class="form-label">Descripción</label>
-                        <textarea class="form-control" rows="3" placeholder="Course description"
-                            [(ngModel)]="curso.descripcion"></textarea>
-                    </div>
+          <div class="form-group mb-32pt">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" rows="3" placeholder="Course description"
+              [(ngModel)]="curso.descripcion"></textarea>
+          </div>
 
-                    <div class="page-separator">
-                        <div class="page-separator__text">Módulos</div>
-                    </div>
-                    <div class="d-flex justify-content-end mb-3">
-                      <button class="btn btn-success shadow" (click)="onAddSection()">Añadir Módulo</button>
-                    </div>
-                    <div class="card" *ngIf="addSection">
-                      <div class="card-body">
-                        <div class="mb-3">
-                          <label [attr.for]="'titulo'">Titulo del módulo</label>
-                          <input [attr.id]="'titulo'" type="text" class="form-control" placeholder="Titulo del módulo" [(ngModel)]="titulo_seccion">
-                        </div>
-                        <div class="mb-3">
-                          <label [attr.for]="'titulo'">Descripción del módulo</label>
-                          <textarea name="descripcion_modulo" id="" cols="30" rows="10" class="form-control" placeholder="Descripción del módulo" [(ngModel)]="descripcion_seccion"></textarea>
+          <div class="page-separator">
+            <div class="page-separator__text">Módulos</div>
+          </div>
+          <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-success shadow" (click)="onAddSection()"><i class="fa-solid fa-plus mr-2"></i>Añadir Módulo</button>
+          </div>
+          <div class="card" *ngIf="addSection">
+            <div class="card-body">
+              <div class="mb-3">
+                <label [attr.for]="'titulo'">Titulo del módulo</label>
+                <input [attr.id]="'titulo'" type="text" class="form-control" placeholder="Titulo del módulo"
+                  [(ngModel)]="titulo_seccion">
+              </div>
+              <div class="mb-3">
+                <label [attr.for]="'titulo'">Descripción del módulo</label>
+                <textarea name="descripcion_modulo" id="" cols="30" rows="10" class="form-control"
+                  placeholder="Descripción del módulo" [(ngModel)]="descripcion_seccion"></textarea>
 
-                        </div>
-                        <div class="d-flex">
-                          <button class="btn btn-danger" (click)="cancelAddSection()">Cancelar</button>
-                          <div class="flex-grow-1"></div>
-                          <button class="btn btn-success" (click)="onAddModeuleSubmit(curso.id)">Agregar</button>
-                        </div>
+              </div>
+              <div class="d-flex">
+                <button class="btn btn-danger" (click)="cancelAddSection()"><i class="fa-solid fa-x mr-2"></i>Cancelar</button>
+                <div class="flex-grow-1"></div>
+                <button class="btn btn-success" (click)="onAddModeuleSubmit(curso.id)"><i class="fa-solid fa-plus mr-2"></i>Agregar</button>
+              </div>
+            </div>
+          </div>
+          <div class="accordion accordion--boxed mb-24pt" id="parent"
+            *ngFor="let secciones of curso.secciones; let i = index">
+            <div class="accordion__item">
+              <a (click)="false" class="accordion__toggle">
+                <div class="w-100">
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-outline-primary" data-toggle="collapse" [attr.data-target]="'#course-toc-' + i"
+                      [attr.data-parent]="'#parent'" (click)="toggleAccordion(i)">
+                      {{ isAccordionOpen[i] ? '-' : '+' }}
+                    </button>
+                  </div>
+                  <div class="mb-3">
+                    <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
+                    <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control"
+                      [(ngModel)]="secciones.titulo">
+                  </div>
+                  <div class="mb-3">
+                    <label [attr.for]="'descripcion'+secciones.titulo">Descripción del
+                      módulo</label>
+                    <textarea [attr.id]="'descripcion'+secciones.titulo" type="text" class="form-control"
+                      [(ngModel)]="secciones.descripcion">
+                                      </textarea>
+                  </div>
+                  <div class="d-flex justify-content-end" style="gap: 20px;">
+                    <button class="btn btn-danger"
+                      (click)="eliminarSeccion(secciones.id, curso.id, secciones.subsecciones)"><i class="fa-solid fa-trash mr-2"></i>Eliminar Módulo</button>
+                    <button class="btn btn-success" (click)="onAddSubsection(i)"><i class="fa-solid fa-plus mr-2"></i>Agrega Lección</button>
+                  </div>
+                  <div class="w-100 p-3 mt-2 shadow border bg-light" *ngIf="addSubSection[i]">
+                    <h3 class="form-label">Agregar Lección </h3>
+                    <div class="mb-3">
+                      <label [attr.for]="'sub'">Titulo de lección</label>
+                      <input type="text" class="form-control" [attr.id]="'sub'" [(ngModel)]="titulo_leccion">
+                    </div>
+                    <div class="mb-3">
+                      <label [attr.for]="'desc'">URL de video</label>
+                      <input type="text" class="form-control" [attr.id]="'desc'" [(ngModel)]="url_contenido">
+                    </div>
+                    <div class="mb-3">
+                      <label [attr.for]="'desc'">Descripción
+                        de lección</label>
+                      <textarea type="text" class="form-control" [attr.id]="'desc'"
+                        [(ngModel)]="descripcion_leccion"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
+
+                    </div>
+                    <div class="d-flex flex-grow-1">
+                      <button class="btn btn-danger" (click)="cancelAddSubsection(i)"><i class="fa-solid fa-x mr-2"></i>Cancelar</button>
+                      <div class="flex-grow-1"></div>
+                      <!-- <h1>{{secciones.id}}</h1> -->
+                      <button class="btn btn-success" (click)="onAddSubsectionSubmit(secciones.id)"><i class="fa-solid fa-plus mr-2"></i>Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="accordion__menu collapse" [attr.id]="'course-toc-' + i"
+                *ngFor="let subsecciones of secciones.subsecciones; let indice = index">
+                <hr class="mx-2">
+                <div class="accordion__menu-link">
+                  <div class="w-100 card">
+                    <div class="card-body">
+                      <div class="page-separator">
+                        <div class="page-separator__text">lección {{indice+1}}</div>
+                      </div>
+                      <div class="mb-3">
+                        <label [attr.for]="'sub'+subsecciones.titulo">Titulo de lección</label>
+                        <input type="text" class="form-control" [attr.id]="'sub'+subsecciones.titulo"
+                          [(ngModel)]="subsecciones.titulo">
+                      </div>
+                      <div class="mb-3">
+                        <label [attr.for]="'desc'+subsecciones.titulo">URL de video</label>
+                        <input type="text" class="form-control" [attr.id]="'desc'+subsecciones.titulo"
+                          [(ngModel)]="subsecciones.contenido">
+
+                      </div>
+                      <div class="mb-3">
+                        <label [attr.for]="'desc'+subsecciones.titulo">Descripción
+                          de lección</label>
+                        <textarea type="text" class="form-control" [attr.id]="'desc'+subsecciones.titulo"
+                          [(ngModel)]="subsecciones.descripcion">
+                                            </textarea>
+                      </div>
+                      <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
+                        <button class="btn btn-danger"
+                          (click)="eliminarSubseccion(subsecciones.id_subseccion, subsecciones.id_seccion)"><i class="fa-solid fa-trash mr-2"></i>Eliminar
+                          Lección</button>
+
                       </div>
                     </div>
-                    <div class="accordion js-accordion accordion--boxed mb-24pt" id="parent"
-                        *ngFor="let secciones of curso.secciones; let i = index">
-                        <div class="accordion__item">
+                  </div>
 
-                            <a (click)="false" class="accordion__toggle">
-                                <div class="w-100">
-                                  <div class="d-flex justify-content-end">
-                                    <button class="btn btn-info" data-toggle="collapse" [attr.data-target]="'#course-toc-' + i" [attr.data-parent]="'#parent'"
-                                    (click)="toggleAccordion(i)">
-                                    {{ isAccordionOpen[i] ? '-' : '+' }}
-                                  </button>
-                                </div>
-                                    <div class="mb-3">
-                                      <label [attr.for]="'titulo'+secciones.titulo">Titulo del módulo</label>
-                                      <input [attr.id]="'titulo'+secciones.titulo" type="text" class="form-control"
-                                      [(ngModel)]="secciones.titulo">
-                                    </div>
-                                    <div class="mb-3">
-                                      <label [attr.for]="'descripcion'+secciones.titulo">Descripción del
-                                        módulo</label>
-                                        <textarea [attr.id]="'descripcion'+secciones.titulo" type="text"
-                                        class="form-control" [(ngModel)]="secciones.descripcion">
-                                      </textarea>
-                                    </div>
-                                    <div class="d-flex justify-content-end" style="gap: 20px;">
-                                      <button class="btn btn-danger" (click)="eliminarSeccion(secciones.id, curso.id, secciones.subsecciones)">Eliminar Módulo</button>
-                                      <button class="btn btn-success" (click)="onAddSubsection(i)">Agrega Lección</button>
-                                    </div>
-                                    <div class="w-100 p-3 mt-2 shadow border bg-light" *ngIf="addSubSection[i]">
-                                      <h3 class="form-label">Agregar Lección </h3>
-                                      <div class="mb-3">
-                                        <label [attr.for]="'sub'">Titulo de lección</label>
-                                        <input type="text" class="form-control" [attr.id]="'sub'"  [(ngModel)]="titulo_leccion">
-                                      </div>
-                                      <div class="mb-3">
-                                        <label [attr.for]="'desc'">URL de video</label>
-                                        <input type="text" class="form-control" [attr.id]="'desc'" [(ngModel)]="url_contenido">
-                                      </div>
-                                      <div class="mb-3">
-                                        <label [attr.for]="'desc'">Descripción
-                                          de lección</label>
-                                        <textarea type="text" class="form-control" [attr.id]="'desc'" [(ngModel)]="descripcion_leccion"></textarea>
-                                      </div>
-                                      <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
+                </div>
 
-                                      </div>
-                                      <div class="d-flex flex-grow-1">
-                                        <button class="btn btn-danger" (click)="cancelAddSubsection(i)">Cancelar</button>
-                                        <div class="flex-grow-1"></div>
-                                        <!-- <h1>{{secciones.id}}</h1> -->
-                                        <button class="btn btn-success" (click)="onAddSubsectionSubmit(secciones.id)">Agregar</button>
-                                      </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="accordion__menu"  [attr.id]="'course-toc-' + i"
-                                *ngFor="let subsecciones of secciones.subsecciones">
-                                <hr class="mx-2">
-                                <div class="accordion__menu-link">
-                                    <div class="w-100">
-                                        <div class="mb-3">
-                                            <label [attr.for]="'sub'+subsecciones.titulo">Titulo de lección</label>
-                                            <input type="text" class="form-control"
-                                                [attr.id]="'sub'+subsecciones.titulo" [(ngModel)]="subsecciones.titulo">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label [attr.for]="'desc'+subsecciones.titulo">URL de video</label>
-                                            <input type="text" class="form-control"
-                                                [attr.id]="'desc'+subsecciones.titulo"
-                                                [(ngModel)]="subsecciones.contenido">
+              </div>
+            </div>
+          </div>
 
-                                        </div>
-                                        <div class="mb-3">
-                                          <label [attr.for]="'desc'+subsecciones.titulo">Descripción
-                                              de lección</label>
-                                          <textarea type="text" class="form-control"
-                                              [attr.id]="'desc'+subsecciones.titulo"
-                                              [(ngModel)]="subsecciones.descripcion">
-                                          </textarea>
-                                      </div>
-                                      <div class="d-flex justify-content-end align-items-center" style="gap:20px;">
-                                        <button class="btn btn-danger" (click)="eliminarSubseccion(subsecciones.id_subseccion, subsecciones.id_seccion)">Eliminar Lección</button>
-
-                                      </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <a href="#"
+          <!-- <a href="#"
                  class="btn btn-outline-secondary mb-24pt mb-sm-0">Add Section</a> -->
 
-                </div>
-                <div class="col-md-4">
-
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <a (click)="saveChanges()" class="btn btn-accent">Guardar cambios</a>
-                        </div>
-
-                        <div class="list-group list-group-flush text-center">
-
-                            <div class="list-group-item">
-                                <label class="form-label">Estado del curso</label>
-                                <span *ngIf="curso.estado==1">
-                                    <div class="alert alert-success shadow">Activo</div>
-                                </span>
-                                <span *ngIf="curso.estado==0">
-                                    <div class="alert alert-danger shadow">No Activo</div>
-                                </span>
-                            </div>
-                            <div class="list-group-item">
-                                <!-- <button class="btn btn-danger w-100" (click)="deleteCurso()"><strong>Eliminar Curso</strong></button> -->
-                            </div>
-                            <div class="list-group-item">
-                              <div *ngIf="curso.estado==1">
-                                <button class="btn btn-danger w-100" (click)="updateEstadoCurso()"><strong>Desactivar curso</strong></button>
-                              </div>
-                              <div *ngIf="curso.estado==0">
-                                <button class="btn btn-success w-100" (click)="updateEstadoCurso()"><strong>Activar curso</strong></button>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="page-separator">
-                        <div class="page-separator__text">Video</div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <label class="form-label">URL</label>
-                            <input type="text" class="form-control" placeholder="Enter Video URL"
-                                [(ngModel)]="curso.trailer">
-                            <small class="form-text text-muted">Enter a valid video URL.</small>
-                        </div>
-                    </div>
-
-                    <div class="page-separator">
-                        <div class="page-separator__text">Opciones</div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                          <div class="form-group">
-                            <label class="form-label">Categoría</label>
-                            <select name="category" class="form-control custom-select" [(ngModel)]="categoria_id">
-                                <option *ngFor="let category of categorias" [value]="category.id">
-                                    {{category.nombre}}
-                                </option>
-                            </select>
-                            <small class="form-text text-muted">Seleccione una categoría.</small>
-                        </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
+        <div class="col-md-4">
+
+          <div class="card">
+            <div class="card-header text-center">
+              <a (click)="saveChanges()" class="btn btn-accent">Guardar cambios</a>
+            </div>
+
+            <div class="list-group list-group-flush text-center">
+
+              <div class="list-group-item">
+                <label class="form-label">Estado del curso</label>
+                <span *ngIf="curso.estado==1">
+                  <div class="alert alert-success shadow">Activo</div>
+                </span>
+                <span *ngIf="curso.estado==0">
+                  <div class="alert alert-danger shadow">No Activo</div>
+                </span>
+              </div>
+              <div class="list-group-item">
+                <!-- <button class="btn btn-danger w-100" (click)="deleteCurso()"><strong>Eliminar Curso</strong></button> -->
+              </div>
+              <div class="list-group-item">
+                <div *ngIf="curso.estado==1">
+                  <button class="btn btn-danger w-100" (click)="updateEstadoCurso()"><strong>Desactivar
+                      curso</strong></button>
+                </div>
+                <div *ngIf="curso.estado==0">
+                  <button class="btn btn-success w-100" (click)="updateEstadoCurso()"><strong>Activar
+                      curso</strong></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-separator">
+            <div class="page-separator__text">Video</div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <label class="form-label">URL</label>
+              <input type="text" class="form-control" placeholder="Enter Video URL" [(ngModel)]="curso.trailer">
+              <small class="form-text text-muted">Enter a valid video URL.</small>
+            </div>
+          </div>
+
+          <div class="page-separator">
+            <div class="page-separator__text">Opciones</div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Categoría</label>
+                <select name="category" class="form-control custom-select" [(ngModel)]="categoria_id">
+                  <option *ngFor="let category of categorias" [value]="category.id">
+                    {{category.nombre}}
+                  </option>
+                </select>
+                <small class="form-text text-muted">Seleccione una categoría.</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+  </div>
 </div>

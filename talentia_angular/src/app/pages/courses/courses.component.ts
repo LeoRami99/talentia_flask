@@ -27,6 +27,7 @@ export class CoursesComponent implements OnInit {
   autocompleteSuggestions: string[] = [];
   loadingCursos: boolean = false;
   loadingAllCursos: boolean = false;
+  cursoFilter: boolean = false;
 
   constructor(
     private cursos: CursosPreviewService,
@@ -47,6 +48,8 @@ export class CoursesComponent implements OnInit {
       if (data) {
         this.loadingAllCursos= true;
         this.lista_curso = data.cursos.reverse();
+        this.cursoFilter = false;
+
       }else{
         this.loadingAllCursos = false;
       }
@@ -61,6 +64,9 @@ export class CoursesComponent implements OnInit {
 
   get filteredCursos() {
     if (this.selectedCategory === '') {
+      if (this.lista_curso.length === 0) {
+        this.cursoFilter = true;
+      }
       return this.lista_curso.filter((curso) =>
         curso.titulo.toLowerCase().includes(this.filterText.toLowerCase()) && curso.estado === 1
       );
@@ -77,7 +83,8 @@ export class CoursesComponent implements OnInit {
   filteredCursosByCategoria(categoria: string) {
     const cursosFiltrados = this.filteredCursos.filter(
       (curso) => curso.categoria === categoria && curso.estado === 1
-    );
+      // si no hay coincidencia, no se muestra el curso y cambiar el estado para que se muestre un componente
+      );
     return cursosFiltrados;
   }
 

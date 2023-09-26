@@ -10,6 +10,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Inject } from '@angular/core';
 import { CrearProgresoService } from 'src/app/services/crear-progreos/crear-progreso.service';
 import { CursosPreviewService } from '../../services/cursos-preview/cursos-preview.service'
+import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 interface Curso {
   title: string;
@@ -43,11 +45,38 @@ const jwtHelper = new JwtHelperService();
 export class ViewCourseComponent implements OnInit {
   curso: Curso | undefined;
   id_curso: string = '';
+  id_usuario:any;
   dataUsuario: any;
   buttonOculto : boolean = true
   cursos: any;
   verificiarProgreso: any;
   loading: boolean = true;
+  randomOfertas: any[] = [];
+  customOptionsOfertas:OwlOptions={
+    loop:true,
+    autoplay:true,
+    mouseDrag:true,
+    touchDrag:true,
+    pullDrag:true,
+    dots:false,
+    navSpeed:1000,
+    margin:10,
+    navText:['<','>'],
+    responsive:{
+      0:{
+        items:1
+      },
+      400:{
+        items:1
+      },
+      740:{
+        items:1
+      },
+      940:{
+        items:1
+      }
+    },
+  }
   constructor(
     private routeActive: ActivatedRoute,
     private router: Router,
@@ -56,11 +85,15 @@ export class ViewCourseComponent implements OnInit {
     private toastr: ToastrService,
     private userData: UserDataService,
     private crearProgreso: CrearProgresoService,
-    private cursosPreview: CursosPreviewService
-
+    private cursosPreview: CursosPreviewService,
+    private ofertaService: OfertaEmpresaService
   ) {}
+
+
+
   public ruta: string=API_URL+'imagenes/';
   ngOnInit(): void {
+    this.ofertasRandom();
     this.cursosPreview.getCursos().subscribe((res:any)=>{
       this.cursos=res.cursos;
       // console.log(this.cursos);
@@ -72,6 +105,7 @@ export class ViewCourseComponent implements OnInit {
     this.userData.dataUsuario(tokenDecoded.id).subscribe(
       (res: any) => {
         this.dataUsuario = res.data;
+        this.id_usuario = res.dataUsuario.id;
         this.crearProgreso.verificarProgreso(this.id_curso, this.dataUsuario.id).subscribe(
           (res:any)=>{
             this.verificiarProgreso=res.data;
@@ -154,6 +188,23 @@ export class ViewCourseComponent implements OnInit {
         // this.router.navigate(['/courses']);
       }
     );
+  }
+  ofertasRandom(){
+    this.ofertaService.allOfertas().subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          console.log(data.ofertas);
+          // las ofertas tienen que estar activas
+          data.ofertas.filter((oferta:any)=>oferta.estado == 1)
+          this.randomOfertas = data.ofertas.sort(() => Math.random() - Math.random()).slice(0, 3);
+        }else{
+          this.randomOfertas = [];
+        }
+      },
+      error: (error: any) => {
+        this.randomOfertas = [];
+      }
+    })
   }
 
 }

@@ -70,9 +70,9 @@ export class EditCourseComponent implements OnInit {
           if (res.status === 200) {
             // console.log(res.curso);
             this.curso = res.curso;
-            console.log(this.curso);
+            // console.log(this.curso);
             this.categoria_id = this.curso.categoria_id;
-            console.log(this.categoria_id);
+            // console.log(this.categoria_id);
             this.isLoading = false;
           } else {
             confirm('Ocurrió un error al obtener el curso');

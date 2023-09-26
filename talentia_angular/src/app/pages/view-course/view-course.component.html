@@ -184,30 +184,29 @@
     Sección de recomendaciones de curso
   </h1> -->
   <div class="container">
-    <div class="page-heading">
-      <h4>Otros cursos que te pueden interesar</h4>
-      <a href="/courses" class="ml-sm-auto text-underline">Ver más cursos</a>
-    </div>
+    <div *ngIf="randomOfertas.length > 0">
 
-    <!-- <div class="position-relative carousel-card">
-      <div class="js-mdk-carousel row d-block" id="carousel-courses1">
-
-        <a class="carousel-control-next js-mdk-carousel-control mt-n24pt" href="#carousel-courses1" role="button"
-          data-slide="next">
-          <span class="carousel-control-icon material-icons" aria-hidden="true">keyboard_arrow_right</span>
-          <span class="sr-only">Next</span>
-        </a>
-
-        <div class="mdk-carousel__content" *ngIf="cursos.length >= 4">
-          <div class="col-12 col-sm-6 col-md-4 col-xl-3" *ngFor="let curso of cursos; let index">
-            <div>
-              <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card" [dificultad]="curso.dificultad"></app-card-preview>
-            </div>
+        <div class="page-separator">
+          <div class="page-separator__text"><i class="fa-solid fa-briefcase mr-2"></i>Ofertas de trabajo
           </div>
         </div>
 
+      <div class="row">
+        <div class="col">
+          <owl-carousel-o [options]="customOptionsOfertas">
+            <ng-template carouselSlide *ngFor="let ofertas of randomOfertas">
+              <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
+                [habilidades_oferta]="ofertas.habilidades" ubicacion="{{ofertas.ciudad}} / {{ofertas.pais}}"
+                modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}">
+              </app-oferta-card>
+            </ng-template>
+          </owl-carousel-o>
+          <!-- ver mas ofertas -->
+          <div class="d-flex justify-content-center">
+            <a href="/ofertas" >Ver más ofertas</a>
+          </div>
+        </div>
       </div>
-    </div> -->
-
+    </div>
   </div>
 </div>
