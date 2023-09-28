@@ -7,7 +7,7 @@
 <div class="page-section fondo-header border-bottom-white py-5">
   <div class="container text-center">
     <img src="assets/images/illustration/teacher/128/white.svg" width="104" alt="student" class="mb-3">
-    <h1 class="text-white display-4">¡Bienvenido!</h1>
+    <h1 class="text-white display-4">¡Bienvenido/a!</h1>
     <h2 class="text-white h3">{{nombre_usuario}}</h2>
   </div>
 </div>
@@ -25,58 +25,53 @@
     </div>
     <div class="row">
       <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center mb-lg-0">
-          <div class="card-body">
-            <img src="https://img.icons8.com/?size=512&id=Ut1mhCuyFDJQ&format=png" alt="" class="img-fluid"
-              style="width: 80px;">
-            <h4 class="h2 mb-0">{{countUsers}}</h4>
-            <div>Usuarios registrados</div>
+        <div class="card bg-fondo icon-card">
+          <img src="https://img.icons8.com/stickers/100/conference-call.png" alt="" class="icon-bg">
+          <div class="icon-card-content">
+            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Usuarios registrados</h6>
+            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{countUsers}}</h1>
           </div>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center mb-lg-0">
-          <div class="card-body">
-            <img src="https://img.icons8.com/?size=512&id=AefXIkx4A693&format=png" alt="" class="img-fluid"
-              style="width: 80px;">
-            <h4 class="h2 mb-0">{{countCursosActivos}}</h4>
-            <div>Cursos Activos</div>
+        <div class="card bg-fondo icon-card">
+          <img src="https://img.icons8.com/stickers/100/online-group-studying.png" alt="" class="icon-bg">
+          <div class="icon-card-content">
+            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Cursos <br> Activos</h6>
+            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{countCursosActivos}}</h1>
           </div>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center mb-lg-0">
-          <div class="card-body">
-            <img src="https://img.icons8.com/?size=512&id=faXHmzlIKEVi&format=png" alt="" class="img-fluid"
-              style="width: 80px;">
-            <h4 class="h2 mb-0">{{countCursosInactivos}}</h4>
-            <div>Cursos Inactivos</div>
+        <div class="card bg-fondo icon-card">
+          <img src="https://img.icons8.com/stickers/100/not-showing-video-frames.png" alt="" class="icon-bg">
+          <div class="icon-card-content">
+            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Cursos <br> Inactivos</h6>
+            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{countCursosInactivos}}</h1>
           </div>
         </div>
       </div>
       <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center mb-lg-0">
-          <div class="card-body">
-            <img src="https://img.icons8.com/?size=512&id=f3o1AGoVZ2Un&format=png" alt="" class="img-fluid"
-              style="width: 80px;">
-            <h4 class="h2 mb-0">{{countExamenActivos}}</h4>
-            <div>Examenes activos</div>
+        <div class="card bg-fondo icon-card">
+          <img src="https://img.icons8.com/stickers/100/test-passed.png" alt="" class="icon-bg">
+          <div class="icon-card-content">
+            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Examenes <br> activos</h6>
+            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{countExamenActivos}}</h1>
           </div>
         </div>
       </div>
     </div>
     <br>
     <div class="row">
-
       <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center mb-lg-0">
-          <div class="card-body">
-            <img src="https://img.icons8.com/?size=512&id=GFZarxtFIkhx&format=png" alt="" class="img-fluid"
-              style="width: 80px;">
-            <h4 class="h2 mb-0">{{countExamenInactivos}}</h4>
-            <div>Examenes inactivos</div>
+        <div class="card bg-fondo icon-card">
+          <img src="https://img.icons8.com/stickers/100/test-failed.png" alt="" class="icon-bg">
+          <div class="icon-card-content">
+            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Examenes <br> Inactivos</h6>
+            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{countExamenInactivos}}</h1>
           </div>
         </div>
+
       </div>
       <!-- <div class="col-lg-4">
           <div class="card text-center mb-lg-0">
@@ -89,7 +84,7 @@
     </div>
 
     <div class="text-center mt-5">
-      <h4 class="mb-3">Usuarios Certificados respecto a Usuarios que aprobaron un certificado</h4>
+      <h4 class="mb-3">Certificados Aprobados vs. Usuarios Certificados</h4>
       <div class="page-separator mx-auto"></div>
       <div class="card card-body shadow-lg p-5">
         <div id="canvaContainer">

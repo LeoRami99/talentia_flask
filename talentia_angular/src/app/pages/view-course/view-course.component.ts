@@ -105,11 +105,10 @@ export class ViewCourseComponent implements OnInit {
     this.userData.dataUsuario(tokenDecoded.id).subscribe(
       (res: any) => {
         this.dataUsuario = res.data;
-        this.id_usuario = res.dataUsuario.id;
+        this.id_usuario = this.dataUsuario.id;
         this.crearProgreso.verificarProgreso(this.id_curso, this.dataUsuario.id).subscribe(
           (res:any)=>{
             this.verificiarProgreso=res.data;
-            console.log(this.verificiarProgreso);
           }
         );
       },
@@ -193,7 +192,6 @@ export class ViewCourseComponent implements OnInit {
     this.ofertaService.allOfertas().subscribe({
       next: (data: any) => {
         if (data.status == 200) {
-          console.log(data.ofertas);
           // las ofertas tienen que estar activas
           data.ofertas.filter((oferta:any)=>oferta.estado == 1)
           this.randomOfertas = data.ofertas.sort(() => Math.random() - Math.random()).slice(0, 3);

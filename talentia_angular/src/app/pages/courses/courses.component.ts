@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CursosPreviewService } from '../../services/cursos-preview/cursos-preview.service';
 import { CategoriasService } from '../../services/categorias/categorias.service';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+const jwt = new JwtHelperService();
 interface Curso {
   id: number;
   titulo: string;
@@ -28,7 +29,7 @@ export class CoursesComponent implements OnInit {
   loadingCursos: boolean = false;
   loadingAllCursos: boolean = false;
   cursoFilter: boolean = false;
-
+  id_usuario: any;
   constructor(
     private cursos: CursosPreviewService,
     private categoria: CategoriasService
@@ -39,22 +40,28 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.lista_curso);
+    // obtener el id del token.
+
     this.categoria.getCategorias().subscribe((data: any) => {
       this.categorias = data.categorias;
       this.initPageData(); // Inicializar las páginas actuales para cada categoría
     });
+    this.id_usuario = jwt.decodeToken(localStorage.getItem('token') || '')['id'];
 
     this.cursos.getCursos().subscribe((data: any) => {
       if (data) {
         this.loadingAllCursos= true;
-        this.lista_curso = data.cursos.reverse();
-        this.cursoFilter = false;
+        this.lista_curso = data.cursos;
 
+        this.cursoFilter = false;
+        // this.loadingAllCursos = false;
       }else{
         this.loadingAllCursos = false;
       }
     });
   }
+
 
   initPageData() {
     for (let categoria of this.categorias) {

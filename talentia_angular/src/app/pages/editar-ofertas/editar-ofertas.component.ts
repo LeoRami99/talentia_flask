@@ -20,8 +20,34 @@ export class EditarOfertasComponent implements OnInit {
   loading = true;
 
   constructor(private ofertas: OfertaEmpresaService, private router: Router) {}
-
+  dtOptions: DataTables.Settings = {};
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      language: {
+        processing: "Procesando...",
+        search: "Buscar:",
+        lengthMenu: "Mostrar _MENU_ elementos",
+        info: "Mostrando desde _START_ al _END_ de _TOTAL_ elementos",
+        infoEmpty: "Mostrando ningún elemento.",
+        infoFiltered: "(filtrado _MAX_ elementos total)",
+        infoPostFix: "",
+        loadingRecords: "Cargando registros...",
+        zeroRecords: "Ningún elemento encontrado",
+        emptyTable: "No hay datos disponibles en la tabla",
+        paginate: {
+          first: "Primero",
+          previous: "Anterior",
+          next: "Siguiente",
+          last: "Último"
+        },
+        aria: {
+          sortAscending: ": Activar para ordenar la columna de manera ascendente",
+          sortDescending: ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    };
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwt.decodeToken(token);
@@ -51,5 +77,12 @@ export class EditarOfertasComponent implements OnInit {
 
   ofertasFiltroBusqueda() {
     this.ofertasFiltradas = this.ofertas_por_empresa.filter((oferta: any) => oferta.titulo.toLowerCase().includes(this.input_busqueda.toLowerCase()));
+  }
+  // ver postulantes
+  verPostulantes(id: any) {
+    this.router.navigate(['/ver-postulantes', id]);
+  }
+  editarOferta(id: any) {
+    this.router.navigate(['/editar-oferta', id]);
   }
 }

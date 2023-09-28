@@ -2,7 +2,7 @@
 
 <div class="custom-card-group-row__col mb-3 animate__animated animate__fadeInRight">
   <div class="custom-card">
-    <a [attr.href]="['/view-course/'+id]" class="custom-card-image">
+    <a (click)="false" class="custom-card-image">
       <img [src]="url_images+imagen_card" alt="course">
       <span class="custom-overlay">
         <span class="custom-overlay-action">
@@ -14,15 +14,37 @@
 
     <div class="custom-card-content">
       <div class="custom-card-body">
-        <div class="custom-card-details">
-          <a [attr.href]="['/view-course/'+id]" class="custom-card-title-link">{{title}}</a>
+        <div class="custom-card-details d-flex align-items-center">
+          <a (click)="false" class="custom-card-title-link">{{title}}</a>
+          <div class="flex-grow-1"></div>
+          <button *ngIf="!verificiarProgreso && buttonOculto" class="btn btn-white" (click)="crearProgresoCurso(id_usuario, id)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </div>
         <div class="custom-card-rating">
           <small>{{dificultad}}</small>
           <br>
-          <a [attr.href]="['/view-course/'+id]" class="">Ver Curso</a>
+          <br>
+          <ng-container *ngIf="!verificiarProgreso; else continueLesson">
+            <div class="d-flex justify-content-center flex-column" style="gap: 5px;">
+              <a [routerLink]="['/view-course', id]" class="btn btn-light">
+                <i class="fa-solid fa-info" style="margin-right: 5px;"></i> Info curso
+              </a>
+              <button *ngIf="buttonOculto" class="btn btn-light" (click)="crearProgresoCurso(id_usuario, id)">
+                <i class="fa-solid fa-plus" style="margin-right: 5px;"></i> Agregar
+              </button>
+            </div>
+          </ng-container>
+          <ng-template #continueLesson >
+            <div class="d-flex justify-content-center align-items-center">
+              <a [routerLink]="['/take-lesson', id]" class="btn btn-primary">
+                <i class="fa-solid fa-play mr-2"></i>Continuar
+              </a>
+            </div>
+            </ng-template>
         </div>
       </div>
     </div>
+
   </div>
 </div>

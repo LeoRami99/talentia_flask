@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ProgresoCursoService } from 'src/app/services/progreso-curso/progreso-curso.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,8 @@ import { ExamenesService } from 'src/app/services/examenes/examenes.service';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { register } from 'swiper/element/bundle';
+register();
 
 const helper = new JwtHelperService();
 @Component({
@@ -18,7 +20,7 @@ export class DashboardHomeComponent implements OnInit {
   randomOfertas: any = []
   currentPage: number = 1;
   itemsPerPage: number = 9;
-  pageSize: number = 9;
+  pageSize: number = 6;
   cursos: any = [];
   examenes: any = [];
   examenes_aprobados: any = [];
@@ -27,7 +29,7 @@ export class DashboardHomeComponent implements OnInit {
   contador_examenes = 0;
   contador_cursos = 0;
   contador_ofertas = 0;
-  id_usuario: any;
+  id_usuario: string='';
   loading = false;
   customOptions:OwlOptions={
     loop:true,
@@ -35,7 +37,7 @@ export class DashboardHomeComponent implements OnInit {
     mouseDrag:true,
     touchDrag:true,
     pullDrag:true,
-    dots:false,
+    dots:true,
     navSpeed:1000,
     margin:10,
     navText:['<','>'],
@@ -47,10 +49,10 @@ export class DashboardHomeComponent implements OnInit {
         items:2
       },
       740:{
-        items:2
+        items:3
       },
       940:{
-        items:2
+        items:5
       }
     },
     nav:true
@@ -61,10 +63,10 @@ export class DashboardHomeComponent implements OnInit {
     mouseDrag:true,
     touchDrag:true,
     pullDrag:true,
-    dots:false,
+    dots:true,
     navSpeed:1000,
     margin:10,
-    navText:['<','>'],
+    // navText:['<','>'],
     responsive:{
       0:{
         items:1

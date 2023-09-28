@@ -1,23 +1,15 @@
-<div class="card custom-card" style="width: 18rem;">
-  <div class="card-body d-flex align-items-center">
-    <a [attr.href]="'take-quiz/'+id_examen" class="avatar overlay overlay--primary avatar-4by3 mr-12pt">
-      <img [attr.src]="url_images+imagen" alt="Angular Routing In-Depth" class="avatar-img rounded">
-      <span class="overlay__content"></span>
-    </a>
-    <div class="flex">
-      <a class="card-title" href="">{{nombre}}</a>
-      <div class="descripcion">{{descripcion}}</div>
-    </div>
+<div class="card new-card" style="width: 18rem;">
+  <a [attr.href]="'take-quiz/'+id_examen" class="avatar-4by3">
+      <img [attr.src]="url_images+imagen" alt="Angular Routing In-Depth">
+  </a>
+  <div class="card-body">
+      <a class="new-card-title" href="">{{nombre}}</a>
+      <div class="new-desc">{{descripcion}}</div>
   </div>
-  <div class="card-footer">
-    <div class="d-flex align-items-center justify-content-center">
-      <div class="flex mr-2">
-        <a [attr.href]="'take-quiz/'+id_examen" class="w-100 btn btn-light btn-sm gradient-back">
+  <div class="card-footer d-flex justify-content-center">
+      <a [attr.href]="'take-quiz/'+id_examen" class="btn btn-light btn-sm gradient-back w-75">
           <i class="fa-solid fa-check mr-2"></i>
           Tomar examen
-          <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
-        </a>
-      </div>
-    </div>
+      </a>
   </div>
 </div>

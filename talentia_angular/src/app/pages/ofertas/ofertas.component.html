@@ -53,7 +53,8 @@
                     [id]="curso.id"
                     [title]="curso.titulo"
                     [imagen_card]="curso.imagen_card"
-                    [dificultad]="curso.dificultad">
+                    [dificultad]="curso.dificultad"
+                    id_usuario="{{id_usuario}}">
                   </app-card-preview>
                 </ng-template>
               </owl-carousel-o>
@@ -95,7 +96,7 @@
 
       <!-- Paginación -->
       <div class="d-flex justify-content-center mt-4">
-        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+        <pagination-controls (pageChange)="currentPage = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
       </div>
     </div>
   </div>

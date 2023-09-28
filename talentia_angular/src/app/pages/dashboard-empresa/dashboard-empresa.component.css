@@ -6,3 +6,110 @@
   background: -moz-linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
 
 }
+.bg-fondo{
+  background: hsla(225, 78%, 59%, 1);
+
+  background: linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+  background: -moz-linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+  background: -webkit-linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+}
+.fondo-header{
+  background: hsla(225, 78%, 59%, 1);
+
+  background: linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+  background: -moz-linear-gradient(90deg, hsla(225, 78%, 59%, 1) 0%, hsla(197, 85%, 51%, 1) 100%);
+
+}
+/* Estilos generales para las tarjetas */
+.bg-fondo {
+  transition: transform 0.3s;
+  border-radius: 15px; /* Esquinas redondeadas */
+  overflow: hidden; /* Para esquinas redondeadas en imágenes también */
+}
+
+.bg-fondo:hover {
+  transform: translateY(-5px); /* Efecto levitación al pasar el ratón */
+}
+
+/* Estilo para las imágenes */
+.card img.img-fluid {
+  margin-bottom: 15px;
+  border-radius: 50%; /* Imágenes circulares */
+}
+
+/* Espaciado para el cuerpo de la tarjeta */
+.card-body {
+  padding: 20px 15px;
+}
+
+/* Estilos para los textos */
+.text-white {
+  font-weight: 600; /* Texto un poco más grueso */
+}
+::ng-deep .owl-carousel {
+  position: relative;
+}
+
+::ng-deep .owl-prev, ::ng-deep .owl-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    color: #000;
+}
+
+::ng-deep .owl-prev {
+  left: -15px;
+}
+
+::ng-deep .owl-next {
+  right: -15px;
+}
+
+::ng-deep .owl-prev, ::ng-deep .owl-next {
+  z-index: 1000;
+}
+
+
+
+
+.icon-card {
+  position: relative;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon-card .icon-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0.1;
+  transition: all 0.3s ease-in-out;
+  z-index: 0;
+  width: 100px;
+}
+
+.icon-card:hover .icon-bg {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.card h1:hover{
+  /* añadir borde al texto */
+  text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000,
+             1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+}
+
+.icon-card-content {
+
+  position: relative;
+  z-index: 1;
+}

@@ -6,28 +6,37 @@
   </div>
 
   <div class="container p-4"> <!-- Ampliado el padding -->
-
-    <!-- Barra de búsqueda -->
-    <div class="mb-4"> <!-- Agregado margen inferior para separar de la grilla -->
-      <input type="text" class="form-control" placeholder="Buscar por nombre de oferta..." [(ngModel)]="input_busqueda"
-        (keyup)="ofertasFiltroBusqueda()">
+    <div *ngIf="!loading; else Cargando">
+    <div class="table table-responsive">
+      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Nombre Oferta</th>
+            <th>descripción</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ofertas of ofertasFiltradas">
+            <td>{{ofertas.titulo}}</td>
+            <td>{{ofertas.descripcion}}</td>
+            <td>
+              <div class="d-flex flex-column" style="gap: 10px;">
+                <button class="btn btn-success" (click)="verPostulantes(ofertas.id)"><i class="fa-solid fa-eye mr-2"></i>Postulantes</button>
+                <button class="btn btn-primary" (click)="editarOferta(ofertas.id)"><i class="fa-regular fa-pen-to-square mr-2"></i>Editar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+  </div>
+    <!-- Barra de búsqueda -->
 
     <!-- Contenido de ofertas o mensaje de carga -->
-    <div *ngIf="!loading; else Cargando">
 
-      <!-- Grilla de cards de ofertas -->
-      <div class="row">
-        <div class="col-md-4 mb-4"
-          *ngFor="let ofertas of ofertasFiltradas | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-          <!-- Añadido margen inferior para separar cards -->
-          <app-oferta-edit-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
-            id_oferta="{{ofertas.id}}">
-          </app-oferta-edit-card>
-        </div>
-      </div>
 
-    </div>
 
     <!-- Template de carga -->
     <ng-template #Cargando>
@@ -40,9 +49,6 @@
     </ng-template>
 
     <!-- Paginación -->
-    <div class="d-flex justify-content-center mt-4"> <!-- Centrado y añadido margen superior -->
-      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-    </div>
 
   </div>
 

@@ -127,13 +127,6 @@
               </a>
               </li>
               <li class="sidebar-menu-item">
-                <a class="sidebar-menu-button" href="/ofertas">
-                  <i class="fa-solid fa-briefcase" style="margin-right: 10px;"></i>
-                  <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                <span class="sidebar-menu-text">Ofertas</span>
-              </a>
-            </li>
-              <li class="sidebar-menu-item">
                 <a class="sidebar-menu-button" href="/courses">
 
                   <i class="fa-solid fa-graduation-cap mr-2 sidebar-menu-icon--left"></i>
@@ -149,6 +142,14 @@
                   <span class="sidebar-menu-text">Certificación</span>
                 </a>
               </li>
+              <li class="sidebar-menu-item">
+                <a class="sidebar-menu-button" href="/ofertas">
+                  <i class="fa-solid fa-briefcase" style="margin-right: 10px;"></i>
+                  <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
+                <span class="sidebar-menu-text">Ofertas</span>
+              </a>
+            </li>
+
             </ul>
           </div>
           <div *ngIf="rol.getRoles() == 'EMPRESA'">

@@ -66,3 +66,89 @@
 ::ng-deep .owl-prev, ::ng-deep .owl-next {
   z-index: 1000;
 }
+
+
+
+
+.icon-card {
+  position: relative;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon-card .icon-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0.1;
+  transition: all 0.3s ease-in-out;
+  z-index: 0;
+  width: 100px;
+}
+
+.icon-card:hover .icon-bg {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.icon-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+swiper-container {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 205px;
+  /* no shadow */
+  box-shadow: none !important;
+  opacity: 1 !important;
+
+}
+
+::ng-deep .swiper-button-prev {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 27 44'%3E%3Cpath d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z' fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+::ng-deep .swiper-button-next {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 27 44'%3E%3Cpath d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z' fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+
+.swiper-button-next, .swiper-button-prev {
+  position: absolute !important;
+  top: var(--swiper-navigation-top-offset,50%) !important;
+  width: calc(var(--swiper-navigation-size)/ 44 * 27) !important;
+  height: var(--swiper-navigation-size) !important;
+  margin-top: calc(0px - (var(--swiper-navigation-size)/ 2)) !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: red !important;
+}
+
+.swiper > .swiper-button-next, .swiper-button-prev {
+  position: absolute !important;
+  top: var(--swiper-navigation-top-offset,50%) !important;
+  width: calc(var(--swiper-navigation-size)/ 44 * 27) !important;
+  height: var(--swiper-navigation-size) !important;
+  margin-top: calc(0px - (var(--swiper-navigation-size)/ 2)) !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: red !important;
+}

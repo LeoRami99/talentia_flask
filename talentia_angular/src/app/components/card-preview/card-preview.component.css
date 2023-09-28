@@ -43,7 +43,7 @@
 
 .custom-card-content {
   position: absolute;
-  top: calc(100% - 50px);
+  top: calc(100% - 55px);
   right: 0;
   bottom: 0;
   left: 0;
@@ -52,7 +52,7 @@
   transition: top 0.3s;
 }
 .custom-card:hover .custom-card-content {
-  top: calc(100% - 100px); /* Muestra el contenido al pasar el ratón por encima */
+  top: calc(100% - 180px); /* Muestra el contenido al pasar el ratón por encima */
 }
 .custom-card-details{
   margin-bottom: 8px;

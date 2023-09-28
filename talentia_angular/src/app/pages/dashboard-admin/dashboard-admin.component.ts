@@ -52,32 +52,36 @@ export class DashboardAdminComponent implements OnInit{
       this.exameneAprobados = data.data.aprobados;
       this.getCoursesData.getCursosTomados().subscribe((data: any) => {
         this.cursosTomados = data.data.progreso;
+
         let myChart = new Chart("myChart", {
-            type: 'bar',
-            data: {
-                labels: ['Cursos tomados por usuarios', 'Examenes aprobados por usuarios'],
-                datasets: [{
-                    label: 'Datos de usuarios',
-                    data: [this.cursosTomados, this.exameneAprobados],
-                    backgroundColor: [
-                        'rgb(85,103,255, 0.2)',
-                        'rgb(178,186,255, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(85,103,255, 1)',
-                        'rgba(178,186,255, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+          type: 'bar',
+
+          data: {
+              labels: ['Cursos tomados por usuarios', 'Examenes aprobados por usuarios'],
+              datasets: [{
+                  label: 'Datos de usuarios',
+                  data: [this.cursosTomados, this.exameneAprobados],
+                  backgroundColor: [
+                      'rgba(66, 134, 244, 0.3)',   // Azul
+                      'rgba(244, 67, 54, 0.3)',   // Rojo
+                  ],
+                  borderColor: [
+                      'rgba(66, 134, 244, 1)',
+                      'rgba(244, 67, 54, 1)',
+                  ],
+                  borderWidth: 1.5   // Aumenta un poco el ancho del borde para un aspecto nítido
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              },
+              responsive: true
+          }
+      });
+
       });
     });
 

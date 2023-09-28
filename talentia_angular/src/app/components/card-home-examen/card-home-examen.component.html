@@ -1,37 +1,27 @@
-<div class="card custom-card">
-  <div class="card-body d-flex align-items-center">
-      <a (click)="false"
-         class="avatar  mr-12pt">
-          <img [attr.src]="url_images+imagen"
-               alt=""
-               class="avatar-img rounded">
-          <!-- <span class="overlay__content"></span> -->
-      </a>
-      <div class="flex mr-12pt">
-          <a class="card-title" (click)="false">{{nombre}}</a>
-          <div class="card-subtitle descripcion">{{descripcion}}</div>
-      </div>
-
+<div class="card new-card" style="width: 18rem;">
+  <a (click)="false" class="avatar-4by3">
+    <img [attr.src]="url_images+imagen" alt="Angular Routing In-Depth">
+  </a>
+  <div class="card-body">
+    <a class="new-card-title" href="">{{nombre}}</a>
+    <div class="new-desc">{{descripcion}}</div>
   </div>
-  <div class="card-footer">
-      <div class="d-flex align-items-center">
-          <div class="flex mr-2" *ngIf="aprobado== 'reprobado' || aprobado == ''; else ok">
-              <a [attr.href]="'take-quiz/'+id_examen"
-                 class="btn btn-light btn-sm gradient-back">
-                 <i class="fa-solid fa-rotate-right mr-2"></i> Reintentar
-                  <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
-              </a>
-          </div>
-          <ng-template #ok>
-              <div class="flex mr-2">
-                  <span class="btn btn-light btn-sm bg-success text-white">
-                     <i class="fa-solid fa-check mr-2"></i> Aprobado
-                      <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
-              </span>
-              </div>
-          </ng-template>
-
-
+  <div class="card-footer d-flex justify-content-center">
+    <div class="flex mr-2" *ngIf="aprobado== 'reprobado' || aprobado == ''; else ok">
+      <a [attr.href]="'take-quiz/'+id_examen" class="btn btn-light btn-sm gradient-back">
+        <i class="fa-solid fa-rotate-right mr-2"></i> Reintentar
+        <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
+      </a>
+    </div>
+    <ng-template #ok>
+      <div class="d-flex mr-2">
+        <span class="btn btn-light btn-sm bg-success text-white">
+          <i class="fa-solid fa-check mr-2"></i> Aprobado
+          <!-- <span class="badge badge-dark badge-notifications ml-2">5</span> -->
+        </span>
+        <!-- descargar certificado -->
+        <button class="btn btn-light btn-sm gradient-back" (click)="descargarCertificado()"><i class="fa-solid fa-download mr-2"></i>Descargar</button>
       </div>
+    </ng-template>
   </div>
 </div>

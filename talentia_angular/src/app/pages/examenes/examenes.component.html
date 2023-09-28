@@ -30,7 +30,7 @@
 
   <ng-template #cargado>
     <div *ngIf="examenesFiltrados.length == 0" class="d-flex justify-content-center align-items-center vh-50">
-      <h2>No hay exámenes disponibles...</h2>
+      <h2>No hay examenes disponibles...</h2>
     </div>
 
     <div *ngIf="examenesFiltrados.length > 0" class="row card-group-row d-flex mt-4" style="gap: 15px;">
@@ -42,6 +42,6 @@
 
   <!-- Pagination -->
   <div class="d-flex justify-content-center mt-5">
-    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    <pagination-controls (pageChange)="currentPage = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
   </div>
 </div>
