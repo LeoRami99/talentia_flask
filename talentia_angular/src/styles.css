@@ -40,3 +40,6 @@
   justify-content: center !important;
   color: red !important;
 }
+.content-container {
+  position: relative;  /* Asegura que el overlay se posicionará en relación con este contenedor */
+}

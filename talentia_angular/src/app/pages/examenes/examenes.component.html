@@ -1,47 +1,52 @@
-<div class="container page-section">
+<div class="content-container">
 
-  <!-- Header -->
-  <div class="page-separator mb-5">
-    <h2 class="page-separator__text">Examenes</h2>
-  </div>
 
-  <!-- Search Filter -->
-  <div class="d-flex justify-content-start mb-5 flex-column">
-    <label for="filtroNombre" class="mr-2 font-weight-bold mb-2">Filtrar por nombre:</label>
-    <div class="input-group w-50">
-      <input [(ngModel)]="filtroNombre"
-             placeholder="Buscar por nombre..."
-             (keyup)="filtrarExamen()"
-             class="form-control"
-             id="filtroNombre">
-      <div class="input-group-append">
-        <span class="btn btn-outline-primary" type="button" (click)="filtrarExamen()">
-          <i class="fa fa-search"></i>
-        </span>
+  <div class="container page-section">
+
+    <!-- Header -->
+    <div class="page-separator mb-5">
+      <h2 class="page-separator__text">Examenes</h2>
+    </div>
+
+    <!-- Search Filter -->
+    <div class="d-flex justify-content-start mb-5 flex-column">
+      <label for="filtroNombre" class="mr-2 font-weight-bold mb-2">Filtrar por nombre:</label>
+      <div class="input-group w-50">
+        <input [(ngModel)]="filtroNombre"
+              placeholder="Buscar por nombre..."
+              (keyup)="filtrarExamen()"
+              class="form-control"
+              id="filtroNombre">
+        <div class="input-group-append">
+          <span class="btn btn-outline-primary" type="button" (click)="filtrarExamen()">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Content -->
-  <div *ngIf="loading; else cargado" class="d-flex justify-content-center align-items-center flex-column" style="height: 100vh;">
-    <div class="spinner-border text-primary" role="status"></div>
-    <span>Cargando...</span>
-  </div>
-
-  <ng-template #cargado>
-    <div *ngIf="examenesFiltrados.length == 0" class="d-flex justify-content-center align-items-center vh-50">
-      <h2>No hay examenes disponibles...</h2>
+    <!-- Content -->
+    <div *ngIf="loading; else cargado" class="d-flex justify-content-center align-items-center flex-column" style="height: 100vh;">
+      <div class="spinner-border text-primary" role="status"></div>
+      <span>Cargando...</span>
     </div>
 
-    <div *ngIf="examenesFiltrados.length > 0" class="row card-group-row d-flex mt-4" style="gap: 15px;">
-      <div *ngFor="let examen of examenesFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-        <app-card-examen-preview [nombre]="examen.nombre" [descripcion]="examen.descripcion" [imagen]="examen.imagen" [id_examen]="examen.id"></app-card-examen-preview>
+    <ng-template #cargado>
+      <div *ngIf="examenesFiltrados.length == 0" class="d-flex justify-content-center align-items-center vh-50">
+        <h2>No hay examenes disponibles...</h2>
       </div>
-    </div>
-  </ng-template>
 
-  <!-- Pagination -->
-  <div class="d-flex justify-content-center mt-5">
-    <pagination-controls (pageChange)="currentPage = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+      <div *ngIf="examenesFiltrados.length > 0" class="row card-group-row d-flex mt-4" style="gap: 15px;">
+        <div *ngFor="let examen of examenesFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+          <app-card-examen-preview [nombre]="examen.nombre" [descripcion]="examen.descripcion" [imagen]="examen.imagen" [id_examen]="examen.id"></app-card-examen-preview>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-5">
+      <pagination-controls (pageChange)="currentPage = $event" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+    </div>
   </div>
+  <app-back-verify></app-back-verify>
 </div>

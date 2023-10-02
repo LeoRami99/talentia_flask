@@ -18,18 +18,21 @@ router.post('/signup', async (req, res) => {
     if (!nombre || !apellidos || !correo || !password || !rol) {
         return res.status(400).json({ message: "Error al registrar usuario campos vacíos", status: 400 });
     }
-    if (!validNamePattern.test(nombre) || !validNamePattern.test(apellidos) || !validEmailPattern.test(correo)) {
+    if (!validNamePattern.test(nombre) || !validNamePattern.test(apellidos) || !validEmailPattern.test(correo.toLowerCase())) {
         return res.status(400).json({ message: "Error al registrar usuario campos inválidos", status: 400 });
     }
     try { 
-        const usuarioDB = new Usuarios(nombre, apellidos, correo, rol);
-        const userExists = await usuarioDB.verifyUser(correo);
+        const usuarioDB = new Usuarios(nombre, apellidos, correo.toLowerCase(), rol);
+        const userExists = await usuarioDB.verifyUser(correo.toLowerCase());
         if (userExists) {
             return res.status(400).json({ message: "Usuario ya registrado", status: 400 });
         }
         const passwordHash = await bcrypt.hash(password, 10);
+        const token = createTokenMail();
         const userCreated = await usuarioDB.registerUser(passwordHash);
-        if (userCreated) {
+        const verficacionCuenta = await usuarioDB.createVerficacion(correo.toLowerCase(), token);
+        if (userCreated && verficacionCuenta) {
+            envioMailActivacionCuenta(correo.toLowerCase(), token);
             return res.status(200).json({ message: "Usuario registrado exitosamente", status: 200 });
         } else {
             return res.status(400).json({ message: "Error al registrar usuario", status: 400 });
@@ -39,6 +42,68 @@ router.post('/signup', async (req, res) => {
         return res.status(400).json({ message: "Ocurrio un error en la API", status: 400 });
     }
 });
+
+// hacer función de verificación de email cuando se crea la cuenta
+const createTokenMail = () => {
+    const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    return randomString
+}
+
+function envioMailActivacionCuenta(correo, token){
+    let transporter = nodemailer.createTransport({
+        port: 465,
+        host: process.env.EMAIL_HOST,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+    let mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: correo,
+        subject: 'Activación de cuenta',
+        text: 'Para activar tu cuenta haz click en el siguiente enlace: ' + process.env.URL_FRONTEND + '/activar-cuenta/' + token
+
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            return false;
+        } else {
+            console.log('Email enviado: ' + info.response);
+            return true;
+        }
+    })
+}
+
+
+
+router.post('/verify-account', async (req, res) => {
+    try {
+        const dataReq = req.body
+        const usuario = new Usuarios();
+        // verificar que el token exista en la base de datos
+        const tokenExist = await usuario.verifyTokenExist(dataReq.token); 
+        if(tokenExist){
+            const data = await usuario.verifyAccountState(dataReq.token);
+            if(data){
+                res.status(200).json({ message: 'Cuenta activada exitosamente', status: 200 });
+            }else{
+                res.status(400).json({ message: 'No se pudo activar la cuenta', status: 400 });
+            }
+        }else{
+            res.status(400).json({ message: 'El token no existe', status: 400 });
+        }
+    } catch (error) {
+        // console.log(error)
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+});
+
+
+
+
 router.post('/login', async (req, res) => {
     const { correo, password } = req.body;
     try{
@@ -103,6 +168,26 @@ router.post("/create-profile" , async (req, res) => {
         res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
     }
 });
+
+
+// verificar estado cuenta
+router.get("/verify-account-state/:correo" , async (req, res) => {
+    try {
+        const { correo } = req.params;
+        const usuario = new Usuarios()
+        const data = await usuario.verificarStateAccount(correo);
+        if(data){
+            res.status(200).json({ message: 'Cuenta activada', status: 200, data: data});
+        }else{
+            res.status(400).json({ message: 'Cuenta no activada', status: 400, data: data});
+        }
+    } catch (error) {
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+}); 
+
+
+
 router.get("/profile-exist/:id" , async (req, res) => {
     try {
         const { id } = req.params;

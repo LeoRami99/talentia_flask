@@ -89,12 +89,12 @@ async createCategoria(curso_id, categoria_id) {
 			let cursos_list = {
 				cursos: [],
 			};
-
 			for (let curso of cursos) {
 				let [categorias_curso] = await db.execute(
 					"SELECT * FROM categorias_curso WHERE id_curso=?",
 					[curso.id]
-				);
+					);
+				console.log(categorias_curso);
 				let [categoria] = await db.execute(
 					"SELECT nombre FROM categorias WHERE id=?",
 					[categorias_curso[0].id_categoria]
@@ -117,7 +117,7 @@ async createCategoria(curso_id, categoria_id) {
 			return cursos_list;
 		} catch (error) {
 			console.error(error);
-			return false;
+			return error;
 		}
 	}
 	static async getCurso(id_curso){

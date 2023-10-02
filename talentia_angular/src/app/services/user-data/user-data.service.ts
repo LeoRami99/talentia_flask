@@ -26,5 +26,10 @@ export class UserDataService {
   updateProfile(data:any){
     return this.http.put(`${API_URL}user/update-profile`,data)
   }
-
+  verifyAccount(data:any){
+    return this.http.post(`${API_URL}user/verify-account`,data)
+  }
+  verificarEstadoCuenta(correo:any){
+    return this.http.get(`${API_URL}user/verify-account-state/${correo}`)
+  }
 }

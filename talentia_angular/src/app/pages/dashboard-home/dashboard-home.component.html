@@ -1,230 +1,234 @@
-<div class="page-section fondo-header y border-bottom-white">
-  <div class="container">
+<div class="content-container">
+<div >
+  <div class="page-section fondo-header y border-bottom-white">
+    <div class="container">
 
-    <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
-      <img src="assets/images/illustration/student/128/white.svg" width="104" class="mr-md-32pt mb-32pt mb-md-0"
-        alt="student">
-      <div class="flex mb-32pt mb-md-0">
-        <h1 class="text-white mb-0">¡Bienvenido/a!</h1>
-        <h2 class="text-white mb-0">{{nombre_usuario}}</h2>
-        <!-- <p class="lead text-white-50 d-flex align-items-center">Student <span class="ml-16pt d-flex align-items-center"><i class="material-icons icon-16pt mr-4pt">opacity</i> 2,300 IQ</span></p> -->
+      <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
+        <img src="assets/images/illustration/student/128/white.svg" width="104" class="mr-md-32pt mb-32pt mb-md-0"
+          alt="student">
+        <div class="flex mb-32pt mb-md-0">
+          <h1 class="text-white mb-0">¡Bienvenido/a!</h1>
+          <h2 class="text-white mb-0">{{nombre_usuario}}</h2>
+          <!-- <p class="lead text-white-50 d-flex align-items-center">Student <span class="ml-16pt d-flex align-items-center"><i class="material-icons icon-16pt mr-4pt">opacity</i> 2,300 IQ</span></p> -->
+        </div>
+        <!-- <a href=""
+        class="btn btn-outline-white">Follow</a> -->
       </div>
-      <!-- <a href=""
-      class="btn btn-outline-white">Follow</a> -->
     </div>
   </div>
-</div>
-<div class="container">
+  <div class="container">
 
-  <div class="page-section">
-    <div *ngIf="randomOfertas.length > 0">
-      <div class="page-separator">
-        <div class="page-separator__text"><i class="fa-solid fa-briefcase mr-2"></i>Ofertas de trabajo
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <owl-carousel-o [options]="customOptionsOfertas">
-            <ng-template carouselSlide *ngFor="let ofertas of randomOfertas">
-              <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
-                [habilidades_oferta]="ofertas.habilidades" ubicacion="{{ofertas.ciudad}} / {{ofertas.pais}}"
-                modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}">
-              </app-oferta-card>
-            </ng-template>
-          </owl-carousel-o>
-          <!-- ver mas ofertas -->
-        </div>
-      </div>
-    </div>
-
-
-    <div class="page-separator">
-      <div class="page-separator__text"><i class="fa-solid fa-chart-simple mr-2"></i>Estadísticas</div>
-    </div>
-
-    <div class="row">
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card bg-fondo icon-card">
-          <img src="https://img.icons8.com/stickers/100/books.png" alt="" class="icon-bg">
-          <div class="icon-card-content">
-            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Cursos</h6>
-            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_cursos}}</h1>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card bg-fondo icon-card">
-          <img src="https://img.icons8.com/stickers/100/diploma.png" alt="" class="icon-bg">
-          <div class="icon-card-content">
-            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Certificados</h6>
-            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_certificados}}</h1>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card bg-fondo icon-card">
-          <img src="https://img.icons8.com/stickers/100/test-passed.png" alt="" class="icon-bg">
-          <div class="icon-card-content">
-            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Examenes</h6>
-            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_examenes}}</h1>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card bg-fondo icon-card">
-          <img src="https://img.icons8.com/stickers/100/new-job.png" alt="" class="icon-bg">
-          <div class="icon-card-content">
-            <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Conexiones</h6>
-            <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_ofertas}}</h1>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- <div class="row "> -->
-
-      <div class="">
-
+    <div class="page-section">
+      <div *ngIf="randomOfertas.length > 0">
         <div class="page-separator">
-          <!-- icon  from font awesome-->
-          <div class="page-separator__text">
-            <i class="fa-solid fa-book mr-2"></i>
-            Mis Cursos
+          <div class="page-separator__text"><i class="fa-solid fa-briefcase mr-2"></i>Ofertas de trabajo
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <owl-carousel-o [options]="customOptionsOfertas">
+              <ng-template carouselSlide *ngFor="let ofertas of randomOfertas">
+                <app-oferta-card nombre_oferta="{{ofertas.titulo}}" descripcion_oferta="{{ofertas.descripcion}}"
+                  [habilidades_oferta]="ofertas.habilidades" ubicacion="{{ofertas.ciudad}} / {{ofertas.pais}}"
+                  modalidad="{{ofertas.modalidad}}" id_oferta="{{ofertas.id}}" id_usuario="{{id_usuario}}">
+                </app-oferta-card>
+              </ng-template>
+            </owl-carousel-o>
+            <!-- ver mas ofertas -->
+          </div>
+        </div>
+      </div>
+
+
+      <div class="page-separator">
+        <div class="page-separator__text"><i class="fa-solid fa-chart-simple mr-2"></i>Estadísticas</div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-fondo icon-card">
+            <img src="https://img.icons8.com/stickers/100/books.png" alt="" class="icon-bg">
+            <div class="icon-card-content">
+              <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Cursos</h6>
+              <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_cursos}}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-fondo icon-card">
+            <img src="https://img.icons8.com/stickers/100/diploma.png" alt="" class="icon-bg">
+            <div class="icon-card-content">
+              <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Certificados</h6>
+              <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_certificados}}</h1>
+            </div>
           </div>
         </div>
 
-        <!-- <div class="position-relative carousel-card"> -->
-          <!-- <div class="js-mdk-carousel row d-block" id="carousel-courses1"> -->
-
-            <!-- Si está cargando, muestra "Cargando..." -->
-            <div *ngIf="!loading && cursos.length != 0"
-              class="d-flex justify-content-center align-items-center flex-column">
-              <div class="spinner-border text-primary" role="status"></div>
-              <span>Cargando...</span>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-fondo icon-card">
+            <img src="https://img.icons8.com/stickers/100/test-passed.png" alt="" class="icon-bg">
+            <div class="icon-card-content">
+              <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Examenes</h6>
+              <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_examenes}}</h1>
             </div>
-
-            <!-- Si no está cargando y no hay cursos, muestra "Sin cursos" -->
-            <div *ngIf="!loading && cursos.length === 0"
-              class="text-center d-flex flex-column justify-content-center align-items-center" style="gap: 20px;">
-              <h4>
-                No hay cursos ...
-              </h4>
-              <img src="https://img.icons8.com/stickers/100/nothing-found.png" alt="" class="img-fluid" style="width: 100px;">
-              <a href="/courses" class="btn btn-light">Explorar cursos</a>
-            </div>
-
-            <!-- Si no está cargando y hay cursos, muestra el carrusel -->
-            <div *ngIf="loading && cursos.length > 0">
-              <swiper-container
-                  class="mySwiper"
-
-                  navigation="true"
-                  effect="coverflow"
-                  grab-cursor="true"
-                  centered-slides="true"
-                  slides-per-view="auto"
-                  coverflow-effect-rotate="50"
-                  coverflow-effect-stretch="100"
-                  coverflow-effect-depth="100"
-                  coverflow-effect-modifier="1"
-                  coverflow-effect-slide-shadows="false"
-                  >
-
-                  <swiper-slide *ngFor="let curso of cursos">
-                      <app-card-preview
-                          [id]="curso.id"
-                          [title]="curso.titulo"
-                          [imagen_card]="curso.imagen_card"
-                          [dificultad]="curso.dificultad"
-                          [id_usuario]="id_usuario">
-                      </app-card-preview>
-                  </swiper-slide>
-              </swiper-container>
           </div>
-
-
-          <!-- </div> -->
-        <!-- </div> -->
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-fondo icon-card">
+            <img src="https://img.icons8.com/stickers/100/new-job.png" alt="" class="icon-bg">
+            <div class="icon-card-content">
+              <h6 class="text-white mb-1 text-center" style="letter-spacing: 1px; text-transform: uppercase;">Conexiones</h6>
+              <h1 class="text-white text-center m-0" style="font-size: 60px; font-weight: 700;">{{contador_ofertas}}</h1>
+            </div>
+          </div>
+        </div>
 
       </div>
-    <!-- </div> -->
 
-    <!-- <div class="page-separator">
-          <div class="page-separator__text">Discussions</div>
+      <!-- <div class="row "> -->
+
+        <div class="">
+
+          <div class="page-separator">
+            <!-- icon  from font awesome-->
+            <div class="page-separator__text">
+              <i class="fa-solid fa-book mr-2"></i>
+              Mis Cursos
+            </div>
+          </div>
+
+          <!-- <div class="position-relative carousel-card"> -->
+            <!-- <div class="js-mdk-carousel row d-block" id="carousel-courses1"> -->
+
+              <!-- Si está cargando, muestra "Cargando..." -->
+              <div *ngIf="!loading && cursos.length != 0"
+                class="d-flex justify-content-center align-items-center flex-column">
+                <div class="spinner-border text-primary" role="status"></div>
+                <span>Cargando...</span>
+              </div>
+
+              <!-- Si no está cargando y no hay cursos, muestra "Sin cursos" -->
+              <div *ngIf="!loading && cursos.length === 0"
+                class="text-center d-flex flex-column justify-content-center align-items-center" style="gap: 20px;">
+                <h4>
+                  No hay cursos ...
+                </h4>
+                <img src="https://img.icons8.com/stickers/100/nothing-found.png" alt="" class="img-fluid" style="width: 100px;">
+                <a href="/courses" class="btn btn-light">Explorar cursos</a>
+              </div>
+
+              <!-- Si no está cargando y hay cursos, muestra el carrusel -->
+              <div *ngIf="loading && cursos.length > 0">
+                <swiper-container
+                    class="mySwiper"
+
+                    navigation="true"
+                    effect="coverflow"
+                    grab-cursor="true"
+                    centered-slides="true"
+                    slides-per-view="auto"
+                    coverflow-effect-rotate="50"
+                    coverflow-effect-stretch="100"
+                    coverflow-effect-depth="100"
+                    coverflow-effect-modifier="1"
+                    coverflow-effect-slide-shadows="false"
+                    >
+
+                    <swiper-slide *ngFor="let curso of cursos">
+                        <app-card-preview
+                            [id]="curso.id"
+                            [title]="curso.titulo"
+                            [imagen_card]="curso.imagen_card"
+                            [dificultad]="curso.dificultad"
+                            [id_usuario]="id_usuario">
+                        </app-card-preview>
+                    </swiper-slide>
+                </swiper-container>
+            </div>
+
+
+            <!-- </div> -->
+          <!-- </div> -->
+
+        </div>
+      <!-- </div> -->
+
+      <!-- <div class="page-separator">
+            <div class="page-separator__text">Discussions</div>
+        </div> -->
+
+
+
+      <div class="page-separator">
+        <div class="page-separator__text">
+          <!-- icon  from font awesome-->
+          <i class="fa fa-graduation-cap mr-2"></i>
+
+          Mis certificaciones
+        </div>
+
+      </div>
+      <!-- agregar una descripción sonre la seccion -->
+
+
+      <div *ngIf="examenes.length == 0; "
+        class="text-center d-flex flex-column justify-content-center align-items-center">
+        <h4>
+          No hay certificaciones ...
+        </h4>
+        <img src="https://img.icons8.com/stickers/100/nothing-found.png" alt="" class="img-fluid" style="width: 100px;">
+        <a class="btn btn-light" href="/examenes">Explorar examenes</a>
+      </div>
+      <div class="row card-group-row">
+        <div
+          class="card-group-row__col col-md-4 col-sm-6 d-flex justify-content-center align-items-center animate__animated animate__fadeInRight"
+          *ngFor="let examen of examenes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+          <app-card-home-examen nombre={{examen.examen.nombre}} descripcion={{examen.examen.descripcion}}
+            imagen={{examen.examen.imagen}} id_examen={{examen.examen.id}}
+            aprobado="{{examen.aprobado}}" id_usuario="{{id_usuario}}"></app-card-home-examen>
+
+        </div>
+
+      </div>
+      <div class="d-flex justify-content-center mt-4">
+        <pagination-controls nextLabel="Siguiente" previousLabel="Anterior" (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
+      <!-- <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
       </div> -->
 
 
-
-    <div class="page-separator">
-      <div class="page-separator__text">
-        <!-- icon  from font awesome-->
-        <i class="fa fa-graduation-cap mr-2"></i>
-
-        Mis certificaciones
-      </div>
-
     </div>
-    <!-- agregar una descripción sonre la seccion -->
-
-
-    <div *ngIf="examenes.length == 0; "
-      class="text-center d-flex flex-column justify-content-center align-items-center">
-      <h4>
-        No hay certificaciones ...
-      </h4>
-      <img src="https://img.icons8.com/stickers/100/nothing-found.png" alt="" class="img-fluid" style="width: 100px;">
-      <a class="btn btn-light" href="/examenes">Explorar examenes</a>
-    </div>
-    <div class="row card-group-row">
-      <div
-        class="card-group-row__col col-md-4 col-sm-6 d-flex justify-content-center align-items-center animate__animated animate__fadeInRight"
-        *ngFor="let examen of examenes | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
-        <app-card-home-examen nombre={{examen.examen.nombre}} descripcion={{examen.examen.descripcion}}
-          imagen={{examen.examen.imagen}} id_examen={{examen.examen.id}}
-          aprobado="{{examen.aprobado}}" id_usuario="{{id_usuario}}"></app-card-home-examen>
-
-      </div>
-
-    </div>
-    <div class="d-flex justify-content-center mt-4">
-      <pagination-controls nextLabel="Siguiente" previousLabel="Anterior" (pageChange)="currentPage = $event"></pagination-controls>
-    </div>
-    <h2>Hola</h2>
-    <!-- <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-        </div>
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div> -->
-
-
   </div>
+</div>
+<app-back-verify></app-back-verify>
 </div>

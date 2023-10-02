@@ -34,6 +34,7 @@ import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { VerifyCodeComponent } from './pages/verify-code/verify-code.component';
 import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
+import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
 
 
 
@@ -67,7 +68,8 @@ const routes: Routes = [
   { path: 'ver-perfil/:id', component:VerPerfilComponent},
   { path: 'reset-password', component: ResetPasswordComponent},
   { path: 'verify-code', component: VerifyCodeComponent},
-  {path: 'update-password', component: UpdatePasswordComponent},
+  { path: 'update-password', component: UpdatePasswordComponent},
+  { path: 'activar-cuenta/:token', component: VerifyAccountComponent},
 
   { path: 'ofertas', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:OfertasComponent},
   { path: 'inicio', component: InicioComponent},

@@ -208,6 +208,86 @@ class usuarioDB {
       }
   }
 
+  async createVerficacion(correo, token){
+        try {
+            let query = "INSERT INTO verify_cuenta (correo, token, estado) VALUES (?,?,?)";
+            let rows = await db.query(query, [correo, token, 0]);
+            if(rows[0].affectedRows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+  }
+  async verifyAccount(token){
+        try {
+            let query = "SELECT * FROM verify_cuenta WHERE token = ?";
+            let [rows] = await db.query(query, [token]);
+            if(rows.length > 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+  }
+  async verifyAccountState(token){
+    try {
+        let query = "UPDATE verify_cuenta SET token='' , estado = ? WHERE token = ?";
+        let rows = await db.query(query, [1, token]);
+        if(rows[0].affectedRows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    } catch (error) {
+        throw error;
+    }
+  }
+  async verifyTokenExist(token){
+    try {
+        let query = "SELECT * FROM verify_cuenta WHERE token = ?";
+        let [rows] = await db.query(query, [token]);
+        console.log(rows);
+        if(rows.length > 0){
+            return true;
+        }else{
+            return false;
+        }
+    } catch (error) {
+        throw error;
+    }
+  }
+  async verificarStateAccount(correo){
+    try {
+        let query = "SELECT estado FROM verify_cuenta WHERE correo = ?";
+        let [rows] = await db.query(query, [correo]);
+        if(rows.length > 0){
+            return rows[0].estado;
+        }
+    } catch (error) {
+        throw error;
+    }
+  }
+
+  async verifyEmailExist(correo){
+    try{
+        const sql = 'SELECT * FROM usuario WHERE correo = ?';
+        const [result] = await db.execute(sql, [correo]);
+        if (result.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }catch(error){
+        // console.log(error);
+        throw error;
+    }
+  }
+
 
 }
 

@@ -1,13 +1,16 @@
-<div class="page-section">
-  <div class="container">
-    <div class="d-flex align-items-center mb-4">
-      <input type="text" [(ngModel)]="filterText" placeholder="Filtro" class="form-control mr-3" style="width: 250px;" (keyup)="generateAutocompleteSuggestions()">
-      <select [(ngModel)]="selectedCategory" class="form-control" style="max-width: 250px;">
-        <option value="">Todas las categorias</option>
-        <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</option>
-      </select>
-    </div>
-    <div *ngFor="let categoria of categorias; let i = index;">
+<div class="content-container">
+
+  <div class="page-section">
+    <div class="container">
+      <div class="d-flex align-items-center mb-4">
+        <input type="text" [(ngModel)]="filterText" placeholder="Filtro" class="form-control mr-3" style="width: 250px;"
+          (keyup)="generateAutocompleteSuggestions()">
+        <select [(ngModel)]="selectedCategory" class="form-control" style="max-width: 250px;">
+          <option value="">Todas las categorias</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</option>
+        </select>
+      </div>
+      <div *ngFor="let categoria of categorias; let i = index;">
         <div *ngIf="filteredCursosByCategoria(categoria.nombre).length > 0" class="page-separator">
           <div class="page-separator__text">{{ categoria.nombre }}</div>
         </div>
@@ -20,7 +23,8 @@
         </div>
         <div class="row card-group-row">
           <ng-container *ngIf="filteredCursosByCategoria(categoria.nombre).length > 0 ;">
-            <div class="col-6 col-md-4 col-xl-3" *ngFor="let curso of filteredCursosByCategoria(categoria.nombre) | paginate: { itemsPerPage: pageSize, currentPage: pageData[categoria.nombre], id: 'categoria-' + categoria.nombre }">
+            <div class="col-6 col-md-4 col-xl-3"
+              *ngFor="let curso of filteredCursosByCategoria(categoria.nombre) | paginate: { itemsPerPage: pageSize, currentPage: pageData[categoria.nombre], id: 'categoria-' + categoria.nombre }">
               <!-- Contenido de la tarjeta de curso -->
               <div class="card loading-skeleton" *ngIf="loadingCursos && loadingAllCursos; else cargado">
                 <!-- Carga de skeleton -->
@@ -28,8 +32,9 @@
                 <div class="skeleton-item"></div>
                 <div class="skeleton-item"></div>
               </div>
-              <ng-template #cargado >
-                <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card" [dificultad]="curso.dificultad" id_usuario="{{id_usuario}}"></app-card-preview>
+              <ng-template #cargado>
+                <app-card-preview [id]="curso.id" [title]="curso.titulo" [imagen_card]="curso.imagen_card"
+                  [dificultad]="curso.dificultad" id_usuario="{{id_usuario}}"></app-card-preview>
               </ng-template>
 
             </div>
@@ -38,16 +43,22 @@
 
         </div>
         <div class="d-flex justify-content-center" *ngIf="filteredCursosByCategoria(categoria.nombre).length > 0">
-          <pagination-controls [id]="'categoria-' + categoria.nombre" (pageChange)="onPageChange($event, categoria.nombre)" [maxSize]="5" nextLabel="Siguiente" previousLabel="Anterior"></pagination-controls>
+          <pagination-controls [id]="'categoria-' + categoria.nombre"
+            (pageChange)="onPageChange($event, categoria.nombre)" [maxSize]="5" nextLabel="Siguiente"
+            previousLabel="Anterior"></pagination-controls>
         </div>
 
       </div>
     </div>
-    <div class="container d-flex justify-content-center align-items-center flex-column" *ngIf="filteredCursos.length == 0">
+    <div class="container d-flex justify-content-center align-items-center flex-column"
+      *ngIf="filteredCursos.length == 0">
 
       <img src="../../../assets/images/metaverso-amico.png" alt="" style="max-width: 200px;">
       <h2 class="text-center">Próximamente más cursos</h2>
     </div>
-  <!-- <ng-template > -->
-  <!-- </ng-template> -->
+    <!-- <ng-template > -->
+    <!-- </ng-template> -->
+
+  </div>
+  <app-back-verify></app-back-verify>
 </div>

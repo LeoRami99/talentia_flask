@@ -2,7 +2,10 @@
   <div class="container">
     <form class="col-md-5 p-0 mx-auto  bg-white p-5 rounded animate__animated animate__fadeInUp login" (ngSubmit)="login()" [formGroup]="formulario">
       <div class="form-group">
-        <h2 class="text-center">Talentia | Inicio, de sesión</h2>
+        <div class="text-center">
+          <img src="https://img.icons8.com/fluency/100/user-male-circle--v1.png" alt="">
+        </div>
+        <h2 class="text-center">Inicio de sesión</h2>
         <label class="form-label" for="email">Correo:</label>
         <input id="email" type="text" class="form-control" placeholder="Tu correo" formControlName="correo">
         <!-- Validación de email -->
@@ -29,8 +32,9 @@
         </div>
         <p class="text-right"><a href="/reset-password" class="small">Olvidé mi contraseña</a></p>
       </div>
-      <div class="text-center">
+      <div class="text-center d-flex flex-column" style="gap: 10px;">
         <button class="btn btn-primary gradient-back" type="submit">Iniciar sesión</button>
+        <a href="/signup">¿No tienes cuenta? Regístrate</a>
       </div>
     </form>
   </div>

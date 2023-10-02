@@ -63,6 +63,8 @@ import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { VerifyCodeComponent } from './pages/verify-code/verify-code.component';
 import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
+import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
+import { BackVerifyComponent } from './components/back-verify/back-verify.component';
 
 
 
@@ -126,6 +128,8 @@ import { UpdatePasswordComponent } from './pages/update-password/update-password
     ResetPasswordComponent,
     VerifyCodeComponent,
     UpdatePasswordComponent,
+    VerifyAccountComponent,
+    BackVerifyComponent,
   ],
   imports: [
     BrowserModule,

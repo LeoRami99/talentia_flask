@@ -1,0 +1,16 @@
+
+.verification-overlay {
+  backdrop-filter: blur(10px);
+  position: absolute;  /* Cambiado de 'fixed' a 'absolute' */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5em;
+}

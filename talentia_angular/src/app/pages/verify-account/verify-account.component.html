@@ -1,0 +1,29 @@
+<!-- Mostrar mientras estemos verificando la cuenta -->
+<div class="container d-flex justify-content-center align-items-center vh-100 animate__animated animate__fadeInDown" *ngIf="!boolean_estado">
+  <div class="verification-container">
+    <h2 class>Estamos verificando su cuenta</h2>
+    <div class="dot-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mostrar si la cuenta ya ha sido verificada con éxito -->
+<div class="container d-flex justify-content-center align-items-center vh-100 animate__animated animate__fadeInUp" *ngIf="boolean_estado && verificado">
+  <div class="verification-container">
+      <h2 class="text-success">Su cuenta ha sido verificada con éxito</h2>
+      <img src="https://img.icons8.com/stickers/100/verified-account.png" alt="check_verify">
+  </div>
+</div>
+
+<!-- Mostrar si ha ocurrido un error o si la cuenta ya estaba verificada -->
+<div class="container d-flex justify-content-center align-items-center vh-100 animate__animated animate__shakeX" *ngIf="boolean_estado && !verificado">
+  <div class="verification-container">
+      <h2 class="text-danger">Ha ocurrido un error</h2>
+      <div class="x-loader">
+          <img src="https://img.icons8.com/stickers/100/high-risk.png" alt="error">
+      </div>
+  </div>
+</div>

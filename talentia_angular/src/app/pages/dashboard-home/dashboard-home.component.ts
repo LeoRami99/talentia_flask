@@ -31,6 +31,7 @@ export class DashboardHomeComponent implements OnInit {
   contador_ofertas = 0;
   id_usuario: string='';
   loading = false;
+  state_of_account = false;
   customOptions:OwlOptions={
     loop:true,
     autoplay:true,
@@ -120,8 +121,22 @@ export class DashboardHomeComponent implements OnInit {
           }
         });
         this.dataUser.dataUsuario(decodedToken['id']).subscribe((data:any)=>{
+
           this.id_usuario=data.data.id;
           this.nombre_usuario=data.data.nombre+" "+ data.data.apellidos;
+          if (data) {
+            this.dataUser.verificarEstadoCuenta(data.data.correo).subscribe((data:any)=>{
+              if (data) {
+                if (data.data == 1) {
+                  this.state_of_account = true;
+                }else{
+                  this.state_of_account = false;
+                }
+              }else{
+                this.state_of_account = false;
+              }
+            })
+          }
         })
       this.examenService.getProgresoUsuario(decodedToken['id']).subscribe((data: any) => {
         if(data.status === 200){
@@ -129,7 +144,7 @@ export class DashboardHomeComponent implements OnInit {
           examenes.forEach((element: any) => {
             this.examenService.getExamen(element.id_examen).subscribe((data: any) => {
               // añadir tambien el estado de aprobado
-              console.log()
+              // console.log()
               this.examenes.push({examen:data.examen, aprobado:element.aprobado});
               this.contador_examenes += 1;
               // console.log(element.aprobado)
