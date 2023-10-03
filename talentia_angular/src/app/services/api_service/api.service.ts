@@ -30,5 +30,8 @@ export class ApiService {
   }
   logout(){
     localStorage.removeItem('token');
+    // Cuando se cierre la sesión se debe eliminar el token que valida el bloqueo
+    // de contenido 
+    localStorage.removeItem('state_of_account');
   }
 }

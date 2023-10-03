@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
+import { ApiService} from 'src/app/services/api_service/api.service'
 const helper = new JwtHelperService();
 
 @Component({
