@@ -60,7 +60,7 @@ const routes: Routes = [
   { path: 'dashboard-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: DashboardEmpresaComponent},
   { path: 'create-empresa', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearEmpresaComponent},
   { path: 'crear-oferta', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:CrearOfertaComponent},
-  { path: 'ver-oferta/:id', canActivate: [authGuard], data: { expectedRole: 'USER' }, component:VerOfertaComponent},
+  { path: 'ver-oferta/:id',  component:VerOfertaComponent},
   { path: 'editar-oferta/:id', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component: EditOfertaComponent},
   { path: 'editar-ofertas', canActivate: [authGuard], data: { expectedRole: 'EMPRESA' }, component:EditarOfertasComponent},
   { path: 'profile', component:ProfileComponent},

@@ -46,4 +46,19 @@ export class OfertaCardComponent {
         }
       })
     }
+    // compartir oferta y copiar el link en el porta papeles
+    copyLink(){
+      const url = window.location.href;
+      // eliminar y solo dejar la ruta raiz
+      const url2 = url.split('/');
+      const url3 = url2.slice(0,3).join('/');
+      // agregar la ruta de la oferta
+      const url4 = url3 + '/ver-oferta/' + this.id_oferta;
+      // copiar al portapapeles
+      navigator.clipboard.writeText(url4);
+
+
+      this.toast.success("Link copiado al portapapeles");
+    }
+    
 }

@@ -68,6 +68,24 @@
   border-radius: 4px;
 }
 
+/* media querys para pantalla de telefono */
+@media (max-width: 768px) {
+  .new-card {
+    width: 350px !important;
+    height: 100%;
+  }
+  .new-card-title {
+    font-size: 1.2em;
+  }
+  .new-desc {
+    font-size: 0.8em;
+  }
+  .avatar-4by3 {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 
 
 

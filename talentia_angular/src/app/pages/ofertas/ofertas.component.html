@@ -17,13 +17,13 @@
           <h2 class="text-center mb-3">Filtros</h2> <!-- Margen inferior -->
           <hr>
           <div class="mb-3"> <!-- Margen inferior para agrupar -->
-            <label for="busqueda" class="form-label">Búsqueda</label>
+            <label for="busqueda" class="form-label"><i class="fa-solid fa-magnifying-glass mr-2"></i>Búsqueda</label>
             <input type="text" id="busqueda" [(ngModel)]="filtro" (keyup)="filtrarOfertas()" class="form-control"
                    placeholder="Busca una oferta laboral">
           </div>
 
           <div class="mb-3"> <!-- Margen inferior para agrupar -->
-            <label for="modalidad" class="form-label">Modalidad</label>
+            <label for="modalidad" class="form-label"><i class="fa-solid fa-house mr-2"></i>Modalidad</label>
             <select name="opciones" id="modalidad" [(ngModel)]="filtroModalidad" class="form-control">
               <option value="">Seleccione una Modalidad</option>
               <option value="Presencial">Presencial</option>
@@ -33,7 +33,7 @@
           </div>
 
           <div class="mb-3"> <!-- Margen inferior para agrupar -->
-            <label for="habilidad" class="form-label">Habilidad</label>
+            <label for="habilidad" class="form-label"><i class="fa-solid fa-bolt mr-2"></i>Habilidad</label>
             <select id="habilidad" class="form-control" bindLabel="nombre" [(ngModel)]="filtroHabilidad">
               <option value="">Seleccione una habilidad</option>
               <option *ngFor="let skills of habilidades" [value]="skills.nombre">{{skills.nombre}}</option>

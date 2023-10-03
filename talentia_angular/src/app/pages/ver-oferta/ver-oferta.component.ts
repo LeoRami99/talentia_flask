@@ -18,7 +18,10 @@ export class VerOfertaComponent {
   id_usuario = ""
   ngOnInit(): void {
     const tokenPayload = jwt.decodeToken(localStorage.getItem('token')!);
-    this.id_usuario = tokenPayload["id"];
+    if(tokenPayload == null){
+      this.id_usuario = '0';
+    }
+
 
     this.activateRute.params.subscribe(params => {
       this.id_oferta = params['id'];
@@ -34,7 +37,6 @@ export class VerOfertaComponent {
                 }
               });
             }
-            console.log(this.ofertaData);
           }
         );
       }
@@ -59,5 +61,13 @@ export class VerOfertaComponent {
       }
     })
   }
+  // compartir oferta función para compartir la oferta y copiar el link en el portapapeles
+  compartirOferta(){
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      this.toast.success('Link copiado en el portapapeles');
+    });
+  }
+
 
 }

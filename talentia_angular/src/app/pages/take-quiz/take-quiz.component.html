@@ -11,7 +11,7 @@
             <a href="/examenes"><img src={{url_images+examen.imagen}} width="40" alt="Angular" class="rounded"></a>
           </div>
           <div class="flex">
-            <a href="student-take-course.html" class="card-title text-body mb-0">{{examen.nombre}}</a>
+            <a class="card-title text-body mb-0">{{examen.nombre}}</a>
             <!-- <p class="lh-1 d-flex align-items-center mb-0">
                             <span class="text-50 small font-weight-bold mr-8pt">Elijah Murray</span>
                             <span class="text-50 small">Software Engineer and Developer</span>
@@ -23,112 +23,67 @@
   </div>
 </div>
 
-<div class="bg-primary pb-lg-64pt py-32pt">
-  <div class="container">
-    <!-- <nav class="course-nav">
-            <a href="student-take-lesson.html"
-               data-toggle="tooltip"
-               data-placement="bottom"
-               data-title="Getting Started with Angular: Introduction"><span class="material-icons">check_circle</span></a>
-            <a data-toggle="tooltip"
-               data-placement="bottom"
-               data-title="Getting Started with Angular: Introduction to TypeScript"
-               href="student-take-lesson.html"><span class="material-icons">check_circle</span></a>
-            <a data-toggle="tooltip"
-               data-placement="bottom"
-               data-title="Getting Started with Angular: Comparing Angular to AngularJS"
-               href="student-take-lesson.html"><span class="material-icons">check_circle</span></a>
-            <a href="student-take-quiz.html"
-               data-toggle="tooltip"
-               data-placement="bottom"
-               data-title="Quiz: Getting Started with Angular"><span class="material-icons text-primary">account_circle</span></a>
-        </nav> -->
-
-    <div class="d-flex flex-wrap align-items-end justify-content-end mb-16pt">
-      <h1 class="text-white flex m-0">Número de preguntas {{numeroDePreguntas}}</h1>
-      <div class="d-flex flex-column">
-        <p class="h1 text-white-50 font-weight-light m-0">Tiempo restante</p>
-        <p class="h1 text-center text-white-50 font-weight-light m-0">{{ minutosRestantes }}:{{ segundosRestantes }}</p>
+<div class="bg-primary pb-lg-64pt py-32pt exam-header">
+  <div class="container page__container">
+    <div class="d-flex flex-wrap align-items-end justify-content-between mb-16pt">
+      <!-- Titulo y número de preguntas -->
+      <div>
+        <h1 class="text-white m-0">Número de preguntas: {{numeroDePreguntas}}</h1>
+        <p class="text-white-50 hero__lead measure-hero-lead">{{examen.descripcion}}</p>
+      </div>
+      
+      <!-- Tiempo Restante -->
+      <div class="text-right">
+        <p class="h4 text-white-50 font-weight-light m-0">Tiempo restante</p>
+        <p class="h2 text-white m-0">{{ minutosRestantes }}:{{ segundosRestantes | number:'2.0'}}</p>
       </div>
     </div>
-    <p class="hero__lead measure-hero-lead text-white-50">{{examen.descripcion}}</p>
-  </div>
-</div>
-
-<div class="navbar navbar-expand-md navbar-list  " style="white-space: nowrap;">
-  <div class="">
-    <!-- <ul class="nav navbar-nav flex navbar-list__item">
-            <li class="nav-item">
-                <i class="material-icons text-50 mr-8pt">tune</i>
-                Choose the correct answer below:
-            </li>
-        </ul> -->
-    <!-- <div class="nav navbar-nav ml-sm-auto navbar-list__item">
-            <div class="nav-item d-flex flex-column flex-sm-row ml-sm-16pt">
-                <a href="student-quiz-result-details.html"
-                   class="btn justify-content-center btn-outline-secondary w-100 w-sm-auto mb-16pt mb-sm-0">Skip Quiz</a>
-                <a href="student-take-lesson.html"
-                   class="btn justify-content-center btn-outline-secondary w-100 w-sm-auto mb-16pt mb-sm-0 ml-sm-16pt">Review Video</a>
-                <a href="student-quiz-result-details.html"
-                   class="btn justify-content-center btn-accent w-100 w-sm-auto mb-16pt mb-sm-0 ml-sm-16pt">Next Question <i class="material-icons icon--right">keyboard_arrow_right</i></a>
-            </div>
-        </div> -->
   </div>
 </div>
 
 <div class="container">
   <div class="page-section">
     <div class="page-separator">
-      <div class="page-separator__text">Preguntas</div>
+        <div class="page-separator__text">Preguntas</div>
     </div>
+    
     <div *ngFor="let examen of examen.preguntas; let i = index" [id]="'card-' + i" [hidden]="mostrarPregunta !== i">
-      <div class="card animate__animated animate__slideInRight">
-        <div class="card-body">
+        <div class="card animate__animated animate__slideInRight mb-4 shadow-lg"> <!-- Añadido shadow y margin-bottom para separación y sombra -->
+            <div class="card-body p-5"> <!-- Padding aumentado para más espacio interior -->
+                <h2 class="text-center mb-4">{{examen.pregunta}}</h2> <!-- Margin-bottom para espacio después del título -->
+                <hr class="my-4"> <!-- Margin en Y-axis para espacio antes y después del hr -->
 
+                <!-- Opciones de Preguntas -->
+                <div *ngFor="let opcionesPreguntas of examen.opciones">
+                  <div class="form">
+                    <div class="inputGroup">
+                      <input [id]="opcionesPreguntas.id" name="radio" type="radio"
+                      [value]="opcionesPreguntas.id" [(ngModel)]="respuestaUsuario"/>
+      
+                      <label [for]="opcionesPreguntas.id">{{opcionesPreguntas.opcion}}</label>
+                    </div>
+                  </div>
+                </div>
 
-          <h2 class="text-center">{{examen.pregunta}}</h2>
-          <hr>
-          <!-- <h2>Opciones</h2> -->
-
-
-          <div *ngFor="let opcionesPreguntas of examen.opciones">
-            <div class="form">
-              <div class="inputGroup">
-                <input [id]="opcionesPreguntas.id" name="radio" type="radio"
-                [value]="opcionesPreguntas.id" [(ngModel)]="respuestaUsuario"/>
-
-                <label [for]="opcionesPreguntas.id">{{opcionesPreguntas.opcion}}</label>
-              </div>
             </div>
-          </div>
-
-        </div>
-        <div class="d-flex p-5 justify-content-end">
-          <div *ngIf="botonSiguiente; else botonEnviar">
-            <!-- <button class="btn btn-primary" (click)="anteriorPregunta()">
-              Atrás
-            </button> -->
-            <br>
-            <div class="d-flex p-5 justify-content-end">
-              <button class="btn btn-primary"  (click)="siguientePregunta(examen.id)">
-                Siguiente
-              </button>
+            <div class="card-footer bg-white d-flex justify-content-end align-items-center"> <!-- Footer para los botones -->
+                <div *ngIf="botonSiguiente; else botonEnviar">
+                    <button class="btn btn-outline-primary float-end"  (click)="siguientePregunta(examen.id)">
+                        Siguiente<i class="fa-solid fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+                <ng-template #botonEnviar>
+                    <button class="btn btn-primary" (click)="funcionFinalizar()">
+                        Finalizar examen
+                    </button>
+                </ng-template>
             </div>
-
-            <!-- botton de atras -->
-          </div>
-          <ng-template #botonEnviar>
-            <button class="btn btn-primary" (click)="funcionFinalizar()">
-              Finalizar examen
-            </button>
-          </ng-template>
         </div>
-      </div>
     </div>
+    
+    <p class="text-50 mb-0">Nota: Si opta por salir de la ventana el examen automáticamente se cerrará</p>
+</div>
 
-
-    <p class="text-50 mb-0">Note: Si opta por salir de la ventan el examen automaticamente se cerrara</p>
-  </div>
   <!-- alerta modal -->
   <div class="contenedor-modal" *ngIf="showModal">
     <div class="modalexamen">

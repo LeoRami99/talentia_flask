@@ -1,11 +1,15 @@
 <div class="container">
   <div *ngIf="loading==false; else Cargando">
     <div class="card mt-5 animate__animated animate__fadeInUp" >
-      <div class="card-header">
+      <div class="card-header d-flex">
         <!-- arrow back -->
         <a routerLink="/ofertas" class="btn btn-outline-primary btn-sm">
           <i class="fas fa-arrow-left"></i>
         </a>
+        <div class="flex-grow-1"></div>
+        <button (click)="compartirOferta()" class="btn btn-outline-primary btn-sm">
+          <i class="fas fa-share-alt"></i>
+        </button>
       </div>
       <div class="card-body p-5">
         <h2 class="text-center">{{ofertaData.titulo}}</h2>
@@ -49,9 +53,16 @@
       </div>
       <div class="card-footer d-flex justify-content-center">
         <!-- Botones para aplicar a la oferta -->
-        <button class="btn btn-outline-primary" style="gap: 4px;" (click)="aplicarOferta()">
-          <i class="fas fa-heart"></i> Aplicar
-        </button>
+        <div *ngIf="id_usuario!='0' && id_usuario!=null; else noAplica">
+          <button class="btn btn-outline-primary" style="gap: 4px;" (click)="aplicarOferta()">
+            <i class="fas fa-heart"></i> Aplicar
+          </button>
+        </div>
+        <ng-template #noAplica>
+          <a href="/signup" class="btn btn-outline-primary" style="gap: 4px;" >
+            <i class="fas fa-heart"></i> Registrarse para aplicar
+          </a>
+        </ng-template>
       </div>
     </div>
   </div>

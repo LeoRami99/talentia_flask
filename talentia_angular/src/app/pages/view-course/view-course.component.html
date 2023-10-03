@@ -1,9 +1,8 @@
-<div class="bg-primary mb-0"
-  style="background-image: radial-gradient( circle 975px at 2.6% 48.3%,  rgba(0,8,120, 0.2) 0%, rgba(95,184,224,1) 99.7% ); z-index: -10;">
+<div class="bg-primary mb-0" style="position: relative; background-image: radial-gradient(circle 975px at 2.6% 48.3%, rgba(0,8,120, 0.2) 0%, rgba(95,184,224,1) 99.7%); z-index: -10;">
   <div class="hero py-64pt text-center text-sm-left">
-    <div class="p-5">
+    <div class="p-5" style="position: relative; z-index: 10;">
       <h1 class="text-white">{{curso?.title}}</h1>
-      <p class="lead text-white-50 measure-hero-lead">{{curso?.description}}</p>
+      <p class="text-white">{{curso?.description}}</p>
       <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
         <div *ngIf="!this.verificiarProgreso; else elseBlock">
           <button *ngIf="buttonOculto" class="btn btn-white" (click)="crearProgresoCurso(this.dataUsuario.id, id_curso)">Tomar curso</button>
@@ -14,6 +13,7 @@
         <!-- <button [attr.href]="'/take-lesson/'+id_curso" class="btn btn-white" (click)="crearProgresoCurso(this.dataUsuario.id, id_curso)">Tomar curso</button> -->
       </div>
     </div>
+    
   </div>
 </div>
 
@@ -37,8 +37,8 @@
         2h 46m
       </li> -->
       <li class="nav-item navbar-list__item">
-        <i class="material-icons text-muted icon--left">assessment</i>
-        {{curso?.dificultad}}
+        <i class="material-icons text-muted icon--left" style="font-size: 24px;">assessment</i>
+        <span style="font-size: 18px;">{{curso?.dificultad}}</span>
       </li>
       <!-- <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
         <div class="rating rating-24">
@@ -62,8 +62,8 @@
     <div class="row mb-0">
       <div class="col-lg-7 mb-5">
         <div class="accordion js-accordion accordion--boxed" id="accordionExample">
-          <div class="accordion__item" *ngFor="let sections of curso?.sections; let i = index">
-            <div class=" shadow" id="heading{{i}}">
+          <div class="accordion__item" *ngFor="let sections of curso?.sections; let i = index" style="margin-bottom: 10px;">
+            <div class="shadow" id="heading{{i}}" style="border: 1px solid #eee; border-radius: 8px;">
               <h2 class="mb-0">
                 <button class="btn btn-block p-3 d-flex align-items-center text-left collapsed" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false" [attr.aria-controls]="'collapse'+i">
                   <span class="flex align-items-center">{{sections.titulo}}</span>
@@ -76,10 +76,14 @@
                 <div class="accordion__menu-link" *ngFor="let lesson of sections.subsecciones">
 
                   <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                    <i class="material-icons icon-16pt">book</i>
+                    <i class="fa-solid fa-circle-play"></i>
                   </span>
-                  <a class="flex" (click)="false">{{lesson.descripcion}}</a>
-                  <!-- <span class="text-muted">1m 10s</span> -->
+                  <a class="flex" (click)="false">{{lesson.titulo}}
+                    <br>
+                    <span class="text-muted">
+                      {{lesson.descripcion}}
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -117,7 +121,7 @@
         <div class="card">
           <div class="card-body py-16pt text-center">
             <h4 class="card-title">Mirar trailer</h4>
-            <div class="video-container">
+            <div class="video-container" style="max-width: 600px; margin: auto;">
               <iframe width="300" height="200" [src]="sanitizeUrl(curso?.trailer || '')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
           </div>
