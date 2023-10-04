@@ -10,6 +10,10 @@
   width: 100%;
   z-index: 1030;
 } */
+
+p{
+  font-size: 15pt;
+}
 .text-talentia{
   height: 60px;
   color: #ffffff;
@@ -43,7 +47,7 @@
 }
 
 .inner-header {
-  height:65vh;
+  height:100vh;
   width:100%;
   margin: 0;
   padding: 0;
@@ -67,7 +71,7 @@
 
 .content {
   position:relative;
-  height:20vh;
+  height:190vh;
   text-align:center;
   background-color: white;
 }
@@ -113,4 +117,55 @@
   h1 {
     font-size:24px;
   }
+}
+.hero-technology{
+  background: rgb(154,33,255);
+  background: linear-gradient(149deg, rgba(154,33,255,1) 0%, rgba(31,125,240,1) 100%);
+}
+.hero-technology > h1{
+  color : #fff;
+  font-size: 40px;
+}
+.hero-technology > p{
+  color : #fff;
+  font-size: 20px;
+}
+h2{
+  word-wrap: break-word;
+  font-size: 20pt;
+  font-weight: 800;
+  background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  -webkit-background-clip: text;
+  color: transparent;  
+}
+
+.hero-technology-2{
+  background-image: url(https://cdn.pixabay.com/photo/2015/11/09/14/43/laptop-1035345_1280.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* hacer un fondo osucro encima del backgrond */
+}
+.hero-technology-2 > h1{
+  color : #fff;
+  font-size: 40px;
+}
+.hero-technology-2 > p{
+  color : #fff;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 20px;
+}
+.contenedor-blur{
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  color: #fff;
+}
+.contenedor-blur > h1{
+  color : #fff;
+  font-size: 40px;
 }
