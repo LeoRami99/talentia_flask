@@ -4,8 +4,16 @@
     <div class="container">
 
       <div class=" d-flex flex-column flex-md-row align-items-center text-center text-md-left">
-        <img src="assets/images/illustration/student/128/white.svg" width="104" class="mr-md-32pt mb-32pt mb-md-0"
+        <div *ngIf="check_foto; else noFoto">
+          <img [src]="
+          url_api+'imagenes/'+imagen_perfil" width="104" class="mr-md-32pt mb-32pt mb-md-0" style="border-radius: 70%;" alt="">
+        </div>
+        <ng-template #noFoto>
+          <img src="assets/images/illustration/student/128/white.svg" width="104" class="mr-md-32pt mb-32pt mb-md-0"
           alt="student">
+        </ng-template>
+
+
         <div class="flex mb-32pt mb-md-0">
           <h1 class="text-white mb-0">¡Bienvenido/a!</h1>
           <h2 class="text-white mb-0">{{nombre_usuario}}</h2>

@@ -7,6 +7,8 @@ import { ExamenesService } from 'src/app/services/examenes/examenes.service';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { API_URL } from 'src/app/api.constants';
+
 import { register } from 'swiper/element/bundle';
 register();
 
@@ -29,57 +31,60 @@ export class DashboardHomeComponent implements OnInit {
   contador_examenes = 0;
   contador_cursos = 0;
   contador_ofertas = 0;
-  id_usuario: string='';
+  id_usuario: string = '';
   loading = false;
+  imagen_perfil: string = '';
+  check_foto = false;
+  url_api = API_URL;
   state_of_account = false;
-  customOptions:OwlOptions={
-    loop:true,
-    autoplay:true,
-    mouseDrag:true,
-    touchDrag:true,
-    pullDrag:true,
-    dots:true,
-    navSpeed:1000,
-    margin:10,
-    navText:['<','>'],
-    responsive:{
-      0:{
-        items:1
+  customOptions: OwlOptions = {
+    loop: true,
+    autoplay: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 1000,
+    margin: 10,
+    navText: ['<', '>'],
+    responsive: {
+      0: {
+        items: 1
       },
-      400:{
-        items:2
+      400: {
+        items: 2
       },
-      740:{
-        items:3
+      740: {
+        items: 3
       },
-      940:{
-        items:5
+      940: {
+        items: 5
       }
     },
-    nav:true
+    nav: true
   }
-  customOptionsOfertas:OwlOptions={
-    loop:true,
-    autoplay:true,
-    mouseDrag:true,
-    touchDrag:true,
-    pullDrag:true,
-    dots:true,
-    navSpeed:1000,
-    margin:10,
+  customOptionsOfertas: OwlOptions = {
+    loop: true,
+    autoplay: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 1000,
+    margin: 10,
     // navText:['<','>'],
-    responsive:{
-      0:{
-        items:1
+    responsive: {
+      0: {
+        items: 1
       },
-      400:{
-        items:1
+      400: {
+        items: 1
       },
-      740:{
-        items:1
+      740: {
+        items: 1
       },
-      940:{
-        items:1
+      940: {
+        items: 1
       }
     },
   }
@@ -88,16 +93,30 @@ export class DashboardHomeComponent implements OnInit {
     private toastr: ToastrService,
     private getCourses: GetCourseService,
     private examenService: ExamenesService,
-    private dataUser : UserDataService,
+    private dataUser: UserDataService,
     private ofertaService: OfertaEmpresaService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.ofertasRandom()
     // obtener el token
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = helper.decodeToken(token);
-      this.ofertaService.countOfertasByUser(decodedToken['id']).subscribe((data:any)=>{
+
+      this.dataUser.getFotoPerfil(decodedToken['id']).subscribe((data: any) => {
+        if (data.status == 200) {
+          this.check_foto = true;
+          this.imagen_perfil = data.data;
+        } else {
+          this.check_foto = false;
+        }
+        (erro: any) => {
+          this.check_foto = false;
+          console.log(erro);
+        }
+      })
+
+      this.ofertaService.countOfertasByUser(decodedToken['id']).subscribe((data: any) => {
         this.contador_ofertas = data.ofertas;
       })
       this.progresoService.obtenerCursosProgreso(decodedToken['id'])
@@ -106,46 +125,46 @@ export class DashboardHomeComponent implements OnInit {
             let progreso = data.data;
             progreso.forEach((element: any) => {
               this.getCourses.getCourse(element.id_curso).subscribe((data: any) => {
-                  this.contador_cursos += 1;
-                  if(data){
-                    this.loading = true;
-                    this.cursos.push(data.curso);
-                  }else{
-                    this.cursos = [];
-                    this.loading = false;
-                  }
-                });
+                this.contador_cursos += 1;
+                if (data) {
+                  this.loading = true;
+                  this.cursos.push(data.curso);
+                } else {
+                  this.cursos = [];
+                  this.loading = false;
+                }
+              });
             });
           } else {
             this.cursos = [];
           }
         });
-        this.dataUser.dataUsuario(decodedToken['id']).subscribe((data:any)=>{
+      this.dataUser.dataUsuario(decodedToken['id']).subscribe((data: any) => {
 
-          this.id_usuario=data.data.id;
-          this.nombre_usuario=data.data.nombre+" "+ data.data.apellidos;
-          if (data) {
-            this.dataUser.verificarEstadoCuenta(data.data.correo).subscribe((data:any)=>{
-              if (data) {
-                if (data.data == 1) {
-                  this.state_of_account = true;
-                }else{
-                  this.state_of_account = false;
-                }
-              }else{
+        this.id_usuario = data.data.id;
+        this.nombre_usuario = data.data.nombre + " " + data.data.apellidos;
+        if (data) {
+          this.dataUser.verificarEstadoCuenta(data.data.correo).subscribe((data: any) => {
+            if (data) {
+              if (data.data == 1) {
+                this.state_of_account = true;
+              } else {
                 this.state_of_account = false;
               }
-            })
-          }
-        })
+            } else {
+              this.state_of_account = false;
+            }
+          })
+        }
+      })
       this.examenService.getProgresoUsuario(decodedToken['id']).subscribe((data: any) => {
-        if(data.status === 200){
+        if (data.status === 200) {
           let examenes = data.data;
           examenes.forEach((element: any) => {
             this.examenService.getExamen(element.id_examen).subscribe((data: any) => {
               // añadir tambien el estado de aprobado
               // console.log()
-              this.examenes.push({examen:data.examen, aprobado:element.aprobado});
+              this.examenes.push({ examen: data.examen, aprobado: element.aprobado });
               this.contador_examenes += 1;
               // console.log(element.aprobado)
               if (element.aprobado == "aprobado") {
@@ -154,10 +173,10 @@ export class DashboardHomeComponent implements OnInit {
               }
             });
           });
-        }else{
+        } else {
           this.examenes = [];
         }
-      },(error:any)=>{
+      }, (error: any) => {
         this.examenes = [];
       })
 
@@ -167,14 +186,14 @@ export class DashboardHomeComponent implements OnInit {
       this.toastr.error('Error en la obtención del token', 'Error');
     }
   }
-  ofertasRandom(){
+  ofertasRandom() {
     this.ofertaService.allOfertas().subscribe({
       next: (data: any) => {
         if (data.status == 200) {
           // las ofertas tienen que estar activas
-          data.ofertas.filter((oferta:any)=>oferta.estado == 1)
+          data.ofertas.filter((oferta: any) => oferta.estado == 1)
           this.randomOfertas = data.ofertas.sort(() => Math.random() - Math.random()).slice(0, 3);
-        }else{
+        } else {
           this.randomOfertas = [];
         }
       },

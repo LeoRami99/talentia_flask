@@ -1,76 +1,102 @@
-<div class="container">
-  <div *ngIf="loading==false; else Cargando">
-    <div class="card mt-5 animate__animated animate__fadeInUp" >
-      <div class="card-header d-flex">
-        <!-- arrow back -->
-        <a routerLink="/ofertas" class="btn btn-outline-primary btn-sm">
+<div class="container my-5">
+
+  <!-- Display Loading or Content -->
+  <ng-container *ngIf="loading; else content">
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div class="spinner-border text-primary mb-3" role="status"></div>
+      <span>Cargando oferta...</span>
+    </div>
+  </ng-container>
+
+  <!-- Main Content -->
+  <ng-template #content>
+    <div class="card shadow animate__animated animate__fadeInUp p-4">
+      <!-- Card Header -->
+      <div class="card-header d-flex align-items-center">
+        <a routerLink="/ofertas" class="btn btn-outline-primary btn-sm mr-3">
           <i class="fas fa-arrow-left"></i>
         </a>
         <div class="flex-grow-1"></div>
-        <button (click)="compartirOferta()" class="btn btn-outline-primary btn-sm">
-          <i class="fas fa-share-alt"></i>
-        </button>
-      </div>
-      <div class="card-body p-5">
-        <h2 class="text-center">{{ofertaData.titulo}}</h2>
-        <hr>
-        <h3>
-          Descripción:
-        </h3>
-        <p>{{ofertaData.descripcion}}</p>
-        <!-- <p>{{ofertaData.habilidades}}</p> -->
-        <h3>
-          Lugar de trabajo:
-        </h3>
-        <p>{{ofertaData.ciudad}} / {{ofertaData.pais}}</p>
-        <h3>
-          Modalidad:
-        </h3>
-        <p>{{ofertaData.modalidad}}</p>
-        <h3>
-          Requisitos:
-        </h3>
-        <p>{{ofertaData.requisitos}}</p>
-        <h3>
-          Salario:
-        </h3>
-        <p>{{ofertaData.salario}}</p>
-        <p>{{ofertaData.fecha}}</p>
-        <h3>
-          Tipo de contrato:
-        </h3>
-        <p>{{ofertaData.tipo_contrato}}</p>
-        <h3>
-          URL de referencia:
-        </h3>
-        <p>{{ofertaData.url_referencia}}</p>
-        <h3>
-          Habilidades:
-        </h3>
-        <div class="d-flex align-items-center flex-wrap " style="gap: 10px;">
-            <div class="badge badge-pill badge-success" *ngFor="let skills of ofertaData.habilidades">{{skills.nombre}}</div>
-        </div>
-      </div>
-      <div class="card-footer d-flex justify-content-center">
-        <!-- Botones para aplicar a la oferta -->
-        <div *ngIf="id_usuario!='0' && id_usuario!=null; else noAplica">
-          <button class="btn btn-outline-primary" style="gap: 4px;" (click)="aplicarOferta()">
-            <i class="fas fa-heart"></i> Aplicar
+        <!-- Botón compartir con menú contextual -->
+        <div class="btn-group dropleft">
+          <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-share-alt"></i>
           </button>
+          <div class="dropdown-menu">
+            <!-- Opción para compartir en WhatsApp -->
+            <a class="dropdown-item" href="https://wa.me/?text={{url}}" target="_blank">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <!-- Opción para copiar enlace -->
+            <a class="dropdown-item" (click)="compartirOferta()">
+              <i class="fas fa-copy"></i> Copiar enlace
+            </a>
+          </div>
         </div>
+
+
+
+
+
+
+        <!-- <button (click)="compartirOferta()" class="btn btn-outline-primary btn-sm">
+          <i class="fas fa-share-alt"></i>
+        </button> -->
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <h2 class="text-center mb-4">{{ofertaData.titulo}}</h2>
+        <div class="mb-3">
+          <h4>Descripción:</h4>
+          <p>{{ofertaData.descripcion}}</p>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <h4>Lugar de trabajo:</h4>
+            <p>{{ofertaData.ciudad}} / {{ofertaData.pais}}</p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h4>Modalidad:</h4>
+            <p>{{ofertaData.modalidad}}</p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h4>Requisitos:</h4>
+            <p>{{ofertaData.requisitos}}</p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h4>Salario:</h4>
+            <p>{{ofertaData.salario}}</p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h4>Tipo de contrato:</h4>
+            <p>{{ofertaData.tipo_contrato}}</p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h4>URL de referencia:</h4>
+            <p>{{ofertaData.url_referencia}}</p>
+          </div>
+          <div class="col-12 mb-3">
+            <h4>Habilidades:</h4>
+            <div class="d-flex align-items-center flex-wrap" style="gap: 10px;">
+              <div class="badge badge-pill badge-success" *ngFor="let skills of ofertaData.habilidades">{{skills.nombre}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card Footer -->
+      <div class="card-footer d-flex justify-content-center">
+        <ng-container *ngIf="id_usuario!='0' && id_usuario!=null; else noAplica">
+          <button class="btn btn-primary btn-lg" (click)="aplicarOferta()">
+            <i class="fas fa-heart mr-2"></i> Aplicar
+          </button>
+        </ng-container>
         <ng-template #noAplica>
-          <a href="/signup" class="btn btn-outline-primary" style="gap: 4px;" >
-            <i class="fas fa-heart"></i> Registrarse para aplicar
+          <a href="/signup" class="btn btn-primary btn-lg">
+            <i class="fas fa-heart mr-2"></i> Registrarse para aplicar
           </a>
         </ng-template>
       </div>
     </div>
-  </div>
-  <ng-template #Cargando>
-    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
-      <div class="spinner-border text-primary" role="status">
-      </div>
-      <span class="visually-hidden">Cargando oferta...</span>
-    </div>
   </ng-template>
+
 </div>

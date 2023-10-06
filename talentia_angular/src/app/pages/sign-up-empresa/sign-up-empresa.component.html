@@ -1,7 +1,10 @@
 <div class="page-section container">
-  <div class="col-lg-10 p-0 mx-auto">
-    <div class="row">
-      <div class="col-md-6 mb-24pt mb-md-0">
+  <div class="container d-flex justify-content-center">
+      <div class="col-md-6 mb-24pt mb-md-0 bg-light p-5 shadow rounded">
+        <div class="d-flex justify-content-center">
+          <img src="https://img.icons8.com/fluency/100/client-company.png" alt="Registro Empresa">
+        </div>
+        <h1 class="text-center">Talentia Empresas</h1>
         <form  [formGroup]="formulario">
           <div class="form-group">
             <label class="form-label" for="name">Nombres:</label>
@@ -15,8 +18,6 @@
                 El nombre debe de ser alfabético
               </div>
             </div>
-
-
           </div>
           <div class="form-group">
             <label class="form-label" for="name">apellidos:</label>
@@ -54,15 +55,11 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary" type="button" (click)="signup()">Crear cuenta</button>
+          <button class="btn btn-primary w-100" type="button" (click)="signup()">Crear cuenta</button>
         </form>
-      </div>
-      <div class="col-md-6 d-flex justify-content-center align-items-center">
-        <h1>Talentia Empresas</h1>
       </div>
     </div>
   </div>
-</div>
 <!-- <div class="page-separator justify-content-center m-0">
   <div class="page-separator__text">or sign-in with</div>
 </div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { UploadImgsService } from 'src/app/services/upload_images/upload-imgs.service';
 const jwt = new JwtHelperService();
 
 @Component({
@@ -10,12 +11,13 @@ const jwt = new JwtHelperService();
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
-  constructor(private user: UserDataService, private toast: ToastrService) { }
+  constructor(private user: UserDataService, private toast: ToastrService, private uploadImgs: UploadImgsService) { }
   regex_username = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
   valida_username = false;
   id_usuario = "";
   no_exist_profile = false;
   data_usuario: any;
+  foto_perfil!: File;;
   @Input() username: string = '';
   @Input() sobre_ti: string = '';
   @Input() link_cv: string = '';
@@ -39,6 +41,26 @@ export class ProfileComponent implements OnInit{
       })
     }
   }
+  onImagenPerfilSelected(event: any): void {
+    const foto_perfil: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result as string;
+        img.onload = () => {
+          const width = img.width;
+          const height = img.height
+          if (width != 100 || height != 100) {
+            this.toast.error('La imagen para foto de perfil debe ser de  100x100 Pixeles');
+            return;
+          }else{
+            this.foto_perfil = foto_perfil;
+          }
+        }
+    };
+    reader.readAsDataURL(foto_perfil);
+  }
+
   validateUsername(){
     if(this.regex_username.test(this.username)){
       this.valida_username = true;
@@ -82,6 +104,30 @@ export class ProfileComponent implements OnInit{
         this.toast.error('Ocurrió un error al actualizar el perfil', '¡Error!');
       }
     })
+  }
+
+  actualizarFotoPerfil(){
+    const formData = new FormData();
+    formData.append('foto_perfil', this.foto_perfil);
+    if (this.foto_perfil == undefined) {
+      this.toast.error('Seleccione una foto de perfil', '¡Error!');
+      return;
+    }else{
+      this.uploadImgs.uploadImagenPerfil(formData).subscribe((data:any)=>{
+        if (data.status == 200) {
+          this.user.actualizarFotoPerfil({id_usuario: this.id_usuario, foto_perfil: data.foto_perfil}).subscribe((data:any)=>{
+            if (data.status == 200) {
+              this.toast.success('Foto de perfil actualizada correctamente', '¡Éxito!');
+              window.location.href = '/profile';
+            } else {
+              this.toast.error('Ocurrió un error al actualizar la foto de perfil', '¡Error!');
+            }
+          });
+        } else {
+          this.toast.error('Ocurrió un error al actualizar la foto de perfil', '¡Error!');
+        }
+      })
+    }
   }
 
 

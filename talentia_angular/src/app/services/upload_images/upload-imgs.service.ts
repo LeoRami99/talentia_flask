@@ -14,4 +14,7 @@ export class UploadImgsService {
   uploadImgExamen(img: any) {
     return this.http.post(API_URL+'examen/upload_imagen_examen', img);
   }
+  uploadImagenPerfil(img: any) {
+    return this.http.post(API_URL+'user/upload_imagen_perfil', img);
+  }
 }

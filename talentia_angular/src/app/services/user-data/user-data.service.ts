@@ -32,4 +32,10 @@ export class UserDataService {
   verificarEstadoCuenta(correo:any){
     return this.http.get(`${API_URL}user/verify-account-state/${correo}`)
   }
+  actualizarFotoPerfil(data:any){
+    return this.http.put(`${API_URL}user/actualizar-foto-perfil`,data)
+  }
+  getFotoPerfil(id:any){
+    return this.http.get(`${API_URL}user/get-foto-perfil/${id}`)
+  }
 }

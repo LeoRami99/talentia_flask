@@ -1,7 +1,9 @@
 <div class="page-section container">
-  <div class="col-lg-10 p-0 mx-auto">
-    <div class="row">
-      <div class="col-md-6 mb-24pt mb-md-0 signup animate__animated animate__fadeInUp p-5">
+  <div class="container justify-content-center d-flex">
+      <div class="col-md-6 mb-24pt mb-md-0 signup animate__animated animate__fadeInUp bg-light p-5">
+        <div class="d-flex justify-content-center">
+          <img src="https://img.icons8.com/?size=512&id=41697&format=png" alt="" class="img-fluid w-25">
+        </div>
         <form  [formGroup]="formulario">
           <h1 class="text-center">Regístrate</h1>
           <div class="form-group">
@@ -55,15 +57,14 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary gradient-back" type="button" (click)="signup()">Crear cuenta</button>
+          <div class="d-flex justify-content-center flex-column" style="gap: 10px;">
+            <button class="btn btn-primary gradient-back w-100" type="button" (click)="signup()">Crear cuenta</button>
+            <a href="/login" class="text-center">¿Ya tienes cuenta? Inicia sesión</a>
+          </div>
         </form>
-      </div>
-      <div class="col-md-6 d-flex justify-content-center align-items-center">
-        <img src="https://img.icons8.com/?size=512&id=41697&format=png" alt="" class="img-fluid w-75">
       </div>
     </div>
   </div>
-</div>
 <!-- <div class="page-separator justify-content-center m-0">
   <div class="page-separator__text">or sign-in with</div>
 </div>

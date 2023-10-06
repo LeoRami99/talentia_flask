@@ -16,13 +16,13 @@ export class VerOfertaComponent {
   ofertaData: any;
   loading = true;
   id_usuario = ""
+  url=""
   ngOnInit(): void {
+    this.url=window.location.href;
     const tokenPayload = jwt.decodeToken(localStorage.getItem('token')!);
     if(tokenPayload == null){
       this.id_usuario = '0';
     }
-
-
     this.activateRute.params.subscribe(params => {
       this.id_oferta = params['id'];
         this.oferta.allOfertas().subscribe(
@@ -63,8 +63,9 @@ export class VerOfertaComponent {
   }
   // compartir oferta función para compartir la oferta y copiar el link en el portapapeles
   compartirOferta(){
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
+    const url_oferta = window.location.href;
+    this.url=url_oferta;
+    navigator.clipboard.writeText(url_oferta).then(() => {
       this.toast.success('Link copiado en el portapapeles');
     });
   }
