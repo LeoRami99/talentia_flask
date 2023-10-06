@@ -1,5 +1,6 @@
 const e = require('express');
 const db = require('../../../config/db');
+const { error } = require('pdf-lib');
 
 class usuarioDB {
   constructor(nombre, apellidos, correo, rol){
@@ -284,6 +285,35 @@ class usuarioDB {
         }
     }catch(error){
         // console.log(error);
+        throw error;
+    }
+  }
+  async actualizarFotoPerfil(id_usuario, nombre_imagen){
+    try {
+        const sql = 'UPDATE perfil SET foto_perfil = ? WHERE id_usuario = ?';
+        const [result] = await db.execute(sql, [nombre_imagen, id_usuario]);
+        if (result.affectedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+  }
+
+  async getFotoPerfil(id_usuario){
+    try {
+        const sql = 'SELECT foto_perfil FROM perfil WHERE id_usuario = ?';
+        const [result] = await db.execute(sql, [id_usuario]);
+        if (result.length > 0) {
+            return result[0].foto_perfil;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
         throw error;
     }
   }

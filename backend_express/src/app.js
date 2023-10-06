@@ -27,6 +27,7 @@ app.use('/examen', examenRoutes);
 app.use('/oferta', ofertaRoutes);
 app.use('/imagenes', express.static(path.join(__dirname, 'images/curso')));
 app.use('/imagenes', express.static(path.join(__dirname, 'images/examen')));
+app.use('/imagenes', express.static(path.join(__dirname, 'images/foto_perfil')));
 
 // Middleware de manejo de errores
 app.use(function (err, req, res, next) {
