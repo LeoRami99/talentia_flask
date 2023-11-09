@@ -115,6 +115,56 @@ router.post('/upload_imagenes_curso', upload.fields([{name: 'imagen_card'}]), (r
     }
 });
 
+// actualizar imagen de curso
+
+router.put('/update_card', upload.fields([{name: 'imagen_card'}]), (req, res) => {
+    try{
+        console.log("Entro");
+        if (req.files.imagen_card) {
+            let response_data = {
+                "message": "Imagenes subidas correctamente",
+                "status": 200,
+                "imagen_card": req.files.imagen_card[0].filename
+            };
+            // console.log(response_data);
+            res.status(200).json(response_data);
+        } else {
+            // console.log("No hay imagenes");
+            let response_data = {"message": "No hay imagenes", "status": 400};
+            res.status(400).json(response_data);
+        }
+    } catch (err) {
+        console.log("Error al subir las imagenes");
+        console.log(err);  // Agrega esta línea
+        let response_data = {"message": "Error al subir las imagenes", "status": 500};
+        res.status(500).json(response_data);
+    }
+});
+
+router.put('/update-curso-card', async (req, res) => { 
+    try {
+        const datos = req.body;
+        const id_curso = datos.id_curso;
+        const imagen_card = datos.imagen_card;
+        if (id_curso !== '' && imagen_card !== '') {
+            let curso = new CursoDB();
+            const curso_card = await curso.actualizarImagenCurso(imagen_card, id_curso);
+            if (curso_card) {
+                return res.status(200).json({"message": "Curso actualizado", "status": 200});
+            }else{
+                return res.status(400).json({"message": "No hay datos", "status": 400});
+            }
+            // console.log(curso_id);
+        } else {
+            return res.status(400).json({"message": "No hay datos", "status": 400});
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({"message": "Error en el servidor", "status": 500});
+    }
+});
+
+
 // Craer curso
 router.post('/create', async (req, res) => {
     try {
@@ -256,6 +306,8 @@ router.delete('/delete-curso/', async (req, res) => {
     try{
         let data=req.body;
         if(data.id!=''){
+            eliminarCategoria(data.id);
+            eliminarProgresoUsuarios(data.id);
             let seccion = data.secciones
             for (const secciones of seccion) {
                 for (const subsecciones of secciones.subsecciones) {
@@ -263,8 +315,8 @@ router.delete('/delete-curso/', async (req, res) => {
                 };
                 await eliminarSecciones(secciones.curso_id, secciones.id);
             };
-            await eliminarCategoria(data.id);
             await eliminarCurso(data.id) ? res.status(200).json({"message": "Curso eliminado", "status": 200}) : res.status(400).json({"message": "No hay datos", "status": 400});
+
         }else{
             return res.status(400).json({"message": "No hay datos", "status": 400});
         }

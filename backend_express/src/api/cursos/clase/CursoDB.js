@@ -253,6 +253,22 @@ async createCategoria(curso_id, categoria_id) {
 			return false;
 		}
 	}
+
+	// Actualización de la imagen del curso
+	async actualizarImagenCurso(imagen_card, id_curso){
+		try {
+			let sql= "UPDATE cursos SET imagen_card=? WHERE id=?"
+			let values = [imagen_card, id_curso];
+			await db.query(sql, values);
+			return true;
+		} catch (error) {
+			console.error(error);
+			return false;
+		}
+	}
+
+
+
 	// Eliminación de las subsecciones basada en el id de la sección
 	//Indica que se elimina todas las subsecciones
 	static async eliminarSubsecciones(id_seccion){
@@ -302,6 +318,17 @@ async createCategoria(curso_id, categoria_id) {
 	static async eliminarCategoria(id_curso){
 		try{
 			let sql= "DELETE FROM categorias_curso WHERE id_curso=?";
+			let values = [id_curso];
+			await db.query(sql, values);
+			return true;
+		}catch(error){
+			console.error(error);
+			return false;
+		}
+	}
+	static async eliminarProgresoUsuarios(id_curso){
+		try{
+			let sql= "DELETE FROM progreso_usuario WHERE id_curso=?";
 			let values = [id_curso];
 			await db.query(sql, values);
 			return true;

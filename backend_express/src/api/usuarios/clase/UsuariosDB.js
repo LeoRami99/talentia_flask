@@ -120,7 +120,7 @@ class usuarioDB {
   }
   async getProfileById(id_usuario){
       try {
-          let query = "SELECT usuario.id, usuario.nombre, usuario.apellidos, usuario.correo, perfil.id as id_perfil, perfil.nombre_usuario, perfil.sobre_mi, perfil.sobre_mi, perfil.url_cv, perfil.num_telefono FROM usuario INNER JOIN perfil ON usuario.id = perfil.id_usuario WHERE usuario.id  = ?";
+          let query = "SELECT usuario.id, usuario.nombre, usuario.apellidos, usuario.correo, perfil.id as id_perfil, perfil.nombre_usuario, perfil.sobre_mi, perfil.sobre_mi, perfil.url_cv, perfil.num_telefono, perfil.foto_perfil, perfil.skills FROM usuario INNER JOIN perfil ON usuario.id = perfil.id_usuario WHERE usuario.id  = ?";
           let [rows] = await db.query(query, [id_usuario]);
           return rows;
       } catch (error) {
@@ -317,6 +317,22 @@ class usuarioDB {
         throw error;
     }
   }
+
+//   se van a guardar las skills del usuario
+
+async guardarSkillsUsuario(id, skills){
+    try {
+        let query = "UPDATE perfil SET skills = ? WHERE id_usuario = ?";
+        let rows = await db.query(query, [skills, id]);
+        if(rows[0].affectedRows > 0){
+            return true;
+        }else{
+            return false;
+        }
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 }

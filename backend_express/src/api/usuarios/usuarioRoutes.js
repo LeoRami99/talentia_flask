@@ -18,9 +18,9 @@ const storage = multer.diskStorage(
     {
         destination: function (req, file, cb) {
             // en local se usa esta ruta
-            cb(null, 'src/images/foto_perfil');
+            // cb(null, 'src/images/foto_perfil');
             //en producción se usa esta ruta
-            // cb(null, 'images/foto_perfil');
+            cb(null, 'images/foto_perfil');
         },
         filename: function (req, file, cb) {
             let ext = path.extname(file.originalname);
@@ -365,6 +365,27 @@ router.post('/update-password', async (req, res) => {
         res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
     }
 })
+
+
+// subir skill de usuario
+
+router.put('/upload-skills', async (req, res) => {
+    try {
+        const {id_usuario, skills} = req.body;
+        const usuario = new Usuarios();
+        const skill_upload = await usuario.guardarSkillsUsuario(id_usuario, skills);
+        if(skill_upload){
+            res.status(200).json({ message: 'Skills subidas exitosamente', status: 200 });
+        }else{
+            res.status(400).json({ message: 'No se pudo subir las skills', status: 400 });
+        }
+    }catch (error) {
+        console.log(error)
+        res.status(400).json({ message: 'Ocurrio un error en la API', status: 400 });
+    }
+});
+
+
 
 function generarCodigoResetPass() {
     let codigo = '';
