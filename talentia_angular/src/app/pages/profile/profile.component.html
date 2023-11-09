@@ -21,7 +21,7 @@
           </div>
         </div>
       </div> -->
-          <div class="form-group">
+          <div class="form-group d-none">
             <label class="form-label">Nombre de perfil</label>
             <input type="text" class="form-control" value=".com/" placeholder="Your profile name ..."
               [(ngModel)]="username" (keyup)="validateUsername()">
@@ -58,6 +58,18 @@
             <input class="form-control" placeholder="Número de teléfono" [(ngModel)]="num_telefono">
           </div>
           <button type="submit" class="btn btn-primary w-100" (click)="saveProfile()">Guardar Cambios</button>
+          <small class="form-text text-muted">
+            Una vez complete podras subir una foto de perfil y modificar tus nombres
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-center align-items-center flex-column">
+
+          <!-- Quiero un texto que diga Una vez complete podras subir una foto de perfil y modificar tus nombres -->
+          <img src="https://img.icons8.com/fluency/200/test-account.png" alt="">
+          <h2>Completa tu perfil</h2>
+          
         </div>
       </div>
 
@@ -72,8 +84,6 @@
       <div class="row">
         <div class="col-md-6 card">
           <div class="card-body">
-
-
             <div class="form-group">
               <div class="form-group">
                 <label class="form-label">
@@ -95,19 +105,20 @@
                 <small class="form-text text-muted">
                   Tu correo sera de gran ayuda cuando apliques a ofertas
                   <br>
-                  Ten cuidado con el correo que ingreses, ya puedes perder tu cuenta.
                 </small>
               </div>
-              <label class="form-label">Nombre de perfil</label>
+              <div class="d-none">
+                <label class="form-label">Nombre de perfil</label>
               <input type="text" class="form-control not-allowed" placeholder="Tu nombre de usuario ..."
-                [(ngModel)]="data_usuario.nombre_usuario" disabled>
+              [(ngModel)]="data_usuario.nombre_usuario" disabled>
               <small class="form-text text-muted" [(ngModel)]="username">
                 Tú nombre de usuario es único y no puede ser cambiado, así que elige sabiamente.
                 <br>
                 De igual manera tu nombre de usuario sera de gran ayuda cuando apliques a ofertas
               </small>
             </div>
-
+            </div>
+            
             <div class="form-group">
               <label class="form-label">Sobre ti</label>
               <textarea rows="3" class="form-control" placeholder="Sobre ti"
@@ -130,11 +141,30 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-              <h2 class="card-title text-center">Tu foto de perfil</h2>
+              <div class="page-separator">
+                <div class="page-separator__text">Foto de perfil(100x100 Pixeles)</div>
+              </div>
               <!-- permitir solo imagenes -->
               <input type="file" name="foto_perfil" id="foto_perfil" class="form-control" placeholder="Subir foto"
                 accept="image/*" (change)="onImagenPerfilSelected($event)">
               <button class="btn btn-primary w-100" (click)="actualizarFotoPerfil()">Actualizar</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="page-separator">
+                <div class="page-separator__text">Habilidades</div>
+              </div>
+              <!-- SKILLS -->
+              <ng-select [multiple]="true" class="custom" [items]="habilidades" bindLabel="nombre" [(ngModel)]="habilidades_usuario">
+                <ng-option *ngFor="let habilidad of habilidades" [value]="habilidad.id">{{habilidad.nombre}}</ng-option>
+              </ng-select>
+              <button class="btn btn-primary w-100 mt-2" (click)="guardarHabilidades()">Guardar Habilidades</button>
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div *ngFor="let skills of skills_bd">
+                  <h5><div class="badge badge-success badge-pill">{{skills.nombre}}</div></h5>
+                </div>
+              </div>
             </div>
           </div>
         </div>

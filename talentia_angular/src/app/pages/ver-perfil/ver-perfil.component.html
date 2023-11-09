@@ -11,7 +11,13 @@
           <i class="fas fa-arrow-left"></i>
         </a>
         <div *ngFor="let datos of usuario" class="d-flex justify-content-center align-items-center flex-column text-center">
-            <div class="box w-50"><img class="rounded-circle bg-primary" src="assets/images/illustration/student/128/white.svg">
+          <div class="box w-50">
+          <div *ngIf="datos.foto_perfil==null; else existeFoto">
+            <img class="rounded-circle bg-primary" src="assets/images/illustration/student/128/white.svg">
+          </div>
+          <ng-template #existeFoto>
+              <img class="rounded-circle bg-primary" [src]="url_image+'imagenes/'+datos.foto_perfil">
+          </ng-template>
                 <h3 class="name">{{datos.nombre}} {{datos.apellidos}}</h3>
                 <p class="description">{{datos.sobre_mi}}</p>
                 <h4>Correo y teléfono</h4>
@@ -20,6 +26,12 @@
                 <div class="social">
                   <!-- ver hoja de vida -->
                   <a class="btn btn-outline-primary" target="_blank" href="{{datos.url_cv}}">Ver CV</a>
+                </div>
+                <h3>Habilidades</h3>
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                  <div *ngFor="let skills of skills_usuario">
+                    <h5><div class="badge badge-success badge-pill">{{skills.nombre}}</div></h5>
+                  </div>
                 </div>
             </div>
         </div>

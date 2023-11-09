@@ -1,4 +1,16 @@
 .signup{
     box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
     border: solid 1px #ccc;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.5) !important;
 }
+.fondo{
+    position: absolute;
+    background-image: url(../../../assets/Fondo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }

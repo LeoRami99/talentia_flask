@@ -40,7 +40,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.lista_curso);
+    // console.log(this.lista_curso);
     // obtener el id del token.
 
     this.categoria.getCategorias().subscribe((data: any) => {

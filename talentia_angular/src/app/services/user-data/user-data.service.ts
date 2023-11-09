@@ -38,4 +38,8 @@ export class UserDataService {
   getFotoPerfil(id:any){
     return this.http.get(`${API_URL}user/get-foto-perfil/${id}`)
   }
+  uploadSkills(data:any){
+    return this.http.put(`${API_URL}user/upload-skills`,data)
+  }
+
 }

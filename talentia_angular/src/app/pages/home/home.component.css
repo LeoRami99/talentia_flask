@@ -47,7 +47,7 @@ p{
 }
 
 .inner-header {
-  height:100vh;
+  height:80vh;
   width:100%;
   margin: 0;
   padding: 0;
@@ -71,7 +71,7 @@ p{
 
 .content {
   position:relative;
-  height:190vh;
+  height:100vh;
   text-align:center;
   background-color: white;
 }

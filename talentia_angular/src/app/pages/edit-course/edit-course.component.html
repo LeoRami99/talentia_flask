@@ -168,9 +168,9 @@
                   <div class="alert alert-danger shadow">No Activo</div>
                 </span>
               </div>
-              <div class="list-group-item">
-                <!-- <button class="btn btn-danger w-100" (click)="deleteCurso()"><strong>Eliminar Curso</strong></button> -->
-              </div>
+              <!-- <div class="list-group-item">
+                <button class="btn btn-danger w-100" (click)="deleteCurso()"><strong>Eliminar Curso</strong></button>
+              </div> -->
               <div class="list-group-item">
                 <div *ngIf="curso.estado==1">
                   <button class="btn btn-danger w-100" (click)="updateEstadoCurso()"><strong>Desactivar
@@ -213,7 +213,13 @@
               </div>
             </div>
           </div>
-
+          <div class="card">
+            <div class="card-body d-flex justify-content-center flex-column" style="gap:10px;">
+              <!-- Imagen Curso -->
+              <input type="file" name="imagenCard" id="imagenCard" (change)="onCardSelected($event)">
+              <button class="btn btn-primary" (click)="actualizarImagenCard()">Actualizar Imagen</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

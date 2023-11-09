@@ -228,9 +228,7 @@ export class CreateCourseComponent implements OnInit {
             json.imagen_card = res.imagen_card;
             // console.log(json);
             // enviar el json al backend
-            this.crear_curso
-              .createCurso(json)
-              .pipe(
+            this.crear_curso.createCurso(json).pipe(
                 catchError((err) => {
                   this.toast.error('Error al crear el curso', 'Error');
                   return EMPTY;

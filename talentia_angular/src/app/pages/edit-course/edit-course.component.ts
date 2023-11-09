@@ -10,6 +10,7 @@ import { DeleteSeccionService } from 'src/app/services/delete-seccion/delete-sec
 import { DeleteSubseccionService } from 'src/app/services/delete-subseccion/delete-subseccion.service';
 import { CreateLeccionService } from 'src/app/services/create-leccion/create-leccion.service';
 import { CreateModuleService } from 'src/app/services/create-module/create-module.service';
+import { UploadImgsService } from 'src/app/services/upload_images/upload-imgs.service';
 import { data } from 'jquery';
 
 interface iSubseccion {
@@ -46,7 +47,8 @@ export class EditCourseComponent implements OnInit {
     // servicio para agregar las lecciones
     private createLecciones: CreateLeccionService,
     // servicio para agregar las modulos
-    private createModulos: CreateModuleService
+    private createModulos: CreateModuleService,
+    private uploadImg: UploadImgsService
   ) {}
   // // se agrega los inputs model para despues poder editarlos
   // @Input() titulo: string='';
@@ -62,6 +64,8 @@ export class EditCourseComponent implements OnInit {
   // models para las secciones
   @Input() titulo_seccion: string = '';
   @Input() descripcion_seccion: string = '';
+  card!: File;
+  id_curso = this.routeActive.snapshot.params['id'];
 
   ngOnInit(): void {
     this.routeActive.params.subscribe((params) => {
@@ -284,6 +288,67 @@ export class EditCourseComponent implements OnInit {
       });
     }else{
       this.toastr.error('Debe llenar todos los campos para crear el módulo', 'Error');
+    }
+  }
+
+  onCardSelected(event: any): void {
+    const file_card: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+        const img = new Image();
+        img.src = e.target.result as string;
+        img.onload = () => {
+          const width = img.width;
+          const height = img.height
+          if (width != 200 || height != 168) {
+            this.toastr.error('La imagen para la tarjeta debe ser igual a 200x168 pixeles');
+            return;
+          }else{
+            this.card = file_card;
+          }
+        }
+    };
+    reader.readAsDataURL(file_card);
+  }
+  actualizarImagenCard(){
+    if (this.card == undefined) {
+      this.toastr.error('Debe seleccionar una imagen para la tarjeta');
+      return;
+    }else{
+      const formData = new FormData();
+      formData.append('imagen_card', this.card);
+
+      this.uploadImg.updateCard(formData).subscribe({
+        next: (res: any) => {
+          if (res.status === 200) {
+            // this.toastr.success('Tarjeta actualizada correctamente', 'Éxito');
+            const data ={
+              "id_curso": this.id_curso,
+              "imagen_card": res.imagen_card
+            }
+            this.updateCurso.updateImagenCurso(data).subscribe({
+              next: (res: any) => {
+                if (res.status === 200) {
+                  this.toastr.success('Imagen actualizada correctamente', 'Éxito');
+                  window.location.reload();
+                } else {
+                  this.toastr.error('Ocurrió un error al actualizar la imagen', 'Error');
+                }
+              },
+              error: (error: any) => {
+                this.toastr.error('Ocurrió un error al actualizar la imagen', 'Error');
+              }
+            });
+
+            
+          } else {
+            this.toastr.error('Ocurrió un error al actualizar la tarjeta', 'Error');
+          }
+        },
+        error: (error: any) => {
+          this.toastr.error('Ocurrió un error al actualizar la tarjeta', 'Error');
+        }
+      });
     }
   }
 }

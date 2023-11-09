@@ -13,4 +13,8 @@ export class UpdateCursoService {
     console.log(dataCurso);
     return this.http.put(uri, dataCurso);
   }
+  updateImagenCurso(dataCurso: any) {
+    const uri = API_URL + 'curso/update-curso-card';
+    return this.http.put(uri, dataCurso);
+  }
 }

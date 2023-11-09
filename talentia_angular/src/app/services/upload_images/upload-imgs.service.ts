@@ -17,4 +17,7 @@ export class UploadImgsService {
   uploadImagenPerfil(img: any) {
     return this.http.post(API_URL+'user/upload_imagen_perfil', img);
   }
+  updateCard(img:any){
+    return this.http.put(API_URL+'curso/update_card', img);
+  }
 }

@@ -28,9 +28,9 @@
       <ng-container *ngIf="!isHomeRoute()">
         <app-nabvar></app-nabvar>
       </ng-container>
-    <!-- <div class="container"> -->
+    <div class="content-wrapper">
     <router-outlet></router-outlet>
-    <!-- </div> -->
+    </div>
 
     <app-footer></app-footer>
   </div>
@@ -74,14 +74,14 @@
                 <a class="sidebar-menu-button" href="/login">
                   <i class="fa-solid fa-right-to-bracket mr-2 sidebar-menu-icon--left"></i>
                   <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                  <span class="sidebar-menu-text">Login</span>
+                  <span class="sidebar-menu-text">Iniciar Sesión</span>
                 </a>
               </li>
               <li class="sidebar-menu-item">
                 <a class="sidebar-menu-button" href="/signup">
                   <i class="fa-solid fa-user-plus mr-2 sidebar-menu-icon--left"></i>
                   <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span> -->
-                  <span class="sidebar-menu-text">Sign Up</span>
+                  <span class="sidebar-menu-text">Registrarse</span>
                 </a>
               </li>
             </ul>

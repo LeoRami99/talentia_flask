@@ -3,6 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { ToastrService } from 'ngx-toastr';
 import { UploadImgsService } from 'src/app/services/upload_images/upload-imgs.service';
+import { OfertaEmpresaService } from 'src/app/services/oferta-empresa/oferta-empresa.service';
 const jwt = new JwtHelperService();
 
 @Component({
@@ -11,18 +12,36 @@ const jwt = new JwtHelperService();
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
-  constructor(private user: UserDataService, private toast: ToastrService, private uploadImgs: UploadImgsService) { }
+  constructor(private user: UserDataService, private toast: ToastrService, private uploadImgs: UploadImgsService, private ofertaEmpresaService: OfertaEmpresaService) { }
   regex_username = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
   valida_username = false;
   id_usuario = "";
   no_exist_profile = false;
   data_usuario: any;
-  foto_perfil!: File;;
-  @Input() username: string = '';
+  foto_perfil!: File;
+  habilidades: any;
+  skills_bd: any;
+  @Input() habilidades_usuario: any [] = [];
+  @Input() username: string = 'NA';
   @Input() sobre_ti: string = '';
   @Input() link_cv: string = '';
   @Input() num_telefono: string = '';
   ngOnInit(): void {
+
+    // esta pate se va encargar de traer las habilidades de los trabajos
+    this.ofertaEmpresaService.getHabilidades().subscribe({
+      next: (data:any)=>{
+        if (data.status == 200) {
+          console.log(data.habilidades[0]);
+           this.habilidades = data.habilidades[0];
+        }else{
+          this.habilidades = [ ];
+          this.toast.error('Error al cargar las habilidades', '¡Error!');
+        }
+      }
+    })
+
+
     const token = localStorage.getItem('token');
     if(token != null){
       const tokenPayload:any = jwt.decodeToken(token);
@@ -33,6 +52,7 @@ export class ProfileComponent implements OnInit{
           this.user.getProfile(this.id_usuario).subscribe((data:any)=>{
             if(data.status == 200){
               this.data_usuario=data.data[0];
+              this.skills_bd = JSON.parse(this.data_usuario.skills);
             }
           })
         }else{
@@ -128,6 +148,26 @@ export class ProfileComponent implements OnInit{
         }
       })
     }
+  }
+  guardarHabilidades(){
+    const data = {
+      id_usuario: this.id_usuario,
+      skills: JSON.stringify(this.habilidades_usuario)
+    }
+    // hacer validaciones que las skills no vengan vacias.
+    if (this.habilidades_usuario.length == 0) {
+      this.toast.error('Seleccione al menos una habilidad', '¡Error!');
+    }else{
+      this.user.uploadSkills(data).subscribe((data:any)=>{
+        if (data.status == 200) {
+          this.toast.success('Habilidades guardadas correctamente', '¡Éxito!');
+          window.location.href = '/profile';
+        } else {
+          this.toast.error('Ocurrió un error al guardar las habilidades', '¡Error!');
+        }
+      })
+    }
+
   }
 
 

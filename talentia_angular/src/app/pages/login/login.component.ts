@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit{
     correo: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
+  circles: any[] = [];
   ngOnInit(): void {
+    
+
     if (this.apiService.isLoggedIn()) {
       // dependiendo de rol redirigir a la vista
       this.router.navigate(['/inicio']);

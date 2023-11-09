@@ -1,9 +1,18 @@
 .login {
   border: 1px solid #e0e0e0;
   box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2; /* Asegura que el form esté encima del splash */
 }
 
 .login .form-control {
   border-radius: 5px;
   border: 1px solid #ced4da;
+}
+
+
+/* Estilo para el form (card) */
+.login {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5) !important;
 }

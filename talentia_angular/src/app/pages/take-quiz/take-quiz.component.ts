@@ -89,7 +89,7 @@ export class TakeQuizComponent {
           let fecha_fin = data.data.fecha_fin;
           if (!this.puedeHacerNuevoIntento(fecha_fin)) {
             this.router.navigate(['/examenes']);
-            this.toastr.error('Tienes que esperar 24 horas para volver a intentar el examen', 'Error');
+            this.toastr.error('Tienes que esperar 6 horas para volver a intentar el examen', 'Error');
           } else {
             this.progresoUsurioCheck = true;
           }
@@ -239,7 +239,7 @@ export class TakeQuizComponent {
       const fechaActual = new Date();
       const fechaFin = new Date(fecha_fin);
       const tiempoTranscurrido = fechaActual.getTime() - fechaFin.getTime();
-      if (tiempoTranscurrido < 86400000) {
+      if (tiempoTranscurrido < 21600000) {
         // Si ha pasado al menos un día desde el último intento fallido, el usuario puede hacer un nuevo intento
         return false;
       }else{
